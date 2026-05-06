@@ -1,0 +1,31 @@
+{
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_training_candidate": false,
+  "candidates": [],
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.25A",
+  "decision": "BLOCK",
+  "get_only_public_market_data": true,
+  "guardrails": {
+    "config_mutation_performed": false,
+    "get_only_public_market_data": true,
+    "live_real_allowed": false,
+    "observation_only": true,
+    "order_actions_performed": false,
+    "post_requests_allowed": false,
+    "reload_performed": false
+  },
+  "live_real_allowed": false,
+  "observation_only": true,
+  "ok": false,
+  "order_actions_performed": false,
+  "phase": "4B.4.3.6.6.25A",
+  "post_requests_allowed": false,
+  "reason_codes": [
+    "MULTITIMEFRAME_ALPHA_DISCOVERY_TOOL_FAILED"
+  ],
+  "recommendation": "Tool failed before producing a valid research report: [Errno 2] No such file or directory: 'data\\\\ETHUSDT_15m.csv'",
+  "reload_performed": false,
+  "report_type": "multitimeframe_alpha_discovery_research_reset"
+}

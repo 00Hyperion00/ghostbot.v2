@@ -1,0 +1,156 @@
+{
+  "contract_version": "4B.4.3.6.6.25B",
+  "created_at": "2026-05-06T20:56:09.127213+00:00",
+  "model_path": "models/4B436625B_candidates/ETHUSDT_model_4b436625B_mtf_15m_h16_cost20_edge40_atr3_0_balanced_action_seek_light.ubj",
+  "schema_path": "models/4B436625B_candidates/ETHUSDT_model_4b436625B_mtf_15m_h16_cost20_edge40_atr3_0_balanced_action_seek_light.schema.json",
+  "candidate_spec": {
+    "policy": {
+      "name": "mtf_15m_h16_cost20_edge40_atr3_0",
+      "interval": "15m",
+      "lookahead": 16,
+      "cost_bps": 20.0,
+      "min_edge_bps": 40.0,
+      "atr_multiplier": 3.0,
+      "approvable": true,
+      "family": "mtf_directional"
+    },
+    "class_weight_profile": "balanced",
+    "threshold_profile": "action_seek_light",
+    "max_depth": 3,
+    "n_estimators": 96,
+    "learning_rate": 0.045
+  },
+  "candidate_gate": {
+    "contract_version": "4B.4.3.6.6.25B",
+    "report_type": "mtf_15m_retrain_candidate_gate",
+    "decision": "BLOCK",
+    "ok": false,
+    "approved_for_training_candidate": false,
+    "approved_for_paper_candidate": false,
+    "approved_for_live_real": false,
+    "reload_allowed": false,
+    "model_path": "models/4B436625B_candidates/ETHUSDT_model_4b436625B_mtf_15m_h16_cost20_edge40_atr3_0_balanced_action_seek_light.ubj",
+    "candidate_spec": {
+      "policy": {
+        "name": "mtf_15m_h16_cost20_edge40_atr3_0",
+        "interval": "15m",
+        "lookahead": 16,
+        "cost_bps": 20.0,
+        "min_edge_bps": 40.0,
+        "atr_multiplier": 3.0,
+        "approvable": true,
+        "family": "mtf_directional"
+      },
+      "class_weight_profile": "balanced",
+      "threshold_profile": "action_seek_light",
+      "max_depth": 3,
+      "n_estimators": 96,
+      "learning_rate": 0.045
+    },
+    "reason_codes": [
+      "MTF_RETRAIN_TARGET_ACTION_COVERAGE_HIGH",
+      "MTF_RETRAIN_RAW_ACTION_COVERAGE_HIGH",
+      "MTF_RETRAIN_CALIBRATED_ACTION_COVERAGE_LOW",
+      "MTF_RETRAIN_CALIBRATED_SIDE_IMBALANCE_HIGH",
+      "MTF_RETRAIN_ACCURACY_LOW",
+      "MTF_RETRAIN_ACTION_PRECISION_LOW",
+      "MTF_RETRAIN_EXPECTED_EDGE_PROXY_LOW"
+    ],
+    "warnings": [
+      "CALIBRATED_ACTION_COVERAGE_NEAR_FLOOR"
+    ],
+    "metrics": {
+      "clean_samples": 8463,
+      "target_distribution": {
+        "HOLD": 4409,
+        "BUY": 2064,
+        "SELL": 1990
+      },
+      "target_action_pct": 47.902635,
+      "target_hold_pct": 52.097365,
+      "target_action_side_pct": 50.912679,
+      "validation_actual_distribution": {
+        "HOLD": 893,
+        "BUY": 412,
+        "SELL": 388
+      },
+      "validation_raw_distribution": {
+        "HOLD": 176,
+        "BUY": 529,
+        "SELL": 988
+      },
+      "validation_raw_action_pct": 89.604253,
+      "validation_calibrated_distribution": {
+        "HOLD": 1690,
+        "BUY": 3,
+        "SELL": 0
+      },
+      "validation_calibrated_action_pct": 0.1772,
+      "validation_calibrated_action_side_pct": 100.0,
+      "buy_sell_margin_mean": 0.09969076,
+      "buy_sell_margin_median": 0.06492406,
+      "action_hold_margin_mean": 0.1290768,
+      "accuracy": 0.29178972,
+      "calibrated_accuracy": 0.5262847,
+      "action_precision": 0.0,
+      "action_recall": 0.0,
+      "expected_edge_proxy_bps": -27.17762383,
+      "calibrated_reason_counts": {
+        "ACCEPT_BUY": 3,
+        "REJECT_ACTION_HOLD_MARGIN": 83,
+        "REJECT_FALLBACK_HOLD": 1150,
+        "REJECT_LOW_SIDE_MARGIN": 457
+      },
+      "threshold_config": {
+        "buy_threshold": 0.56,
+        "sell_threshold": 0.55,
+        "hold_band_low": 0.42,
+        "hold_band_high": 0.54,
+        "indecision_margin": 0.035
+      },
+      "class_weight_profile": "balanced",
+      "threshold_profile": "action_seek_light",
+      "label_policy": {
+        "name": "mtf_15m_h16_cost20_edge40_atr3_0",
+        "interval": "15m",
+        "lookahead": 16,
+        "cost_bps": 20.0,
+        "min_edge_bps": 40.0,
+        "atr_multiplier": 3.0,
+        "approvable": true,
+        "family": "mtf_directional"
+      }
+    },
+    "limits": {
+      "min_clean_samples": 500,
+      "min_target_action_pct": 3.0,
+      "max_target_action_pct": 45.0,
+      "min_target_hold_pct": 35.0,
+      "max_target_side_pct": 78.0,
+      "min_raw_action_pct": 2.0,
+      "max_raw_action_pct": 55.0,
+      "min_calibrated_action_pct": 1.0,
+      "max_calibrated_action_pct": 38.0,
+      "max_calibrated_side_pct": 82.0,
+      "min_buy_sell_margin_mean": 0.018,
+      "min_buy_sell_margin_median": 0.012,
+      "min_action_hold_margin_mean": 0.006,
+      "min_accuracy": 0.3,
+      "min_calibrated_accuracy": 0.3,
+      "min_action_precision": 0.22,
+      "min_expected_edge_proxy_bps": 0.0,
+      "target_calibrated_action_pct": 15.0
+    },
+    "score": -217.746392
+  },
+  "guardrails": {
+    "observation_only": true,
+    "no_post_actions": true,
+    "post_requests_allowed": false,
+    "config_mutation_performed": false,
+    "order_actions_performed": false,
+    "reload_performed": false,
+    "live_real_allowed": false,
+    "promotion_requires_explicit_flag": true
+  }
+}

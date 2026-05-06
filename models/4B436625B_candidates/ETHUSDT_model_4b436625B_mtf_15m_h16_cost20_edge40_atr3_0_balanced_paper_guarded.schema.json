@@ -1,0 +1,37 @@
+{
+  "contract_version": "4B.4.3.6.6.25B",
+  "schema_version": "4B.3.4+25B15m",
+  "feature_pack_name": "mtf_15m_cost_aware_core_v1",
+  "feature_columns": [
+    "ret_1",
+    "ret_3",
+    "ret_8",
+    "ret_16",
+    "range_pct",
+    "body_pct",
+    "ema9_21_pct",
+    "ema21_55_pct",
+    "ema55_144_pct",
+    "rsi14_norm",
+    "atr_pct",
+    "volume_ratio",
+    "quote_volume_ratio",
+    "taker_buy_pressure",
+    "close_location_pct",
+    "trend_strength",
+    "volatility_expansion",
+    "vwap_proxy_dist"
+  ],
+  "feature_count": 18,
+  "interval": "15m",
+  "label_policy": {
+    "name": "mtf_15m_h16_cost20_edge40_atr3_0",
+    "interval": "15m",
+    "lookahead": 16,
+    "cost_bps": 20.0,
+    "min_edge_bps": 40.0,
+    "atr_multiplier": 3.0,
+    "approvable": true,
+    "family": "mtf_directional"
+  }
+}

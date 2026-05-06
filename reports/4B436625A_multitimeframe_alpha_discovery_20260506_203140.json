@@ -1,0 +1,701 @@
+{
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_training_candidate": true,
+  "candidate_count": 7,
+  "candidates": [
+    {
+      "approved_for_live_real": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_training_candidate": false,
+      "candidate": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": false,
+        "atr_multiplier": 3.0,
+        "cost_bps": 16.0,
+        "effective_min_profit_bps": 46.0,
+        "family": "diagnostic_1m",
+        "interval": "1m",
+        "lookahead": 30,
+        "min_edge_bps": 30.0,
+        "name": "diagnostic_1m_cost16_edge30_atr3_0",
+        "use_high_low_barriers": true
+      },
+      "contract_version": "4B.4.3.6.6.25A",
+      "decision": "BLOCK",
+      "limits": {
+        "max_action_pct": 42.0,
+        "max_action_side_pct": 76.0,
+        "min_action_pct": 4.0,
+        "min_class_count": 20,
+        "min_directional_entropy": 0.7,
+        "min_expected_net_edge_bps": 1.0,
+        "min_feature_separation_score": 0.0,
+        "min_forward_return_gap_bps": 10.0,
+        "min_hold_pct": 45.0,
+        "min_samples": 600,
+        "min_trend_alignment_pct": 50.0,
+        "target_action_pct": 18.0
+      },
+      "live_real_allowed": false,
+      "metrics": {
+        "interval": "1m"
+      },
+      "ok": false,
+      "reason_codes": [
+        "MTF_INTERVAL_DATA_MISSING"
+      ],
+      "report_type": "multitimeframe_alpha_candidate_gate",
+      "sample_count": 0,
+      "score": -999.0,
+      "source": "https://api.binance.com|ETHUSDT|5m,15m,1h|90d",
+      "warnings": []
+    },
+    {
+      "approved_for_live_real": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_training_candidate": true,
+      "candidate": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 2.5,
+        "cost_bps": 16.0,
+        "effective_min_profit_bps": 41.0,
+        "family": "5m_directional",
+        "interval": "5m",
+        "lookahead": 12,
+        "min_edge_bps": 25.0,
+        "name": "mtf_5m_h12_cost16_edge25_atr2_5",
+        "use_high_low_barriers": true
+      },
+      "clean_samples": 25879,
+      "contract_version": "4B.4.3.6.6.25A",
+      "decision": "PASS",
+      "limits": {
+        "max_action_pct": 42.0,
+        "max_action_side_pct": 76.0,
+        "min_action_pct": 4.0,
+        "min_class_count": 20,
+        "min_directional_entropy": 0.7,
+        "min_expected_net_edge_bps": 1.0,
+        "min_feature_separation_score": 0.0,
+        "min_forward_return_gap_bps": 10.0,
+        "min_hold_pct": 45.0,
+        "min_samples": 600,
+        "min_trend_alignment_pct": 50.0,
+        "target_action_pct": 18.0
+      },
+      "live_real_allowed": false,
+      "metrics": {
+        "buy_expected_edge_bps": 67.380302,
+        "effective_min_profit_bps": 41.0,
+        "feature_separation_score": 0.02564752,
+        "forward_return_bps": {
+          "buy": {
+            "max": 797.72827148,
+            "mean": 108.38030501,
+            "median": 89.71989059,
+            "min": -200.35266113
+          },
+          "hold_abs": {
+            "max": 425.1706543,
+            "mean": 29.43964173,
+            "median": 22.63486481,
+            "min": 0.0
+          },
+          "sell": {
+            "max": 715.03936768,
+            "mean": 101.6042475,
+            "median": 87.71479034,
+            "min": -455.25790405
+          }
+        },
+        "forward_return_gap_bps": 75.579967,
+        "interval": "5m",
+        "min_expected_net_edge_bps": 60.60424,
+        "sell_expected_edge_bps": 60.60424,
+        "target_action_pct": 19.166119,
+        "target_action_side_pct": 50.403226,
+        "target_directional_entropy": 0.999953,
+        "target_distribution": {
+          "BUY": 2500,
+          "HOLD": 20919,
+          "SELL": 2460
+        },
+        "target_hold_pct": 80.833881,
+        "trend_alignment_pct": 60.564516
+      },
+      "ok": true,
+      "reason_codes": [],
+      "reload_allowed": false,
+      "report_type": "multitimeframe_alpha_candidate_gate",
+      "sample_count": 25879,
+      "score": 100.664526,
+      "source": "https://api.binance.com|ETHUSDT|5m,15m,1h|90d",
+      "warnings": []
+    },
+    {
+      "approved_for_live_real": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_training_candidate": true,
+      "candidate": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 3.0,
+        "cost_bps": 16.0,
+        "effective_min_profit_bps": 51.0,
+        "family": "5m_slow",
+        "interval": "5m",
+        "lookahead": 24,
+        "min_edge_bps": 35.0,
+        "name": "mtf_5m_h24_cost16_edge35_atr3_0",
+        "use_high_low_barriers": true
+      },
+      "clean_samples": 25867,
+      "contract_version": "4B.4.3.6.6.25A",
+      "decision": "PASS",
+      "limits": {
+        "max_action_pct": 42.0,
+        "max_action_side_pct": 76.0,
+        "min_action_pct": 4.0,
+        "min_class_count": 20,
+        "min_directional_entropy": 0.7,
+        "min_expected_net_edge_bps": 1.0,
+        "min_feature_separation_score": 0.0,
+        "min_forward_return_gap_bps": 10.0,
+        "min_hold_pct": 45.0,
+        "min_samples": 600,
+        "min_trend_alignment_pct": 50.0,
+        "target_action_pct": 18.0
+      },
+      "live_real_allowed": false,
+      "metrics": {
+        "buy_expected_edge_bps": 79.785263,
+        "effective_min_profit_bps": 51.0,
+        "feature_separation_score": 0.0706563,
+        "forward_return_bps": {
+          "buy": {
+            "max": 903.25952148,
+            "mean": 130.78527423,
+            "median": 109.07769012,
+            "min": -196.08081055
+          },
+          "hold_abs": {
+            "max": 476.77993774,
+            "mean": 36.75227284,
+            "median": 28.9791832,
+            "min": 0.0
+          },
+          "sell": {
+            "max": 515.57299805,
+            "mean": 120.22523528,
+            "median": 107.61856842,
+            "min": -561.31842041
+          }
+        },
+        "forward_return_gap_bps": 88.910049,
+        "interval": "5m",
+        "min_expected_net_edge_bps": 69.225235,
+        "sell_expected_edge_bps": 69.225235,
+        "target_action_pct": 28.329532,
+        "target_action_side_pct": 51.487445,
+        "target_directional_entropy": 0.999362,
+        "target_distribution": {
+          "BUY": 3773,
+          "HOLD": 18539,
+          "SELL": 3555
+        },
+        "target_hold_pct": 71.670468,
+        "trend_alignment_pct": 55.199236
+      },
+      "ok": true,
+      "reason_codes": [],
+      "reload_allowed": false,
+      "report_type": "multitimeframe_alpha_candidate_gate",
+      "sample_count": 25867,
+      "score": 113.946229,
+      "source": "https://api.binance.com|ETHUSDT|5m,15m,1h|90d",
+      "warnings": []
+    },
+    {
+      "approved_for_live_real": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_training_candidate": true,
+      "candidate": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 2.5,
+        "cost_bps": 16.0,
+        "effective_min_profit_bps": 46.0,
+        "family": "15m_directional",
+        "interval": "15m",
+        "lookahead": 8,
+        "min_edge_bps": 30.0,
+        "name": "mtf_15m_h8_cost16_edge30_atr2_5",
+        "use_high_low_barriers": true
+      },
+      "clean_samples": 8603,
+      "contract_version": "4B.4.3.6.6.25A",
+      "decision": "PASS",
+      "limits": {
+        "max_action_pct": 42.0,
+        "max_action_side_pct": 76.0,
+        "min_action_pct": 4.0,
+        "min_class_count": 20,
+        "min_directional_entropy": 0.7,
+        "min_expected_net_edge_bps": 1.0,
+        "min_feature_separation_score": 0.0,
+        "min_forward_return_gap_bps": 10.0,
+        "min_hold_pct": 45.0,
+        "min_samples": 600,
+        "min_trend_alignment_pct": 50.0,
+        "target_action_pct": 18.0
+      },
+      "live_real_allowed": false,
+      "metrics": {
+        "buy_expected_edge_bps": 107.639053,
+        "effective_min_profit_bps": 46.0,
+        "feature_separation_score": 0.01039529,
+        "forward_return_bps": {
+          "buy": {
+            "max": 715.92810059,
+            "mean": 153.63906468,
+            "median": 126.58000183,
+            "min": -162.9990387
+          },
+          "hold_abs": {
+            "max": 353.46865845,
+            "mean": 44.07365289,
+            "median": 33.04183578,
+            "min": 0.0
+          },
+          "sell": {
+            "max": 515.57299805,
+            "mean": 141.0001978,
+            "median": 126.84077072,
+            "min": -464.75408936
+          }
+        },
+        "forward_return_gap_bps": 103.462173,
+        "interval": "15m",
+        "min_expected_net_edge_bps": 95.000198,
+        "sell_expected_edge_bps": 95.000198,
+        "target_action_pct": 17.668255,
+        "target_action_side_pct": 51.710526,
+        "target_directional_entropy": 0.999156,
+        "target_distribution": {
+          "BUY": 786,
+          "HOLD": 7083,
+          "SELL": 734
+        },
+        "target_hold_pct": 82.331745,
+        "trend_alignment_pct": 55.460526
+      },
+      "ok": true,
+      "reason_codes": [],
+      "reload_allowed": false,
+      "report_type": "multitimeframe_alpha_candidate_gate",
+      "sample_count": 8603,
+      "score": 141.343892,
+      "source": "https://api.binance.com|ETHUSDT|5m,15m,1h|90d",
+      "warnings": []
+    },
+    {
+      "approved_for_live_real": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_training_candidate": false,
+      "candidate": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 3.0,
+        "cost_bps": 20.0,
+        "effective_min_profit_bps": 60.0,
+        "family": "15m_slow",
+        "interval": "15m",
+        "lookahead": 16,
+        "min_edge_bps": 40.0,
+        "name": "mtf_15m_h16_cost20_edge40_atr3_0",
+        "use_high_low_barriers": true
+      },
+      "clean_samples": 8595,
+      "contract_version": "4B.4.3.6.6.25A",
+      "decision": "BLOCK",
+      "limits": {
+        "max_action_pct": 42.0,
+        "max_action_side_pct": 76.0,
+        "min_action_pct": 4.0,
+        "min_class_count": 20,
+        "min_directional_entropy": 0.7,
+        "min_expected_net_edge_bps": 1.0,
+        "min_feature_separation_score": 0.0,
+        "min_forward_return_gap_bps": 10.0,
+        "min_hold_pct": 45.0,
+        "min_samples": 600,
+        "min_trend_alignment_pct": 50.0,
+        "target_action_pct": 18.0
+      },
+      "live_real_allowed": false,
+      "metrics": {
+        "buy_expected_edge_bps": 132.289017,
+        "effective_min_profit_bps": 60.0,
+        "feature_separation_score": -0.01302314,
+        "forward_return_bps": {
+          "buy": {
+            "max": 828.6595459,
+            "mean": 192.2890317,
+            "median": 157.9821167,
+            "min": -189.56721497
+          },
+          "hold_abs": {
+            "max": 644.78875732,
+            "mean": 54.76058415,
+            "median": 41.24701118,
+            "min": 0.0
+          },
+          "sell": {
+            "max": 578.22467041,
+            "mean": 186.00656856,
+            "median": 171.49447632,
+            "min": -168.84446716
+          }
+        },
+        "forward_return_gap_bps": 134.551353,
+        "interval": "15m",
+        "min_expected_net_edge_bps": 126.006561,
+        "sell_expected_edge_bps": 126.006561,
+        "target_action_pct": 25.631181,
+        "target_action_side_pct": 52.564685,
+        "target_directional_entropy": 0.998101,
+        "target_distribution": {
+          "BUY": 1158,
+          "HOLD": 6392,
+          "SELL": 1045
+        },
+        "target_hold_pct": 74.368819,
+        "trend_alignment_pct": 52.83704
+      },
+      "ok": false,
+      "reason_codes": [
+        "MTF_FEATURE_SEPARATION_LOW"
+      ],
+      "reload_allowed": false,
+      "report_type": "multitimeframe_alpha_candidate_gate",
+      "sample_count": 8595,
+      "score": 163.211135,
+      "source": "https://api.binance.com|ETHUSDT|5m,15m,1h|90d",
+      "warnings": []
+    },
+    {
+      "approved_for_live_real": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_training_candidate": false,
+      "candidate": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 2.5,
+        "cost_bps": 20.0,
+        "effective_min_profit_bps": 70.0,
+        "family": "1h_directional",
+        "interval": "1h",
+        "lookahead": 6,
+        "min_edge_bps": 50.0,
+        "name": "mtf_1h_h6_cost20_edge50_atr2_5",
+        "use_high_low_barriers": true
+      },
+      "clean_samples": 2125,
+      "contract_version": "4B.4.3.6.6.25A",
+      "decision": "BLOCK",
+      "limits": {
+        "max_action_pct": 42.0,
+        "max_action_side_pct": 76.0,
+        "min_action_pct": 4.0,
+        "min_class_count": 20,
+        "min_directional_entropy": 0.7,
+        "min_expected_net_edge_bps": 1.0,
+        "min_feature_separation_score": 0.0,
+        "min_forward_return_gap_bps": 10.0,
+        "min_hold_pct": 45.0,
+        "min_samples": 600,
+        "min_trend_alignment_pct": 50.0,
+        "target_action_pct": 18.0
+      },
+      "live_real_allowed": false,
+      "metrics": {
+        "buy_expected_edge_bps": 200.298981,
+        "effective_min_profit_bps": 70.0,
+        "feature_separation_score": -0.04513878,
+        "forward_return_bps": {
+          "buy": {
+            "max": 765.22949219,
+            "mean": 270.29900112,
+            "median": 243.27874756,
+            "min": -123.60155487
+          },
+          "hold_abs": {
+            "max": 491.85037231,
+            "mean": 81.16533674,
+            "median": 63.04621696,
+            "min": 0.0
+          },
+          "sell": {
+            "max": 607.95904541,
+            "mean": 261.75247811,
+            "median": 280.0112915,
+            "min": -136.97862244
+          }
+        },
+        "forward_return_gap_bps": 185.356758,
+        "interval": "1h",
+        "min_expected_net_edge_bps": 191.752502,
+        "sell_expected_edge_bps": 191.752502,
+        "target_action_pct": 16.8,
+        "target_action_side_pct": 55.182073,
+        "target_directional_entropy": 0.992238,
+        "target_distribution": {
+          "BUY": 197,
+          "HOLD": 1768,
+          "SELL": 160
+        },
+        "target_hold_pct": 83.2,
+        "trend_alignment_pct": 49.579832
+      },
+      "ok": false,
+      "reason_codes": [
+        "MTF_TREND_ALIGNMENT_LOW",
+        "MTF_FEATURE_SEPARATION_LOW"
+      ],
+      "reload_allowed": false,
+      "report_type": "multitimeframe_alpha_candidate_gate",
+      "sample_count": 2125,
+      "score": 225.564304,
+      "source": "https://api.binance.com|ETHUSDT|5m,15m,1h|90d",
+      "warnings": []
+    },
+    {
+      "approved_for_live_real": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_training_candidate": false,
+      "candidate": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 3.0,
+        "cost_bps": 20.0,
+        "effective_min_profit_bps": 90.0,
+        "family": "1h_swing",
+        "interval": "1h",
+        "lookahead": 12,
+        "min_edge_bps": 70.0,
+        "name": "mtf_1h_h12_cost20_edge70_atr3_0",
+        "use_high_low_barriers": true
+      },
+      "clean_samples": 2119,
+      "contract_version": "4B.4.3.6.6.25A",
+      "decision": "BLOCK",
+      "limits": {
+        "max_action_pct": 42.0,
+        "max_action_side_pct": 76.0,
+        "min_action_pct": 4.0,
+        "min_class_count": 20,
+        "min_directional_entropy": 0.7,
+        "min_expected_net_edge_bps": 1.0,
+        "min_feature_separation_score": 0.0,
+        "min_forward_return_gap_bps": 10.0,
+        "min_hold_pct": 45.0,
+        "min_samples": 600,
+        "min_trend_alignment_pct": 50.0,
+        "target_action_pct": 18.0
+      },
+      "live_real_allowed": false,
+      "metrics": {
+        "buy_expected_edge_bps": 280.256989,
+        "effective_min_profit_bps": 90.0,
+        "feature_separation_score": -0.07857639,
+        "forward_return_bps": {
+          "buy": {
+            "max": 1002.99713135,
+            "mean": 370.25699825,
+            "median": 357.64099121,
+            "min": -205.96087646
+          },
+          "hold_abs": {
+            "max": 599.03326416,
+            "mean": 109.47137702,
+            "median": 86.21901321,
+            "min": 0.14424324
+          },
+          "sell": {
+            "max": 713.29833984,
+            "mean": 314.15203174,
+            "median": 337.32949829,
+            "min": -319.10656738
+          }
+        },
+        "forward_return_gap_bps": 236.877922,
+        "interval": "1h",
+        "min_expected_net_edge_bps": 224.152039,
+        "sell_expected_edge_bps": 224.152039,
+        "target_action_pct": 22.038697,
+        "target_action_side_pct": 57.38758,
+        "target_directional_entropy": 0.984195,
+        "target_distribution": {
+          "BUY": 268,
+          "HOLD": 1652,
+          "SELL": 199
+        },
+        "target_hold_pct": 77.961303,
+        "trend_alignment_pct": 44.325482
+      },
+      "ok": false,
+      "reason_codes": [
+        "MTF_TREND_ALIGNMENT_LOW",
+        "MTF_FEATURE_SEPARATION_LOW"
+      ],
+      "reload_allowed": false,
+      "report_type": "multitimeframe_alpha_candidate_gate",
+      "sample_count": 2119,
+      "score": 267.925748,
+      "source": "https://api.binance.com|ETHUSDT|5m,15m,1h|90d",
+      "warnings": []
+    }
+  ],
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.25A",
+  "decision": "PASS",
+  "get_only_public_market_data": true,
+  "guardrails": {
+    "config_mutation_performed": false,
+    "get_only_public_market_data": true,
+    "live_real_allowed": false,
+    "observation_only": true,
+    "order_actions_performed": false,
+    "post_requests_allowed": false,
+    "reload_performed": false
+  },
+  "intervals": [
+    "15m",
+    "1h",
+    "5m"
+  ],
+  "limits": {
+    "max_action_pct": 42.0,
+    "max_action_side_pct": 76.0,
+    "min_action_pct": 4.0,
+    "min_class_count": 20,
+    "min_directional_entropy": 0.7,
+    "min_expected_net_edge_bps": 1.0,
+    "min_feature_separation_score": 0.0,
+    "min_forward_return_gap_bps": 10.0,
+    "min_hold_pct": 45.0,
+    "min_samples": 600,
+    "min_trend_alignment_pct": 50.0,
+    "target_action_pct": 18.0
+  },
+  "live_real_allowed": false,
+  "no_post_actions": true,
+  "observation_only": true,
+  "ok": true,
+  "order_actions_performed": false,
+  "phase": "4B.4.3.6.6.25A",
+  "post_requests_allowed": false,
+  "reason_codes": [],
+  "recommendation": "A multi-timeframe alpha candidate passed the research gate. Use it only for controlled offline retrain research; paper/live remain blocked.",
+  "reload_performed": false,
+  "report_type": "multitimeframe_alpha_discovery_research_reset",
+  "selected_candidate": {
+    "approved_for_live_real": false,
+    "approved_for_paper_candidate": false,
+    "approved_for_training_candidate": true,
+    "candidate": {
+      "ambiguous_barrier_policy": "hold",
+      "approvable": true,
+      "atr_multiplier": 2.5,
+      "cost_bps": 16.0,
+      "effective_min_profit_bps": 46.0,
+      "family": "15m_directional",
+      "interval": "15m",
+      "lookahead": 8,
+      "min_edge_bps": 30.0,
+      "name": "mtf_15m_h8_cost16_edge30_atr2_5",
+      "use_high_low_barriers": true
+    },
+    "clean_samples": 8603,
+    "contract_version": "4B.4.3.6.6.25A",
+    "decision": "PASS",
+    "limits": {
+      "max_action_pct": 42.0,
+      "max_action_side_pct": 76.0,
+      "min_action_pct": 4.0,
+      "min_class_count": 20,
+      "min_directional_entropy": 0.7,
+      "min_expected_net_edge_bps": 1.0,
+      "min_feature_separation_score": 0.0,
+      "min_forward_return_gap_bps": 10.0,
+      "min_hold_pct": 45.0,
+      "min_samples": 600,
+      "min_trend_alignment_pct": 50.0,
+      "target_action_pct": 18.0
+    },
+    "live_real_allowed": false,
+    "metrics": {
+      "buy_expected_edge_bps": 107.639053,
+      "effective_min_profit_bps": 46.0,
+      "feature_separation_score": 0.01039529,
+      "forward_return_bps": {
+        "buy": {
+          "max": 715.92810059,
+          "mean": 153.63906468,
+          "median": 126.58000183,
+          "min": -162.9990387
+        },
+        "hold_abs": {
+          "max": 353.46865845,
+          "mean": 44.07365289,
+          "median": 33.04183578,
+          "min": 0.0
+        },
+        "sell": {
+          "max": 515.57299805,
+          "mean": 141.0001978,
+          "median": 126.84077072,
+          "min": -464.75408936
+        }
+      },
+      "forward_return_gap_bps": 103.462173,
+      "interval": "15m",
+      "min_expected_net_edge_bps": 95.000198,
+      "sell_expected_edge_bps": 95.000198,
+      "target_action_pct": 17.668255,
+      "target_action_side_pct": 51.710526,
+      "target_directional_entropy": 0.999156,
+      "target_distribution": {
+        "BUY": 786,
+        "HOLD": 7083,
+        "SELL": 734
+      },
+      "target_hold_pct": 82.331745,
+      "trend_alignment_pct": 55.460526
+    },
+    "ok": true,
+    "reason_codes": [],
+    "reload_allowed": false,
+    "report_type": "multitimeframe_alpha_candidate_gate",
+    "sample_count": 8603,
+    "score": 141.343892,
+    "source": "https://api.binance.com|ETHUSDT|5m,15m,1h|90d",
+    "warnings": []
+  },
+  "selected_policy": {
+    "ambiguous_barrier_policy": "hold",
+    "approvable": true,
+    "atr_multiplier": 2.5,
+    "cost_bps": 16.0,
+    "effective_min_profit_bps": 46.0,
+    "family": "15m_directional",
+    "interval": "15m",
+    "lookahead": 8,
+    "min_edge_bps": 30.0,
+    "name": "mtf_15m_h8_cost16_edge30_atr2_5",
+    "use_high_low_barriers": true
+  },
+  "source": "https://api.binance.com|ETHUSDT|5m,15m,1h|90d"
+}
