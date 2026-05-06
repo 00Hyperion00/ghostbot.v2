@@ -1,0 +1,63 @@
+{
+  "phase": "4B.4.3.6.6.21b",
+  "base_url": "http://127.0.0.1:8000",
+  "generated_at": "20260503_153458",
+  "ok": false,
+  "results": [
+    {
+      "name": "health",
+      "ok": false,
+      "url": "http://127.0.0.1:8000/health",
+      "status_code": null,
+      "elapsed_sec": 0.0,
+      "reason": "request failed: <urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+      "details": {
+        "exception_type": "URLError"
+      }
+    },
+    {
+      "name": "status",
+      "ok": false,
+      "url": "http://127.0.0.1:8000/status",
+      "status_code": null,
+      "elapsed_sec": 0.0,
+      "reason": "request failed: <urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+      "details": {
+        "exception_type": "URLError"
+      }
+    },
+    {
+      "name": "events_audit",
+      "ok": false,
+      "url": "http://127.0.0.1:8000/events/audit?limit=5",
+      "status_code": null,
+      "elapsed_sec": 0.0,
+      "reason": "request failed: <urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+      "details": {
+        "exception_type": "URLError"
+      }
+    },
+    {
+      "name": "diagnostics",
+      "ok": false,
+      "url": "http://127.0.0.1:8000/diagnostics",
+      "status_code": null,
+      "elapsed_sec": 0.0,
+      "reason": "request failed: <urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+      "details": {
+        "exception_type": "URLError"
+      }
+    },
+    {
+      "name": "logs",
+      "ok": false,
+      "url": "http://127.0.0.1:8000/logs?limit=20",
+      "status_code": null,
+      "elapsed_sec": 0.0,
+      "reason": "request failed: <urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+      "details": {
+        "exception_type": "URLError"
+      }
+    }
+  ]
+}

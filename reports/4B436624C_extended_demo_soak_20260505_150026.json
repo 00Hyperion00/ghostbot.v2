@@ -1,0 +1,4813 @@
+{
+  "base_url": "http://127.0.0.1:8000",
+  "contract_version": "4B.4.3.6.6.24C",
+  "duration_sec_requested": 2400.0,
+  "generated_at_utc": "2026-05-05T12:00:26Z",
+  "interrupted_by_operator": false,
+  "interval_sec": 60.0,
+  "no_post_actions": true,
+  "observation_only": true,
+  "phase": "4B.4.3.6.6.24C",
+  "samples": [
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4531137943267822,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 6,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.459083,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 6,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:20:26Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.45026513934135437,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 7,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.457823,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 7,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:21:26Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4556449353694916,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 8,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.457551,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 8,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:22:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4518282413482666,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 9,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456915,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 9,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:23:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4518282413482666,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 10,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456406,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 10,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:24:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4518282413482666,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 11,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.45599,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 11,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:25:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4518282413482666,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 12,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455643,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 12,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:26:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4518282413482666,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 13,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.45535,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 13,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:27:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4511851668357849,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 14,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455052,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 14,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:28:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4511851668357849,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 15,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.454795,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 15,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:29:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4518282413482666,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 16,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.454609,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 16,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:30:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.45455434918403625,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 17,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.454606,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 17,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:31:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.45424145460128784,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 18,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.454586,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 18,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:32:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4634705185890198,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 19,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455053,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 19,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:33:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4621634781360626,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 20,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455409,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 20,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:34:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4621634781360626,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 21,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.45573,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 21,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:35:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.45649847388267517,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 22,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455765,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 22,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:36:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4573873281478882,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 23,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455836,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 23,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:37:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4573873281478882,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 24,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455901,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 24,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:38:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4561369717121124,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 25,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.45591,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 25,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:39:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.45547011494636536,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 26,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455893,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 26,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:40:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4582294821739197,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 27,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.45598,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 27,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:41:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4582294821739197,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 28,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.45606,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 28,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:42:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4582294821739197,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [],
+          "recommendation": "OK",
+          "sample_count": 29,
+          "severity": "warming_up"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456135,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "OK",
+            "sample_count": 29,
+            "severity": "warming_up"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_WARMING_UP",
+            "MODEL_QUALITY_SAMPLE_COUNT_LOW",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:43:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4582294821739197,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 30,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456205,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 30,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:44:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4605996310710907,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 31,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456346,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 31,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:45:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4605996310710907,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 32,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456479,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 32,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:46:27Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4605996310710907,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 33,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456604,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 33,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:47:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.46008872985839844,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 34,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456707,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 34,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:48:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.46008872985839844,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 35,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456803,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 35,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:49:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.46008872985839844,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 36,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456895,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 36,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:50:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.46008872985839844,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 37,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456981,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 37,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:51:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.45060592889785767,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 38,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456813,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 38,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:52:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.44936302304267883,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 39,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456622,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 39,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:53:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.45121288299560547,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 40,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456487,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 40,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:54:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4493417739868164,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 41,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456313,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 41,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:55:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4521893858909607,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 42,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456214,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 42,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:56:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4493417739868164,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 43,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.456055,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 43,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:57:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4493417739868164,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 44,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455902,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 44,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:58:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.45086535811424255,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 45,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.45579,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 45,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:59:28Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.45086535811424255,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 46,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.455683,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 46,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T12:00:26Z"
+    }
+  ],
+  "summary": {
+    "decision": "FAIL",
+    "first_ts_utc": "2026-05-05T11:20:26Z",
+    "last_ts_utc": "2026-05-05T12:00:26Z",
+    "reason_counts": {
+      "DIAGNOSTICS_CRITICAL": 41,
+      "MODEL_GATE_BLOCK": 41,
+      "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED": 41
+    },
+    "sample_count": 41,
+    "severity_counts": {
+      "FAIL": 41
+    },
+    "signal_counts": {
+      "HOLD": 41
+    },
+    "state_counts": {
+      "FLAT": 41
+    },
+    "ws_counts": {
+      "CONNECTED": 41
+    }
+  },
+  "timeout_sec": 15.0
+}

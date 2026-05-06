@@ -1,0 +1,71 @@
+{
+  "phase": "4B.4.3.6.6.21b",
+  "base_url": "http://127.0.0.1:8000",
+  "generated_at": "20260503_154230",
+  "ok": false,
+  "results": [
+    {
+      "name": "health",
+      "ok": true,
+      "url": "http://127.0.0.1:8000/health",
+      "status_code": 200,
+      "elapsed_sec": 0.03366830000004484,
+      "reason": null,
+      "details": {
+        "ok": true,
+        "running": true,
+        "symbol": "ETHUSDT",
+        "bootstrap_ok": true,
+        "bootstrap_error": null
+      }
+    },
+    {
+      "name": "status",
+      "ok": true,
+      "url": "http://127.0.0.1:8000/status",
+      "status_code": 200,
+      "elapsed_sec": 0.03380680000009306,
+      "reason": null,
+      "details": {
+        "contract_version": "4B.4.3.6.6.20",
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "missing_snapshots": [],
+        "config_severity": "ok"
+      }
+    },
+    {
+      "name": "events_audit",
+      "ok": true,
+      "url": "http://127.0.0.1:8000/events/audit?limit=5",
+      "status_code": 200,
+      "elapsed_sec": 0.01771459999963554,
+      "reason": null,
+      "details": {
+        "shape": "dict",
+        "count": 5,
+        "keys": [
+          "contract_version",
+          "count",
+          "events",
+          "filters",
+          "limit",
+          "ok",
+          "order",
+          "summary"
+        ]
+      }
+    },
+    {
+      "name": "diagnostics",
+      "ok": false,
+      "url": "http://127.0.0.1:8000/diagnostics",
+      "status_code": null,
+      "elapsed_sec": 0.0,
+      "reason": "request failed: HTTP Error 404: Not Found",
+      "details": {
+        "exception_type": "HTTPError"
+      }
+    }
+  ]
+}

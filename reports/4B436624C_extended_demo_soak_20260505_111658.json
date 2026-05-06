@@ -1,0 +1,134 @@
+{
+  "base_url": "http://127.0.0.1:8000",
+  "contract_version": "4B.4.3.6.6.24C",
+  "duration_sec_requested": 0.0,
+  "generated_at_utc": "2026-05-05T08:16:58Z",
+  "interrupted_by_operator": false,
+  "interval_sec": 60.0,
+  "no_post_actions": true,
+  "observation_only": true,
+  "phase": "4B.4.3.6.6.24C",
+  "samples": [
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "BOOTSTRAP_FAILED",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED",
+          "UNSAFE_EXECUTION_MODE",
+          "WS_NOT_CONNECTED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": "Server error '502 Bad Gateway' for url 'https://demo-api.binance.com/api/v3/exchangeInfo'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502",
+        "bootstrap_ok": false,
+        "degraded": true,
+        "engine_running": false,
+        "ok": false,
+        "running": false,
+        "start_error": "Server error '502 Bad Gateway' for url 'https://demo-api.binance.com/api/v3/exchangeInfo'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502",
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": null,
+          "critical_warnings": [],
+          "execution_mode": null,
+          "live_real_double_confirm": null,
+          "live_trading_armed": null,
+          "market_type": null,
+          "profile_mode": null,
+          "safe_to_auto_trade": null,
+          "safe_to_trade": null,
+          "warnings": []
+        },
+        "contract_version": null,
+        "diagnostics": {
+          "ready_to_operate": null,
+          "reason_codes": [],
+          "severity": null
+        },
+        "health_snapshot": {
+          "account_consistency": null,
+          "active_anomaly_code": null,
+          "pending_consistency": null,
+          "position_consistency": null
+        },
+        "last_signal": null,
+        "last_signal_confidence": null,
+        "model_quality": {
+          "enabled": null,
+          "reason_codes": [],
+          "recommendation": null,
+          "sample_count": null,
+          "severity": null
+        },
+        "model_quality_gate": {
+          "decision": "BLOCK",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {},
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_MISSING"
+          ]
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": null,
+          "guard_counts": {},
+          "profit_factor": null,
+          "realized_pnl": null,
+          "win_rate_pct": null
+        },
+        "position": {
+          "present": false,
+          "qty": null,
+          "source": null
+        },
+        "state": "STOPPED",
+        "symbol": "ETHUSDT",
+        "ws_status": ""
+      },
+      "ts_utc": "2026-05-05T08:16:58Z"
+    }
+  ],
+  "summary": {
+    "decision": "FAIL",
+    "first_ts_utc": "2026-05-05T08:16:58Z",
+    "last_ts_utc": "2026-05-05T08:16:58Z",
+    "reason_counts": {
+      "API_NOT_RUNNING": 1,
+      "BOOTSTRAP_FAILED": 1,
+      "DEGRADED_RUNTIME": 1,
+      "HEALTH_NOT_OK": 1,
+      "MODEL_GATE_BLOCK": 1,
+      "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED": 1,
+      "UNSAFE_EXECUTION_MODE": 1,
+      "WS_NOT_CONNECTED": 1
+    },
+    "sample_count": 1,
+    "severity_counts": {
+      "FAIL": 1
+    },
+    "signal_counts": {
+      "UNKNOWN": 1
+    },
+    "state_counts": {
+      "STOPPED": 1
+    },
+    "ws_counts": {
+      "UNKNOWN": 1
+    }
+  },
+  "timeout_sec": 15.0
+}

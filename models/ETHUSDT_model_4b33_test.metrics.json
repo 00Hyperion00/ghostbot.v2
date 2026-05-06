@@ -1,0 +1,86 @@
+{
+  "symbol": "ETHUSDT",
+  "interval": "1m",
+  "days": 30,
+  "accuracy": 0.719695246759154,
+  "precision_macro": 0.3846662109820005,
+  "recall_macro": 0.33357621914094765,
+  "samples": 43970,
+  "train_samples": 35176,
+  "test_samples": 8794,
+  "class_distribution": {
+    "0": 31731,
+    "1": 6251,
+    "2": 5988
+  },
+  "confusion_matrix": [
+    [
+      6326,
+      4,
+      7
+    ],
+    [
+      1193,
+      2,
+      2
+    ],
+    [
+      1259,
+      0,
+      1
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.720665299612668,
+      "recall": 0.9982641628530851,
+      "f1-score": 0.8370492887859742,
+      "support": 6337.0
+    },
+    "1": {
+      "precision": 0.3333333333333333,
+      "recall": 0.001670843776106934,
+      "f1-score": 0.0033250207813798837,
+      "support": 1197.0
+    },
+    "2": {
+      "precision": 0.1,
+      "recall": 0.0007936507936507937,
+      "f1-score": 0.0015748031496062992,
+      "support": 1260.0
+    },
+    "accuracy": 0.719695246759154,
+    "macro avg": {
+      "precision": 0.3846662109820005,
+      "recall": 0.33357621914094765,
+      "f1-score": 0.2806497042389868,
+      "support": 8794.0
+    },
+    "weighted avg": {
+      "precision": 0.5790147832210004,
+      "recall": 0.719695246759154,
+      "f1-score": 0.6038600915261012,
+      "support": 8794.0
+    }
+  },
+  "model_path": "C:/Users/user/OneDrive/Masaüstü/trade_botV2/models/ETHUSDT_model_4b33_test.ubj",
+  "output": "C:/Users/user/OneDrive/Masaüstü/trade_botV2/models/ETHUSDT_model_4b33_test.ubj",
+  "schema_version": "4B.3.4",
+  "feature_lag": 1,
+  "schema_path": "C:/Users/user/OneDrive/Masaüstü/trade_botV2/models/ETHUSDT_model_4b33_test.schema.json",
+  "dataset_manifest_path": "C:/Users/user/OneDrive/Masaüstü/trade_botV2/models/ETHUSDT_model_4b33_test.dataset.json",
+  "label_config": {
+    "lookahead": 10,
+    "atr_multiplier": 1.5,
+    "entry_fee_bps": 10.0,
+    "exit_fee_bps": 10.0,
+    "entry_slippage_bps": 2.0,
+    "exit_slippage_bps": 2.0,
+    "min_profit_bps": 5.0,
+    "use_high_low_barriers": true,
+    "ambiguous_barrier_policy": "hold",
+    "round_trip_cost_bps": 29.0,
+    "round_trip_cost_pct": 0.0029
+  },
+  "feature_pack_name": "core_price_action_regime_vwap_mtf15_v1"
+}

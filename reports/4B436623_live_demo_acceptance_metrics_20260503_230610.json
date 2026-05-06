@@ -1,0 +1,221 @@
+{
+  "phase": "4B.4.3.6.6.23",
+  "generated_at_utc": "2026-05-03T20:06:10Z",
+  "decision": "PASS",
+  "blockers": [],
+  "observations": [],
+  "criteria": {
+    "min_samples": 10,
+    "min_pass_rate_pct": 100.0,
+    "max_ws_disconnects": 2,
+    "max_log_errors": 0
+  },
+  "selected_soak_report": {
+    "path": "reports\\4B436622_live_demo_soak_20260503_221507.json",
+    "decision": "PASS",
+    "sample_count": 31,
+    "pass_count": 31,
+    "warn_count": 0,
+    "fail_count": 0,
+    "pass_rate_pct": 100.0,
+    "duration_sec": 900.0,
+    "first_ts_utc": "2026-05-03T19:00:07Z",
+    "last_ts_utc": "2026-05-03T19:15:07Z",
+    "reason_counts": {},
+    "state_counts": {
+      "FLAT": 31
+    },
+    "last_signal_counts": {
+      "HOLD": 31
+    },
+    "ws_not_connected_samples": 0,
+    "interrupted_by_operator": false,
+    "observation_only": true,
+    "no_post_actions": true
+  },
+  "soak_reports_reviewed": [
+    {
+      "path": "reports\\4B436622_live_demo_soak_20260503_221507.json",
+      "decision": "PASS",
+      "sample_count": 31,
+      "pass_count": 31,
+      "warn_count": 0,
+      "fail_count": 0,
+      "pass_rate_pct": 100.0,
+      "duration_sec": 900.0,
+      "first_ts_utc": "2026-05-03T19:00:07Z",
+      "last_ts_utc": "2026-05-03T19:15:07Z",
+      "reason_counts": {},
+      "state_counts": {
+        "FLAT": 31
+      },
+      "last_signal_counts": {
+        "HOLD": 31
+      },
+      "ws_not_connected_samples": 0,
+      "interrupted_by_operator": false,
+      "observation_only": true,
+      "no_post_actions": true
+    },
+    {
+      "path": "reports\\4B436622_live_demo_soak_20260503_215745.json",
+      "decision": "PASS",
+      "sample_count": 9,
+      "pass_count": 9,
+      "warn_count": 0,
+      "fail_count": 0,
+      "pass_rate_pct": 100.0,
+      "duration_sec": 120.0,
+      "first_ts_utc": "2026-05-03T18:55:45Z",
+      "last_ts_utc": "2026-05-03T18:57:45Z",
+      "reason_counts": {},
+      "state_counts": {
+        "FLAT": 9
+      },
+      "last_signal_counts": {
+        "HOLD": 9
+      },
+      "ws_not_connected_samples": 0,
+      "interrupted_by_operator": false,
+      "observation_only": true,
+      "no_post_actions": true
+    },
+    {
+      "path": "reports\\4B436622_live_demo_soak_20260503_214149.json",
+      "decision": "FAIL",
+      "sample_count": 28,
+      "pass_count": 0,
+      "warn_count": 0,
+      "fail_count": 28,
+      "pass_rate_pct": 0.0,
+      "duration_sec": 900.0,
+      "first_ts_utc": "2026-05-03T18:26:49Z",
+      "last_ts_utc": "2026-05-03T18:41:49Z",
+      "reason_counts": {
+        "API_NOT_RUNNING": 28,
+        "HEALTH_NOT_OK": 28,
+        "HEALTH_REQUEST_FAILED": 28,
+        "STATUS_REQUEST_FAILED": 28
+      },
+      "state_counts": {
+        "UNKNOWN": 28
+      },
+      "last_signal_counts": {
+        "UNKNOWN": 28
+      },
+      "ws_not_connected_samples": 0,
+      "interrupted_by_operator": false,
+      "observation_only": true,
+      "no_post_actions": true
+    },
+    {
+      "path": "reports\\4B436622_live_demo_soak_20260503_212409.json",
+      "decision": "REVIEW",
+      "sample_count": 27,
+      "pass_count": 27,
+      "warn_count": 1,
+      "fail_count": 0,
+      "pass_rate_pct": 100.0,
+      "duration_sec": 781.0,
+      "first_ts_utc": "2026-05-03T18:10:42Z",
+      "last_ts_utc": "2026-05-03T18:23:43Z",
+      "reason_counts": {
+        "INTERRUPTED_BY_OPERATOR": 1
+      },
+      "state_counts": {
+        "FLAT": 27
+      },
+      "last_signal_counts": {
+        "HOLD": 27
+      },
+      "ws_not_connected_samples": 0,
+      "interrupted_by_operator": true,
+      "observation_only": true,
+      "no_post_actions": true
+    },
+    {
+      "path": "reports\\4B436622_live_demo_soak_20260503_210728.json",
+      "decision": "PASS",
+      "sample_count": 1,
+      "pass_count": 1,
+      "warn_count": 0,
+      "fail_count": 0,
+      "pass_rate_pct": 100.0,
+      "duration_sec": 0.0,
+      "first_ts_utc": "2026-05-03T18:07:28Z",
+      "last_ts_utc": "2026-05-03T18:07:28Z",
+      "reason_counts": {},
+      "state_counts": {
+        "FLAT": 1
+      },
+      "last_signal_counts": {
+        "HOLD": 1
+      },
+      "ws_not_connected_samples": 0,
+      "interrupted_by_operator": false,
+      "observation_only": true,
+      "no_post_actions": true
+    },
+    {
+      "path": "reports\\4B436622_live_demo_soak_20260503_210432.json",
+      "decision": "FAIL",
+      "sample_count": 1,
+      "pass_count": 0,
+      "warn_count": 0,
+      "fail_count": 1,
+      "pass_rate_pct": 0.0,
+      "duration_sec": 0.0,
+      "first_ts_utc": "2026-05-03T18:04:32Z",
+      "last_ts_utc": "2026-05-03T18:04:32Z",
+      "reason_counts": {
+        "API_NOT_RUNNING": 1,
+        "HEALTH_NOT_OK": 1,
+        "HEALTH_REQUEST_FAILED": 1,
+        "STATUS_REQUEST_FAILED": 1
+      },
+      "state_counts": {
+        "UNKNOWN": 1
+      },
+      "last_signal_counts": {
+        "UNKNOWN": 1
+      },
+      "ws_not_connected_samples": 0,
+      "interrupted_by_operator": false,
+      "observation_only": true,
+      "no_post_actions": true
+    },
+    {
+      "path": "reports\\4B436622_live_demo_soak_20260503_205056.json",
+      "decision": "REVIEW",
+      "sample_count": 1,
+      "pass_count": 0,
+      "warn_count": 1,
+      "fail_count": 0,
+      "pass_rate_pct": 0.0,
+      "duration_sec": 0.0,
+      "first_ts_utc": "2026-05-03T17:50:56Z",
+      "last_ts_utc": "2026-05-03T17:50:56Z",
+      "reason_counts": {
+        "STATUS_CONTRACT_BELOW_RELEASE_CANDIDATE": 1
+      },
+      "state_counts": {
+        "FLAT": 1
+      },
+      "last_signal_counts": {
+        "HOLD": 1
+      },
+      "ws_not_connected_samples": 0,
+      "interrupted_by_operator": false,
+      "observation_only": true,
+      "no_post_actions": true
+    }
+  ],
+  "status_snapshot": {
+    "provided": false
+  },
+  "log_summary": {
+    "provided": false
+  },
+  "observation_only": true,
+  "no_post_actions": true
+}

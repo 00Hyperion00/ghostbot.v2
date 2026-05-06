@@ -1,0 +1,963 @@
+{
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_training_candidate": true,
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.24I",
+  "decision": "PASS",
+  "guardrails": {
+    "config_mutation_performed": false,
+    "get_only_public_market_data": true,
+    "live_real_allowed": false,
+    "observation_only": true,
+    "order_actions_performed": false,
+    "post_requests_allowed": false,
+    "reload_performed": false
+  },
+  "limits": {
+    "max_action_pct": 45.0,
+    "max_action_side_pct": 76.0,
+    "max_hold_pct": 90.0,
+    "min_action_pct": 8.0,
+    "min_buy_direction_consistency_pct": 56.0,
+    "min_class_count": 20,
+    "min_directional_entropy": 0.72,
+    "min_effective_min_profit_bps": 12.0,
+    "min_expected_net_edge_bps": 1.0,
+    "min_forward_return_gap_bps": 12.0,
+    "min_hold_pct": 35.0,
+    "min_samples": 1000,
+    "min_sell_direction_consistency_pct": 56.0,
+    "target_action_pct": 22.0
+  },
+  "live_real_allowed": false,
+  "no_post_actions": true,
+  "observation_only": true,
+  "ok": true,
+  "order_actions_performed": false,
+  "phase": "4B.4.3.6.6.24I",
+  "policies": [
+    {
+      "approvable": false,
+      "clean_samples": 129566,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 79.879328,
+        "buy_expected_net_edge_bps": 10.97346,
+        "buy_forward_return_bps": {
+          "max": 529.04724121,
+          "mean": 10.97346034,
+          "median": 7.61389732,
+          "min": -187.27243042
+        },
+        "directional_entropy": 0.999987,
+        "effective_min_profit_bps": 0.0,
+        "forward_return_gap_bps": 21.872157,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.1,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 5,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 0.0,
+        "min_expected_net_edge_bps": 10.898697,
+        "round_trip_cost_bps": 0.0,
+        "sell_direction_consistency_pct": 79.906259,
+        "sell_expected_net_edge_bps": 10.898697,
+        "sell_forward_return_bps": {
+          "max": 373.80575562,
+          "mean": -10.89869704,
+          "median": -7.51882792,
+          "min": -251.97923279
+        },
+        "target_action_pct": 82.030008,
+        "target_action_side_pct": 50.214051,
+        "target_distribution": {
+          "BUY": 53369,
+          "HOLD": 23283,
+          "SELL": 52914
+        },
+        "target_hold_pct": 17.969992
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": false,
+        "atr_multiplier": 1.1,
+        "cost_bps": 0.0,
+        "effective_min_profit_bps": 0.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "diagnostic",
+        "lookahead": 5,
+        "min_edge_bps": 0.0,
+        "name": "diagnostic_h5_atr1_1_cost0_edge0",
+        "round_trip_cost_bps": 0.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "EFFECTIVE_MIN_PROFIT_BELOW_COST_FLOOR",
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW",
+        "DIAGNOSTIC_POLICY_NOT_APPROVABLE"
+      ],
+      "sample_count": 129566,
+      "score": -90.873516,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129566,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "PASS",
+      "metrics": {
+        "buy_direction_consistency_pct": 96.8875,
+        "buy_expected_net_edge_bps": 18.592686,
+        "buy_forward_return_bps": {
+          "max": 529.04724121,
+          "mean": 36.59268526,
+          "median": 30.18498421,
+          "min": -71.41888428
+        },
+        "directional_entropy": 0.999941,
+        "effective_min_profit_bps": 18.0,
+        "forward_return_gap_bps": 72.213707,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.5,
+          "entry_fee_bps": 2.0,
+          "entry_slippage_bps": 2.0,
+          "exit_fee_bps": 2.0,
+          "exit_slippage_bps": 2.0,
+          "feature_lag": 1,
+          "lookahead": 5,
+          "min_profit_bps": 18.0,
+          "round_trip_cost_bps": 8.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 10.0,
+        "min_expected_net_edge_bps": 17.621021,
+        "round_trip_cost_bps": 8.0,
+        "sell_direction_consistency_pct": 96.817719,
+        "sell_expected_net_edge_bps": 17.621021,
+        "sell_forward_return_bps": {
+          "max": 167.14930725,
+          "mean": -35.621025,
+          "median": -30.94524193,
+          "min": -251.97923279
+        },
+        "target_action_pct": 12.237778,
+        "target_action_side_pct": 50.454087,
+        "target_distribution": {
+          "BUY": 8000,
+          "HOLD": 113710,
+          "SELL": 7856
+        },
+        "target_hold_pct": 87.762222
+      },
+      "ok": true,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.5,
+        "cost_bps": 8.0,
+        "effective_min_profit_bps": 18.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "short_edge",
+        "lookahead": 5,
+        "min_edge_bps": 10.0,
+        "name": "h5_cost8_edge10_atr1_5",
+        "round_trip_cost_bps": 8.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [],
+      "sample_count": 129566,
+      "score": 38.18696,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129561,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "PASS",
+      "metrics": {
+        "buy_direction_consistency_pct": 96.783192,
+        "buy_expected_net_edge_bps": 23.383293,
+        "buy_forward_return_bps": {
+          "max": 668.87023926,
+          "mean": 46.38329628,
+          "median": 38.83003998,
+          "min": -242.57243347
+        },
+        "directional_entropy": 0.999934,
+        "effective_min_profit_bps": 23.0,
+        "forward_return_gap_bps": 92.108276,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.8,
+          "entry_fee_bps": 2.0,
+          "entry_slippage_bps": 2.0,
+          "exit_fee_bps": 2.0,
+          "exit_slippage_bps": 2.0,
+          "feature_lag": 1,
+          "lookahead": 10,
+          "min_profit_bps": 23.0,
+          "round_trip_cost_bps": 8.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 15.0,
+        "min_expected_net_edge_bps": 22.724983,
+        "round_trip_cost_bps": 8.0,
+        "sell_direction_consistency_pct": 97.200746,
+        "sell_expected_net_edge_bps": 22.724983,
+        "sell_forward_return_bps": {
+          "max": 99.3835907,
+          "mean": -45.72498686,
+          "median": -39.02196884,
+          "min": -347.77938843
+        },
+        "target_action_pct": 17.539229,
+        "target_action_side_pct": 50.479669,
+        "target_distribution": {
+          "BUY": 11471,
+          "HOLD": 106837,
+          "SELL": 11253
+        },
+        "target_hold_pct": 82.460771
+      },
+      "ok": true,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.8,
+        "cost_bps": 8.0,
+        "effective_min_profit_bps": 23.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "balanced_edge",
+        "lookahead": 10,
+        "min_edge_bps": 15.0,
+        "name": "h10_cost8_edge15_atr1_8",
+        "round_trip_cost_bps": 8.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [],
+      "sample_count": 129561,
+      "score": 43.824706,
+      "warnings": [
+        "TARGET_ACTION_RATE_NEAR_TARGET"
+      ]
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129561,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "PASS",
+      "metrics": {
+        "buy_direction_consistency_pct": 97.424027,
+        "buy_expected_net_edge_bps": 26.019733,
+        "buy_forward_return_bps": {
+          "max": 668.87023926,
+          "mean": 53.01973518,
+          "median": 44.4817543,
+          "min": -128.88551331
+        },
+        "directional_entropy": 0.999873,
+        "effective_min_profit_bps": 27.0,
+        "forward_return_gap_bps": 105.290741,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 2.0,
+          "entry_fee_bps": 3.0,
+          "entry_slippage_bps": 3.0,
+          "exit_fee_bps": 3.0,
+          "exit_slippage_bps": 3.0,
+          "feature_lag": 1,
+          "lookahead": 10,
+          "min_profit_bps": 27.0,
+          "round_trip_cost_bps": 12.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 15.0,
+        "min_expected_net_edge_bps": 25.271008,
+        "round_trip_cost_bps": 12.0,
+        "sell_direction_consistency_pct": 98.025113,
+        "sell_expected_net_edge_bps": 25.271008,
+        "sell_forward_return_bps": {
+          "max": 92.59700775,
+          "mean": -52.27100418,
+          "median": -44.84593964,
+          "min": -347.77938843
+        },
+        "target_action_pct": 12.833337,
+        "target_action_side_pct": 50.664582,
+        "target_distribution": {
+          "BUY": 8424,
+          "HOLD": 112934,
+          "SELL": 8203
+        },
+        "target_hold_pct": 87.166663
+      },
+      "ok": true,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 2.0,
+        "cost_bps": 12.0,
+        "effective_min_profit_bps": 27.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "balanced_edge",
+        "lookahead": 10,
+        "min_edge_bps": 15.0,
+        "name": "h10_cost12_edge15_atr2_0",
+        "round_trip_cost_bps": 12.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [],
+      "sample_count": 129561,
+      "score": 42.278024,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129556,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "PASS",
+      "metrics": {
+        "buy_direction_consistency_pct": 96.963491,
+        "buy_expected_net_edge_bps": 26.560452,
+        "buy_forward_return_bps": {
+          "max": 677.66668701,
+          "mean": 58.56045108,
+          "median": 49.30257797,
+          "min": -185.71377563
+        },
+        "directional_entropy": 0.999601,
+        "effective_min_profit_bps": 32.0,
+        "forward_return_gap_bps": 116.991833,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 2.0,
+          "entry_fee_bps": 3.0,
+          "entry_slippage_bps": 3.0,
+          "exit_fee_bps": 3.0,
+          "exit_slippage_bps": 3.0,
+          "feature_lag": 1,
+          "lookahead": 15,
+          "min_profit_bps": 32.0,
+          "round_trip_cost_bps": 12.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 20.0,
+        "min_expected_net_edge_bps": 26.431381,
+        "round_trip_cost_bps": 12.0,
+        "sell_direction_consistency_pct": 97.255927,
+        "sell_expected_net_edge_bps": 26.431381,
+        "sell_forward_return_bps": {
+          "max": 306.78271484,
+          "mean": -58.43138003,
+          "median": -50.25923347,
+          "min": -405.88616943
+        },
+        "target_action_pct": 16.937849,
+        "target_action_side_pct": 51.17572,
+        "target_distribution": {
+          "BUY": 11230,
+          "HOLD": 107612,
+          "SELL": 10714
+        },
+        "target_hold_pct": 83.062151
+      },
+      "ok": true,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 2.0,
+        "cost_bps": 12.0,
+        "effective_min_profit_bps": 32.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "directional_edge",
+        "lookahead": 15,
+        "min_edge_bps": 20.0,
+        "name": "h15_cost12_edge20_atr2_0",
+        "round_trip_cost_bps": 12.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [],
+      "sample_count": 129556,
+      "score": 44.487413,
+      "warnings": [
+        "HIGH_EDGE_FILTER_MAY_REDUCE_TRAINING_ACTIONS"
+      ]
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129556,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "PASS",
+      "metrics": {
+        "buy_direction_consistency_pct": 98.382086,
+        "buy_expected_net_edge_bps": 33.018074,
+        "buy_forward_return_bps": {
+          "max": 677.66668701,
+          "mean": 69.01807117,
+          "median": 58.31062698,
+          "min": -185.71377563
+        },
+        "directional_entropy": 0.99965,
+        "effective_min_profit_bps": 36.0,
+        "forward_return_gap_bps": 136.944878,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 2.5,
+          "entry_fee_bps": 4.0,
+          "entry_slippage_bps": 4.0,
+          "exit_fee_bps": 4.0,
+          "exit_slippage_bps": 4.0,
+          "feature_lag": 1,
+          "lookahead": 15,
+          "min_profit_bps": 36.0,
+          "round_trip_cost_bps": 16.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 20.0,
+        "min_expected_net_edge_bps": 31.926804,
+        "round_trip_cost_bps": 16.0,
+        "sell_direction_consistency_pct": 98.065738,
+        "sell_expected_net_edge_bps": 31.926804,
+        "sell_forward_return_bps": {
+          "max": 114.41230774,
+          "mean": -67.92680112,
+          "median": -58.7093811,
+          "min": -405.88616943
+        },
+        "target_action_pct": 11.669857,
+        "target_action_side_pct": 51.101263,
+        "target_distribution": {
+          "BUY": 7726,
+          "HOLD": 114437,
+          "SELL": 7393
+        },
+        "target_hold_pct": 88.330143
+      },
+      "ok": true,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 2.5,
+        "cost_bps": 16.0,
+        "effective_min_profit_bps": 36.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "directional_edge",
+        "lookahead": 15,
+        "min_edge_bps": 20.0,
+        "name": "h15_cost16_edge20_atr2_5",
+        "round_trip_cost_bps": 16.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [],
+      "sample_count": 129556,
+      "score": 43.770511,
+      "warnings": [
+        "HIGH_EDGE_FILTER_MAY_REDUCE_TRAINING_ACTIONS"
+      ]
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129551,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "PASS",
+      "metrics": {
+        "buy_direction_consistency_pct": 97.758326,
+        "buy_expected_net_edge_bps": 33.099716,
+        "buy_forward_return_bps": {
+          "max": 690.70697021,
+          "mean": 74.0997149,
+          "median": 62.41023445,
+          "min": -253.0670166
+        },
+        "directional_entropy": 0.999813,
+        "effective_min_profit_bps": 41.0,
+        "forward_return_gap_bps": 147.023888,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 2.5,
+          "entry_fee_bps": 4.0,
+          "entry_slippage_bps": 4.0,
+          "exit_fee_bps": 4.0,
+          "exit_slippage_bps": 4.0,
+          "feature_lag": 1,
+          "lookahead": 20,
+          "min_profit_bps": 41.0,
+          "round_trip_cost_bps": 16.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 25.0,
+        "min_expected_net_edge_bps": 31.924171,
+        "round_trip_cost_bps": 16.0,
+        "sell_direction_consistency_pct": 97.784147,
+        "sell_expected_net_edge_bps": 31.924171,
+        "sell_forward_return_bps": {
+          "max": 178.30848694,
+          "mean": -72.92416618,
+          "median": -62.79230118,
+          "min": -433.98678589
+        },
+        "target_action_pct": 14.233005,
+        "target_action_side_pct": 50.805358,
+        "target_distribution": {
+          "BUY": 9368,
+          "HOLD": 111112,
+          "SELL": 9071
+        },
+        "target_hold_pct": 85.766995
+      },
+      "ok": true,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 2.5,
+        "cost_bps": 16.0,
+        "effective_min_profit_bps": 41.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "directional_strong",
+        "lookahead": 20,
+        "min_edge_bps": 25.0,
+        "name": "h20_cost16_edge25_atr2_5",
+        "round_trip_cost_bps": 16.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [],
+      "sample_count": 129551,
+      "score": 45.155503,
+      "warnings": [
+        "HIGH_EDGE_FILTER_MAY_REDUCE_TRAINING_ACTIONS"
+      ]
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129551,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 98.552945,
+        "buy_expected_net_edge_bps": 39.383331,
+        "buy_forward_return_bps": {
+          "max": 690.70697021,
+          "mean": 89.38333056,
+          "median": 77.26788712,
+          "min": -101.1103363
+        },
+        "directional_entropy": 0.999586,
+        "effective_min_profit_bps": 50.0,
+        "forward_return_gap_bps": 178.020912,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 3.0,
+          "entry_fee_bps": 5.0,
+          "entry_slippage_bps": 5.0,
+          "exit_fee_bps": 5.0,
+          "exit_slippage_bps": 5.0,
+          "feature_lag": 1,
+          "lookahead": 20,
+          "min_profit_bps": 50.0,
+          "round_trip_cost_bps": 20.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 30.0,
+        "min_expected_net_edge_bps": 38.637581,
+        "round_trip_cost_bps": 20.0,
+        "sell_direction_consistency_pct": 98.981961,
+        "sell_expected_net_edge_bps": 38.637581,
+        "sell_forward_return_bps": {
+          "max": 102.70118713,
+          "mean": -88.63757722,
+          "median": -76.79521942,
+          "min": -433.98678589
+        },
+        "target_action_pct": 8.855972,
+        "target_action_side_pct": 51.198466,
+        "target_distribution": {
+          "BUY": 5874,
+          "HOLD": 118078,
+          "SELL": 5599
+        },
+        "target_hold_pct": 91.144028
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 3.0,
+        "cost_bps": 20.0,
+        "effective_min_profit_bps": 50.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "directional_strong",
+        "lookahead": 20,
+        "min_edge_bps": 30.0,
+        "name": "h20_cost20_edge30_atr3_0",
+        "round_trip_cost_bps": 20.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_HOLD_DOMINANCE_HIGH"
+      ],
+      "sample_count": 129551,
+      "score": 36.585462,
+      "warnings": [
+        "HIGH_EDGE_FILTER_MAY_REDUCE_TRAINING_ACTIONS"
+      ]
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129541,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "PASS",
+      "metrics": {
+        "buy_direction_consistency_pct": 97.194442,
+        "buy_expected_net_edge_bps": 36.840393,
+        "buy_forward_return_bps": {
+          "max": 721.33776855,
+          "mean": 82.84039411,
+          "median": 69.75411987,
+          "min": -203.59098816
+        },
+        "directional_entropy": 0.99978,
+        "effective_min_profit_bps": 46.0,
+        "forward_return_gap_bps": 165.335098,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 3.0,
+          "entry_fee_bps": 4.0,
+          "entry_slippage_bps": 4.0,
+          "exit_fee_bps": 4.0,
+          "exit_slippage_bps": 4.0,
+          "feature_lag": 1,
+          "lookahead": 30,
+          "min_profit_bps": 46.0,
+          "round_trip_cost_bps": 16.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 30.0,
+        "min_expected_net_edge_bps": 36.494705,
+        "round_trip_cost_bps": 16.0,
+        "sell_direction_consistency_pct": 97.406287,
+        "sell_expected_net_edge_bps": 36.494705,
+        "sell_forward_return_bps": {
+          "max": 271.31558228,
+          "mean": -82.49470374,
+          "median": -70.81866455,
+          "min": -551.4508667
+        },
+        "target_action_pct": 17.145151,
+        "target_action_side_pct": 50.87348,
+        "target_distribution": {
+          "BUY": 11299,
+          "HOLD": 107331,
+          "SELL": 10911
+        },
+        "target_hold_pct": 82.854849
+      },
+      "ok": true,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 3.0,
+        "cost_bps": 16.0,
+        "effective_min_profit_bps": 46.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "slow_directional",
+        "lookahead": 30,
+        "min_edge_bps": 30.0,
+        "name": "h30_cost16_edge30_atr3_0",
+        "round_trip_cost_bps": 16.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [],
+      "sample_count": 129541,
+      "score": 48.079381,
+      "warnings": [
+        "TARGET_ACTION_RATE_NEAR_TARGET",
+        "HIGH_EDGE_FILTER_MAY_REDUCE_TRAINING_ACTIONS"
+      ]
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129541,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 97.32702,
+        "buy_expected_net_edge_bps": 43.902077,
+        "buy_forward_return_bps": {
+          "max": 721.33776855,
+          "mean": 103.9020722,
+          "median": 89.50710297,
+          "min": -189.88252258
+        },
+        "directional_entropy": 0.999847,
+        "effective_min_profit_bps": 60.0,
+        "forward_return_gap_bps": 207.774086,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 3.5,
+          "entry_fee_bps": 5.0,
+          "entry_slippage_bps": 5.0,
+          "exit_fee_bps": 5.0,
+          "exit_slippage_bps": 5.0,
+          "feature_lag": 1,
+          "lookahead": 30,
+          "min_profit_bps": 60.0,
+          "round_trip_cost_bps": 20.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 40.0,
+        "min_expected_net_edge_bps": 43.872009,
+        "round_trip_cost_bps": 20.0,
+        "sell_direction_consistency_pct": 98.616135,
+        "sell_expected_net_edge_bps": 43.872009,
+        "sell_forward_return_bps": {
+          "max": 271.31558228,
+          "mean": -103.87201524,
+          "median": -89.93029785,
+          "min": -551.4508667
+        },
+        "target_action_pct": 9.962869,
+        "target_action_side_pct": 50.728343,
+        "target_distribution": {
+          "BUY": 6547,
+          "HOLD": 116635,
+          "SELL": 6359
+        },
+        "target_hold_pct": 90.037131
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 3.5,
+        "cost_bps": 20.0,
+        "effective_min_profit_bps": 60.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "slow_directional",
+        "lookahead": 30,
+        "min_edge_bps": 40.0,
+        "name": "h30_cost20_edge40_atr3_5",
+        "round_trip_cost_bps": 20.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_HOLD_DOMINANCE_HIGH"
+      ],
+      "sample_count": 129541,
+      "score": 37.721891,
+      "warnings": [
+        "HIGH_EDGE_FILTER_MAY_REDUCE_TRAINING_ACTIONS"
+      ]
+    }
+  ],
+  "policy_count": 10,
+  "reason_codes": [],
+  "recommendation": "A cost-aware label policy passed the training-candidate gate. Use it only for a controlled retrain sweep; do not start paper/live trading yet.",
+  "reload_performed": false,
+  "report_type": "cost_aware_label_policy_recovery",
+  "sample_count": 129600,
+  "selected_policy": {
+    "approvable": true,
+    "clean_samples": 129541,
+    "contract_version": "4B.4.3.6.6.24I",
+    "decision": "PASS",
+    "metrics": {
+      "buy_direction_consistency_pct": 97.194442,
+      "buy_expected_net_edge_bps": 36.840393,
+      "buy_forward_return_bps": {
+        "max": 721.33776855,
+        "mean": 82.84039411,
+        "median": 69.75411987,
+        "min": -203.59098816
+      },
+      "directional_entropy": 0.99978,
+      "effective_min_profit_bps": 46.0,
+      "forward_return_gap_bps": 165.335098,
+      "label_config": {
+        "ambiguous_barrier_policy": "hold",
+        "atr_multiplier": 3.0,
+        "entry_fee_bps": 4.0,
+        "entry_slippage_bps": 4.0,
+        "exit_fee_bps": 4.0,
+        "exit_slippage_bps": 4.0,
+        "feature_lag": 1,
+        "lookahead": 30,
+        "min_profit_bps": 46.0,
+        "round_trip_cost_bps": 16.0,
+        "use_high_low_barriers": true
+      },
+      "min_edge_bps": 30.0,
+      "min_expected_net_edge_bps": 36.494705,
+      "round_trip_cost_bps": 16.0,
+      "sell_direction_consistency_pct": 97.406287,
+      "sell_expected_net_edge_bps": 36.494705,
+      "sell_forward_return_bps": {
+        "max": 271.31558228,
+        "mean": -82.49470374,
+        "median": -70.81866455,
+        "min": -551.4508667
+      },
+      "target_action_pct": 17.145151,
+      "target_action_side_pct": 50.87348,
+      "target_distribution": {
+        "BUY": 11299,
+        "HOLD": 107331,
+        "SELL": 10911
+      },
+      "target_hold_pct": 82.854849
+    },
+    "ok": true,
+    "policy": {
+      "ambiguous_barrier_policy": "hold",
+      "approvable": true,
+      "atr_multiplier": 3.0,
+      "cost_bps": 16.0,
+      "effective_min_profit_bps": 46.0,
+      "entry_fee_bps": null,
+      "entry_slippage_bps": null,
+      "exit_fee_bps": null,
+      "exit_slippage_bps": null,
+      "family": "slow_directional",
+      "lookahead": 30,
+      "min_edge_bps": 30.0,
+      "name": "h30_cost16_edge30_atr3_0",
+      "round_trip_cost_bps": 16.0,
+      "use_high_low_barriers": true
+    },
+    "reason_codes": [],
+    "sample_count": 129541,
+    "score": 48.079381,
+    "warnings": [
+      "TARGET_ACTION_RATE_NEAR_TARGET",
+      "HIGH_EDGE_FILTER_MAY_REDUCE_TRAINING_ACTIONS"
+    ]
+  },
+  "selected_policy_name": "h30_cost16_edge30_atr3_0",
+  "selection": {
+    "approved": true,
+    "candidate_count": 10,
+    "contract_version": "4B.4.3.6.6.24I",
+    "decision": "PASS",
+    "pass_count": 7,
+    "reason_codes": [],
+    "selected_policy": {
+      "approvable": true,
+      "clean_samples": 129541,
+      "contract_version": "4B.4.3.6.6.24I",
+      "decision": "PASS",
+      "metrics": {
+        "buy_direction_consistency_pct": 97.194442,
+        "buy_expected_net_edge_bps": 36.840393,
+        "buy_forward_return_bps": {
+          "max": 721.33776855,
+          "mean": 82.84039411,
+          "median": 69.75411987,
+          "min": -203.59098816
+        },
+        "directional_entropy": 0.99978,
+        "effective_min_profit_bps": 46.0,
+        "forward_return_gap_bps": 165.335098,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 3.0,
+          "entry_fee_bps": 4.0,
+          "entry_slippage_bps": 4.0,
+          "exit_fee_bps": 4.0,
+          "exit_slippage_bps": 4.0,
+          "feature_lag": 1,
+          "lookahead": 30,
+          "min_profit_bps": 46.0,
+          "round_trip_cost_bps": 16.0,
+          "use_high_low_barriers": true
+        },
+        "min_edge_bps": 30.0,
+        "min_expected_net_edge_bps": 36.494705,
+        "round_trip_cost_bps": 16.0,
+        "sell_direction_consistency_pct": 97.406287,
+        "sell_expected_net_edge_bps": 36.494705,
+        "sell_forward_return_bps": {
+          "max": 271.31558228,
+          "mean": -82.49470374,
+          "median": -70.81866455,
+          "min": -551.4508667
+        },
+        "target_action_pct": 17.145151,
+        "target_action_side_pct": 50.87348,
+        "target_distribution": {
+          "BUY": 11299,
+          "HOLD": 107331,
+          "SELL": 10911
+        },
+        "target_hold_pct": 82.854849
+      },
+      "ok": true,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 3.0,
+        "cost_bps": 16.0,
+        "effective_min_profit_bps": 46.0,
+        "entry_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_fee_bps": null,
+        "exit_slippage_bps": null,
+        "family": "slow_directional",
+        "lookahead": 30,
+        "min_edge_bps": 30.0,
+        "name": "h30_cost16_edge30_atr3_0",
+        "round_trip_cost_bps": 16.0,
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [],
+      "sample_count": 129541,
+      "score": 48.079381,
+      "warnings": [
+        "TARGET_ACTION_RATE_NEAR_TARGET",
+        "HIGH_EDGE_FILTER_MAY_REDUCE_TRAINING_ACTIONS"
+      ]
+    }
+  },
+  "source": "https://api.binance.com|ETHUSDT|1m|90d"
+}

@@ -1,0 +1,84 @@
+{
+  "phase": "4B.4.3.6.6.21b",
+  "ok": true,
+  "checks": [
+    {
+      "name": "imports",
+      "ok": true,
+      "reason": null,
+      "details": {
+        "missing": []
+      }
+    },
+    {
+      "name": "operator_control",
+      "ok": true,
+      "reason": null,
+      "details": {
+        "controls": {
+          "contract_version": "4B.4.3.6.6.20",
+          "state": "BUY_PENDING",
+          "health_ok": true,
+          "contract_ok": true,
+          "severity": "busy",
+          "warnings": [
+            "PENDING_ORDER_ACTIVE"
+          ],
+          "reason_codes": [
+            "PENDING_ORDER_ACTIVE"
+          ],
+          "buttons": {
+            "force_buy": false,
+            "force_sell": false,
+            "cancel_pending": true,
+            "safe_mode_toggle": true,
+            "balance_sync": true,
+            "start": false,
+            "stop": true
+          },
+          "hint": "PENDING: giriş emri bekliyor",
+          "force_buy": false,
+          "force_sell": false,
+          "cancel_pending": true,
+          "safe_mode_toggle": true,
+          "balance_sync": true,
+          "start": false,
+          "stop": true,
+          "safe_mode": false,
+          "has_position": false,
+          "has_pending": true,
+          "position_is_dust": false,
+          "protective_exit_ready": true
+        },
+        "missing": []
+      }
+    },
+    {
+      "name": "position_text",
+      "ok": true,
+      "reason": null,
+      "details": {
+        "text": "Position status : IN_POSITION\nPosition source : TEST\nQty             : 0.01230000\nEntry           : 100.0000\nMark            : 101.0000\nUnrealized PnL  : -\nUnrealized %    : -\nProtective exit : READY\nExit qty        : 0.01230000\nExit notional   : 1.2400\nPosition dust   : False\nRisk plan       : READY\nStop loss       : 98.0000\nEffective SL    : 99.0000\nTake profit     : 105.0000\nPartial TP done : True\nRisk exec       : READY / HOLD\nRisk exit       : NONE / -"
+      }
+    },
+    {
+      "name": "audit_helpers",
+      "ok": true,
+      "reason": null,
+      "details": {
+        "formatted": "INFO  | Orders   | info    | ORDER_SUBMITTED        | corr=CID-1 | ok | {'clientOrderId': 'CID-1'}",
+        "summary": "Audit Viewer\n------------\nContract        : 4B.4.3.6.6.20\nTotal events    : 1\nRendered count  : 1\nFiltered events : 1\nWarnings/errors : 0 / 0\nCategories      : Orders:1\nSeverities      : info:1\nCodes           : ORDER_SUBMITTED:1\nTop codes       : ORDER_SUBMITTED:1",
+        "query_path": "/events/audit?limit=0&order=asc&code_prefix=ORDER_",
+        "filtered_count": 1
+      }
+    },
+    {
+      "name": "dashboard_class",
+      "ok": true,
+      "reason": null,
+      "details": {
+        "missing": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "avg_action_pct": null,
+  "avg_confidence": null,
+  "avg_hold_pct": null,
+  "contract_version": "4B.4.3.6.6.24C",
+  "decision": "FAIL",
+  "decision_counts": {
+    "MISSING": 1
+  },
+  "first_ts_utc": "2026-05-05T06:16:55Z",
+  "last_ts_utc": "2026-05-05T06:16:55Z",
+  "live_demo_allowed_count": 0,
+  "live_real_allowed_count": 0,
+  "phase": "4B.4.3.6.6.24C",
+  "reason_counts": {},
+  "rows": [
+    {
+      "action_pct": null,
+      "avg_confidence": null,
+      "decision": "MISSING",
+      "hold_pct": null,
+      "last_signal": "UNKNOWN",
+      "live_demo_allowed": false,
+      "live_real_allowed": false,
+      "reason_codes": [],
+      "sample_count": null,
+      "ts_utc": "2026-05-05T06:16:55Z",
+      "warnings": []
+    }
+  ],
+  "sample_count": 1,
+  "signal_counts": {
+    "UNKNOWN": 1
+  }
+}

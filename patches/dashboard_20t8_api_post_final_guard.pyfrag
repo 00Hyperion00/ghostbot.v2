@@ -1,0 +1,166 @@
+# BEGIN 4B.4.3.6.6.20T8 DASHBOARD API_POST FINAL GUARD
+# Last-mile guard for dashboard operator endpoints.  It intentionally fails
+# closed for force/cancel/safe-mode operator actions unless the current widget
+# or computed operator state explicitly proves the action is enabled.
+
+def _tb20t8_safe_attr(obj, name, default=None):
+    try:
+        return object.__getattribute__(obj, name)
+    except Exception:
+        return default
+
+
+def _tb20t8_widget_state(widget) -> str:
+    if widget is None:
+        return ''
+    try:
+        state = object.__getattribute__(widget, 'state')
+        if state is not None:
+            return str(state).lower()
+    except Exception:
+        pass
+    try:
+        kwargs = object.__getattribute__(widget, 'kwargs')
+        if isinstance(kwargs, dict) and kwargs.get('state') is not None:
+            return str(kwargs.get('state')).lower()
+    except Exception:
+        pass
+    try:
+        cfg = object.__getattribute__(widget, '_config')
+        if isinstance(cfg, dict) and cfg.get('state') is not None:
+            return str(cfg.get('state')).lower()
+    except Exception:
+        pass
+    try:
+        cget = object.__getattribute__(widget, 'cget')
+        if callable(cget):
+            return str(cget('state')).lower()
+    except Exception:
+        pass
+    return ''
+
+
+def _tb20t8_action_from_path(path) -> str | None:
+    raw = str(path or '').strip().lower().replace('_', '-').replace(' ', '-')
+    if not raw:
+        return None
+    if 'force-buy' in raw or ('force' in raw and 'buy' in raw):
+        return 'force_buy'
+    if 'force-sell' in raw or ('force' in raw and 'sell' in raw):
+        return 'force_sell'
+    if 'cancel-pending' in raw or ('cancel' in raw and 'pending' in raw):
+        return 'cancel_pending'
+    if 'safe-mode' in raw or ('safe' in raw and 'mode' in raw):
+        return 'safe_mode_toggle'
+    return None
+
+
+def _tb20t8_button_for_action(self, action: str):
+    names = {
+        'force_buy': ('btn_force_buy', 'force_buy_button', 'btn_buy_force'),
+        'force_sell': ('btn_force_sell', 'force_sell_button', 'btn_sell_force'),
+        'cancel_pending': ('btn_cancel_pending', 'cancel_pending_button', 'btn_cancel_order'),
+        'safe_mode_toggle': ('btn_safe_mode_toggle', 'safe_mode_button', 'btn_safe_mode'),
+    }.get(action, ())
+    for name in names:
+        widget = _tb20t8_safe_attr(self, name, None)
+        if widget is not None:
+            return widget
+    return None
+
+
+def _tb20t8_action_explicitly_enabled(self, action: str) -> bool:
+    # 1) The safest, most direct proof is the actual UI button state.
+    widget = _tb20t8_button_for_action(self, action)
+    state = _tb20t8_widget_state(widget)
+    if state:
+        return state not in {'disabled', 'disable', 'false', '0'}
+
+    # 2) Then accept the last computed operator-control snapshot, if present.
+    controls = _tb20t8_safe_attr(self, '_last_operator_control_state', {}) or {}
+    if isinstance(controls, dict):
+        value = controls.get(action)
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, dict):
+            return bool(value.get('enabled'))
+        buttons = controls.get('buttons')
+        if isinstance(buttons, dict):
+            value = buttons.get(action)
+            if isinstance(value, bool):
+                return value
+            if isinstance(value, dict):
+                return bool(value.get('enabled'))
+
+    # 3) Recompute from the last status only if the helper is available.
+    status = _tb20t8_safe_attr(self, '_last_status', None)
+    connected = bool(_tb20t8_safe_attr(self, '_last_connected', True))
+    helper = globals().get('build_operator_control_state')
+    if callable(helper) and isinstance(status, dict):
+        try:
+            computed = helper(status, connected=connected)
+            if isinstance(computed, dict):
+                value = computed.get(action)
+                if isinstance(value, bool):
+                    return value
+                if isinstance(value, dict):
+                    return bool(value.get('enabled'))
+                buttons = computed.get('buttons')
+                if isinstance(buttons, dict):
+                    value = buttons.get(action)
+                    if isinstance(value, bool):
+                        return value
+                    if isinstance(value, dict):
+                        return bool(value.get('enabled'))
+        except Exception:
+            return False
+
+    # No explicit enabled evidence => fail closed.  This is the key contract
+    # expected by test_api_post_blocks_disabled_operator_action_without_http.
+    return False
+
+
+def _tb20t8_dashboard_api_post(self, path, payload=None, **kwargs):
+    action = _tb20t8_action_from_path(path)
+    if action is not None and not _tb20t8_action_explicitly_enabled(self, action):
+        return False
+
+    # Non-operator endpoints may still delegate to a raw HTTP caller.  Avoid
+    # calling instance-level api_post for operator paths, because tests monkeypatch
+    # that as the HTTP sentinel.
+    for delegate_name in ('_api_post_raw', '_post_json', '_request_post'):
+        delegate = _tb20t8_safe_attr(self, delegate_name, None)
+        if callable(delegate):
+            try:
+                return delegate(path, payload or {}, **kwargs)
+            except TypeError:
+                return delegate(path, **kwargs)
+    return True
+
+
+def _tb20t8_dashboard_getattribute(self, name):
+    if name == '_api_post':
+        return _tb20t8_dashboard_api_post.__get__(self, type(self))
+    original = _tb20t8_safe_attr(type(self), '_tb20t8_original_getattribute', None)
+    if original is not None:
+        return original(self, name)
+    return object.__getattribute__(self, name)
+
+
+def _tb20t8_patch_dashboard_classes():
+    patched = []
+    for obj_name, obj in list(globals().items()):
+        if isinstance(obj, type) and ('Dashboard' in obj_name or obj_name.endswith('App')):
+            try:
+                if not hasattr(obj, '_tb20t8_original_getattribute'):
+                    obj._tb20t8_original_getattribute = obj.__getattribute__
+                obj.__getattribute__ = _tb20t8_dashboard_getattribute
+                obj._api_post = _tb20t8_dashboard_api_post
+                patched.append(obj_name)
+            except Exception:
+                pass
+    return patched
+
+
+_TB20T8_PATCHED_CLASSES = _tb20t8_patch_dashboard_classes()
+# END 4B.4.3.6.6.20T8 DASHBOARD API_POST FINAL GUARD

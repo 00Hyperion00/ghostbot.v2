@@ -1,0 +1,157 @@
+{
+  "base_url": "http://127.0.0.1:8000",
+  "contract_version": "4B.4.3.6.6.24C",
+  "duration_sec_requested": 0.0,
+  "generated_at_utc": "2026-05-05T11:14:45Z",
+  "interrupted_by_operator": false,
+  "interval_sec": 60.0,
+  "no_post_actions": true,
+  "observation_only": true,
+  "phase": "4B.4.3.6.6.24C",
+  "samples": [
+    {
+      "evaluation": {
+        "reason_codes": [
+          "DIAGNOSTICS_CRITICAL",
+          "MODEL_GATE_BLOCK",
+          "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "bootstrap_error": null,
+        "bootstrap_ok": true,
+        "degraded": false,
+        "engine_running": true,
+        "ok": true,
+        "running": true,
+        "start_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "config": {
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "execution_mode": "live_demo",
+          "live_real_double_confirm": false,
+          "live_trading_armed": false,
+          "market_type": "spot_demo",
+          "profile_mode": "live_demo",
+          "safe_to_auto_trade": true,
+          "safe_to_trade": true,
+          "warnings": []
+        },
+        "contract_version": "4B.4.3.6.6.20",
+        "diagnostics": {
+          "ready_to_operate": false,
+          "reason_codes": [
+            "MODEL_QUALITY_GATE_BLOCK",
+            "MODEL_QUALITY_WARNING",
+            "RECENT_WARNING_EVENTS_PRESENT"
+          ],
+          "severity": "critical"
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "active_anomaly_code": null,
+          "pending_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY"
+        },
+        "last_signal": "HOLD",
+        "last_signal_confidence": null,
+        "model_quality": {
+          "enabled": true,
+          "reason_codes": [
+            "HOLD_DOMINANCE_CRITICAL",
+            "LOW_MARGIN_REJECTION_CRITICAL",
+            "AVG_CONFIDENCE_LOW",
+            "ACTIONABLE_SIGNAL_LOW"
+          ],
+          "recommendation": "RETRAIN_RECOMMENDED",
+          "sample_count": 73,
+          "severity": "critical"
+        },
+        "model_quality_gate": {
+          "contract_version": "4B.4.3.6.6.24B",
+          "decision": "BLOCK",
+          "enabled": true,
+          "gate_type": "runtime",
+          "live_demo_allowed": false,
+          "live_real_allowed": false,
+          "metrics": {
+            "action_pct": 0.0,
+            "avg_confidence": 0.448883,
+            "hold_pct": 100.0,
+            "low_margin_rejection_pct": 100.0,
+            "min_runtime_samples": 30,
+            "recommendation": "RETRAIN_RECOMMENDED",
+            "sample_count": 73,
+            "severity": "critical"
+          },
+          "ok": false,
+          "reason_codes": [
+            "MODEL_QUALITY_CRITICAL",
+            "RETRAIN_RECOMMENDED",
+            "RUNTIME_HOLD_RATE_TOO_HIGH",
+            "RUNTIME_ACTION_COVERAGE_LOW",
+            "RUNTIME_LOW_MARGIN_REJECTION_HIGH"
+          ],
+          "reload_allowed": true,
+          "warnings": []
+        },
+        "ok": true,
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "guard_counts": {
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "auto_trade_skip": 50,
+            "order_canceled": 2,
+            "risk_exit_triggered": 0
+          },
+          "profit_factor": 0.0,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "ws_status": "CONNECTED"
+      },
+      "ts_utc": "2026-05-05T11:14:45Z"
+    }
+  ],
+  "summary": {
+    "decision": "FAIL",
+    "first_ts_utc": "2026-05-05T11:14:45Z",
+    "last_ts_utc": "2026-05-05T11:14:45Z",
+    "reason_counts": {
+      "DIAGNOSTICS_CRITICAL": 1,
+      "MODEL_GATE_BLOCK": 1,
+      "MODEL_GATE_LIVE_DEMO_NOT_ALLOWED": 1
+    },
+    "sample_count": 1,
+    "severity_counts": {
+      "FAIL": 1
+    },
+    "signal_counts": {
+      "HOLD": 1
+    },
+    "state_counts": {
+      "FLAT": 1
+    },
+    "ws_counts": {
+      "CONNECTED": 1
+    }
+  },
+  "timeout_sec": 15.0
+}

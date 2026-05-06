@@ -1,0 +1,4511 @@
+{
+  "contract_version": "4B.4.3.6.6.24L",
+  "phase": "4B.4.3.6.6.24L",
+  "report_type": "regime_aware_edge_filter_recovery",
+  "decision": "BLOCK",
+  "ok": false,
+  "source": "binance:ETHUSDT:1m:90d",
+  "candidate_count": 9,
+  "approved_for_training_candidate": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_live_real": false,
+  "live_real_allowed": false,
+  "reload_performed": false,
+  "config_mutation_performed": false,
+  "order_actions_performed": false,
+  "no_post_actions": true,
+  "observation_only": true,
+  "reason_codes": [
+    "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+    "REGIME_FILTER_EXPECTED_EDGE_LOW"
+  ],
+  "recommendation": "No regime-aware positive-edge filter passed. Revisit regime features, meta-labels, costs, or model objective before promote/reload.",
+  "selected_filter": "high_volume_pressure",
+  "selected_score": 17.885125,
+  "selected_filtered_action_pct": 11.302335,
+  "selected_action_precision": 0.21235917,
+  "selected_side_accuracy": 0.65594855,
+  "selected_expected_edge_proxy_bps": -12.985319,
+  "baseline": {
+    "symbol": "ETHUSDT",
+    "interval": "1m",
+    "days": 90,
+    "candidate_spec": {
+      "label_policy": {
+        "name": "h5_cost8_edge10_atr1_5",
+        "lookahead": 5,
+        "atr_multiplier": 1.5,
+        "cost_bps": 8.0,
+        "min_edge_bps": 10.0,
+        "entry_fee_bps": null,
+        "exit_fee_bps": null,
+        "entry_slippage_bps": null,
+        "exit_slippage_bps": null,
+        "use_high_low_barriers": true,
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "family": "short_edge",
+        "round_trip_cost_bps": 8.0,
+        "effective_min_profit_bps": 18.0
+      },
+      "action_profile": "balanced",
+      "side_profile": "balanced",
+      "action_threshold_profile": "recall_light",
+      "side_margin_profile": "guarded",
+      "feature_lag": null,
+      "max_depth": 3,
+      "n_estimators": 32,
+      "learning_rate": 0.04
+    },
+    "sample_count": 25915,
+    "validation_staged_distribution": {
+      "HOLD": 15394,
+      "BUY": 5029,
+      "SELL": 5492
+    },
+    "validation_staged_action_pct": 40.598109,
+    "validation_action_precision": 0.16861515,
+    "validation_action_recall": 0.56281726,
+    "validation_action_f1": 0.2594895,
+    "validation_side_accuracy": 0.63866967,
+    "expected_edge_proxy_bps": -14.123182,
+    "action_threshold": 0.48,
+    "side_margin_floor": 0.08
+  },
+  "selection": {
+    "contract_version": "4B.4.3.6.6.24L",
+    "decision": "BLOCK",
+    "approved": false,
+    "reason_codes": [
+      "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+      "REGIME_FILTER_EXPECTED_EDGE_LOW"
+    ],
+    "best_candidate": {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "high_volume_pressure",
+        "family": "volume",
+        "description": "High volume regime with taker/price pressure alignment",
+        "approvable": true
+      },
+      "reason_codes": [
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 2929,
+        "filtered_action_pct": 11.302335,
+        "filtered_distribution": {
+          "HOLD": 22986,
+          "BUY": 1403,
+          "SELL": 1526
+        },
+        "filtered_action_side_pct": 52.099693,
+        "filtered_directional_entropy": 0.998728,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": 0.04374402,
+        "filtered_side_accuracy": 0.65594855,
+        "expected_edge_proxy_bps": -12.985319,
+        "action_precision": 0.21235917,
+        "action_recall": 0.19733503,
+        "action_f1": 0.20457162
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": 17.885125
+    }
+  },
+  "candidates": [
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "all_staged_actions",
+        "family": "diagnostic",
+        "description": "Diagnostic unfiltered staged actions",
+        "approvable": false
+      },
+      "reason_codes": [
+        "DIAGNOSTIC_FILTER_NOT_APPROVABLE",
+        "REGIME_FILTER_ACTION_COVERAGE_HIGH",
+        "REGIME_FILTER_ACTION_PRECISION_LOW",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 10521,
+        "filtered_action_pct": 40.598109,
+        "filtered_distribution": {
+          "HOLD": 15394,
+          "BUY": 5029,
+          "SELL": 5492
+        },
+        "filtered_action_side_pct": 52.200361,
+        "filtered_directional_entropy": 0.998603,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": 0.0,
+        "filtered_side_accuracy": 0.63866967,
+        "expected_edge_proxy_bps": -14.123182,
+        "action_precision": 0.16861515,
+        "action_recall": 0.56281726,
+        "action_f1": 0.2594895
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": -15.103246
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "mtf_trend_aligned",
+        "family": "trend",
+        "description": "BUY with positive 15m trend or SELL with negative 15m trend",
+        "approvable": true
+      },
+      "reason_codes": [
+        "REGIME_FILTER_ACTION_PRECISION_LOW",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 9044,
+        "filtered_action_pct": 34.898707,
+        "filtered_distribution": {
+          "HOLD": 16871,
+          "BUY": 4342,
+          "SELL": 4702
+        },
+        "filtered_action_side_pct": 51.99027,
+        "filtered_directional_entropy": 0.998857,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": 0.00033664,
+        "filtered_side_accuracy": 0.6354712,
+        "expected_edge_proxy_bps": -14.134896,
+        "action_precision": 0.16895179,
+        "action_recall": 0.48477157,
+        "action_f1": 0.25057396
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": -10.602511
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "ema_vwap_aligned",
+        "family": "trend",
+        "description": "Staged side aligned with EMA spread and VWAP distance",
+        "approvable": true
+      },
+      "reason_codes": [
+        "REGIME_FILTER_SIDE_IMBALANCE_HIGH",
+        "REGIME_FILTER_DIRECTIONAL_ENTROPY_LOW",
+        "REGIME_FILTER_ACTION_PRECISION_LOW",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 3557,
+        "filtered_action_pct": 13.725642,
+        "filtered_distribution": {
+          "HOLD": 22358,
+          "BUY": 3557,
+          "SELL": 0
+        },
+        "filtered_action_side_pct": 100.0,
+        "filtered_directional_entropy": 0.0,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": 0.00484563,
+        "filtered_side_accuracy": 0.64829822,
+        "expected_edge_proxy_bps": -13.951645,
+        "action_precision": 0.17346078,
+        "action_recall": 0.19574873,
+        "action_f1": 0.18393203
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": -23.601129
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "high_volume_pressure",
+        "family": "volume",
+        "description": "High volume regime with taker/price pressure alignment",
+        "approvable": true
+      },
+      "reason_codes": [
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 2929,
+        "filtered_action_pct": 11.302335,
+        "filtered_distribution": {
+          "HOLD": 22986,
+          "BUY": 1403,
+          "SELL": 1526
+        },
+        "filtered_action_side_pct": 52.099693,
+        "filtered_directional_entropy": 0.998728,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": 0.04374402,
+        "filtered_side_accuracy": 0.65594855,
+        "expected_edge_proxy_bps": -12.985319,
+        "action_precision": 0.21235917,
+        "action_recall": 0.19733503,
+        "action_f1": 0.20457162
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": 17.885125
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "atr_expansion_non_range",
+        "family": "volatility",
+        "description": "ATR expansion while range regime is not dominant",
+        "approvable": true
+      },
+      "reason_codes": [
+        "REGIME_FILTER_ACTION_PRECISION_LOW",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 4128,
+        "filtered_action_pct": 15.928999,
+        "filtered_distribution": {
+          "HOLD": 21787,
+          "BUY": 2038,
+          "SELL": 2090
+        },
+        "filtered_action_side_pct": 50.629845,
+        "filtered_directional_entropy": 0.999886,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": 0.01064842,
+        "filtered_side_accuracy": 0.66621622,
+        "expected_edge_proxy_bps": -13.700581,
+        "action_precision": 0.17926357,
+        "action_recall": 0.23477157,
+        "action_f1": 0.2032967
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": 8.220356
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "rsi_mid_trend",
+        "family": "momentum",
+        "description": "RSI in non-extreme trend-following band",
+        "approvable": true
+      },
+      "reason_codes": [
+        "REGIME_FILTER_ACTION_PRECISION_LOW",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 6173,
+        "filtered_action_pct": 23.820181,
+        "filtered_distribution": {
+          "HOLD": 19742,
+          "BUY": 2954,
+          "SELL": 3219
+        },
+        "filtered_action_side_pct": 52.146444,
+        "filtered_directional_entropy": 0.99867,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": -0.0051614,
+        "filtered_side_accuracy": 0.61446977,
+        "expected_edge_proxy_bps": -14.384254,
+        "action_precision": 0.16345375,
+        "action_recall": 0.32011421,
+        "action_f1": 0.21640751
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": -3.858097
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "trend_strength_top_quartile",
+        "family": "trend",
+        "description": "Top-quartile trend strength proxy",
+        "approvable": true
+      },
+      "reason_codes": [
+        "REGIME_FILTER_ACTION_PRECISION_LOW",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 3493,
+        "filtered_action_pct": 13.47868,
+        "filtered_distribution": {
+          "HOLD": 22422,
+          "BUY": 1758,
+          "SELL": 1735
+        },
+        "filtered_action_side_pct": 50.32923,
+        "filtered_directional_entropy": 0.999969,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": 0.00630612,
+        "filtered_side_accuracy": 0.70376432,
+        "expected_edge_proxy_bps": -13.568279,
+        "action_precision": 0.17492127,
+        "action_recall": 0.19384518,
+        "action_f1": 0.18389767
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": 10.790044
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "vwap_breakout_side",
+        "family": "vwap",
+        "description": "Side agrees with close-to-VWAP sign",
+        "approvable": true
+      },
+      "reason_codes": [
+        "REGIME_FILTER_ACTION_PRECISION_LOW",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 8912,
+        "filtered_action_pct": 34.38935,
+        "filtered_distribution": {
+          "HOLD": 17003,
+          "BUY": 5029,
+          "SELL": 3883
+        },
+        "filtered_action_side_pct": 56.429533,
+        "filtered_directional_entropy": 0.988039,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": 0.00261465,
+        "filtered_side_accuracy": 0.63499345,
+        "expected_edge_proxy_bps": -14.085727,
+        "action_precision": 0.1712298,
+        "action_recall": 0.48413706,
+        "action_f1": 0.25298408
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": -10.701652
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "report_type": "regime_edge_filter_candidate_gate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "filter": {
+        "name": "low_range_high_trend",
+        "family": "regime",
+        "description": "Low range flag and high trend strength",
+        "approvable": true
+      },
+      "reason_codes": [
+        "REGIME_FILTER_ACTION_PRECISION_LOW",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "warnings": [],
+      "metrics": {
+        "sample_count": 25915,
+        "filtered_action_count": 4088,
+        "filtered_action_pct": 15.774648,
+        "filtered_distribution": {
+          "HOLD": 21827,
+          "BUY": 1995,
+          "SELL": 2093
+        },
+        "filtered_action_side_pct": 51.19863,
+        "filtered_directional_entropy": 0.999585,
+        "baseline_action_precision": 0.16861515,
+        "action_precision_lift": 0.00066078,
+        "filtered_side_accuracy": 0.68930636,
+        "expected_edge_proxy_bps": -13.799413,
+        "action_precision": 0.16927593,
+        "action_recall": 0.21954315,
+        "action_f1": 0.19116022
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_filter_action_count": 30,
+        "min_filtered_action_pct": 1.0,
+        "max_filtered_action_pct": 35.0,
+        "max_filtered_action_side_pct": 82.0,
+        "min_action_precision_lift": 0.02,
+        "min_action_precision": 0.18,
+        "min_side_accuracy": 0.54,
+        "min_expected_edge_proxy_bps": 1.0,
+        "min_directional_entropy": 0.62,
+        "target_filtered_action_pct": 12.0
+      },
+      "score": 7.041102
+    }
+  ],
+  "guardrails": {
+    "observation_only": true,
+    "no_post_actions": true,
+    "post_requests_allowed": false,
+    "config_mutation_performed": false,
+    "order_actions_performed": false,
+    "reload_performed": false,
+    "live_real_allowed": false,
+    "promotion_requires_explicit_flag": true
+  },
+  "candidate_run_count": 6,
+  "candidate_runs": [
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "phase": "4B.4.3.6.6.24L",
+      "report_type": "regime_aware_edge_filter_recovery",
+      "decision": "BLOCK",
+      "ok": false,
+      "source": "binance:ETHUSDT:1m:90d",
+      "candidate_count": 9,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "reload_performed": false,
+      "config_mutation_performed": false,
+      "order_actions_performed": false,
+      "no_post_actions": true,
+      "observation_only": true,
+      "reason_codes": [
+        "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "recommendation": "No regime-aware positive-edge filter passed. Revisit regime features, meta-labels, costs, or model objective before promote/reload.",
+      "selected_filter": "high_volume_pressure",
+      "selected_score": 14.714053,
+      "selected_filtered_action_pct": 8.875169,
+      "selected_action_precision": 0.20826087,
+      "selected_side_accuracy": 0.65553236,
+      "selected_expected_edge_proxy_bps": -13.085217,
+      "baseline": {
+        "symbol": "ETHUSDT",
+        "interval": "1m",
+        "days": 90,
+        "candidate_spec": {
+          "label_policy": {
+            "name": "h5_cost8_edge10_atr1_5",
+            "lookahead": 5,
+            "atr_multiplier": 1.5,
+            "cost_bps": 8.0,
+            "min_edge_bps": 10.0,
+            "entry_fee_bps": null,
+            "exit_fee_bps": null,
+            "entry_slippage_bps": null,
+            "exit_slippage_bps": null,
+            "use_high_low_barriers": true,
+            "ambiguous_barrier_policy": "hold",
+            "approvable": true,
+            "family": "short_edge",
+            "round_trip_cost_bps": 8.0,
+            "effective_min_profit_bps": 18.0
+          },
+          "action_profile": "balanced",
+          "side_profile": "balanced",
+          "action_threshold_profile": "recall_light",
+          "side_margin_profile": "strict",
+          "feature_lag": null,
+          "max_depth": 3,
+          "n_estimators": 32,
+          "learning_rate": 0.04
+        },
+        "sample_count": 25915,
+        "validation_staged_distribution": {
+          "HOLD": 18042,
+          "BUY": 4050,
+          "SELL": 3823
+        },
+        "validation_staged_action_pct": 30.380089,
+        "validation_action_precision": 0.1721072,
+        "validation_action_recall": 0.42988579,
+        "validation_action_f1": 0.24580499,
+        "validation_side_accuracy": 0.6597786,
+        "expected_edge_proxy_bps": -13.912105,
+        "action_threshold": 0.48,
+        "side_margin_floor": 0.12
+      },
+      "selection": {
+        "contract_version": "4B.4.3.6.6.24L",
+        "decision": "BLOCK",
+        "approved": false,
+        "reason_codes": [
+          "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+          "REGIME_FILTER_EXPECTED_EDGE_LOW"
+        ],
+        "best_candidate": {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2300,
+            "filtered_action_pct": 8.875169,
+            "filtered_distribution": {
+              "HOLD": 23615,
+              "BUY": 1183,
+              "SELL": 1117
+            },
+            "filtered_action_side_pct": 51.434783,
+            "filtered_directional_entropy": 0.999406,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": 0.03615367,
+            "filtered_side_accuracy": 0.65553236,
+            "expected_edge_proxy_bps": -13.085217,
+            "action_precision": 0.20826087,
+            "action_recall": 0.15196701,
+            "action_f1": 0.17571533
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 14.714053
+        }
+      },
+      "candidates": [
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "all_staged_actions",
+            "family": "diagnostic",
+            "description": "Diagnostic unfiltered staged actions",
+            "approvable": false
+          },
+          "reason_codes": [
+            "DIAGNOSTIC_FILTER_NOT_APPROVABLE",
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 7873,
+            "filtered_action_pct": 30.380089,
+            "filtered_distribution": {
+              "HOLD": 18042,
+              "BUY": 4050,
+              "SELL": 3823
+            },
+            "filtered_action_side_pct": 51.441636,
+            "filtered_directional_entropy": 0.9994,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": 0.0,
+            "filtered_side_accuracy": 0.6597786,
+            "expected_edge_proxy_bps": -13.912105,
+            "action_precision": 0.1721072,
+            "action_recall": 0.42988579,
+            "action_f1": 0.24580499
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -5.524203
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "mtf_trend_aligned",
+            "family": "trend",
+            "description": "BUY with positive 15m trend or SELL with negative 15m trend",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 7119,
+            "filtered_action_pct": 27.470577,
+            "filtered_distribution": {
+              "HOLD": 18796,
+              "BUY": 3678,
+              "SELL": 3441
+            },
+            "filtered_action_side_pct": 51.66456,
+            "filtered_directional_entropy": 0.9992,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": 0.00109128,
+            "filtered_side_accuracy": 0.65531225,
+            "expected_edge_proxy_bps": -13.914033,
+            "action_precision": 0.17319848,
+            "action_recall": 0.3911802,
+            "action_f1": 0.24009347
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -3.13801
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "ema_vwap_aligned",
+            "family": "trend",
+            "description": "Staged side aligned with EMA spread and VWAP distance",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_SIDE_IMBALANCE_HIGH",
+            "REGIME_FILTER_DIRECTIONAL_ENTROPY_LOW",
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2998,
+            "filtered_action_pct": 11.56859,
+            "filtered_distribution": {
+              "HOLD": 22917,
+              "BUY": 2998,
+              "SELL": 0
+            },
+            "filtered_action_side_pct": 100.0,
+            "filtered_directional_entropy": 0.0,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": 0.00601155,
+            "filtered_side_accuracy": 0.65917603,
+            "expected_edge_proxy_bps": -13.773182,
+            "action_precision": 0.17811875,
+            "action_recall": 0.16941624,
+            "action_f1": 0.17365854
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -21.323412
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2300,
+            "filtered_action_pct": 8.875169,
+            "filtered_distribution": {
+              "HOLD": 23615,
+              "BUY": 1183,
+              "SELL": 1117
+            },
+            "filtered_action_side_pct": 51.434783,
+            "filtered_directional_entropy": 0.999406,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": 0.03615367,
+            "filtered_side_accuracy": 0.65553236,
+            "expected_edge_proxy_bps": -13.085217,
+            "action_precision": 0.20826087,
+            "action_recall": 0.15196701,
+            "action_f1": 0.17571533
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 14.714053
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "atr_expansion_non_range",
+            "family": "volatility",
+            "description": "ATR expansion while range regime is not dominant",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3381,
+            "filtered_action_pct": 13.046498,
+            "filtered_distribution": {
+              "HOLD": 22534,
+              "BUY": 1755,
+              "SELL": 1626
+            },
+            "filtered_action_side_pct": 51.90772,
+            "filtered_directional_entropy": 0.99895,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": 0.00565086,
+            "filtered_side_accuracy": 0.68053245,
+            "expected_edge_proxy_bps": -13.645075,
+            "action_precision": 0.17775806,
+            "action_recall": 0.19067259,
+            "action_f1": 0.18398898
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 10.5165
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "rsi_mid_trend",
+            "family": "momentum",
+            "description": "RSI in non-extreme trend-following band",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 4275,
+            "filtered_action_pct": 16.496238,
+            "filtered_distribution": {
+              "HOLD": 21640,
+              "BUY": 2228,
+              "SELL": 2047
+            },
+            "filtered_action_side_pct": 52.116959,
+            "filtered_directional_entropy": 0.998707,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": -0.0043879,
+            "filtered_side_accuracy": 0.62622036,
+            "expected_edge_proxy_bps": -14.218947,
+            "action_precision": 0.1677193,
+            "action_recall": 0.22747462,
+            "action_f1": 0.19307931
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 3.172624
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "trend_strength_top_quartile",
+            "family": "trend",
+            "description": "Top-quartile trend strength proxy",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3400,
+            "filtered_action_pct": 13.119815,
+            "filtered_distribution": {
+              "HOLD": 22515,
+              "BUY": 1758,
+              "SELL": 1642
+            },
+            "filtered_action_side_pct": 51.705882,
+            "filtered_directional_entropy": 0.99916,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": 0.00171633,
+            "filtered_side_accuracy": 0.7072758,
+            "expected_edge_proxy_bps": -13.574118,
+            "action_precision": 0.17382353,
+            "action_recall": 0.1875,
+            "action_f1": 0.18040293
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 10.693845
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "vwap_breakout_side",
+            "family": "vwap",
+            "description": "Side agrees with close-to-VWAP sign",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 7287,
+            "filtered_action_pct": 28.11885,
+            "filtered_distribution": {
+              "HOLD": 18628,
+              "BUY": 4050,
+              "SELL": 3237
+            },
+            "filtered_action_side_pct": 55.578427,
+            "filtered_directional_entropy": 0.991002,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": 0.00094069,
+            "filtered_side_accuracy": 0.65107058,
+            "expected_edge_proxy_bps": -13.94401,
+            "action_precision": 0.17304789,
+            "action_recall": 0.40006345,
+            "action_f1": 0.24159402
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -4.275837
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "low_range_high_trend",
+            "family": "regime",
+            "description": "Low range flag and high trend strength",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3704,
+            "filtered_action_pct": 14.292881,
+            "filtered_distribution": {
+              "HOLD": 22211,
+              "BUY": 1890,
+              "SELL": 1814
+            },
+            "filtered_action_side_pct": 51.025918,
+            "filtered_directional_entropy": 0.999696,
+            "baseline_action_precision": 0.1721072,
+            "action_precision_lift": -0.00310072,
+            "filtered_side_accuracy": 0.70447284,
+            "expected_edge_proxy_bps": -13.713823,
+            "action_precision": 0.16900648,
+            "action_recall": 0.19860406,
+            "action_f1": 0.18261377
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 8.524825
+        }
+      ],
+      "guardrails": {
+        "observation_only": true,
+        "no_post_actions": true,
+        "post_requests_allowed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reload_performed": false,
+        "live_real_allowed": false,
+        "promotion_requires_explicit_flag": true
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "phase": "4B.4.3.6.6.24L",
+      "report_type": "regime_aware_edge_filter_recovery",
+      "decision": "BLOCK",
+      "ok": false,
+      "source": "binance:ETHUSDT:1m:90d",
+      "candidate_count": 9,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "reload_performed": false,
+      "config_mutation_performed": false,
+      "order_actions_performed": false,
+      "no_post_actions": true,
+      "observation_only": true,
+      "reason_codes": [
+        "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "recommendation": "No regime-aware positive-edge filter passed. Revisit regime features, meta-labels, costs, or model objective before promote/reload.",
+      "selected_filter": "high_volume_pressure",
+      "selected_score": 17.885125,
+      "selected_filtered_action_pct": 11.302335,
+      "selected_action_precision": 0.21235917,
+      "selected_side_accuracy": 0.65594855,
+      "selected_expected_edge_proxy_bps": -12.985319,
+      "baseline": {
+        "symbol": "ETHUSDT",
+        "interval": "1m",
+        "days": 90,
+        "candidate_spec": {
+          "label_policy": {
+            "name": "h5_cost8_edge10_atr1_5",
+            "lookahead": 5,
+            "atr_multiplier": 1.5,
+            "cost_bps": 8.0,
+            "min_edge_bps": 10.0,
+            "entry_fee_bps": null,
+            "exit_fee_bps": null,
+            "entry_slippage_bps": null,
+            "exit_slippage_bps": null,
+            "use_high_low_barriers": true,
+            "ambiguous_barrier_policy": "hold",
+            "approvable": true,
+            "family": "short_edge",
+            "round_trip_cost_bps": 8.0,
+            "effective_min_profit_bps": 18.0
+          },
+          "action_profile": "balanced",
+          "side_profile": "balanced",
+          "action_threshold_profile": "recall_light",
+          "side_margin_profile": "guarded",
+          "feature_lag": null,
+          "max_depth": 3,
+          "n_estimators": 32,
+          "learning_rate": 0.04
+        },
+        "sample_count": 25915,
+        "validation_staged_distribution": {
+          "HOLD": 15394,
+          "BUY": 5029,
+          "SELL": 5492
+        },
+        "validation_staged_action_pct": 40.598109,
+        "validation_action_precision": 0.16861515,
+        "validation_action_recall": 0.56281726,
+        "validation_action_f1": 0.2594895,
+        "validation_side_accuracy": 0.63866967,
+        "expected_edge_proxy_bps": -14.123182,
+        "action_threshold": 0.48,
+        "side_margin_floor": 0.08
+      },
+      "selection": {
+        "contract_version": "4B.4.3.6.6.24L",
+        "decision": "BLOCK",
+        "approved": false,
+        "reason_codes": [
+          "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+          "REGIME_FILTER_EXPECTED_EDGE_LOW"
+        ],
+        "best_candidate": {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2929,
+            "filtered_action_pct": 11.302335,
+            "filtered_distribution": {
+              "HOLD": 22986,
+              "BUY": 1403,
+              "SELL": 1526
+            },
+            "filtered_action_side_pct": 52.099693,
+            "filtered_directional_entropy": 0.998728,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": 0.04374402,
+            "filtered_side_accuracy": 0.65594855,
+            "expected_edge_proxy_bps": -12.985319,
+            "action_precision": 0.21235917,
+            "action_recall": 0.19733503,
+            "action_f1": 0.20457162
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 17.885125
+        }
+      },
+      "candidates": [
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "all_staged_actions",
+            "family": "diagnostic",
+            "description": "Diagnostic unfiltered staged actions",
+            "approvable": false
+          },
+          "reason_codes": [
+            "DIAGNOSTIC_FILTER_NOT_APPROVABLE",
+            "REGIME_FILTER_ACTION_COVERAGE_HIGH",
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 10521,
+            "filtered_action_pct": 40.598109,
+            "filtered_distribution": {
+              "HOLD": 15394,
+              "BUY": 5029,
+              "SELL": 5492
+            },
+            "filtered_action_side_pct": 52.200361,
+            "filtered_directional_entropy": 0.998603,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": 0.0,
+            "filtered_side_accuracy": 0.63866967,
+            "expected_edge_proxy_bps": -14.123182,
+            "action_precision": 0.16861515,
+            "action_recall": 0.56281726,
+            "action_f1": 0.2594895
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -15.103246
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "mtf_trend_aligned",
+            "family": "trend",
+            "description": "BUY with positive 15m trend or SELL with negative 15m trend",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 9044,
+            "filtered_action_pct": 34.898707,
+            "filtered_distribution": {
+              "HOLD": 16871,
+              "BUY": 4342,
+              "SELL": 4702
+            },
+            "filtered_action_side_pct": 51.99027,
+            "filtered_directional_entropy": 0.998857,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": 0.00033664,
+            "filtered_side_accuracy": 0.6354712,
+            "expected_edge_proxy_bps": -14.134896,
+            "action_precision": 0.16895179,
+            "action_recall": 0.48477157,
+            "action_f1": 0.25057396
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -10.602511
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "ema_vwap_aligned",
+            "family": "trend",
+            "description": "Staged side aligned with EMA spread and VWAP distance",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_SIDE_IMBALANCE_HIGH",
+            "REGIME_FILTER_DIRECTIONAL_ENTROPY_LOW",
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3557,
+            "filtered_action_pct": 13.725642,
+            "filtered_distribution": {
+              "HOLD": 22358,
+              "BUY": 3557,
+              "SELL": 0
+            },
+            "filtered_action_side_pct": 100.0,
+            "filtered_directional_entropy": 0.0,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": 0.00484563,
+            "filtered_side_accuracy": 0.64829822,
+            "expected_edge_proxy_bps": -13.951645,
+            "action_precision": 0.17346078,
+            "action_recall": 0.19574873,
+            "action_f1": 0.18393203
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -23.601129
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2929,
+            "filtered_action_pct": 11.302335,
+            "filtered_distribution": {
+              "HOLD": 22986,
+              "BUY": 1403,
+              "SELL": 1526
+            },
+            "filtered_action_side_pct": 52.099693,
+            "filtered_directional_entropy": 0.998728,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": 0.04374402,
+            "filtered_side_accuracy": 0.65594855,
+            "expected_edge_proxy_bps": -12.985319,
+            "action_precision": 0.21235917,
+            "action_recall": 0.19733503,
+            "action_f1": 0.20457162
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 17.885125
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "atr_expansion_non_range",
+            "family": "volatility",
+            "description": "ATR expansion while range regime is not dominant",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 4128,
+            "filtered_action_pct": 15.928999,
+            "filtered_distribution": {
+              "HOLD": 21787,
+              "BUY": 2038,
+              "SELL": 2090
+            },
+            "filtered_action_side_pct": 50.629845,
+            "filtered_directional_entropy": 0.999886,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": 0.01064842,
+            "filtered_side_accuracy": 0.66621622,
+            "expected_edge_proxy_bps": -13.700581,
+            "action_precision": 0.17926357,
+            "action_recall": 0.23477157,
+            "action_f1": 0.2032967
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 8.220356
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "rsi_mid_trend",
+            "family": "momentum",
+            "description": "RSI in non-extreme trend-following band",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 6173,
+            "filtered_action_pct": 23.820181,
+            "filtered_distribution": {
+              "HOLD": 19742,
+              "BUY": 2954,
+              "SELL": 3219
+            },
+            "filtered_action_side_pct": 52.146444,
+            "filtered_directional_entropy": 0.99867,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": -0.0051614,
+            "filtered_side_accuracy": 0.61446977,
+            "expected_edge_proxy_bps": -14.384254,
+            "action_precision": 0.16345375,
+            "action_recall": 0.32011421,
+            "action_f1": 0.21640751
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -3.858097
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "trend_strength_top_quartile",
+            "family": "trend",
+            "description": "Top-quartile trend strength proxy",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3493,
+            "filtered_action_pct": 13.47868,
+            "filtered_distribution": {
+              "HOLD": 22422,
+              "BUY": 1758,
+              "SELL": 1735
+            },
+            "filtered_action_side_pct": 50.32923,
+            "filtered_directional_entropy": 0.999969,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": 0.00630612,
+            "filtered_side_accuracy": 0.70376432,
+            "expected_edge_proxy_bps": -13.568279,
+            "action_precision": 0.17492127,
+            "action_recall": 0.19384518,
+            "action_f1": 0.18389767
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 10.790044
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "vwap_breakout_side",
+            "family": "vwap",
+            "description": "Side agrees with close-to-VWAP sign",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 8912,
+            "filtered_action_pct": 34.38935,
+            "filtered_distribution": {
+              "HOLD": 17003,
+              "BUY": 5029,
+              "SELL": 3883
+            },
+            "filtered_action_side_pct": 56.429533,
+            "filtered_directional_entropy": 0.988039,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": 0.00261465,
+            "filtered_side_accuracy": 0.63499345,
+            "expected_edge_proxy_bps": -14.085727,
+            "action_precision": 0.1712298,
+            "action_recall": 0.48413706,
+            "action_f1": 0.25298408
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -10.701652
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "low_range_high_trend",
+            "family": "regime",
+            "description": "Low range flag and high trend strength",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 4088,
+            "filtered_action_pct": 15.774648,
+            "filtered_distribution": {
+              "HOLD": 21827,
+              "BUY": 1995,
+              "SELL": 2093
+            },
+            "filtered_action_side_pct": 51.19863,
+            "filtered_directional_entropy": 0.999585,
+            "baseline_action_precision": 0.16861515,
+            "action_precision_lift": 0.00066078,
+            "filtered_side_accuracy": 0.68930636,
+            "expected_edge_proxy_bps": -13.799413,
+            "action_precision": 0.16927593,
+            "action_recall": 0.21954315,
+            "action_f1": 0.19116022
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 7.041102
+        }
+      ],
+      "guardrails": {
+        "observation_only": true,
+        "no_post_actions": true,
+        "post_requests_allowed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reload_performed": false,
+        "live_real_allowed": false,
+        "promotion_requires_explicit_flag": true
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "phase": "4B.4.3.6.6.24L",
+      "report_type": "regime_aware_edge_filter_recovery",
+      "decision": "BLOCK",
+      "ok": false,
+      "source": "binance:ETHUSDT:1m:90d",
+      "candidate_count": 9,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "reload_performed": false,
+      "config_mutation_performed": false,
+      "order_actions_performed": false,
+      "no_post_actions": true,
+      "observation_only": true,
+      "reason_codes": [
+        "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "recommendation": "No regime-aware positive-edge filter passed. Revisit regime features, meta-labels, costs, or model objective before promote/reload.",
+      "selected_filter": "high_volume_pressure",
+      "selected_score": 16.83932,
+      "selected_filtered_action_pct": 12.706926,
+      "selected_action_precision": 0.2092317,
+      "selected_side_accuracy": 0.65166909,
+      "selected_expected_edge_proxy_bps": -13.091406,
+      "baseline": {
+        "symbol": "ETHUSDT",
+        "interval": "1m",
+        "days": 90,
+        "candidate_spec": {
+          "label_policy": {
+            "name": "h5_cost8_edge10_atr1_5",
+            "lookahead": 5,
+            "atr_multiplier": 1.5,
+            "cost_bps": 8.0,
+            "min_edge_bps": 10.0,
+            "entry_fee_bps": null,
+            "exit_fee_bps": null,
+            "entry_slippage_bps": null,
+            "exit_slippage_bps": null,
+            "use_high_low_barriers": true,
+            "ambiguous_barrier_policy": "hold",
+            "approvable": true,
+            "family": "short_edge",
+            "round_trip_cost_bps": 8.0,
+            "effective_min_profit_bps": 18.0
+          },
+          "action_profile": "balanced",
+          "side_profile": "balanced",
+          "action_threshold_profile": "recall_light",
+          "side_margin_profile": "balanced",
+          "feature_lag": null,
+          "max_depth": 3,
+          "n_estimators": 32,
+          "learning_rate": 0.04
+        },
+        "sample_count": 25915,
+        "validation_staged_distribution": {
+          "HOLD": 13901,
+          "BUY": 5795,
+          "SELL": 6219
+        },
+        "validation_staged_action_pct": 46.359251,
+        "validation_action_precision": 0.17030132,
+        "validation_action_recall": 0.64911168,
+        "validation_action_f1": 0.26981406,
+        "validation_side_accuracy": 0.63245357,
+        "expected_edge_proxy_bps": -14.122524,
+        "action_threshold": 0.48,
+        "side_margin_floor": 0.05
+      },
+      "selection": {
+        "contract_version": "4B.4.3.6.6.24L",
+        "decision": "BLOCK",
+        "approved": false,
+        "reason_codes": [
+          "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+          "REGIME_FILTER_EXPECTED_EDGE_LOW"
+        ],
+        "best_candidate": {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3293,
+            "filtered_action_pct": 12.706926,
+            "filtered_distribution": {
+              "HOLD": 22622,
+              "BUY": 1565,
+              "SELL": 1728
+            },
+            "filtered_action_side_pct": 52.474947,
+            "filtered_directional_entropy": 0.998232,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": 0.03893038,
+            "filtered_side_accuracy": 0.65166909,
+            "expected_edge_proxy_bps": -13.091406,
+            "action_precision": 0.2092317,
+            "action_recall": 0.21859137,
+            "action_f1": 0.21380915
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 16.83932
+        }
+      },
+      "candidates": [
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "all_staged_actions",
+            "family": "diagnostic",
+            "description": "Diagnostic unfiltered staged actions",
+            "approvable": false
+          },
+          "reason_codes": [
+            "DIAGNOSTIC_FILTER_NOT_APPROVABLE",
+            "REGIME_FILTER_ACTION_COVERAGE_HIGH",
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 12014,
+            "filtered_action_pct": 46.359251,
+            "filtered_distribution": {
+              "HOLD": 13901,
+              "BUY": 5795,
+              "SELL": 6219
+            },
+            "filtered_action_side_pct": 51.764608,
+            "filtered_directional_entropy": 0.999101,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": 0.0,
+            "filtered_side_accuracy": 0.63245357,
+            "expected_edge_proxy_bps": -14.122524,
+            "action_precision": 0.17030132,
+            "action_recall": 0.64911168,
+            "action_f1": 0.26981406
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -19.72871
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "mtf_trend_aligned",
+            "family": "trend",
+            "description": "BUY with positive 15m trend or SELL with negative 15m trend",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_COVERAGE_HIGH",
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 9889,
+            "filtered_action_pct": 38.159367,
+            "filtered_distribution": {
+              "HOLD": 16026,
+              "BUY": 4850,
+              "SELL": 5039
+            },
+            "filtered_action_side_pct": 50.955607,
+            "filtered_directional_entropy": 0.999736,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": -0.00051671,
+            "filtered_side_accuracy": 0.63132817,
+            "expected_edge_proxy_bps": -14.141167,
+            "action_precision": 0.16978461,
+            "action_recall": 0.53267766,
+            "action_f1": 0.25749559
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -13.332858
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "ema_vwap_aligned",
+            "family": "trend",
+            "description": "Staged side aligned with EMA spread and VWAP distance",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_SIDE_IMBALANCE_HIGH",
+            "REGIME_FILTER_DIRECTIONAL_ENTROPY_LOW",
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 4066,
+            "filtered_action_pct": 15.689755,
+            "filtered_distribution": {
+              "HOLD": 21849,
+              "BUY": 4066,
+              "SELL": 0
+            },
+            "filtered_action_side_pct": 100.0,
+            "filtered_directional_entropy": 0.0,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": 0.0050553,
+            "filtered_side_accuracy": 0.64375877,
+            "expected_edge_proxy_bps": -13.936055,
+            "action_precision": 0.17535662,
+            "action_recall": 0.22620558,
+            "action_f1": 0.19756165
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -25.071065
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3293,
+            "filtered_action_pct": 12.706926,
+            "filtered_distribution": {
+              "HOLD": 22622,
+              "BUY": 1565,
+              "SELL": 1728
+            },
+            "filtered_action_side_pct": 52.474947,
+            "filtered_directional_entropy": 0.998232,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": 0.03893038,
+            "filtered_side_accuracy": 0.65166909,
+            "expected_edge_proxy_bps": -13.091406,
+            "action_precision": 0.2092317,
+            "action_recall": 0.21859137,
+            "action_f1": 0.21380915
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 16.83932
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "atr_expansion_non_range",
+            "family": "volatility",
+            "description": "ATR expansion while range regime is not dominant",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 4543,
+            "filtered_action_pct": 17.530388,
+            "filtered_distribution": {
+              "HOLD": 21372,
+              "BUY": 2271,
+              "SELL": 2272
+            },
+            "filtered_action_side_pct": 50.011006,
+            "filtered_directional_entropy": 1.0,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": 0.00777484,
+            "filtered_side_accuracy": 0.66254635,
+            "expected_edge_proxy_bps": -13.752586,
+            "action_precision": 0.17807616,
+            "action_recall": 0.25666244,
+            "action_f1": 0.21026641
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 6.376511
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "rsi_mid_trend",
+            "family": "momentum",
+            "description": "RSI in non-extreme trend-following band",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 7214,
+            "filtered_action_pct": 27.83716,
+            "filtered_distribution": {
+              "HOLD": 18701,
+              "BUY": 3501,
+              "SELL": 3713
+            },
+            "filtered_action_side_pct": 51.469365,
+            "filtered_directional_entropy": 0.999377,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": -0.00423534,
+            "filtered_side_accuracy": 0.61686144,
+            "expected_edge_proxy_bps": -14.312171,
+            "action_precision": 0.16606598,
+            "action_recall": 0.38007614,
+            "action_f1": 0.23114027
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -6.520456
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "trend_strength_top_quartile",
+            "family": "trend",
+            "description": "Top-quartile trend strength proxy",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3512,
+            "filtered_action_pct": 13.551997,
+            "filtered_distribution": {
+              "HOLD": 22403,
+              "BUY": 1764,
+              "SELL": 1748
+            },
+            "filtered_action_side_pct": 50.22779,
+            "filtered_directional_entropy": 0.999985,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": 0.00452784,
+            "filtered_side_accuracy": 0.70358306,
+            "expected_edge_proxy_bps": -13.571754,
+            "action_precision": 0.17482916,
+            "action_recall": 0.19479695,
+            "action_f1": 0.18427371
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 10.567529
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "vwap_breakout_side",
+            "family": "vwap",
+            "description": "Side agrees with close-to-VWAP sign",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_COVERAGE_HIGH",
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 9980,
+            "filtered_action_pct": 38.510515,
+            "filtered_distribution": {
+              "HOLD": 15935,
+              "BUY": 5795,
+              "SELL": 4185
+            },
+            "filtered_action_side_pct": 58.066132,
+            "filtered_directional_entropy": 0.981145,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": 0.00204337,
+            "filtered_side_accuracy": 0.63081395,
+            "expected_edge_proxy_bps": -14.086172,
+            "action_precision": 0.17234469,
+            "action_recall": 0.54568528,
+            "action_f1": 0.26195553
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -15.204691
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "low_range_high_trend",
+            "family": "regime",
+            "description": "Low range flag and high trend strength",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_ACTION_PRECISION_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 4196,
+            "filtered_action_pct": 16.191395,
+            "filtered_distribution": {
+              "HOLD": 21719,
+              "BUY": 2071,
+              "SELL": 2125
+            },
+            "filtered_action_side_pct": 50.64347,
+            "filtered_directional_entropy": 0.999881,
+            "baseline_action_precision": 0.17030132,
+            "action_precision_lift": -0.00156919,
+            "filtered_side_accuracy": 0.68785311,
+            "expected_edge_proxy_bps": -13.821735,
+            "action_precision": 0.16873213,
+            "action_recall": 0.22461929,
+            "action_f1": 0.1927055
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 6.386685
+        }
+      ],
+      "guardrails": {
+        "observation_only": true,
+        "no_post_actions": true,
+        "post_requests_allowed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reload_performed": false,
+        "live_real_allowed": false,
+        "promotion_requires_explicit_flag": true
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "phase": "4B.4.3.6.6.24L",
+      "report_type": "regime_aware_edge_filter_recovery",
+      "decision": "BLOCK",
+      "ok": false,
+      "source": "binance:ETHUSDT:1m:90d",
+      "candidate_count": 9,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "reload_performed": false,
+      "config_mutation_performed": false,
+      "order_actions_performed": false,
+      "no_post_actions": true,
+      "observation_only": true,
+      "reason_codes": [
+        "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "recommendation": "No regime-aware positive-edge filter passed. Revisit regime features, meta-labels, costs, or model objective before promote/reload.",
+      "selected_filter": "mtf_trend_aligned",
+      "selected_score": 17.199978,
+      "selected_filtered_action_pct": 11.371792,
+      "selected_action_precision": 0.22836783,
+      "selected_side_accuracy": 0.66121842,
+      "selected_expected_edge_proxy_bps": -12.563963,
+      "baseline": {
+        "symbol": "ETHUSDT",
+        "interval": "1m",
+        "days": 90,
+        "candidate_spec": {
+          "label_policy": {
+            "name": "h5_cost8_edge10_atr1_5",
+            "lookahead": 5,
+            "atr_multiplier": 1.5,
+            "cost_bps": 8.0,
+            "min_edge_bps": 10.0,
+            "entry_fee_bps": null,
+            "exit_fee_bps": null,
+            "entry_slippage_bps": null,
+            "exit_slippage_bps": null,
+            "use_high_low_barriers": true,
+            "ambiguous_barrier_policy": "hold",
+            "approvable": true,
+            "family": "short_edge",
+            "round_trip_cost_bps": 8.0,
+            "effective_min_profit_bps": 18.0
+          },
+          "action_profile": "balanced",
+          "side_profile": "balanced",
+          "action_threshold_profile": "balanced",
+          "side_margin_profile": "strict",
+          "feature_lag": null,
+          "max_depth": 3,
+          "n_estimators": 32,
+          "learning_rate": 0.04
+        },
+        "sample_count": 25915,
+        "validation_staged_distribution": {
+          "HOLD": 22620,
+          "BUY": 1794,
+          "SELL": 1501
+        },
+        "validation_staged_action_pct": 12.714644,
+        "validation_action_precision": 0.22640364,
+        "validation_action_recall": 0.23667513,
+        "validation_action_f1": 0.23142547,
+        "validation_side_accuracy": 0.66353887,
+        "expected_edge_proxy_bps": -12.591806,
+        "action_threshold": 0.56,
+        "side_margin_floor": 0.12
+      },
+      "selection": {
+        "contract_version": "4B.4.3.6.6.24L",
+        "decision": "BLOCK",
+        "approved": false,
+        "reason_codes": [
+          "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+          "REGIME_FILTER_PRECISION_LIFT_LOW",
+          "REGIME_FILTER_EXPECTED_EDGE_LOW"
+        ],
+        "best_candidate": {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "mtf_trend_aligned",
+            "family": "trend",
+            "description": "BUY with positive 15m trend or SELL with negative 15m trend",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2947,
+            "filtered_action_pct": 11.371792,
+            "filtered_distribution": {
+              "HOLD": 22968,
+              "BUY": 1575,
+              "SELL": 1372
+            },
+            "filtered_action_side_pct": 53.444181,
+            "filtered_directional_entropy": 0.996575,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": 0.00196419,
+            "filtered_side_accuracy": 0.66121842,
+            "expected_edge_proxy_bps": -12.563963,
+            "action_precision": 0.22836783,
+            "action_recall": 0.21351523,
+            "action_f1": 0.22069192
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 17.199978
+        }
+      },
+      "candidates": [
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "all_staged_actions",
+            "family": "diagnostic",
+            "description": "Diagnostic unfiltered staged actions",
+            "approvable": false
+          },
+          "reason_codes": [
+            "DIAGNOSTIC_FILTER_NOT_APPROVABLE",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3295,
+            "filtered_action_pct": 12.714644,
+            "filtered_distribution": {
+              "HOLD": 22620,
+              "BUY": 1794,
+              "SELL": 1501
+            },
+            "filtered_action_side_pct": 54.446131,
+            "filtered_directional_entropy": 0.994289,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": 0.0,
+            "filtered_side_accuracy": 0.66353887,
+            "expected_edge_proxy_bps": -12.591806,
+            "action_precision": 0.22640364,
+            "action_recall": 0.23667513,
+            "action_f1": 0.23142547
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 16.791203
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "mtf_trend_aligned",
+            "family": "trend",
+            "description": "BUY with positive 15m trend or SELL with negative 15m trend",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2947,
+            "filtered_action_pct": 11.371792,
+            "filtered_distribution": {
+              "HOLD": 22968,
+              "BUY": 1575,
+              "SELL": 1372
+            },
+            "filtered_action_side_pct": 53.444181,
+            "filtered_directional_entropy": 0.996575,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": 0.00196419,
+            "filtered_side_accuracy": 0.66121842,
+            "expected_edge_proxy_bps": -12.563963,
+            "action_precision": 0.22836783,
+            "action_recall": 0.21351523,
+            "action_f1": 0.22069192
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 17.199978
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "ema_vwap_aligned",
+            "family": "trend",
+            "description": "Staged side aligned with EMA spread and VWAP distance",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_SIDE_IMBALANCE_HIGH",
+            "REGIME_FILTER_DIRECTIONAL_ENTROPY_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1398,
+            "filtered_action_pct": 5.394559,
+            "filtered_distribution": {
+              "HOLD": 24517,
+              "BUY": 1398,
+              "SELL": 0
+            },
+            "filtered_action_side_pct": 100.0,
+            "filtered_directional_entropy": 0.0,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": 0.00750194,
+            "filtered_side_accuracy": 0.66972477,
+            "expected_edge_proxy_bps": -12.360515,
+            "action_precision": 0.23390558,
+            "action_recall": 0.10374365,
+            "action_f1": 0.14373626
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -17.422926
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1569,
+            "filtered_action_pct": 6.054409,
+            "filtered_distribution": {
+              "HOLD": 24346,
+              "BUY": 838,
+              "SELL": 731
+            },
+            "filtered_action_side_pct": 53.409815,
+            "filtered_directional_entropy": 0.996643,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": 0.00367922,
+            "filtered_side_accuracy": 0.66204986,
+            "expected_edge_proxy_bps": -12.516252,
+            "action_precision": 0.23008286,
+            "action_recall": 0.11453046,
+            "action_f1": 0.1529337
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 13.375143
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "atr_expansion_non_range",
+            "family": "volatility",
+            "description": "ATR expansion while range regime is not dominant",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1991,
+            "filtered_action_pct": 7.682809,
+            "filtered_distribution": {
+              "HOLD": 23924,
+              "BUY": 1052,
+              "SELL": 939
+            },
+            "filtered_action_side_pct": 52.83777,
+            "filtered_directional_entropy": 0.997675,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": -0.01294307,
+            "filtered_side_accuracy": 0.70117647,
+            "expected_edge_proxy_bps": -12.611753,
+            "action_precision": 0.21346057,
+            "action_recall": 0.13483503,
+            "action_f1": 0.16527319
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 12.668647
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "rsi_mid_trend",
+            "family": "momentum",
+            "description": "RSI in non-extreme trend-following band",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1607,
+            "filtered_action_pct": 6.201042,
+            "filtered_distribution": {
+              "HOLD": 24308,
+              "BUY": 924,
+              "SELL": 683
+            },
+            "filtered_action_side_pct": 57.498444,
+            "filtered_directional_entropy": 0.983715,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": 0.00570588,
+            "filtered_side_accuracy": 0.61930295,
+            "expected_edge_proxy_bps": -12.82514,
+            "action_precision": 0.23210952,
+            "action_recall": 0.11833756,
+            "action_f1": 0.15675562
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 10.208154
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "trend_strength_top_quartile",
+            "family": "trend",
+            "description": "Top-quartile trend strength proxy",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1587,
+            "filtered_action_pct": 6.123866,
+            "filtered_distribution": {
+              "HOLD": 24328,
+              "BUY": 824,
+              "SELL": 763
+            },
+            "filtered_action_side_pct": 51.921865,
+            "filtered_directional_entropy": 0.998934,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": -0.00208102,
+            "filtered_side_accuracy": 0.71910112,
+            "expected_edge_proxy_bps": -12.192817,
+            "action_precision": 0.22432262,
+            "action_recall": 0.11294416,
+            "action_f1": 0.15024267
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 14.752273
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "vwap_breakout_side",
+            "family": "vwap",
+            "description": "Side agrees with close-to-VWAP sign",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3087,
+            "filtered_action_pct": 11.91202,
+            "filtered_distribution": {
+              "HOLD": 22828,
+              "BUY": 1794,
+              "SELL": 1293
+            },
+            "filtered_action_side_pct": 58.114674,
+            "filtered_directional_entropy": 0.980916,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": 0.00100161,
+            "filtered_side_accuracy": 0.65527066,
+            "expected_edge_proxy_bps": -12.635569,
+            "action_precision": 0.22740525,
+            "action_recall": 0.22271574,
+            "action_f1": 0.22503606
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 14.95698
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "low_range_high_trend",
+            "family": "regime",
+            "description": "Low range flag and high trend strength",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1697,
+            "filtered_action_pct": 6.548331,
+            "filtered_distribution": {
+              "HOLD": 24218,
+              "BUY": 868,
+              "SELL": 829
+            },
+            "filtered_action_side_pct": 51.149087,
+            "filtered_directional_entropy": 0.999619,
+            "baseline_action_precision": 0.22640364,
+            "action_precision_lift": -0.01190747,
+            "filtered_side_accuracy": 0.72252747,
+            "expected_edge_proxy_bps": -12.420742,
+            "action_precision": 0.21449617,
+            "action_recall": 0.11548223,
+            "action_f1": 0.15013405
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 12.970024
+        }
+      ],
+      "guardrails": {
+        "observation_only": true,
+        "no_post_actions": true,
+        "post_requests_allowed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reload_performed": false,
+        "live_real_allowed": false,
+        "promotion_requires_explicit_flag": true
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "phase": "4B.4.3.6.6.24L",
+      "report_type": "regime_aware_edge_filter_recovery",
+      "decision": "BLOCK",
+      "ok": false,
+      "source": "binance:ETHUSDT:1m:90d",
+      "candidate_count": 9,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "reload_performed": false,
+      "config_mutation_performed": false,
+      "order_actions_performed": false,
+      "no_post_actions": true,
+      "observation_only": true,
+      "reason_codes": [
+        "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "recommendation": "No regime-aware positive-edge filter passed. Revisit regime features, meta-labels, costs, or model objective before promote/reload.",
+      "selected_filter": "high_volume_pressure",
+      "selected_score": 16.434211,
+      "selected_filtered_action_pct": 7.659657,
+      "selected_action_precision": 0.23627204,
+      "selected_side_accuracy": 0.6652452,
+      "selected_expected_edge_proxy_bps": -12.341562,
+      "baseline": {
+        "symbol": "ETHUSDT",
+        "interval": "1m",
+        "days": 90,
+        "candidate_spec": {
+          "label_policy": {
+            "name": "h5_cost8_edge10_atr1_5",
+            "lookahead": 5,
+            "atr_multiplier": 1.5,
+            "cost_bps": 8.0,
+            "min_edge_bps": 10.0,
+            "entry_fee_bps": null,
+            "exit_fee_bps": null,
+            "entry_slippage_bps": null,
+            "exit_slippage_bps": null,
+            "use_high_low_barriers": true,
+            "ambiguous_barrier_policy": "hold",
+            "approvable": true,
+            "family": "short_edge",
+            "round_trip_cost_bps": 8.0,
+            "effective_min_profit_bps": 18.0
+          },
+          "action_profile": "balanced",
+          "side_profile": "balanced",
+          "action_threshold_profile": "balanced",
+          "side_margin_profile": "guarded",
+          "feature_lag": null,
+          "max_depth": 3,
+          "n_estimators": 32,
+          "learning_rate": 0.04
+        },
+        "sample_count": 25915,
+        "validation_staged_distribution": {
+          "HOLD": 21655,
+          "BUY": 2149,
+          "SELL": 2111
+        },
+        "validation_staged_action_pct": 16.438356,
+        "validation_action_precision": 0.22370892,
+        "validation_action_recall": 0.30234772,
+        "validation_action_f1": 0.25715057,
+        "validation_side_accuracy": 0.65372508,
+        "expected_edge_proxy_bps": -12.735211,
+        "action_threshold": 0.56,
+        "side_margin_floor": 0.08
+      },
+      "selection": {
+        "contract_version": "4B.4.3.6.6.24L",
+        "decision": "BLOCK",
+        "approved": false,
+        "reason_codes": [
+          "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+          "REGIME_FILTER_PRECISION_LIFT_LOW",
+          "REGIME_FILTER_EXPECTED_EDGE_LOW"
+        ],
+        "best_candidate": {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1985,
+            "filtered_action_pct": 7.659657,
+            "filtered_distribution": {
+              "HOLD": 23930,
+              "BUY": 981,
+              "SELL": 1004
+            },
+            "filtered_action_side_pct": 50.579345,
+            "filtered_directional_entropy": 0.999903,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": 0.01256312,
+            "filtered_side_accuracy": 0.6652452,
+            "expected_edge_proxy_bps": -12.341562,
+            "action_precision": 0.23627204,
+            "action_recall": 0.14879442,
+            "action_f1": 0.18259685
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 16.434211
+        }
+      },
+      "candidates": [
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "all_staged_actions",
+            "family": "diagnostic",
+            "description": "Diagnostic unfiltered staged actions",
+            "approvable": false
+          },
+          "reason_codes": [
+            "DIAGNOSTIC_FILTER_NOT_APPROVABLE",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 4260,
+            "filtered_action_pct": 16.438356,
+            "filtered_distribution": {
+              "HOLD": 21655,
+              "BUY": 2149,
+              "SELL": 2111
+            },
+            "filtered_action_side_pct": 50.446009,
+            "filtered_directional_entropy": 0.999943,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": 0.0,
+            "filtered_side_accuracy": 0.65372508,
+            "expected_edge_proxy_bps": -12.735211,
+            "action_precision": 0.22370892,
+            "action_recall": 0.30234772,
+            "action_f1": 0.25715057
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 12.961538
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "mtf_trend_aligned",
+            "family": "trend",
+            "description": "BUY with positive 15m trend or SELL with negative 15m trend",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3620,
+            "filtered_action_pct": 13.968744,
+            "filtered_distribution": {
+              "HOLD": 22295,
+              "BUY": 1796,
+              "SELL": 1824
+            },
+            "filtered_action_side_pct": 50.38674,
+            "filtered_directional_entropy": 0.999957,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": -0.00022826,
+            "filtered_side_accuracy": 0.65142151,
+            "expected_edge_proxy_bps": -12.759116,
+            "action_precision": 0.22348066,
+            "action_recall": 0.25666244,
+            "action_f1": 0.23892499
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 14.779223
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "ema_vwap_aligned",
+            "family": "trend",
+            "description": "Staged side aligned with EMA spread and VWAP distance",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_SIDE_IMBALANCE_HIGH",
+            "REGIME_FILTER_DIRECTIONAL_ENTROPY_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1595,
+            "filtered_action_pct": 6.154737,
+            "filtered_distribution": {
+              "HOLD": 24320,
+              "BUY": 1595,
+              "SELL": 0
+            },
+            "filtered_action_side_pct": 100.0,
+            "filtered_directional_entropy": 0.0,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": 0.00513121,
+            "filtered_side_accuracy": 0.6630137,
+            "expected_edge_proxy_bps": -12.537931,
+            "action_precision": 0.22884013,
+            "action_recall": 0.11579949,
+            "action_f1": 0.15378134
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -18.067152
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1985,
+            "filtered_action_pct": 7.659657,
+            "filtered_distribution": {
+              "HOLD": 23930,
+              "BUY": 981,
+              "SELL": 1004
+            },
+            "filtered_action_side_pct": 50.579345,
+            "filtered_directional_entropy": 0.999903,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": 0.01256312,
+            "filtered_side_accuracy": 0.6652452,
+            "expected_edge_proxy_bps": -12.341562,
+            "action_precision": 0.23627204,
+            "action_recall": 0.14879442,
+            "action_f1": 0.18259685
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 16.434211
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "atr_expansion_non_range",
+            "family": "volatility",
+            "description": "ATR expansion while range regime is not dominant",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2349,
+            "filtered_action_pct": 9.064249,
+            "filtered_distribution": {
+              "HOLD": 23566,
+              "BUY": 1186,
+              "SELL": 1163
+            },
+            "filtered_action_side_pct": 50.48957,
+            "filtered_directional_entropy": 0.999931,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": -0.00829811,
+            "filtered_side_accuracy": 0.68972332,
+            "expected_edge_proxy_bps": -12.651341,
+            "action_precision": 0.21541081,
+            "action_recall": 0.16053299,
+            "action_f1": 0.18396655
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 13.917649
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "rsi_mid_trend",
+            "family": "momentum",
+            "description": "RSI in non-extreme trend-following band",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2275,
+            "filtered_action_pct": 8.7787,
+            "filtered_distribution": {
+              "HOLD": 23640,
+              "BUY": 1179,
+              "SELL": 1096
+            },
+            "filtered_action_side_pct": 51.824176,
+            "filtered_directional_entropy": 0.99904,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": -0.00129134,
+            "filtered_side_accuracy": 0.62648221,
+            "expected_edge_proxy_bps": -12.983736,
+            "action_precision": 0.22241758,
+            "action_recall": 0.16053299,
+            "action_f1": 0.18647503
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 12.388405
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "trend_strength_top_quartile",
+            "family": "trend",
+            "description": "Top-quartile trend strength proxy",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1627,
+            "filtered_action_pct": 6.278217,
+            "filtered_distribution": {
+              "HOLD": 24288,
+              "BUY": 824,
+              "SELL": 803
+            },
+            "filtered_action_side_pct": 50.64536,
+            "filtered_directional_entropy": 0.99988,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": 0.00185961,
+            "filtered_side_accuracy": 0.71389646,
+            "expected_edge_proxy_bps": -12.202827,
+            "action_precision": 0.22556853,
+            "action_recall": 0.11643401,
+            "action_f1": 0.15358862
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 15.139435
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "vwap_breakout_side",
+            "family": "vwap",
+            "description": "Side agrees with close-to-VWAP sign",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3692,
+            "filtered_action_pct": 14.246575,
+            "filtered_distribution": {
+              "HOLD": 22223,
+              "BUY": 2149,
+              "SELL": 1543
+            },
+            "filtered_action_side_pct": 58.206934,
+            "filtered_directional_entropy": 0.980478,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": 0.00164319,
+            "filtered_side_accuracy": 0.64543269,
+            "expected_edge_proxy_bps": -12.763814,
+            "action_precision": 0.22535211,
+            "action_recall": 0.26395939,
+            "action_f1": 0.24313267
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 12.459905
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "low_range_high_trend",
+            "family": "regime",
+            "description": "Low range flag and high trend strength",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1838,
+            "filtered_action_pct": 7.092418,
+            "filtered_distribution": {
+              "HOLD": 24077,
+              "BUY": 911,
+              "SELL": 927
+            },
+            "filtered_action_side_pct": 50.435256,
+            "filtered_directional_entropy": 0.999945,
+            "baseline_action_precision": 0.22370892,
+            "action_precision_lift": -0.00662513,
+            "filtered_side_accuracy": 0.71679198,
+            "expected_edge_proxy_bps": -12.398259,
+            "action_precision": 0.21708379,
+            "action_recall": 0.12658629,
+            "action_f1": 0.15991984
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 13.959544
+        }
+      ],
+      "guardrails": {
+        "observation_only": true,
+        "no_post_actions": true,
+        "post_requests_allowed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reload_performed": false,
+        "live_real_allowed": false,
+        "promotion_requires_explicit_flag": true
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24L",
+      "phase": "4B.4.3.6.6.24L",
+      "report_type": "regime_aware_edge_filter_recovery",
+      "decision": "BLOCK",
+      "ok": false,
+      "source": "binance:ETHUSDT:1m:90d",
+      "candidate_count": 9,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "reload_performed": false,
+      "config_mutation_performed": false,
+      "order_actions_performed": false,
+      "no_post_actions": true,
+      "observation_only": true,
+      "reason_codes": [
+        "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+        "REGIME_FILTER_PRECISION_LIFT_LOW",
+        "REGIME_FILTER_EXPECTED_EDGE_LOW"
+      ],
+      "recommendation": "No regime-aware positive-edge filter passed. Revisit regime features, meta-labels, costs, or model objective before promote/reload.",
+      "selected_filter": "high_volume_pressure",
+      "selected_score": 16.370389,
+      "selected_filtered_action_pct": 8.635925,
+      "selected_action_precision": 0.23324397,
+      "selected_side_accuracy": 0.65900383,
+      "selected_expected_edge_proxy_bps": -12.466488,
+      "baseline": {
+        "symbol": "ETHUSDT",
+        "interval": "1m",
+        "days": 90,
+        "candidate_spec": {
+          "label_policy": {
+            "name": "h5_cost8_edge10_atr1_5",
+            "lookahead": 5,
+            "atr_multiplier": 1.5,
+            "cost_bps": 8.0,
+            "min_edge_bps": 10.0,
+            "entry_fee_bps": null,
+            "exit_fee_bps": null,
+            "entry_slippage_bps": null,
+            "exit_slippage_bps": null,
+            "use_high_low_barriers": true,
+            "ambiguous_barrier_policy": "hold",
+            "approvable": true,
+            "family": "short_edge",
+            "round_trip_cost_bps": 8.0,
+            "effective_min_profit_bps": 18.0
+          },
+          "action_profile": "balanced",
+          "side_profile": "balanced",
+          "action_threshold_profile": "balanced",
+          "side_margin_profile": "balanced",
+          "feature_lag": null,
+          "max_depth": 3,
+          "n_estimators": 32,
+          "learning_rate": 0.04
+        },
+        "sample_count": 25915,
+        "validation_staged_distribution": {
+          "HOLD": 21077,
+          "BUY": 2446,
+          "SELL": 2392
+        },
+        "validation_staged_action_pct": 18.668725,
+        "validation_action_precision": 0.22199256,
+        "validation_action_recall": 0.34073604,
+        "validation_action_f1": 0.26883605,
+        "validation_side_accuracy": 0.64804469,
+        "expected_edge_proxy_bps": -12.821,
+        "action_threshold": 0.56,
+        "side_margin_floor": 0.05
+      },
+      "selection": {
+        "contract_version": "4B.4.3.6.6.24L",
+        "decision": "BLOCK",
+        "approved": false,
+        "reason_codes": [
+          "NO_REGIME_EDGE_FILTER_CANDIDATE_PASSED",
+          "REGIME_FILTER_PRECISION_LIFT_LOW",
+          "REGIME_FILTER_EXPECTED_EDGE_LOW"
+        ],
+        "best_candidate": {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2238,
+            "filtered_action_pct": 8.635925,
+            "filtered_distribution": {
+              "HOLD": 23677,
+              "BUY": 1095,
+              "SELL": 1143
+            },
+            "filtered_action_side_pct": 51.072386,
+            "filtered_directional_entropy": 0.999668,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": 0.01125141,
+            "filtered_side_accuracy": 0.65900383,
+            "expected_edge_proxy_bps": -12.466488,
+            "action_precision": 0.23324397,
+            "action_recall": 0.16560914,
+            "action_f1": 0.19369202
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 16.370389
+        }
+      },
+      "candidates": [
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "all_staged_actions",
+            "family": "diagnostic",
+            "description": "Diagnostic unfiltered staged actions",
+            "approvable": false
+          },
+          "reason_codes": [
+            "DIAGNOSTIC_FILTER_NOT_APPROVABLE",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 4838,
+            "filtered_action_pct": 18.668725,
+            "filtered_distribution": {
+              "HOLD": 21077,
+              "BUY": 2446,
+              "SELL": 2392
+            },
+            "filtered_action_side_pct": 50.558082,
+            "filtered_directional_entropy": 0.99991,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": 0.0,
+            "filtered_side_accuracy": 0.64804469,
+            "expected_edge_proxy_bps": -12.821,
+            "action_precision": 0.22199256,
+            "action_recall": 0.34073604,
+            "action_f1": 0.26883605
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 10.663617
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "mtf_trend_aligned",
+            "family": "trend",
+            "description": "BUY with positive 15m trend or SELL with negative 15m trend",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 3909,
+            "filtered_action_pct": 15.083928,
+            "filtered_distribution": {
+              "HOLD": 22006,
+              "BUY": 1987,
+              "SELL": 1922
+            },
+            "filtered_action_side_pct": 50.831415,
+            "filtered_directional_entropy": 0.999801,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": -0.00045252,
+            "filtered_side_accuracy": 0.64896074,
+            "expected_edge_proxy_bps": -12.824252,
+            "action_precision": 0.22154004,
+            "action_recall": 0.27474619,
+            "action_f1": 0.24529104
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 13.470978
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "ema_vwap_aligned",
+            "family": "trend",
+            "description": "Staged side aligned with EMA spread and VWAP distance",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_SIDE_IMBALANCE_HIGH",
+            "REGIME_FILTER_DIRECTIONAL_ENTROPY_LOW",
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1791,
+            "filtered_action_pct": 6.911055,
+            "filtered_distribution": {
+              "HOLD": 24124,
+              "BUY": 1791,
+              "SELL": 0
+            },
+            "filtered_action_side_pct": 100.0,
+            "filtered_directional_entropy": 0.0,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": 0.00581314,
+            "filtered_side_accuracy": 0.65931373,
+            "expected_edge_proxy_bps": -12.592965,
+            "action_precision": 0.2278057,
+            "action_recall": 0.12944162,
+            "action_f1": 0.16508193
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": -17.732053
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "high_volume_pressure",
+            "family": "volume",
+            "description": "High volume regime with taker/price pressure alignment",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2238,
+            "filtered_action_pct": 8.635925,
+            "filtered_distribution": {
+              "HOLD": 23677,
+              "BUY": 1095,
+              "SELL": 1143
+            },
+            "filtered_action_side_pct": 51.072386,
+            "filtered_directional_entropy": 0.999668,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": 0.01125141,
+            "filtered_side_accuracy": 0.65900383,
+            "expected_edge_proxy_bps": -12.466488,
+            "action_precision": 0.23324397,
+            "action_recall": 0.16560914,
+            "action_f1": 0.19369202
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 16.370389
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "atr_expansion_non_range",
+            "family": "volatility",
+            "description": "ATR expansion while range regime is not dominant",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2581,
+            "filtered_action_pct": 9.959483,
+            "filtered_distribution": {
+              "HOLD": 23334,
+              "BUY": 1310,
+              "SELL": 1271
+            },
+            "filtered_action_side_pct": 50.755521,
+            "filtered_directional_entropy": 0.999835,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": -0.00812197,
+            "filtered_side_accuracy": 0.68478261,
+            "expected_edge_proxy_bps": -12.727625,
+            "action_precision": 0.21387059,
+            "action_recall": 0.1751269,
+            "action_f1": 0.19256934
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 14.193116
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "rsi_mid_trend",
+            "family": "momentum",
+            "description": "RSI in non-extreme trend-following band",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 2684,
+            "filtered_action_pct": 10.356936,
+            "filtered_distribution": {
+              "HOLD": 23231,
+              "BUY": 1396,
+              "SELL": 1288
+            },
+            "filtered_action_side_pct": 52.011923,
+            "filtered_directional_entropy": 0.998832,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": 0.00080923,
+            "filtered_side_accuracy": 0.6270903,
+            "expected_edge_proxy_bps": -12.970194,
+            "action_precision": 0.22280179,
+            "action_recall": 0.18972081,
+            "action_f1": 0.20493489
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 13.902787
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "trend_strength_top_quartile",
+            "family": "trend",
+            "description": "Top-quartile trend strength proxy",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1636,
+            "filtered_action_pct": 6.312946,
+            "filtered_distribution": {
+              "HOLD": 24279,
+              "BUY": 827,
+              "SELL": 809
+            },
+            "filtered_action_side_pct": 50.550122,
+            "filtered_directional_entropy": 0.999913,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": 0.00355756,
+            "filtered_side_accuracy": 0.71273713,
+            "expected_edge_proxy_bps": -12.212714,
+            "action_precision": 0.22555012,
+            "action_recall": 0.11706853,
+            "action_f1": 0.15413534
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 15.246659
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "vwap_breakout_side",
+            "family": "vwap",
+            "description": "Side agrees with close-to-VWAP sign",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 4074,
+            "filtered_action_pct": 15.720625,
+            "filtered_distribution": {
+              "HOLD": 21841,
+              "BUY": 2446,
+              "SELL": 1628
+            },
+            "filtered_action_side_pct": 60.039273,
+            "filtered_directional_entropy": 0.97072,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": 0.00260243,
+            "filtered_side_accuracy": 0.64262295,
+            "expected_edge_proxy_bps": -12.804124,
+            "action_precision": 0.22459499,
+            "action_recall": 0.29029188,
+            "action_f1": 0.25325215
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 9.834143
+        },
+        {
+          "contract_version": "4B.4.3.6.6.24L",
+          "report_type": "regime_edge_filter_candidate_gate",
+          "decision": "BLOCK",
+          "ok": false,
+          "approved_for_training_candidate": false,
+          "approved_for_paper_candidate": false,
+          "approved_for_live_real": false,
+          "reload_allowed": false,
+          "filter": {
+            "name": "low_range_high_trend",
+            "family": "regime",
+            "description": "Low range flag and high trend strength",
+            "approvable": true
+          },
+          "reason_codes": [
+            "REGIME_FILTER_PRECISION_LIFT_LOW",
+            "REGIME_FILTER_EXPECTED_EDGE_LOW"
+          ],
+          "warnings": [],
+          "metrics": {
+            "sample_count": 25915,
+            "filtered_action_count": 1887,
+            "filtered_action_pct": 7.281497,
+            "filtered_distribution": {
+              "HOLD": 24028,
+              "BUY": 946,
+              "SELL": 941
+            },
+            "filtered_action_side_pct": 50.132485,
+            "filtered_directional_entropy": 0.999995,
+            "baseline_action_precision": 0.22199256,
+            "action_precision_lift": -0.00471646,
+            "filtered_side_accuracy": 0.7195122,
+            "expected_edge_proxy_bps": -12.372019,
+            "action_precision": 0.2172761,
+            "action_recall": 0.13007614,
+            "action_f1": 0.1627307
+          },
+          "limits": {
+            "min_clean_samples": 1000,
+            "min_filter_action_count": 30,
+            "min_filtered_action_pct": 1.0,
+            "max_filtered_action_pct": 35.0,
+            "max_filtered_action_side_pct": 82.0,
+            "min_action_precision_lift": 0.02,
+            "min_action_precision": 0.18,
+            "min_side_accuracy": 0.54,
+            "min_expected_edge_proxy_bps": 1.0,
+            "min_directional_entropy": 0.62,
+            "target_filtered_action_pct": 12.0
+          },
+          "score": 14.416819
+        }
+      ],
+      "guardrails": {
+        "observation_only": true,
+        "no_post_actions": true,
+        "post_requests_allowed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reload_performed": false,
+        "live_real_allowed": false,
+        "promotion_requires_explicit_flag": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "phase": "4B.4.3.6.6.22",
+  "generated_at_utc": "2026-05-03T17:50:56Z",
+  "base_url": "http://127.0.0.1:8000",
+  "duration_sec_requested": 0.0,
+  "interval_sec": 60.0,
+  "timeout_sec": 5.0,
+  "observation_only": true,
+  "no_post_actions": true,
+  "summary": {
+    "decision": "REVIEW",
+    "sample_count": 1,
+    "severity_counts": {
+      "PASS": 0,
+      "WARN": 1,
+      "FAIL": 0
+    },
+    "reason_counts": {
+      "STATUS_CONTRACT_BELOW_RELEASE_CANDIDATE": 1
+    },
+    "state_counts": {
+      "FLAT": 1
+    },
+    "first_ts_utc": "2026-05-03T17:50:56Z",
+    "last_ts_utc": "2026-05-03T17:50:56Z"
+  },
+  "samples": [
+    {
+      "ts_utc": "2026-05-03T17:50:56Z",
+      "health": {
+        "ok": true,
+        "running": true,
+        "bootstrap_ok": true,
+        "bootstrap_error": null,
+        "symbol": "ETHUSDT"
+      },
+      "status": {
+        "ok": true,
+        "contract_version": "4B.4.3.6.6.20",
+        "state": "FLAT",
+        "ws_status": "CONNECTED",
+        "symbol": "ETHUSDT",
+        "last_signal": "HOLD",
+        "last_signal_confidence": 0.4490361213684082,
+        "config": {
+          "profile_mode": "live_demo",
+          "execution_mode": "live_demo",
+          "market_type": "spot_demo",
+          "safe_to_trade": true,
+          "safe_to_auto_trade": true,
+          "live_trading_armed": false,
+          "live_real_double_confirm": false,
+          "auto_trade_on_signal": true,
+          "critical_warnings": [],
+          "warnings": []
+        },
+        "health_snapshot": {
+          "account_consistency": "HEALTHY",
+          "position_consistency": "HEALTHY",
+          "pending_consistency": "HEALTHY",
+          "active_anomaly_code": null
+        },
+        "model_quality": {
+          "enabled": true,
+          "sample_count": 6,
+          "severity": "warming_up",
+          "recommendation": "OK",
+          "reason_codes": []
+        },
+        "performance": {
+          "closed_trade_count": 1,
+          "realized_pnl": -0.003531,
+          "win_rate_pct": 0.0,
+          "profit_factor": 0.0,
+          "guard_counts": {
+            "auto_trade_skip": 50,
+            "auto_entry_blocked": 24,
+            "auto_exit_blocked": 1,
+            "risk_exit_triggered": 0,
+            "order_canceled": 2
+          }
+        },
+        "position": {
+          "present": false,
+          "qty": 0.0,
+          "source": null
+        },
+        "pending": {
+          "present": false,
+          "side": null,
+          "status": null
+        }
+      },
+      "evaluation": {
+        "severity": "WARN",
+        "reason_codes": [
+          "STATUS_CONTRACT_BELOW_RELEASE_CANDIDATE"
+        ]
+      }
+    }
+  ]
+}

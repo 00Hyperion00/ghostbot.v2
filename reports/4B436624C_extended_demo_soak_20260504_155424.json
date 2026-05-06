@@ -1,0 +1,699 @@
+{
+  "base_url": "http://127.0.0.1:8000",
+  "contract_version": "4B.4.3.6.6.24C",
+  "duration_sec_requested": 1800.0,
+  "generated_at_utc": "2026-05-04T12:54:24Z",
+  "interrupted_by_operator": false,
+  "interval_sec": 60.0,
+  "no_post_actions": true,
+  "observation_only": true,
+  "phase": "4B.4.3.6.6.24C",
+  "samples": [
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:24:24Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:25:29Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:26:33Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:27:37Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:28:41Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:29:45Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:30:49Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:31:53Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:32:57Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:34:01Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:35:05Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:36:10Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:37:14Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:38:18Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:39:22Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:40:26Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:41:30Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:42:34Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:43:38Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:44:42Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:45:47Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:46:51Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:47:55Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:48:59Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:50:03Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:51:07Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:52:11Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:53:15Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:54:19Z"
+    },
+    {
+      "evaluation": {
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "DEGRADED_RUNTIME",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ],
+        "severity": "FAIL"
+      },
+      "health": {
+        "degraded": true,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "status": {
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>",
+        "ok": false
+      },
+      "ts_utc": "2026-05-04T12:54:24Z"
+    }
+  ],
+  "summary": {
+    "decision": "FAIL",
+    "first_ts_utc": "2026-05-04T12:24:24Z",
+    "last_ts_utc": "2026-05-04T12:54:24Z",
+    "reason_counts": {
+      "API_NOT_RUNNING": 30,
+      "DEGRADED_RUNTIME": 30,
+      "HEALTH_NOT_OK": 30,
+      "HEALTH_REQUEST_FAILED": 30,
+      "STATUS_REQUEST_FAILED": 30
+    },
+    "sample_count": 30,
+    "severity_counts": {
+      "FAIL": 30
+    },
+    "signal_counts": {
+      "UNKNOWN": 30
+    },
+    "state_counts": {
+      "UNKNOWN": 30
+    },
+    "ws_counts": {
+      "UNKNOWN": 30
+    }
+  },
+  "timeout_sec": 5.0
+}

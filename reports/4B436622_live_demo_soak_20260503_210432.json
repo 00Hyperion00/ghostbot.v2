@@ -1,0 +1,53 @@
+{
+  "phase": "4B.4.3.6.6.22",
+  "generated_at_utc": "2026-05-03T18:04:32Z",
+  "base_url": "http://127.0.0.1:8000",
+  "duration_sec_requested": 0.0,
+  "interval_sec": 60.0,
+  "timeout_sec": 5.0,
+  "observation_only": true,
+  "no_post_actions": true,
+  "interrupted_by_operator": false,
+  "summary": {
+    "decision": "FAIL",
+    "sample_count": 1,
+    "severity_counts": {
+      "PASS": 0,
+      "WARN": 0,
+      "FAIL": 1
+    },
+    "reason_counts": {
+      "API_NOT_RUNNING": 1,
+      "HEALTH_NOT_OK": 1,
+      "HEALTH_REQUEST_FAILED": 1,
+      "STATUS_REQUEST_FAILED": 1
+    },
+    "state_counts": {
+      "UNKNOWN": 1
+    },
+    "first_ts_utc": "2026-05-03T18:04:32Z",
+    "last_ts_utc": "2026-05-03T18:04:32Z"
+  },
+  "samples": [
+    {
+      "ts_utc": "2026-05-03T18:04:32Z",
+      "health": {
+        "ok": false,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>"
+      },
+      "status": {
+        "ok": false,
+        "error": "<urlopen error [WinError 10061] Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı>"
+      },
+      "evaluation": {
+        "severity": "FAIL",
+        "reason_codes": [
+          "API_NOT_RUNNING",
+          "HEALTH_NOT_OK",
+          "HEALTH_REQUEST_FAILED",
+          "STATUS_REQUEST_FAILED"
+        ]
+      }
+    }
+  ]
+}

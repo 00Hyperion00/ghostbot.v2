@@ -1,0 +1,67 @@
+{
+  "symbol": "TUSDUSDT",
+  "interval": "1m",
+  "days": 30,
+  "accuracy": 0.7366685616827743,
+  "precision_macro": 0.6372224975169988,
+  "recall_macro": 0.6214047973206613,
+  "samples": 43971,
+  "train_samples": 35176,
+  "test_samples": 8795,
+  "class_distribution": {
+    "0": 15852,
+    "1": 20750,
+    "2": 7369
+  },
+  "confusion_matrix": [
+    [
+      1590,
+      531,
+      445
+    ],
+    [
+      466,
+      4452,
+      69
+    ],
+    [
+      694,
+      111,
+      437
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.5781818181818181,
+      "recall": 0.6196414653156664,
+      "f1-score": 0.5981941309255079,
+      "support": 2566.0
+    },
+    "1": {
+      "precision": 0.8739693757361602,
+      "recall": 0.8927210747944656,
+      "f1-score": 0.8832457097510168,
+      "support": 4987.0
+    },
+    "2": {
+      "precision": 0.45951629863301785,
+      "recall": 0.35185185185185186,
+      "f1-score": 0.39854081167350663,
+      "support": 1242.0
+    },
+    "accuracy": 0.7366685616827743,
+    "macro avg": {
+      "precision": 0.6372224975169988,
+      "recall": 0.6214047973206613,
+      "f1-score": 0.6266602174500105,
+      "support": 8795.0
+    },
+    "weighted avg": {
+      "precision": 0.7291437254295605,
+      "recall": 0.7366685616827743,
+      "f1-score": 0.7316316296283877,
+      "support": 8795.0
+    }
+  },
+  "model_path": "C:/Users/muhas/OneDrive/Masaüstü/trade_botV2/models/SOLUSDT_model.ubj"
+}

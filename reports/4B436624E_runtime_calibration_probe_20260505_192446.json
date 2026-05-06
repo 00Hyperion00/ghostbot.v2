@@ -1,0 +1,221 @@
+{
+  "base_url": "http://127.0.0.1:8000",
+  "conclusion": "PENDING_INSUFFICIENT_SAMPLES",
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.24E",
+  "decision": "BLOCK",
+  "guardrails": {
+    "config_mutation_performed": false,
+    "get_only": true,
+    "live_trading_armed": false,
+    "observation_only": true,
+    "order_actions_performed": false,
+    "post_requests_allowed": false,
+    "reload_performed": false
+  },
+  "metrics": {
+    "actual_calibration_reason_counts": {
+      "REJECT_LOW_MARGIN": 1
+    },
+    "current_action_pct": 0.0,
+    "current_distribution": {
+      "BUY": 0,
+      "HOLD": 1,
+      "SELL": 0
+    },
+    "low_margin_rejection_pct": 100.0,
+    "raw_action_pct": 100.0,
+    "raw_distribution": {
+      "BUY": 1,
+      "HOLD": 0,
+      "SELL": 0
+    },
+    "relaxed_best_action_pct": 100.0,
+    "relaxed_best_profile": "no_margin_probe"
+  },
+  "min_samples": 30,
+  "no_post_actions": true,
+  "observation_only": true,
+  "ok": false,
+  "order_actions_performed": false,
+  "phase": "4B.4.3.6.6.24E",
+  "probability_sample_count": 1,
+  "reason_codes": [
+    "PROBE_SAMPLE_COUNT_LOW",
+    "CURRENT_ACTION_COVERAGE_ZERO",
+    "LOW_MARGIN_REJECTION_HIGH"
+  ],
+  "recommendation": "Accumulate more runtime samples before changing thresholds.",
+  "rejected_samples": [],
+  "report_type": "runtime_calibration_probe",
+  "sample_count": 1,
+  "samples": [
+    {
+      "buy_probability": 0.45479872822761536,
+      "calibrated_class": 0,
+      "calibrated_signal": "HOLD",
+      "calibration_reason": "REJECT_LOW_MARGIN",
+      "close_time": 1777998239999,
+      "collected_at": "2026-05-05T16:24:46Z",
+      "contract_version": "4B.4.3.6.6.24E",
+      "current_signal": "HOLD",
+      "hold_probability": 0.0941937118768692,
+      "model_path": "models/ETHUSDT_model_4b436624D.ubj",
+      "raw_margin": 0.003791213035583496,
+      "raw_predicted_class": 1,
+      "raw_signal": "BUY",
+      "raw_top_probability": 0.45479872822761536,
+      "sample_index": 0,
+      "sell_probability": 0.45100751519203186,
+      "symbol": "ETHUSDT",
+      "threshold_trace": {
+        "buy_threshold": 0.64,
+        "calibrated_class": 0,
+        "calibration_reason": "REJECT_LOW_MARGIN",
+        "confidence": 0.45479872822761536,
+        "hold_band_high": 0.55,
+        "hold_band_low": 0.45,
+        "indecision_margin": 0.08,
+        "raw_margin": 0.003791213035583496,
+        "raw_predicted_class": 1,
+        "sell_threshold": 0.57
+      }
+    }
+  ],
+  "status_count": 1,
+  "threshold_sweep": {
+    "contract_version": "4B.4.3.6.6.24E",
+    "profiles": [
+      {
+        "action_pct": 0.0,
+        "calibrated_distribution": {
+          "BUY": 0,
+          "HOLD": 1,
+          "SELL": 0
+        },
+        "hold_pct": 100.0,
+        "profile": {
+          "buy_threshold": 0.64,
+          "hold_band_high": 0.55,
+          "hold_band_low": 0.45,
+          "indecision_margin": 0.08,
+          "name": "current_runtime",
+          "sell_threshold": 0.57
+        },
+        "raw_distribution": {
+          "BUY": 1,
+          "HOLD": 0,
+          "SELL": 0
+        },
+        "reason_counts": {
+          "REJECT_LOW_MARGIN": 1
+        }
+      },
+      {
+        "action_pct": 0.0,
+        "calibrated_distribution": {
+          "BUY": 0,
+          "HOLD": 1,
+          "SELL": 0
+        },
+        "hold_pct": 100.0,
+        "profile": {
+          "buy_threshold": 0.64,
+          "hold_band_high": 0.55,
+          "hold_band_low": 0.45,
+          "indecision_margin": 0.08,
+          "name": "runtime_default",
+          "sell_threshold": 0.57
+        },
+        "raw_distribution": {
+          "BUY": 1,
+          "HOLD": 0,
+          "SELL": 0
+        },
+        "reason_counts": {
+          "REJECT_LOW_MARGIN": 1
+        }
+      },
+      {
+        "action_pct": 0.0,
+        "calibrated_distribution": {
+          "BUY": 0,
+          "HOLD": 1,
+          "SELL": 0
+        },
+        "hold_pct": 100.0,
+        "profile": {
+          "buy_threshold": 0.55,
+          "hold_band_high": 0.58,
+          "hold_band_low": 0.42,
+          "indecision_margin": 0.04,
+          "name": "action_seek_light",
+          "sell_threshold": 0.52
+        },
+        "raw_distribution": {
+          "BUY": 1,
+          "HOLD": 0,
+          "SELL": 0
+        },
+        "reason_counts": {
+          "REJECT_LOW_MARGIN": 1
+        }
+      },
+      {
+        "action_pct": 0.0,
+        "calibrated_distribution": {
+          "BUY": 0,
+          "HOLD": 1,
+          "SELL": 0
+        },
+        "hold_pct": 100.0,
+        "profile": {
+          "buy_threshold": 0.5,
+          "hold_band_high": 0.6,
+          "hold_band_low": 0.4,
+          "indecision_margin": 0.02,
+          "name": "action_seek_medium",
+          "sell_threshold": 0.5
+        },
+        "raw_distribution": {
+          "BUY": 1,
+          "HOLD": 0,
+          "SELL": 0
+        },
+        "reason_counts": {
+          "REJECT_LOW_MARGIN": 1
+        }
+      },
+      {
+        "action_pct": 100.0,
+        "calibrated_distribution": {
+          "BUY": 1,
+          "HOLD": 0,
+          "SELL": 0
+        },
+        "hold_pct": 0.0,
+        "profile": {
+          "buy_threshold": 0.45,
+          "hold_band_high": 0.65,
+          "hold_band_low": 0.35,
+          "indecision_margin": 0.0,
+          "name": "no_margin_probe",
+          "sell_threshold": 0.45
+        },
+        "raw_distribution": {
+          "BUY": 1,
+          "HOLD": 0,
+          "SELL": 0
+        },
+        "reason_counts": {
+          "RAW_ACTION_FIRST_ACCEPT": 1
+        }
+      }
+    ],
+    "report_type": "threshold_sweep",
+    "sample_count": 1
+  },
+  "warnings": [
+    "RELAXED_THRESHOLDS_INCREASE_ACTION_COVERAGE"
+  ]
+}

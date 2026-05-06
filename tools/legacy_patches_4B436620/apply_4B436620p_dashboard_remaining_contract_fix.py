@@ -1,0 +1,8 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+START = '# BEGIN 4B.4.3.6.6.20P DASHBOARD REMAINING CONTRACT FIX'
+END = '# END 4B.4.3.6.6.20P DASHBOARD REMAINING CONTRACT FIX'
+
+COMPAT_BLOCK = r

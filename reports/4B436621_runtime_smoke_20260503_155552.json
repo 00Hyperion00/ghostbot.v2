@@ -1,0 +1,84 @@
+{
+  "phase": "4B.4.3.6.6.21b",
+  "base_url": "http://127.0.0.1:8000",
+  "generated_at": "20260503_155552",
+  "ok": true,
+  "results": [
+    {
+      "name": "health",
+      "ok": true,
+      "url": "http://127.0.0.1:8000/health",
+      "status_code": 200,
+      "elapsed_sec": 0.03210709999984829,
+      "reason": null,
+      "details": {
+        "ok": true,
+        "running": true,
+        "symbol": "ETHUSDT",
+        "bootstrap_ok": true,
+        "bootstrap_error": null
+      }
+    },
+    {
+      "name": "status",
+      "ok": true,
+      "url": "http://127.0.0.1:8000/status",
+      "status_code": 200,
+      "elapsed_sec": 0.03626170000006823,
+      "reason": null,
+      "details": {
+        "contract_version": "4B.4.3.6.6.20",
+        "state": "FLAT",
+        "symbol": "ETHUSDT",
+        "missing_snapshots": [],
+        "config_severity": "ok"
+      }
+    },
+    {
+      "name": "events_audit",
+      "ok": true,
+      "url": "http://127.0.0.1:8000/events/audit?limit=5",
+      "status_code": 200,
+      "elapsed_sec": 0.019631000000117638,
+      "reason": null,
+      "details": {
+        "shape": "dict",
+        "count": 5,
+        "keys": [
+          "contract_version",
+          "count",
+          "events",
+          "filters",
+          "limit",
+          "ok",
+          "order",
+          "summary"
+        ]
+      }
+    },
+    {
+      "name": "diagnostics",
+      "ok": true,
+      "url": "http://127.0.0.1:8000/diagnostics",
+      "status_code": 404,
+      "elapsed_sec": 0.0,
+      "reason": "optional endpoint not available (404)",
+      "details": {
+        "optional": true,
+        "fallback": "status snapshots"
+      }
+    },
+    {
+      "name": "logs",
+      "ok": true,
+      "url": "http://127.0.0.1:8000/logs?limit=20",
+      "status_code": 200,
+      "elapsed_sec": 0.01647419999972044,
+      "reason": null,
+      "details": {
+        "shape": "list",
+        "count": 20
+      }
+    }
+  ]
+}

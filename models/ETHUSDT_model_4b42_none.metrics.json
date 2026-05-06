@@ -1,0 +1,141 @@
+{
+  "symbol": "ETHUSDT",
+  "interval": "1m",
+  "days": 30,
+  "accuracy": 0.7251535137593814,
+  "precision_macro": 0.24191039793634536,
+  "recall_macro": 0.3332288237445786,
+  "samples": 43970,
+  "train_samples": 35176,
+  "test_samples": 8794,
+  "class_distribution": {
+    "0": 32176,
+    "1": 6042,
+    "2": 5752
+  },
+  "confusion_matrix": [
+    [
+      6377,
+      0,
+      2
+    ],
+    [
+      1204,
+      0,
+      4
+    ],
+    [
+      1206,
+      1,
+      0
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.7257311938090361,
+      "recall": 0.9996864712337357,
+      "f1-score": 0.8409600421996571,
+      "support": 6379.0
+    },
+    "1": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1208.0
+    },
+    "2": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1207.0
+    },
+    "accuracy": 0.7251535137593814,
+    "macro avg": {
+      "precision": 0.24191039793634536,
+      "recall": 0.3332288237445786,
+      "f1-score": 0.2803200140665524,
+      "support": 8794.0
+    },
+    "weighted avg": {
+      "precision": 0.5264315766781715,
+      "recall": 0.7251535137593814,
+      "f1-score": 0.6100163872176044,
+      "support": 8794.0
+    }
+  },
+  "actual_class_distribution": {
+    "0": 6379,
+    "1": 1208,
+    "2": 1207
+  },
+  "actual_class_rate": {
+    "0": 0.7253809415510576,
+    "1": 0.13736638617239028,
+    "2": 0.1372526722765522
+  },
+  "predicted_class_distribution": {
+    "0": 8787,
+    "1": 1,
+    "2": 6
+  },
+  "predicted_class_rate": {
+    "0": 0.9992040027291335,
+    "1": 0.00011371389583807141,
+    "2": 0.0006822833750284285
+  },
+  "action_report": {
+    "hold_rate": 0.9992040027291335,
+    "non_hold_rate": 0.0007959972708664999,
+    "action_coverage": 0.0007959972708664999,
+    "buy_precision": 0.0,
+    "sell_precision": 0.0,
+    "buy_recall": 0.0,
+    "sell_recall": 0.0
+  },
+  "confidence_summary": {
+    "mean_max_probability": 0.7160919009791956,
+    "median_max_probability": 0.7390740215778351,
+    "p10_max_probability": 0.5406728863716126,
+    "p25_max_probability": 0.6427304446697235,
+    "p75_max_probability": 0.8086476475000381,
+    "p90_max_probability": 0.8410145401954651,
+    "mean_indecision_margin": 0.5556081204306803,
+    "low_confidence_cutoff": 0.55,
+    "high_confidence_cutoff": 0.75,
+    "indecision_margin_cutoff": 0.08,
+    "low_confidence_rate": 0.11462360700477599,
+    "high_confidence_rate": 0.4728223788947009,
+    "indecision_rate": 0.004434841937684785
+  },
+  "class_name_map": {
+    "0": "HOLD",
+    "1": "BUY",
+    "2": "SELL"
+  },
+  "model_path": "models/ETHUSDT_model_4b42_none.ubj",
+  "output": "models/ETHUSDT_model_4b42_none.ubj",
+  "schema_version": "4B.3.4",
+  "feature_lag": 1,
+  "schema_path": "models/ETHUSDT_model_4b42_none.schema.json",
+  "dataset_manifest_path": "models/ETHUSDT_model_4b42_none.dataset.json",
+  "label_config": {
+    "lookahead": 10,
+    "atr_multiplier": 1.5,
+    "entry_fee_bps": 10.0,
+    "exit_fee_bps": 10.0,
+    "entry_slippage_bps": 2.0,
+    "exit_slippage_bps": 2.0,
+    "min_profit_bps": 5.0,
+    "use_high_low_barriers": true,
+    "ambiguous_barrier_policy": "hold",
+    "round_trip_cost_bps": 29.0,
+    "round_trip_cost_pct": 0.0029
+  },
+  "feature_pack_name": "core_price_action_regime_vwap_mtf15_v1",
+  "class_weight_profile": "none",
+  "class_weight_map": {
+    "0": 1.0,
+    "1": 1.0,
+    "2": 1.0
+  }
+}

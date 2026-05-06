@@ -1,0 +1,824 @@
+{
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_training_candidate": false,
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.24H",
+  "days": 90,
+  "decision": "BLOCK",
+  "generated_at": "2026-05-05T22:40:00Z",
+  "guardrails": {
+    "config_mutation_performed": false,
+    "get_only_public_market_data": true,
+    "live_real_allowed": false,
+    "observation_only": true,
+    "order_actions_performed": false,
+    "post_requests_allowed": false,
+    "reload_performed": false
+  },
+  "interval": "1m",
+  "limits": {
+    "max_action_pct": 45.0,
+    "max_action_side_pct": 78.0,
+    "max_hold_pct": 92.0,
+    "min_action_pct": 3.0,
+    "min_buy_direction_consistency_pct": 55.0,
+    "min_class_count": 20,
+    "min_directional_entropy": 0.68,
+    "min_forward_return_gap_bps": 8.0,
+    "min_hold_pct": 35.0,
+    "min_samples": 1000,
+    "min_sell_direction_consistency_pct": 55.0,
+    "target_action_pct": 18.0
+  },
+  "live_real_allowed": false,
+  "no_post_actions": true,
+  "observation_only": true,
+  "ok": false,
+  "order_actions_performed": false,
+  "phase": "4B.4.3.6.6.24H",
+  "policies": [
+    {
+      "approvable": false,
+      "clean_samples": 129561,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 78.863576,
+        "buy_forward_return_bps": {
+          "max": 668.87023926,
+          "mean": 15.11898949,
+          "median": 10.67042351,
+          "min": -242.57243347
+        },
+        "directional_entropy": 0.999981,
+        "forward_return_gap_bps": 30.082632,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.5,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 10,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 79.107632,
+        "sell_forward_return_bps": {
+          "max": 311.50460815,
+          "mean": -14.96364215,
+          "median": -10.4790926,
+          "min": -347.77938843
+        },
+        "target_action_pct": 86.63178,
+        "target_action_side_pct": 50.258818,
+        "target_distribution": {
+          "BUY": 56411,
+          "HOLD": 17320,
+          "SELL": 55830
+        },
+        "target_hold_pct": 13.36822
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": false,
+        "atr_multiplier": 1.5,
+        "family": "baseline",
+        "lookahead": 10,
+        "min_profit_bps": 0.0,
+        "name": "current_baseline_h10_atr1_5",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW",
+        "DIAGNOSTIC_POLICY_NOT_APPROVABLE"
+      ],
+      "sample_count": 129561,
+      "score": -93.407534,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129568,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 77.782157,
+        "buy_forward_return_bps": {
+          "max": 417.29925537,
+          "mean": 8.02336302,
+          "median": 5.46574593,
+          "min": -100.98040009
+        },
+        "directional_entropy": 0.999975,
+        "forward_return_gap_bps": 16.060319,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 0.8,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 3,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 78.15016,
+        "sell_forward_return_bps": {
+          "max": 144.87982178,
+          "mean": -8.03695576,
+          "median": -5.53309917,
+          "min": -200.04928589
+        },
+        "target_action_pct": 81.774049,
+        "target_action_side_pct": 50.293998,
+        "target_distribution": {
+          "BUY": 53288,
+          "HOLD": 23615,
+          "SELL": 52665
+        },
+        "target_hold_pct": 18.225951
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 0.8,
+        "family": "fast",
+        "lookahead": 3,
+        "min_profit_bps": 0.0,
+        "name": "h3_atr0_8_fast",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129568,
+      "score": -74.564726,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129566,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 76.242374,
+        "buy_forward_return_bps": {
+          "max": 529.04724121,
+          "mean": 9.67294995,
+          "median": 6.63876534,
+          "min": -187.27243042
+        },
+        "directional_entropy": 0.999982,
+        "forward_return_gap_bps": 19.290151,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 0.9,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 5,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 76.312054,
+        "sell_forward_return_bps": {
+          "max": 373.80575562,
+          "mean": -9.61720198,
+          "median": -6.54935837,
+          "min": -251.97923279
+        },
+        "target_action_pct": 89.631539,
+        "target_action_side_pct": 50.252299,
+        "target_distribution": {
+          "BUY": 58359,
+          "HOLD": 13434,
+          "SELL": 57773
+        },
+        "target_hold_pct": 10.368461
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 0.9,
+        "family": "fast",
+        "lookahead": 5,
+        "min_profit_bps": 0.0,
+        "name": "h5_atr0_9_fast_balanced",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129566,
+      "score": -89.693993,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129566,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 79.905876,
+        "buy_forward_return_bps": {
+          "max": 529.04724121,
+          "mean": 11.09297711,
+          "median": 7.64846802,
+          "min": -187.27243042
+        },
+        "directional_entropy": 0.999989,
+        "forward_return_gap_bps": 22.146931,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.1,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 5,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 79.934242,
+        "sell_forward_return_bps": {
+          "max": 373.80575562,
+          "mean": -11.05395243,
+          "median": -7.5751543,
+          "min": -251.97923279
+        },
+        "target_action_pct": 82.012256,
+        "target_action_side_pct": 50.195746,
+        "target_distribution": {
+          "BUY": 53338,
+          "HOLD": 23306,
+          "SELL": 52922
+        },
+        "target_hold_pct": 17.987744
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.1,
+        "family": "balanced",
+        "lookahead": 5,
+        "min_profit_bps": 0.0,
+        "name": "h5_atr1_1_balanced",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129566,
+      "score": -73.678218,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129561,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 70.625737,
+        "buy_forward_return_bps": {
+          "max": 668.87023926,
+          "mean": 11.01868842,
+          "median": 7.7188015,
+          "min": -244.02677917
+        },
+        "directional_entropy": 0.999995,
+        "forward_return_gap_bps": 21.82919,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.0,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 10,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 70.908567,
+        "sell_forward_return_bps": {
+          "max": 528.73016357,
+          "mean": -10.81050315,
+          "median": -7.5674057,
+          "min": -347.77938843
+        },
+        "target_action_pct": 96.610091,
+        "target_action_side_pct": 50.130623,
+        "target_distribution": {
+          "BUY": 62748,
+          "HOLD": 4392,
+          "SELL": 62421
+        },
+        "target_hold_pct": 3.389909
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.0,
+        "family": "balanced",
+        "lookahead": 10,
+        "min_profit_bps": 0.0,
+        "name": "h10_atr1_0_balanced",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129561,
+      "score": -103.375346,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129561,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 75.01785,
+        "buy_forward_return_bps": {
+          "max": 668.87023926,
+          "mean": 13.16476612,
+          "median": 9.21845436,
+          "min": -242.57243347
+        },
+        "directional_entropy": 0.999992,
+        "forward_return_gap_bps": 26.110758,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.25,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 10,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 75.202233,
+        "sell_forward_return_bps": {
+          "max": 528.73016357,
+          "mean": -12.94599341,
+          "median": -9.12278891,
+          "min": -347.77938843
+        },
+        "target_action_pct": 92.66909,
+        "target_action_side_pct": 50.164497,
+        "target_distribution": {
+          "BUY": 60229,
+          "HOLD": 9498,
+          "SELL": 59834
+        },
+        "target_hold_pct": 7.33091
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.25,
+        "family": "balanced",
+        "lookahead": 10,
+        "min_profit_bps": 0.0,
+        "name": "h10_atr1_25_balanced",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129561,
+      "score": -94.430999,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129556,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 70.548966,
+        "buy_forward_return_bps": {
+          "max": 677.66668701,
+          "mean": 13.56839262,
+          "median": 9.48488712,
+          "min": -338.46557617
+        },
+        "directional_entropy": 0.999995,
+        "forward_return_gap_bps": 26.808979,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.25,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 15,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 70.429002,
+        "sell_forward_return_bps": {
+          "max": 641.09680176,
+          "mean": -13.24058672,
+          "median": -9.27507877,
+          "min": -405.88616943
+        },
+        "target_action_pct": 97.105499,
+        "target_action_side_pct": 50.131154,
+        "target_distribution": {
+          "BUY": 63068,
+          "HOLD": 3750,
+          "SELL": 62738
+        },
+        "target_hold_pct": 2.894501
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.25,
+        "family": "directional",
+        "lookahead": 15,
+        "min_profit_bps": 0.0,
+        "name": "h15_atr1_25_directional",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129556,
+      "score": -103.380254,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129556,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 74.085595,
+        "buy_forward_return_bps": {
+          "max": 677.66668701,
+          "mean": 15.6741065,
+          "median": 11.01672649,
+          "min": -338.46557617
+        },
+        "directional_entropy": 0.999995,
+        "forward_return_gap_bps": 31.037717,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.5,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 15,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 74.005432,
+        "sell_forward_return_bps": {
+          "max": 306.78271484,
+          "mean": -15.3636081,
+          "median": -10.76102257,
+          "min": -405.88616943
+        },
+        "target_action_pct": 94.049677,
+        "target_action_side_pct": 50.130902,
+        "target_distribution": {
+          "BUY": 61083,
+          "HOLD": 7709,
+          "SELL": 60764
+        },
+        "target_hold_pct": 5.950323
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.5,
+        "family": "directional",
+        "lookahead": 15,
+        "min_profit_bps": 0.0,
+        "name": "h15_atr1_5_directional",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129556,
+      "score": -96.24394,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129551,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 70.638588,
+        "buy_forward_return_bps": {
+          "max": 690.70697021,
+          "mean": 15.95123624,
+          "median": 11.03878021,
+          "min": -346.62426758
+        },
+        "directional_entropy": 0.999993,
+        "forward_return_gap_bps": 31.48224,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.5,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 20,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 70.272517,
+        "sell_forward_return_bps": {
+          "max": 412.89331055,
+          "mean": -15.53100221,
+          "median": -10.90168953,
+          "min": -433.98678589
+        },
+        "target_action_pct": 96.913185,
+        "target_action_side_pct": 50.16089,
+        "target_distribution": {
+          "BUY": 62978,
+          "HOLD": 3999,
+          "SELL": 62574
+        },
+        "target_hold_pct": 3.086815
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.5,
+        "family": "directional_strong",
+        "lookahead": 20,
+        "min_profit_bps": 0.0,
+        "name": "h20_atr1_5_directional_strong",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129551,
+      "score": -102.080708,
+      "warnings": []
+    },
+    {
+      "approvable": true,
+      "clean_samples": 129551,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 74.565699,
+        "buy_forward_return_bps": {
+          "max": 690.70697021,
+          "mean": 18.55296558,
+          "median": 12.98964024,
+          "min": -346.62426758
+        },
+        "directional_entropy": 1.0,
+        "forward_return_gap_bps": 36.546347,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.8,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 20,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 73.978512,
+        "sell_forward_return_bps": {
+          "max": 306.59674072,
+          "mean": -17.99338323,
+          "median": -12.75867224,
+          "min": -433.98678589
+        },
+        "target_action_pct": 93.370179,
+        "target_action_side_pct": 50.022321,
+        "target_distribution": {
+          "BUY": 60454,
+          "HOLD": 8589,
+          "SELL": 60508
+        },
+        "target_hold_pct": 6.629821
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.8,
+        "family": "directional_strong",
+        "lookahead": 20,
+        "min_profit_bps": 0.0,
+        "name": "h20_atr1_8_directional_strong",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129551,
+      "score": -93.741091,
+      "warnings": []
+    }
+  ],
+  "policy_count": 10,
+  "reason_codes": [
+    "TARGET_ACTION_COVERAGE_HIGH",
+    "TARGET_HOLD_COVERAGE_LOW",
+    "DIAGNOSTIC_POLICY_NOT_APPROVABLE"
+  ],
+  "recommendation": "No safe label horizon / target policy passed. Revisit horizon, ATR multiplier, costs, or feature separation before retraining.",
+  "reload_performed": false,
+  "report_type": "label_horizon_target_engineering_recovery",
+  "sample_count": 129600,
+  "selected_policy": {
+    "approvable": true,
+    "clean_samples": 129566,
+    "contract_version": "4B.4.3.6.6.24H",
+    "decision": "BLOCK",
+    "metrics": {
+      "buy_direction_consistency_pct": 79.905876,
+      "buy_forward_return_bps": {
+        "max": 529.04724121,
+        "mean": 11.09297711,
+        "median": 7.64846802,
+        "min": -187.27243042
+      },
+      "directional_entropy": 0.999989,
+      "forward_return_gap_bps": 22.146931,
+      "label_config": {
+        "ambiguous_barrier_policy": "hold",
+        "atr_multiplier": 1.1,
+        "entry_fee_bps": 0.0,
+        "entry_slippage_bps": 0.0,
+        "exit_fee_bps": 0.0,
+        "exit_slippage_bps": 0.0,
+        "feature_lag": 1,
+        "lookahead": 5,
+        "min_profit_bps": 0.0,
+        "round_trip_cost_bps": 0.0,
+        "use_high_low_barriers": true
+      },
+      "sell_direction_consistency_pct": 79.934242,
+      "sell_forward_return_bps": {
+        "max": 373.80575562,
+        "mean": -11.05395243,
+        "median": -7.5751543,
+        "min": -251.97923279
+      },
+      "target_action_pct": 82.012256,
+      "target_action_side_pct": 50.195746,
+      "target_distribution": {
+        "BUY": 53338,
+        "HOLD": 23306,
+        "SELL": 52922
+      },
+      "target_hold_pct": 17.987744
+    },
+    "ok": false,
+    "policy": {
+      "ambiguous_barrier_policy": "hold",
+      "approvable": true,
+      "atr_multiplier": 1.1,
+      "family": "balanced",
+      "lookahead": 5,
+      "min_profit_bps": 0.0,
+      "name": "h5_atr1_1_balanced",
+      "use_high_low_barriers": true
+    },
+    "reason_codes": [
+      "TARGET_ACTION_COVERAGE_HIGH",
+      "TARGET_HOLD_COVERAGE_LOW"
+    ],
+    "sample_count": 129566,
+    "score": -73.678218,
+    "warnings": []
+  },
+  "selected_policy_name": "h5_atr1_1_balanced",
+  "selection": {
+    "approved": false,
+    "candidate_count": 10,
+    "contract_version": "4B.4.3.6.6.24H",
+    "decision": "BLOCK",
+    "pass_count": 0,
+    "reason_codes": [
+      "TARGET_ACTION_COVERAGE_HIGH",
+      "TARGET_HOLD_COVERAGE_LOW",
+      "DIAGNOSTIC_POLICY_NOT_APPROVABLE"
+    ],
+    "selected_policy": {
+      "approvable": true,
+      "clean_samples": 129566,
+      "contract_version": "4B.4.3.6.6.24H",
+      "decision": "BLOCK",
+      "metrics": {
+        "buy_direction_consistency_pct": 79.905876,
+        "buy_forward_return_bps": {
+          "max": 529.04724121,
+          "mean": 11.09297711,
+          "median": 7.64846802,
+          "min": -187.27243042
+        },
+        "directional_entropy": 0.999989,
+        "forward_return_gap_bps": 22.146931,
+        "label_config": {
+          "ambiguous_barrier_policy": "hold",
+          "atr_multiplier": 1.1,
+          "entry_fee_bps": 0.0,
+          "entry_slippage_bps": 0.0,
+          "exit_fee_bps": 0.0,
+          "exit_slippage_bps": 0.0,
+          "feature_lag": 1,
+          "lookahead": 5,
+          "min_profit_bps": 0.0,
+          "round_trip_cost_bps": 0.0,
+          "use_high_low_barriers": true
+        },
+        "sell_direction_consistency_pct": 79.934242,
+        "sell_forward_return_bps": {
+          "max": 373.80575562,
+          "mean": -11.05395243,
+          "median": -7.5751543,
+          "min": -251.97923279
+        },
+        "target_action_pct": 82.012256,
+        "target_action_side_pct": 50.195746,
+        "target_distribution": {
+          "BUY": 53338,
+          "HOLD": 23306,
+          "SELL": 52922
+        },
+        "target_hold_pct": 17.987744
+      },
+      "ok": false,
+      "policy": {
+        "ambiguous_barrier_policy": "hold",
+        "approvable": true,
+        "atr_multiplier": 1.1,
+        "family": "balanced",
+        "lookahead": 5,
+        "min_profit_bps": 0.0,
+        "name": "h5_atr1_1_balanced",
+        "use_high_low_barriers": true
+      },
+      "reason_codes": [
+        "TARGET_ACTION_COVERAGE_HIGH",
+        "TARGET_HOLD_COVERAGE_LOW"
+      ],
+      "sample_count": 129566,
+      "score": -73.678218,
+      "warnings": []
+    }
+  },
+  "source": "https://api.binance.com|ETHUSDT|1m|90d",
+  "symbol": "ETHUSDT"
+}

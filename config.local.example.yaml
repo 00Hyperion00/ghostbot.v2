@@ -1,0 +1,35 @@
+# Local runtime profile template.
+# Copy this file to config.local.yaml and fill credentials outside git/release archives.
+market_type: spot_demo
+base_url: https://demo-api.binance.com
+api_key: ""
+api_secret: ""
+symbol: ETHUSDT
+kline_interval: 1m
+execution_mode: live_demo
+live_trading_armed: false
+live_real_double_confirm: false
+auto_trade_on_signal: true
+auto_trade_signal_mode: normal
+order_notional_usd: 25.0
+ai_provider_enabled: true
+ai_provider_mode: local_xgboost
+ai_model_path: models/ETHUSDT_model_4b43664.ubj
+ai_confidence_threshold: 0.6
+database_path: .tradebot/tradebot.db
+api_host: 127.0.0.1
+api_port: 8787
+model_quality_gate_enabled: true
+model_quality_gate_min_runtime_samples: 30
+model_quality_gate_block_runtime_warming_up: true
+model_quality_gate_block_runtime_warning: false
+model_quality_gate_min_clean_samples: 1000
+model_quality_gate_min_action_coverage: 0.03
+model_quality_gate_max_hold_rate: 0.97
+model_quality_gate_max_low_margin_reject_rate: 0.75
+model_quality_gate_min_calibrated_accuracy: 0.30
+model_quality_gate_block_reload_on_insufficient_evidence: true
+model_quality_gate_min_target_action_rate: 0.03
+model_quality_gate_max_target_hold_rate: 0.97
+model_quality_gate_min_present_target_classes: 2
+model_quality_gate_block_synthetic_class_padding: true
