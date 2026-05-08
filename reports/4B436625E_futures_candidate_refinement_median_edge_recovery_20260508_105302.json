@@ -1,0 +1,519 @@
+{
+  "contract_version": "4B.4.3.6.6.25E",
+  "phase": "4B.4.3.6.6.25E",
+  "report_type": "futures_candidate_refinement_median_edge_recovery",
+  "decision": "BLOCK",
+  "ok": false,
+  "source": "binance-futures:BTCUSDT:4h:90d:funding_trend_exhaustion",
+  "candidate_spec": {
+    "symbol": "BTCUSDT",
+    "interval": "4h",
+    "strategy": "funding_trend_exhaustion",
+    "source_phase": "4B.4.3.6.6.25D",
+    "horizon_bars": 1,
+    "round_trip_cost_bps": 16.0,
+    "min_edge_bps": 0.0
+  },
+  "filter_count": 8,
+  "approved_for_research_candidate": false,
+  "approved_for_training_candidate": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_live_real": false,
+  "live_real_allowed": false,
+  "reload_performed": false,
+  "config_mutation_performed": false,
+  "order_actions_performed": false,
+  "no_post_actions": true,
+  "observation_only": true,
+  "reason_codes": [
+    "NO_MEDIAN_EDGE_REFINEMENT_CANDIDATE_PASSED",
+    "REFINEMENT_SIDE_IMBALANCE_HIGH",
+    "REFINEMENT_SIGNAL_COUNT_LOW",
+    "REFINEMENT_TOP_WIN_DEPENDENCY_HIGH"
+  ],
+  "recommendation": "No futures median-edge refinement candidate passed. Do not train, reload, start paper trading, or enable live trading. Tighten the hypothesis or close this candidate.",
+  "selected_filter": "funding_extreme_strict",
+  "selected_mean_net_edge_bps": 65.51966,
+  "selected_median_net_edge_bps": 51.934953,
+  "selected_profit_factor": 99.0,
+  "selected_signal_count": 3,
+  "selected": {
+    "contract_version": "4B.4.3.6.6.25E",
+    "filter": {
+      "name": "funding_extreme_strict",
+      "min_abs_funding_z": 1.0,
+      "min_abs_funding_rate": 5e-05,
+      "require_oi_alignment": false,
+      "require_taker_confirmation": false,
+      "require_price_trend_alignment": false,
+      "max_abs_vwap_distance_bps": null,
+      "require_positive_prior_return_against_side": false,
+      "approvable": true,
+      "family": "median_edge_refinement"
+    },
+    "decision": "BLOCK",
+    "ok": false,
+    "approved_for_research_candidate": false,
+    "approved_for_training_candidate": false,
+    "approved_for_paper_candidate": false,
+    "approved_for_live_real": false,
+    "reload_allowed": false,
+    "reason_codes": [
+      "REFINEMENT_SIGNAL_COUNT_LOW",
+      "REFINEMENT_SIDE_IMBALANCE_HIGH",
+      "REFINEMENT_TOP_WIN_DEPENDENCY_HIGH"
+    ],
+    "warnings": [
+      "REFINEMENT_SIGNAL_COUNT_NEAR_FLOOR"
+    ],
+    "score": 3444.389566,
+    "metrics": {
+      "signal_count": 3,
+      "coverage_pct": 0.555556,
+      "mean_net_edge_bps": 65.51966,
+      "median_net_edge_bps": 51.934953,
+      "win_rate_pct": 100.0,
+      "profit_factor": 99.0,
+      "max_drawdown_pct": 0.0,
+      "oos_mean_net_edge_bps": 51.934953,
+      "walk_forward_positive_rate_pct": 100.0,
+      "dominant_side_pct": 100.0,
+      "top_win_dependency_pct": 100.0,
+      "side_counts": {
+        "BUY": 3,
+        "SELL": 0
+      }
+    }
+  },
+  "candidates": [
+    {
+      "contract_version": "4B.4.3.6.6.25E",
+      "filter": {
+        "name": "funding_extreme_strict",
+        "min_abs_funding_z": 1.0,
+        "min_abs_funding_rate": 5e-05,
+        "require_oi_alignment": false,
+        "require_taker_confirmation": false,
+        "require_price_trend_alignment": false,
+        "max_abs_vwap_distance_bps": null,
+        "require_positive_prior_return_against_side": false,
+        "approvable": true,
+        "family": "median_edge_refinement"
+      },
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "reason_codes": [
+        "REFINEMENT_SIGNAL_COUNT_LOW",
+        "REFINEMENT_SIDE_IMBALANCE_HIGH",
+        "REFINEMENT_TOP_WIN_DEPENDENCY_HIGH"
+      ],
+      "warnings": [
+        "REFINEMENT_SIGNAL_COUNT_NEAR_FLOOR"
+      ],
+      "score": 3444.389566,
+      "metrics": {
+        "signal_count": 3,
+        "coverage_pct": 0.555556,
+        "mean_net_edge_bps": 65.51966,
+        "median_net_edge_bps": 51.934953,
+        "win_rate_pct": 100.0,
+        "profit_factor": 99.0,
+        "max_drawdown_pct": 0.0,
+        "oos_mean_net_edge_bps": 51.934953,
+        "walk_forward_positive_rate_pct": 100.0,
+        "dominant_side_pct": 100.0,
+        "top_win_dependency_pct": 100.0,
+        "side_counts": {
+          "BUY": 3,
+          "SELL": 0
+        }
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.25E",
+      "filter": {
+        "name": "funding_extreme_trend_aligned",
+        "min_abs_funding_z": 0.75,
+        "min_abs_funding_rate": 0.0,
+        "require_oi_alignment": false,
+        "require_taker_confirmation": false,
+        "require_price_trend_alignment": true,
+        "max_abs_vwap_distance_bps": null,
+        "require_positive_prior_return_against_side": false,
+        "approvable": true,
+        "family": "median_edge_refinement"
+      },
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "reason_codes": [
+        "REFINEMENT_SIDE_IMBALANCE_HIGH",
+        "REFINEMENT_MEAN_EDGE_LOW",
+        "REFINEMENT_MEDIAN_EDGE_LOW",
+        "REFINEMENT_PROFIT_FACTOR_LOW",
+        "REFINEMENT_WIN_RATE_LOW",
+        "REFINEMENT_WALK_FORWARD_STABILITY_LOW"
+      ],
+      "warnings": [
+        "REFINEMENT_SIGNAL_COUNT_NEAR_FLOOR"
+      ],
+      "score": -219.3774,
+      "metrics": {
+        "signal_count": 34,
+        "coverage_pct": 6.296296,
+        "mean_net_edge_bps": -15.745544,
+        "median_net_edge_bps": -8.618232,
+        "win_rate_pct": 47.058824,
+        "profit_factor": 0.638703,
+        "max_drawdown_pct": 7.825014,
+        "oos_mean_net_edge_bps": 0.978285,
+        "walk_forward_positive_rate_pct": 25.0,
+        "dominant_side_pct": 91.176471,
+        "top_win_dependency_pct": 42.482523,
+        "side_counts": {
+          "BUY": 3,
+          "SELL": 31
+        }
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.25E",
+      "filter": {
+        "name": "diagnostic_base_candidate",
+        "min_abs_funding_z": 0.0,
+        "min_abs_funding_rate": 0.0,
+        "require_oi_alignment": false,
+        "require_taker_confirmation": false,
+        "require_price_trend_alignment": false,
+        "max_abs_vwap_distance_bps": null,
+        "require_positive_prior_return_against_side": false,
+        "approvable": false,
+        "family": "diagnostic"
+      },
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "reason_codes": [
+        "DIAGNOSTIC_FILTER_NOT_APPROVABLE",
+        "REFINEMENT_SIDE_IMBALANCE_HIGH",
+        "REFINEMENT_MEAN_EDGE_LOW",
+        "REFINEMENT_MEDIAN_EDGE_LOW",
+        "REFINEMENT_PROFIT_FACTOR_LOW",
+        "REFINEMENT_WIN_RATE_LOW",
+        "REFINEMENT_WALK_FORWARD_STABILITY_LOW",
+        "REFINEMENT_OOS_EDGE_LOW"
+      ],
+      "warnings": [],
+      "score": -286.227605,
+      "metrics": {
+        "signal_count": 47,
+        "coverage_pct": 8.703704,
+        "mean_net_edge_bps": -19.187758,
+        "median_net_edge_bps": -8.471076,
+        "win_rate_pct": 42.553191,
+        "profit_factor": 0.532923,
+        "max_drawdown_pct": 9.98146,
+        "oos_mean_net_edge_bps": -23.943168,
+        "walk_forward_positive_rate_pct": 25.0,
+        "dominant_side_pct": 87.234043,
+        "top_win_dependency_pct": 39.073616,
+        "side_counts": {
+          "BUY": 6,
+          "SELL": 41
+        }
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.25E",
+      "filter": {
+        "name": "funding_extreme_oi_confirmed",
+        "min_abs_funding_z": 0.75,
+        "min_abs_funding_rate": 0.0,
+        "require_oi_alignment": true,
+        "require_taker_confirmation": false,
+        "require_price_trend_alignment": false,
+        "max_abs_vwap_distance_bps": null,
+        "require_positive_prior_return_against_side": false,
+        "approvable": true,
+        "family": "median_edge_refinement"
+      },
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "reason_codes": [
+        "REFINEMENT_SIGNAL_COUNT_LOW",
+        "REFINEMENT_SIDE_IMBALANCE_HIGH",
+        "REFINEMENT_MEAN_EDGE_LOW",
+        "REFINEMENT_MEDIAN_EDGE_LOW",
+        "REFINEMENT_PROFIT_FACTOR_LOW",
+        "REFINEMENT_WIN_RATE_LOW",
+        "REFINEMENT_WALK_FORWARD_STABILITY_LOW",
+        "REFINEMENT_TOP_WIN_DEPENDENCY_HIGH",
+        "REFINEMENT_OOS_EDGE_LOW"
+      ],
+      "warnings": [
+        "REFINEMENT_SIGNAL_COUNT_NEAR_FLOOR"
+      ],
+      "score": -346.952106,
+      "metrics": {
+        "signal_count": 25,
+        "coverage_pct": 4.62963,
+        "mean_net_edge_bps": -24.821622,
+        "median_net_edge_bps": -16.597808,
+        "win_rate_pct": 44.0,
+        "profit_factor": 0.534932,
+        "max_drawdown_pct": 8.157585,
+        "oos_mean_net_edge_bps": -1.884625,
+        "walk_forward_positive_rate_pct": 0.0,
+        "dominant_side_pct": 100.0,
+        "top_win_dependency_pct": 56.328738,
+        "side_counts": {
+          "BUY": 0,
+          "SELL": 25
+        }
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.25E",
+      "filter": {
+        "name": "funding_extreme_taker_confirmed",
+        "min_abs_funding_z": 0.75,
+        "min_abs_funding_rate": 0.0,
+        "require_oi_alignment": false,
+        "require_taker_confirmation": true,
+        "require_price_trend_alignment": false,
+        "max_abs_vwap_distance_bps": null,
+        "require_positive_prior_return_against_side": false,
+        "approvable": true,
+        "family": "median_edge_refinement"
+      },
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "reason_codes": [
+        "REFINEMENT_SIGNAL_COUNT_LOW",
+        "REFINEMENT_SIDE_IMBALANCE_HIGH",
+        "REFINEMENT_MEAN_EDGE_LOW",
+        "REFINEMENT_MEDIAN_EDGE_LOW",
+        "REFINEMENT_PROFIT_FACTOR_LOW",
+        "REFINEMENT_WIN_RATE_LOW",
+        "REFINEMENT_WALK_FORWARD_STABILITY_LOW",
+        "REFINEMENT_TOP_WIN_DEPENDENCY_HIGH",
+        "REFINEMENT_OOS_EDGE_LOW"
+      ],
+      "warnings": [
+        "REFINEMENT_SIGNAL_COUNT_NEAR_FLOOR"
+      ],
+      "score": -404.903789,
+      "metrics": {
+        "signal_count": 7,
+        "coverage_pct": 1.296296,
+        "mean_net_edge_bps": -16.617428,
+        "median_net_edge_bps": -10.606022,
+        "win_rate_pct": 28.571429,
+        "profit_factor": 0.440734,
+        "max_drawdown_pct": 0.969903,
+        "oos_mean_net_edge_bps": -11.483114,
+        "walk_forward_positive_rate_pct": 50.0,
+        "dominant_side_pct": 85.714286,
+        "top_win_dependency_pct": 100.0,
+        "side_counts": {
+          "BUY": 1,
+          "SELL": 6
+        }
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.25E",
+      "filter": {
+        "name": "funding_oi_taker_guarded",
+        "min_abs_funding_z": 0.6,
+        "min_abs_funding_rate": 0.0,
+        "require_oi_alignment": true,
+        "require_taker_confirmation": true,
+        "require_price_trend_alignment": false,
+        "max_abs_vwap_distance_bps": null,
+        "require_positive_prior_return_against_side": false,
+        "approvable": true,
+        "family": "median_edge_refinement"
+      },
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "reason_codes": [
+        "REFINEMENT_SIGNAL_COUNT_LOW",
+        "REFINEMENT_SIDE_IMBALANCE_HIGH",
+        "REFINEMENT_MEAN_EDGE_LOW",
+        "REFINEMENT_MEDIAN_EDGE_LOW",
+        "REFINEMENT_PROFIT_FACTOR_LOW",
+        "REFINEMENT_WIN_RATE_LOW",
+        "REFINEMENT_WALK_FORWARD_STABILITY_LOW",
+        "REFINEMENT_TOP_WIN_DEPENDENCY_HIGH",
+        "REFINEMENT_OOS_EDGE_LOW"
+      ],
+      "warnings": [
+        "REFINEMENT_SIGNAL_COUNT_NEAR_FLOOR"
+      ],
+      "score": -490.153219,
+      "metrics": {
+        "signal_count": 5,
+        "coverage_pct": 0.925926,
+        "mean_net_edge_bps": -31.530186,
+        "median_net_edge_bps": -38.459264,
+        "win_rate_pct": 20.0,
+        "profit_factor": 0.2013,
+        "max_drawdown_pct": 0.863843,
+        "oos_mean_net_edge_bps": -43.192147,
+        "walk_forward_positive_rate_pct": 25.0,
+        "dominant_side_pct": 100.0,
+        "top_win_dependency_pct": 100.0,
+        "side_counts": {
+          "BUY": 0,
+          "SELL": 5
+        }
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.25E",
+      "filter": {
+        "name": "exhaustion_reversal_guarded",
+        "min_abs_funding_z": 0.5,
+        "min_abs_funding_rate": 0.0,
+        "require_oi_alignment": true,
+        "require_taker_confirmation": false,
+        "require_price_trend_alignment": false,
+        "max_abs_vwap_distance_bps": 220.0,
+        "require_positive_prior_return_against_side": true,
+        "approvable": true,
+        "family": "median_edge_refinement"
+      },
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "reason_codes": [
+        "REFINEMENT_SIGNAL_COUNT_LOW",
+        "REFINEMENT_SIDE_IMBALANCE_HIGH",
+        "REFINEMENT_MEAN_EDGE_LOW",
+        "REFINEMENT_MEDIAN_EDGE_LOW",
+        "REFINEMENT_PROFIT_FACTOR_LOW",
+        "REFINEMENT_WIN_RATE_LOW",
+        "REFINEMENT_WALK_FORWARD_STABILITY_LOW",
+        "REFINEMENT_TOP_WIN_DEPENDENCY_HIGH"
+      ],
+      "warnings": [
+        "REFINEMENT_SIGNAL_COUNT_NEAR_FLOOR"
+      ],
+      "score": -519.98408,
+      "metrics": {
+        "signal_count": 10,
+        "coverage_pct": 1.851852,
+        "mean_net_edge_bps": -47.880639,
+        "median_net_edge_bps": -66.294426,
+        "win_rate_pct": 30.0,
+        "profit_factor": 0.371012,
+        "max_drawdown_pct": 6.112007,
+        "oos_mean_net_edge_bps": 6.384457,
+        "walk_forward_positive_rate_pct": 50.0,
+        "dominant_side_pct": 90.0,
+        "top_win_dependency_pct": 100.0,
+        "side_counts": {
+          "BUY": 1,
+          "SELL": 9
+        }
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.25E",
+      "filter": {
+        "name": "median_edge_recovery_guarded",
+        "min_abs_funding_z": 0.5,
+        "min_abs_funding_rate": 0.0,
+        "require_oi_alignment": true,
+        "require_taker_confirmation": true,
+        "require_price_trend_alignment": true,
+        "max_abs_vwap_distance_bps": 180.0,
+        "require_positive_prior_return_against_side": false,
+        "approvable": true,
+        "family": "median_edge_refinement"
+      },
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "reload_allowed": false,
+      "reason_codes": [
+        "REFINEMENT_SIGNAL_COUNT_LOW",
+        "REFINEMENT_MEAN_EDGE_LOW",
+        "REFINEMENT_MEDIAN_EDGE_LOW",
+        "REFINEMENT_PROFIT_FACTOR_LOW",
+        "REFINEMENT_WIN_RATE_LOW",
+        "REFINEMENT_WALK_FORWARD_STABILITY_LOW",
+        "REFINEMENT_TOP_WIN_DEPENDENCY_HIGH",
+        "REFINEMENT_OOS_EDGE_LOW"
+      ],
+      "warnings": [
+        "REFINEMENT_SIGNAL_COUNT_NEAR_FLOOR"
+      ],
+      "score": -571.230236,
+      "metrics": {
+        "signal_count": 4,
+        "coverage_pct": 0.740741,
+        "mean_net_edge_bps": -69.811826,
+        "median_net_edge_bps": -68.209205,
+        "win_rate_pct": 0.0,
+        "profit_factor": 0.0,
+        "max_drawdown_pct": 1.748777,
+        "oos_mean_net_edge_bps": -68.209205,
+        "walk_forward_positive_rate_pct": 0.0,
+        "dominant_side_pct": 75.0,
+        "top_win_dependency_pct": 100.0,
+        "side_counts": {
+          "BUY": 1,
+          "SELL": 3
+        }
+      }
+    }
+  ],
+  "guardrails": {
+    "observation_only": true,
+    "no_post_actions": true,
+    "post_requests_allowed": false,
+    "config_mutation_performed": false,
+    "order_actions_performed": false,
+    "reload_performed": false,
+    "live_real_allowed": false,
+    "backtest_pass_is_not_paper_permission": true,
+    "paper_pass_is_not_live_permission": true
+  }
+}

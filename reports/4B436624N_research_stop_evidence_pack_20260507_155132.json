@@ -1,0 +1,425 @@
+{
+  "contract_version": "4B.4.3.6.6.24N",
+  "phase": "4B.4.3.6.6.24N",
+  "report_type": "research_stop_no_edge_evidence_pack",
+  "generated_at": "2026-05-07T12:51:32.799041+00:00",
+  "decision": "RESEARCH_STOP_NO_GO",
+  "ok": false,
+  "approved_for_training_candidate": false,
+  "approved_for_research_candidate": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_live_real": false,
+  "live_real_allowed": false,
+  "reason_codes": [
+    "4B436624M_BLOCK",
+    "4B436624J_BLOCK",
+    "4B436624L_BLOCK",
+    "4B436624K_BLOCK",
+    "NO_EDGE_EVIDENCE_CONFIRMED"
+  ],
+  "recommendation": "Research stop / no-go remains active. Do not promote, reload, start paper trading, or enable live trading. Open the next cycle only with a new pre-registered edge hypothesis and acceptance metrics.",
+  "summary": {
+    "source_report_count": 4,
+    "phase_coverage": {
+      "4B.4.3.6.6.24A": false,
+      "4B.4.3.6.6.24B": false,
+      "4B.4.3.6.6.24C": false,
+      "4B.4.3.6.6.24D": false,
+      "4B.4.3.6.6.24E": false,
+      "4B.4.3.6.6.24F": false,
+      "4B.4.3.6.6.24G": false,
+      "4B.4.3.6.6.24H": false,
+      "4B.4.3.6.6.24I": false,
+      "4B.4.3.6.6.24J": true,
+      "4B.4.3.6.6.24K": true,
+      "4B.4.3.6.6.24L": true,
+      "4B.4.3.6.6.24M": true
+    },
+    "terminal_no_go_phase_count": 4,
+    "terminal_no_go_block_count": 4,
+    "no_edge_evidence_confirmed": true,
+    "paper_live_blocked": true
+  },
+  "evidence": [
+    {
+      "phase": "4B.4.3.6.6.24J",
+      "label": "cost-aware retrain sweep / separation gate",
+      "source_path": "reports/4B436624J_cost_aware_retrain_sweep_20260506_132229.json",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_research_candidate": null,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "guardrails_ok": true,
+      "reason_codes": [
+        "NO_COST_AWARE_RETRAIN_CANDIDATE_PASSED",
+        "ACTION_HOLD_SEPARATION_MEAN_LOW",
+        "VALIDATION_CALIBRATED_ACTION_COVERAGE_LOW",
+        "VALIDATION_CALIBRATED_ACTION_SIDE_IMBALANCE_HIGH",
+        "VALIDATION_RAW_ACTION_COVERAGE_LOW"
+      ],
+      "recommendation": "No cost-aware retrain candidate passed the separation gate. Do not promote/reload; revisit policy, features, or model objective.",
+      "selected_summary": {
+        "decision": "BLOCK",
+        "ok": false,
+        "approved_for_training_candidate": false,
+        "approved_for_paper_candidate": false,
+        "approved_for_live_real": false,
+        "live_real_allowed": false,
+        "reload_performed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reason_codes": [
+          "NO_COST_AWARE_RETRAIN_CANDIDATE_PASSED",
+          "ACTION_HOLD_SEPARATION_MEAN_LOW",
+          "VALIDATION_CALIBRATED_ACTION_COVERAGE_LOW",
+          "VALIDATION_CALIBRATED_ACTION_SIDE_IMBALANCE_HIGH",
+          "VALIDATION_RAW_ACTION_COVERAGE_LOW"
+        ],
+        "recommendation": "No cost-aware retrain candidate passed the separation gate. Do not promote/reload; revisit policy, features, or model objective.",
+        "best_candidate.decision": "BLOCK",
+        "best_candidate.score": -2.388763,
+        "best_candidate.reason_codes": [
+          "ACTION_HOLD_SEPARATION_MEAN_LOW"
+        ],
+        "best_candidate.model_path": "models/4B436624J_candidates/ETHUSDT_model_4b436624J_h30_cost16_edge30_atr3_0_balanced_action_seek_light_lagauto.ubj",
+        "best_candidate.candidate_spec": {
+          "label_policy": {
+            "name": "h30_cost16_edge30_atr3_0",
+            "lookahead": 30,
+            "atr_multiplier": 3.0,
+            "cost_bps": 16.0,
+            "min_edge_bps": 30.0,
+            "entry_fee_bps": null,
+            "exit_fee_bps": null,
+            "entry_slippage_bps": null,
+            "exit_slippage_bps": null,
+            "use_high_low_barriers": true,
+            "ambiguous_barrier_policy": "hold",
+            "approvable": true,
+            "family": "slow_directional",
+            "round_trip_cost_bps": 16.0,
+            "effective_min_profit_bps": 46.0
+          },
+          "class_weight_profile": "balanced",
+          "threshold_profile": "action_seek_light",
+          "feature_lag": null,
+          "max_depth": 3,
+          "n_estimators": 18,
+          "learning_rate": 0.05
+        }
+      },
+      "no_go_reason": "cost-aware retrain candidates failed separation/action-hold gate"
+    },
+    {
+      "phase": "4B.4.3.6.6.24K",
+      "label": "two-stage action/side model recovery",
+      "source_path": "reports/4B436624K_two_stage_action_side_recovery_20260507_100445.json",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_research_candidate": null,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "guardrails_ok": true,
+      "reason_codes": [
+        "NO_TWO_STAGE_ACTION_SIDE_CANDIDATE_PASSED",
+        "EXPECTED_EDGE_PROXY_LOW"
+      ],
+      "recommendation": "No two-stage action/side candidate passed. Revisit action features, meta-labels, side objective, or regime split before promote/reload.",
+      "selected_summary": {
+        "decision": "BLOCK",
+        "ok": false,
+        "approved_for_training_candidate": false,
+        "approved_for_paper_candidate": false,
+        "approved_for_live_real": false,
+        "live_real_allowed": false,
+        "reload_performed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reason_codes": [
+          "NO_TWO_STAGE_ACTION_SIDE_CANDIDATE_PASSED",
+          "EXPECTED_EDGE_PROXY_LOW"
+        ],
+        "recommendation": "No two-stage action/side candidate passed. Revisit action features, meta-labels, side objective, or regime split before promote/reload.",
+        "selected_action_model": "models/4B436624K_candidates/ETHUSDT_two_stage_4b436624K_h5_cost8_edge10_atr1_5_action_balanced_side_balanced_ath_recall_light_sm_strict_lagauto_action.ubj",
+        "selected_side_model": "models/4B436624K_candidates/ETHUSDT_two_stage_4b436624K_h5_cost8_edge10_atr1_5_action_balanced_side_balanced_ath_recall_light_sm_strict_lagauto_side.ubj",
+        "selected_staged_action_pct": 33.841405,
+        "selected_action_precision": 0.16091402,
+        "selected_side_accuracy": 0.60807754,
+        "selected_score": 55.201601,
+        "best_candidate.decision": "BLOCK",
+        "best_candidate.score": 55.201601,
+        "best_candidate.reason_codes": [
+          "EXPECTED_EDGE_PROXY_LOW"
+        ],
+        "best_candidate.action_model_path": "models/4B436624K_candidates/ETHUSDT_two_stage_4b436624K_h5_cost8_edge10_atr1_5_action_balanced_side_balanced_ath_recall_light_sm_strict_lagauto_action.ubj",
+        "best_candidate.side_model_path": "models/4B436624K_candidates/ETHUSDT_two_stage_4b436624K_h5_cost8_edge10_atr1_5_action_balanced_side_balanced_ath_recall_light_sm_strict_lagauto_side.ubj",
+        "best_candidate.metrics": {
+          "target_action_pct": 11.939089,
+          "target_hold_pct": 88.060911,
+          "target_action_side_pct": 50.235956,
+          "target_directional_entropy": 0.999984,
+          "validation_actual_action_pct": 11.94289,
+          "validation_staged_action_pct": 33.841405,
+          "validation_staged_action_side_pct": 53.261117,
+          "validation_action_precision": 0.16091402,
+          "validation_action_recall": 0.75767367,
+          "validation_action_f1": 0.26545166,
+          "validation_side_accuracy": 0.60807754,
+          "validation_side_precision_sell": 0.60225141,
+          "validation_side_recall_sell": 0.62532468,
+          "action_probability_gap_mean": 0.05201784,
+          "action_auc_proxy_gap": 0.04883078,
+          "action_probability_summary": {
+            "min": 0.25218183,
+            "median": 0.49096856,
+            "mean": 0.47856316,
+            "max": 0.65749443
+          },
+          "side_margin_summary": {
+            "min": 8.7e-06,
+            "median": 0.12853301,
+            "mean": 0.14057749,
+            "max": 0.44876933
+          },
+          "expected_edge_proxy_bps": -14.280958
+        },
+        "best_candidate.candidate_spec": {
+          "label_policy": {
+            "name": "h5_cost8_edge10_atr1_5",
+            "lookahead": 5,
+            "atr_multiplier": 1.5,
+            "cost_bps": 8.0,
+            "min_edge_bps": 10.0,
+            "entry_fee_bps": null,
+            "exit_fee_bps": null,
+            "entry_slippage_bps": null,
+            "exit_slippage_bps": null,
+            "use_high_low_barriers": true,
+            "ambiguous_barrier_policy": "hold",
+            "approvable": true,
+            "family": "short_edge",
+            "round_trip_cost_bps": 8.0,
+            "effective_min_profit_bps": 18.0
+          },
+          "action_profile": "balanced",
+          "side_profile": "balanced",
+          "action_threshold_profile": "recall_light",
+          "side_margin_profile": "strict",
+          "feature_lag": null,
+          "max_depth": 3,
+          "n_estimators": 32,
+          "learning_rate": 0.04
+        }
+      },
+      "no_go_reason": "two-stage action/side candidates failed edge gate"
+    },
+    {
+      "phase": "4B.4.3.6.6.24L",
+      "label": "edge-aware meta-label / regime filter recovery",
+      "source_path": "reports/4B436624L_edge_meta_label_regime_recovery_20260507_114518.json",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_research_candidate": null,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "guardrails_ok": true,
+      "reason_codes": [
+        "NO_EDGE_META_LABEL_REGIME_CANDIDATE_PASSED",
+        "NO_EDGE_META_LABEL_REGIME_FILTER_PASSED",
+        "META_LABEL_EXPECTED_EDGE_LOW",
+        "META_LABEL_MEDIAN_EDGE_LOW",
+        "META_LABEL_WIN_RATE_LOW",
+        "META_LABEL_ACTION_PRECISION_LOW",
+        "META_LABEL_EDGE_LIFT_LOW"
+      ],
+      "recommendation": "No edge-positive regime/meta-label filter passed. Revisit regime features, meta-label objective, or market/timeframe before promote/reload.",
+      "selected_summary": {
+        "decision": "BLOCK",
+        "ok": false,
+        "approved_for_training_candidate": false,
+        "approved_for_paper_candidate": false,
+        "approved_for_live_real": false,
+        "live_real_allowed": false,
+        "reload_performed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reason_codes": [
+          "NO_EDGE_META_LABEL_REGIME_CANDIDATE_PASSED",
+          "NO_EDGE_META_LABEL_REGIME_FILTER_PASSED",
+          "META_LABEL_EXPECTED_EDGE_LOW",
+          "META_LABEL_MEDIAN_EDGE_LOW",
+          "META_LABEL_WIN_RATE_LOW",
+          "META_LABEL_ACTION_PRECISION_LOW",
+          "META_LABEL_EDGE_LIFT_LOW"
+        ],
+        "recommendation": "No edge-positive regime/meta-label filter passed. Revisit regime features, meta-label objective, or market/timeframe before promote/reload.",
+        "selected_filter": "confidence_side_guarded",
+        "selected_mean_edge_bps": -7.214914,
+        "selected_good_action_pct": 33.723022,
+        "selected_score": -115.442278,
+        "best_candidate.decision": "BLOCK",
+        "best_candidate.score": -115.442278,
+        "best_candidate.reason_codes": [
+          "NO_EDGE_META_LABEL_REGIME_FILTER_PASSED",
+          "META_LABEL_EXPECTED_EDGE_LOW",
+          "META_LABEL_MEDIAN_EDGE_LOW",
+          "META_LABEL_WIN_RATE_LOW",
+          "META_LABEL_ACTION_PRECISION_LOW",
+          "META_LABEL_EDGE_LIFT_LOW"
+        ],
+        "best_candidate.action_model_path": "models/4B436624K_candidates/ETHUSDT_two_stage_4b436624K_h5_cost8_edge10_atr1_5_action_balanced_side_balanced_ath_recall_light_sm_balanced_lagauto_action.ubj",
+        "best_candidate.side_model_path": "models/4B436624K_candidates/ETHUSDT_two_stage_4b436624K_h5_cost8_edge10_atr1_5_action_balanced_side_balanced_ath_recall_light_sm_balanced_lagauto_side.ubj"
+      },
+      "no_go_reason": "regime/meta-label filters did not turn edge positive"
+    },
+    {
+      "phase": "4B.4.3.6.6.24M",
+      "label": "timeframe / symbol / strategy edge exploration",
+      "source_path": "reports/4B436624M_timeframe_symbol_strategy_edge_exploration_20260507_122414.json",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_training_candidate": false,
+      "approved_for_research_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "guardrails_ok": true,
+      "reason_codes": [
+        "NO_TIMEFRAME_SYMBOL_STRATEGY_EDGE_PASSED",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "recommendation": "No timeframe/symbol/strategy combination showed enough positive net edge. Revisit market, timeframe, feature set, or strategy family before further ML work.",
+      "selected_summary": {
+        "decision": "BLOCK",
+        "ok": false,
+        "approved_for_training_candidate": false,
+        "approved_for_research_candidate": false,
+        "approved_for_paper_candidate": false,
+        "approved_for_live_real": false,
+        "live_real_allowed": false,
+        "reload_performed": false,
+        "config_mutation_performed": false,
+        "order_actions_performed": false,
+        "reason_codes": [
+          "NO_TIMEFRAME_SYMBOL_STRATEGY_EDGE_PASSED",
+          "EDGE_EXPECTED_EDGE_LOW",
+          "EDGE_MEDIAN_EDGE_LOW",
+          "EDGE_WIN_RATE_LOW",
+          "EDGE_PROFIT_FACTOR_LOW"
+        ],
+        "recommendation": "No timeframe/symbol/strategy combination showed enough positive net edge. Revisit market, timeframe, feature set, or strategy family before further ML work.",
+        "selected_mean_edge_bps": -13.278516,
+        "selected_score": -39.75432,
+        "best_candidate.decision": "BLOCK",
+        "best_candidate.score": -39.75432,
+        "best_candidate.reason_codes": [
+          "EDGE_EXPECTED_EDGE_LOW",
+          "EDGE_MEDIAN_EDGE_LOW",
+          "EDGE_WIN_RATE_LOW",
+          "EDGE_PROFIT_FACTOR_LOW"
+        ],
+        "best_candidate.metrics": {
+          "clean_samples": 8638,
+          "signal_count": 531,
+          "signal_coverage_pct": 6.147256,
+          "distribution": {
+            "HOLD": 8107,
+            "BUY": 237,
+            "SELL": 294
+          },
+          "dominant_action_pct": 55.367232,
+          "mean_net_edge_bps": -13.278516,
+          "median_net_edge_bps": -9.57774,
+          "net_edge_summary": {
+            "min": -269.2900952,
+            "median": -9.57773968,
+            "mean": -13.27851571,
+            "max": 167.86590889
+          },
+          "win_rate_pct": 35.781544,
+          "profit_factor": 0.440359,
+          "good_action_count": 190
+        }
+      },
+      "no_go_reason": "symbol/timeframe/strategy exploration found no positive net edge"
+    }
+  ],
+  "guardrails": {
+    "observation_only": true,
+    "no_post_actions": true,
+    "post_requests_allowed": false,
+    "config_mutation_performed": false,
+    "order_actions_performed": false,
+    "reload_performed": false,
+    "live_real_allowed": false,
+    "promotion_performed": false
+  },
+  "next_hypothesis_backlog": [
+    {
+      "id": "HYP-001",
+      "theme": "Higher timeframe regime-first research",
+      "priority": "HIGH",
+      "hypothesis": "15m/1h regime classification may be required before 1m execution signals are useful.",
+      "minimum_evidence_required": [
+        "positive mean and median net edge after costs",
+        "coverage not narrower than the configured research floor",
+        "walk-forward consistency across at least two market windows"
+      ]
+    },
+    {
+      "id": "HYP-002",
+      "theme": "Order-flow / liquidity features",
+      "priority": "HIGH",
+      "hypothesis": "OHLCV-only features may be insufficient; taker imbalance, depth, spread, and liquidity shift features may be needed.",
+      "minimum_evidence_required": [
+        "feature availability contract",
+        "edge lift versus OHLCV baseline",
+        "latency and data-quality risk assessment"
+      ]
+    },
+    {
+      "id": "HYP-003",
+      "theme": "Portfolio-level signal selection",
+      "priority": "MEDIUM",
+      "hypothesis": "Single-symbol edge may be too unstable; cross-symbol ranking may improve selectivity.",
+      "minimum_evidence_required": [
+        "cross-sectional rank stability",
+        "turnover-adjusted edge",
+        "symbol concentration guardrails"
+      ]
+    },
+    {
+      "id": "HYP-004",
+      "theme": "Futures-specific signals",
+      "priority": "MEDIUM",
+      "hypothesis": "Funding, open interest, liquidations, and basis may provide edge unavailable in spot OHLCV.",
+      "minimum_evidence_required": [
+        "futures data connector safety review",
+        "funding/open-interest edge attribution",
+        "separate leverage and liquidation-risk policy"
+      ]
+    },
+    {
+      "id": "HYP-005",
+      "theme": "Strategy family reset",
+      "priority": "MEDIUM",
+      "hypothesis": "Trend/reversion/breakout baselines tested so far may not fit the selected market; new hypotheses should be researched before more ML sweeps.",
+      "minimum_evidence_required": [
+        "clear economic rationale",
+        "pre-registered acceptance metrics",
+        "baseline edge before model training"
+      ]
+    }
+  ],
+  "policy": "This report is an evidence pack only. It never mutates config, reloads models, starts paper trading, or sends orders. A research stop/no-go decision requires new pre-registered edge hypotheses before further training or readiness work."
+}

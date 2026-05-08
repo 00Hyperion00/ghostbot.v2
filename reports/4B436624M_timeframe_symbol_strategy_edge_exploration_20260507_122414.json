@@ -1,0 +1,5956 @@
+{
+  "contract_version": "4B.4.3.6.6.24M",
+  "phase": "4B.4.3.6.6.24M",
+  "report_type": "timeframe_symbol_strategy_edge_exploration",
+  "decision": "BLOCK",
+  "ok": false,
+  "candidate_count": 84,
+  "approved_for_research_candidate": false,
+  "approved_for_training_candidate": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_live_real": false,
+  "live_real_allowed": false,
+  "reload_performed": false,
+  "config_mutation_performed": false,
+  "order_actions_performed": false,
+  "no_post_actions": true,
+  "observation_only": true,
+  "get_only_public_market_data": true,
+  "reason_codes": [
+    "NO_TIMEFRAME_SYMBOL_STRATEGY_EDGE_PASSED",
+    "EDGE_EXPECTED_EDGE_LOW",
+    "EDGE_MEDIAN_EDGE_LOW",
+    "EDGE_WIN_RATE_LOW",
+    "EDGE_PROFIT_FACTOR_LOW"
+  ],
+  "recommendation": "No timeframe/symbol/strategy combination showed enough positive net edge. Revisit market, timeframe, feature set, or strategy family before further ML work.",
+  "selection": {
+    "decision": "BLOCK",
+    "approved": false,
+    "reason_codes": [
+      "NO_TIMEFRAME_SYMBOL_STRATEGY_EDGE_PASSED",
+      "EDGE_EXPECTED_EDGE_LOW",
+      "EDGE_MEDIAN_EDGE_LOW",
+      "EDGE_WIN_RATE_LOW",
+      "EDGE_PROFIT_FACTOR_LOW"
+    ],
+    "best_candidate": {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -39.75432,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 531,
+        "signal_coverage_pct": 6.147256,
+        "distribution": {
+          "HOLD": 8107,
+          "BUY": 237,
+          "SELL": 294
+        },
+        "dominant_action_pct": 55.367232,
+        "mean_net_edge_bps": -13.278516,
+        "median_net_edge_bps": -9.57774,
+        "net_edge_summary": {
+          "min": -269.2900952,
+          "median": -9.57773968,
+          "mean": -13.27851571,
+          "max": 167.86590889
+        },
+        "win_rate_pct": 35.781544,
+        "profit_factor": 0.440359,
+        "good_action_count": 190
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    }
+  },
+  "selected_symbol": "BTCUSDT",
+  "selected_interval": "15m",
+  "selected_strategy": "rsi_bollinger_reversion",
+  "selected_score": -39.75432,
+  "selected_mean_edge_bps": -13.278516,
+  "selected_win_rate_pct": 35.781544,
+  "selected_signal_coverage_pct": 6.147256,
+  "candidates": [
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -67.467101,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 12081,
+        "signal_coverage_pct": 27.967867,
+        "distribution": {
+          "HOLD": 31115,
+          "BUY": 6197,
+          "SELL": 5884
+        },
+        "dominant_action_pct": 51.295423,
+        "mean_net_edge_bps": -16.075105,
+        "median_net_edge_bps": -18.189154,
+        "net_edge_summary": {
+          "min": -226.36988281,
+          "median": -18.18915355,
+          "mean": -16.07510519,
+          "max": 561.70497558
+        },
+        "win_rate_pct": 20.594322,
+        "profit_factor": 0.269385,
+        "good_action_count": 2488
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -72.225067,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 13235,
+        "signal_coverage_pct": 30.639411,
+        "distribution": {
+          "HOLD": 29961,
+          "BUY": 6844,
+          "SELL": 6391
+        },
+        "dominant_action_pct": 51.711371,
+        "mean_net_edge_bps": -15.834821,
+        "median_net_edge_bps": -16.438639,
+        "net_edge_summary": {
+          "min": -253.26980039,
+          "median": -16.43863924,
+          "mean": -15.83482082,
+          "max": 558.36653262
+        },
+        "win_rate_pct": 16.683037,
+        "profit_factor": 0.171333,
+        "good_action_count": 2208
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -62.373751,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 14425,
+        "signal_coverage_pct": 33.394296,
+        "distribution": {
+          "HOLD": 28771,
+          "BUY": 7236,
+          "SELL": 7189
+        },
+        "dominant_action_pct": 50.162912,
+        "mean_net_edge_bps": -16.032203,
+        "median_net_edge_bps": -12.898815,
+        "net_edge_summary": {
+          "min": -322.87382298,
+          "median": -12.89881494,
+          "mean": -16.03220302,
+          "max": 194.36988281
+        },
+        "win_rate_pct": 27.577123,
+        "profit_factor": 0.250384,
+        "good_action_count": 3978
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -51.408068,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 2602,
+        "signal_coverage_pct": 6.023706,
+        "distribution": {
+          "HOLD": 40594,
+          "BUY": 1302,
+          "SELL": 1300
+        },
+        "dominant_action_pct": 50.038432,
+        "mean_net_edge_bps": -15.717937,
+        "median_net_edge_bps": -11.989683,
+        "net_edge_summary": {
+          "min": -322.87382298,
+          "median": -11.98968265,
+          "mean": -15.71793717,
+          "max": 194.36988281
+        },
+        "win_rate_pct": 29.515757,
+        "profit_factor": 0.300938,
+        "good_action_count": 768
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -59.117719,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 2780,
+        "signal_coverage_pct": 6.435781,
+        "distribution": {
+          "HOLD": 40416,
+          "BUY": 1351,
+          "SELL": 1429
+        },
+        "dominant_action_pct": 51.402878,
+        "mean_net_edge_bps": -16.210663,
+        "median_net_edge_bps": -19.044426,
+        "net_edge_summary": {
+          "min": -226.36988281,
+          "median": -19.04442631,
+          "mean": -16.21066279,
+          "max": 290.87382298
+        },
+        "win_rate_pct": 22.589928,
+        "profit_factor": 0.315289,
+        "good_action_count": 628
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -60.288038,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 7149,
+        "signal_coverage_pct": 16.550144,
+        "distribution": {
+          "HOLD": 36047,
+          "BUY": 3590,
+          "SELL": 3559
+        },
+        "dominant_action_pct": 50.216814,
+        "mean_net_edge_bps": -15.679429,
+        "median_net_edge_bps": -12.534848,
+        "net_edge_summary": {
+          "min": -593.70497558,
+          "median": -12.5348483,
+          "mean": -15.6794288,
+          "max": 169.79838116
+        },
+        "win_rate_pct": 23.401874,
+        "profit_factor": 0.165374,
+        "good_action_count": 1673
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -93.866532,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 43195,
+        "signal_coverage_pct": 99.997685,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 21845,
+          "SELL": 21350
+        },
+        "dominant_action_pct": 50.572983,
+        "mean_net_edge_bps": -16.00231,
+        "median_net_edge_bps": -17.339691,
+        "net_edge_summary": {
+          "min": -280.34177609,
+          "median": -17.33969128,
+          "mean": -16.00230961,
+          "max": 561.70497558
+        },
+        "win_rate_pct": 19.43975,
+        "profit_factor": 0.224382,
+        "good_action_count": 8397
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -65.216332,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 7392,
+        "signal_coverage_pct": 28.52182,
+        "distribution": {
+          "HOLD": 18525,
+          "BUY": 3842,
+          "SELL": 3550
+        },
+        "dominant_action_pct": 51.975108,
+        "mean_net_edge_bps": -16.031472,
+        "median_net_edge_bps": -19.015594,
+        "net_edge_summary": {
+          "min": -264.28839292,
+          "median": -19.01559419,
+          "mean": -16.03147191,
+          "max": 571.91683128
+        },
+        "win_rate_pct": 22.767857,
+        "profit_factor": 0.315348,
+        "good_action_count": 1683
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -68.551069,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 6546,
+        "signal_coverage_pct": 25.257553,
+        "distribution": {
+          "HOLD": 19371,
+          "BUY": 3341,
+          "SELL": 3205
+        },
+        "dominant_action_pct": 51.038802,
+        "mean_net_edge_bps": -15.642632,
+        "median_net_edge_bps": -16.553675,
+        "net_edge_summary": {
+          "min": -186.79065252,
+          "median": -16.5536749,
+          "mean": -15.64263219,
+          "max": 572.95873189
+        },
+        "win_rate_pct": 18.010999,
+        "profit_factor": 0.190835,
+        "good_action_count": 1179
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -61.618394,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 9915,
+        "signal_coverage_pct": 38.256743,
+        "distribution": {
+          "HOLD": 16002,
+          "BUY": 5004,
+          "SELL": 4911
+        },
+        "dominant_action_pct": 50.468986,
+        "mean_net_edge_bps": -15.61617,
+        "median_net_edge_bps": -12.177797,
+        "net_edge_summary": {
+          "min": -370.40588378,
+          "median": -12.17779686,
+          "mean": -15.61616987,
+          "max": 232.28839292
+        },
+        "win_rate_pct": 29.06707,
+        "profit_factor": 0.284184,
+        "good_action_count": 2882
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -47.34796,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 1575,
+        "signal_coverage_pct": 6.077092,
+        "distribution": {
+          "HOLD": 24342,
+          "BUY": 795,
+          "SELL": 780
+        },
+        "dominant_action_pct": 50.47619,
+        "mean_net_edge_bps": -15.919904,
+        "median_net_edge_bps": -9.68066,
+        "net_edge_summary": {
+          "min": -318.88327924,
+          "median": -9.68065989,
+          "mean": -15.91990359,
+          "max": 232.28839292
+        },
+        "win_rate_pct": 33.777778,
+        "profit_factor": 0.346772,
+        "good_action_count": 532
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -60.038606,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 1627,
+        "signal_coverage_pct": 6.277733,
+        "distribution": {
+          "HOLD": 24290,
+          "BUY": 811,
+          "SELL": 816
+        },
+        "dominant_action_pct": 50.153657,
+        "mean_net_edge_bps": -17.449936,
+        "median_net_edge_bps": -21.607724,
+        "net_edge_summary": {
+          "min": -264.28839292,
+          "median": -21.60772439,
+          "mean": -17.44993648,
+          "max": 286.88327924
+        },
+        "win_rate_pct": 24.093423,
+        "profit_factor": 0.342659,
+        "good_action_count": 392
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -58.033438,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 4519,
+        "signal_coverage_pct": 17.436432,
+        "distribution": {
+          "HOLD": 21398,
+          "BUY": 2293,
+          "SELL": 2226
+        },
+        "dominant_action_pct": 50.741314,
+        "mean_net_edge_bps": -15.920577,
+        "median_net_edge_bps": -12.018991,
+        "net_edge_summary": {
+          "min": -370.40588378,
+          "median": -12.01899089,
+          "mean": -15.92057681,
+          "max": 137.84208438
+        },
+        "win_rate_pct": 26.311131,
+        "profit_factor": 0.199834,
+        "good_action_count": 1189
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -90.981038,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 25916,
+        "signal_coverage_pct": 99.996142,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 13161,
+          "SELL": 12755
+        },
+        "dominant_action_pct": 50.7833,
+        "mean_net_edge_bps": -15.766356,
+        "median_net_edge_bps": -17.36598,
+        "net_edge_summary": {
+          "min": -313.16800509,
+          "median": -17.36597953,
+          "mean": -15.76635638,
+          "max": 572.95873189
+        },
+        "win_rate_pct": 21.689304,
+        "profit_factor": 0.265255,
+        "good_action_count": 5621
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -58.798551,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 2502,
+        "signal_coverage_pct": 28.965038,
+        "distribution": {
+          "HOLD": 6136,
+          "BUY": 1263,
+          "SELL": 1239
+        },
+        "dominant_action_pct": 50.479616,
+        "mean_net_edge_bps": -15.557709,
+        "median_net_edge_bps": -19.916329,
+        "net_edge_summary": {
+          "min": -285.90434295,
+          "median": -19.91632862,
+          "mean": -15.55770892,
+          "max": 390.37138267
+        },
+        "win_rate_pct": 27.897682,
+        "profit_factor": 0.439237,
+        "good_action_count": 698
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -59.718486,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 1265,
+        "signal_coverage_pct": 14.644594,
+        "distribution": {
+          "HOLD": 7373,
+          "BUY": 668,
+          "SELL": 597
+        },
+        "dominant_action_pct": 52.806324,
+        "mean_net_edge_bps": -16.339017,
+        "median_net_edge_bps": -16.809745,
+        "net_edge_summary": {
+          "min": -629.25115562,
+          "median": -16.80974528,
+          "mean": -16.3390169,
+          "max": 266.92302707
+        },
+        "win_rate_pct": 24.110672,
+        "profit_factor": 0.293621,
+        "good_action_count": 305
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -60.864194,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 3879,
+        "signal_coverage_pct": 44.906228,
+        "distribution": {
+          "HOLD": 4759,
+          "BUY": 1915,
+          "SELL": 1964
+        },
+        "dominant_action_pct": 50.631606,
+        "mean_net_edge_bps": -16.61372,
+        "median_net_edge_bps": -12.496341,
+        "net_edge_summary": {
+          "min": -422.37138267,
+          "median": -12.49634147,
+          "mean": -16.61372014,
+          "max": 253.90434295
+        },
+        "win_rate_pct": 33.82315,
+        "profit_factor": 0.364319,
+        "good_action_count": 1312
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -50.311952,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 534,
+        "signal_coverage_pct": 6.181987,
+        "distribution": {
+          "HOLD": 8104,
+          "BUY": 248,
+          "SELL": 286
+        },
+        "dominant_action_pct": 53.558052,
+        "mean_net_edge_bps": -19.715025,
+        "median_net_edge_bps": -10.456495,
+        "net_edge_summary": {
+          "min": -305.20608266,
+          "median": -10.45649531,
+          "mean": -19.71502503,
+          "max": 184.02595147
+        },
+        "win_rate_pct": 38.202247,
+        "profit_factor": 0.388039,
+        "good_action_count": 204
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -47.113121,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 509,
+        "signal_coverage_pct": 5.892568,
+        "distribution": {
+          "HOLD": 8129,
+          "BUY": 253,
+          "SELL": 256
+        },
+        "dominant_action_pct": 50.294695,
+        "mean_net_edge_bps": -14.670853,
+        "median_net_edge_bps": -24.593973,
+        "net_edge_summary": {
+          "min": -216.02595147,
+          "median": -24.59397264,
+          "mean": -14.67085308,
+          "max": 300.64496704
+        },
+        "win_rate_pct": 30.844794,
+        "profit_factor": 0.530348,
+        "good_action_count": 157
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -51.882613,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 1588,
+        "signal_coverage_pct": 18.383885,
+        "distribution": {
+          "HOLD": 7050,
+          "BUY": 828,
+          "SELL": 760
+        },
+        "dominant_action_pct": 52.141058,
+        "mean_net_edge_bps": -17.123057,
+        "median_net_edge_bps": -11.968903,
+        "net_edge_summary": {
+          "min": -305.32830761,
+          "median": -11.96890329,
+          "mean": -17.12305701,
+          "max": 186.72338531
+        },
+        "win_rate_pct": 34.697733,
+        "profit_factor": 0.325032,
+        "good_action_count": 551
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "ETHUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -85.680944,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 8637,
+        "signal_coverage_pct": 99.988423,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 4410,
+          "SELL": 4227
+        },
+        "dominant_action_pct": 51.059396,
+        "mean_net_edge_bps": -16.23174,
+        "median_net_edge_bps": -17.839405,
+        "net_edge_summary": {
+          "min": -629.25115562,
+          "median": -17.83940503,
+          "mean": -16.23173974,
+          "max": 390.37138267
+        },
+        "win_rate_pct": 27.532708,
+        "profit_factor": 0.361444,
+        "good_action_count": 2378
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -70.601736,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 11951,
+        "signal_coverage_pct": 27.666914,
+        "distribution": {
+          "HOLD": 31245,
+          "BUY": 6155,
+          "SELL": 5796
+        },
+        "dominant_action_pct": 51.501966,
+        "mean_net_edge_bps": -16.196338,
+        "median_net_edge_bps": -17.539517,
+        "net_edge_summary": {
+          "min": -191.64919334,
+          "median": -17.53951671,
+          "mean": -16.19633787,
+          "max": 324.12678639
+        },
+        "win_rate_pct": 17.898084,
+        "profit_factor": 0.194069,
+        "good_action_count": 2139
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -75.906852,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 14627,
+        "signal_coverage_pct": 33.861932,
+        "distribution": {
+          "HOLD": 28569,
+          "BUY": 7311,
+          "SELL": 7316
+        },
+        "dominant_action_pct": 50.017092,
+        "mean_net_edge_bps": -15.62942,
+        "median_net_edge_bps": -16.106802,
+        "net_edge_summary": {
+          "min": -224.8495972,
+          "median": -16.1068021,
+          "mean": -15.62942008,
+          "max": 346.58979079
+        },
+        "win_rate_pct": 13.919464,
+        "profit_factor": 0.12105,
+        "good_action_count": 2036
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -64.291434,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 12808,
+        "signal_coverage_pct": 29.650894,
+        "distribution": {
+          "HOLD": 30388,
+          "BUY": 6357,
+          "SELL": 6451
+        },
+        "dominant_action_pct": 50.366958,
+        "mean_net_edge_bps": -15.519284,
+        "median_net_edge_bps": -13.269382,
+        "net_edge_summary": {
+          "min": -254.0293936,
+          "median": -13.26938224,
+          "mean": -15.51928374,
+          "max": 159.4059418
+        },
+        "win_rate_pct": 23.532167,
+        "profit_factor": 0.198195,
+        "good_action_count": 3014
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -59.598553,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 2609,
+        "signal_coverage_pct": 6.039911,
+        "distribution": {
+          "HOLD": 40587,
+          "BUY": 1333,
+          "SELL": 1276
+        },
+        "dominant_action_pct": 51.092373,
+        "mean_net_edge_bps": -16.228567,
+        "median_net_edge_bps": -13.138965,
+        "net_edge_summary": {
+          "min": -232.71248145,
+          "median": -13.13896495,
+          "mean": -16.22856726,
+          "max": 135.73179672
+        },
+        "win_rate_pct": 22.767344,
+        "profit_factor": 0.194317,
+        "good_action_count": 594
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -64.262113,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 2691,
+        "signal_coverage_pct": 6.229743,
+        "distribution": {
+          "HOLD": 40505,
+          "BUY": 1352,
+          "SELL": 1339
+        },
+        "dominant_action_pct": 50.241546,
+        "mean_net_edge_bps": -16.69413,
+        "median_net_edge_bps": -18.422539,
+        "net_edge_summary": {
+          "min": -175.72934689,
+          "median": -18.42253894,
+          "mean": -16.69413031,
+          "max": 200.71248145
+        },
+        "win_rate_pct": 18.877741,
+        "profit_factor": 0.216999,
+        "good_action_count": 508
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -66.44683,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 6870,
+        "signal_coverage_pct": 15.90425,
+        "distribution": {
+          "HOLD": 36326,
+          "BUY": 3418,
+          "SELL": 3452
+        },
+        "dominant_action_pct": 50.247453,
+        "mean_net_edge_bps": -15.692687,
+        "median_net_edge_bps": -13.572365,
+        "net_edge_summary": {
+          "min": -356.12678639,
+          "median": -13.57236457,
+          "mean": -15.69268737,
+          "max": 129.85178299
+        },
+        "win_rate_pct": 17.263464,
+        "profit_factor": 0.110392,
+        "good_action_count": 1186
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -97.282606,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 43195,
+        "signal_coverage_pct": 99.997685,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 21883,
+          "SELL": 21312
+        },
+        "dominant_action_pct": 50.660956,
+        "mean_net_edge_bps": -16.030799,
+        "median_net_edge_bps": -16.921567,
+        "net_edge_summary": {
+          "min": -224.8495972,
+          "median": -16.92156687,
+          "mean": -16.0307994,
+          "max": 346.58979079
+        },
+        "win_rate_pct": 16.349114,
+        "profit_factor": 0.157267,
+        "good_action_count": 7062
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -69.115384,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 7447,
+        "signal_coverage_pct": 28.734036,
+        "distribution": {
+          "HOLD": 18470,
+          "BUY": 3869,
+          "SELL": 3578
+        },
+        "dominant_action_pct": 51.953807,
+        "mean_net_edge_bps": -16.342623,
+        "median_net_edge_bps": -18.298718,
+        "net_edge_summary": {
+          "min": -232.16681971,
+          "median": -18.29871821,
+          "mean": -16.34262317,
+          "max": 297.38936613
+        },
+        "win_rate_pct": 19.900631,
+        "profit_factor": 0.231536,
+        "good_action_count": 1482
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -73.556604,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 7409,
+        "signal_coverage_pct": 28.587414,
+        "distribution": {
+          "HOLD": 18508,
+          "BUY": 3711,
+          "SELL": 3698
+        },
+        "dominant_action_pct": 50.087731,
+        "mean_net_edge_bps": -15.833335,
+        "median_net_edge_bps": -16.372721,
+        "net_edge_summary": {
+          "min": -174.60190375,
+          "median": -16.37272086,
+          "mean": -15.83333454,
+          "max": 199.18957778
+        },
+        "win_rate_pct": 14.765825,
+        "profit_factor": 0.137459,
+        "good_action_count": 1094
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -65.055351,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 8981,
+        "signal_coverage_pct": 34.652931,
+        "distribution": {
+          "HOLD": 16936,
+          "BUY": 4394,
+          "SELL": 4587
+        },
+        "dominant_action_pct": 51.074491,
+        "mean_net_edge_bps": -15.614826,
+        "median_net_edge_bps": -13.134811,
+        "net_edge_summary": {
+          "min": -367.8620146,
+          "median": -13.134811,
+          "mean": -15.61482626,
+          "max": 200.16681971
+        },
+        "win_rate_pct": 24.618639,
+        "profit_factor": 0.221047,
+        "good_action_count": 2211
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -49.121235,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 1602,
+        "signal_coverage_pct": 6.181271,
+        "distribution": {
+          "HOLD": 24315,
+          "BUY": 800,
+          "SELL": 802
+        },
+        "dominant_action_pct": 50.062422,
+        "mean_net_edge_bps": -13.647161,
+        "median_net_edge_bps": -11.12008,
+        "net_edge_summary": {
+          "min": -218.02628205,
+          "median": -11.12007977,
+          "mean": -13.64716057,
+          "max": 200.16681971
+        },
+        "win_rate_pct": 27.652934,
+        "profit_factor": 0.289177,
+        "good_action_count": 443
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -66.678108,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 1621,
+        "signal_coverage_pct": 6.254582,
+        "distribution": {
+          "HOLD": 24296,
+          "BUY": 810,
+          "SELL": 811
+        },
+        "dominant_action_pct": 50.030845,
+        "mean_net_edge_bps": -18.51771,
+        "median_net_edge_bps": -20.803183,
+        "net_edge_summary": {
+          "min": -232.16681971,
+          "median": -20.80318298,
+          "mean": -18.51771026,
+          "max": 235.04843459
+        },
+        "win_rate_pct": 20.049352,
+        "profit_factor": 0.229714,
+        "good_action_count": 325
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -63.372362,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 4437,
+        "signal_coverage_pct": 17.120037,
+        "distribution": {
+          "HOLD": 21480,
+          "BUY": 2215,
+          "SELL": 2222
+        },
+        "dominant_action_pct": 50.078882,
+        "mean_net_edge_bps": -15.783918,
+        "median_net_edge_bps": -13.172531,
+        "net_edge_summary": {
+          "min": -267.04843459,
+          "median": -13.17253113,
+          "mean": -15.78391825,
+          "max": 94.06735572
+        },
+        "win_rate_pct": 20.847419,
+        "profit_factor": 0.135017,
+        "good_action_count": 925
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -95.339282,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 25916,
+        "signal_coverage_pct": 99.996142,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 13178,
+          "SELL": 12738
+        },
+        "dominant_action_pct": 50.848896,
+        "mean_net_edge_bps": -16.08294,
+        "median_net_edge_bps": -17.229538,
+        "net_edge_summary": {
+          "min": -232.16681971,
+          "median": -17.2295376,
+          "mean": -16.08294002,
+          "max": 377.83863285
+        },
+        "win_rate_pct": 18.278284,
+        "profit_factor": 0.186741,
+        "good_action_count": 4737
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -59.809832,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 2617,
+        "signal_coverage_pct": 30.296365,
+        "distribution": {
+          "HOLD": 6021,
+          "BUY": 1337,
+          "SELL": 1280
+        },
+        "dominant_action_pct": 51.089033,
+        "mean_net_edge_bps": -15.390134,
+        "median_net_edge_bps": -18.203519,
+        "net_edge_summary": {
+          "min": -255.04394457,
+          "median": -18.20351892,
+          "mean": -15.39013413,
+          "max": 285.4298048
+        },
+        "win_rate_pct": 27.359572,
+        "profit_factor": 0.353648,
+        "good_action_count": 716
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -57.999981,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 1515,
+        "signal_coverage_pct": 17.538782,
+        "distribution": {
+          "HOLD": 7123,
+          "BUY": 696,
+          "SELL": 819
+        },
+        "dominant_action_pct": 54.059406,
+        "mean_net_edge_bps": -14.237527,
+        "median_net_edge_bps": -16.616098,
+        "net_edge_summary": {
+          "min": -183.04932133,
+          "median": -16.61609809,
+          "mean": -14.23752744,
+          "max": 285.4298048
+        },
+        "win_rate_pct": 22.706271,
+        "profit_factor": 0.276844,
+        "good_action_count": 344
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -60.633541,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 3762,
+        "signal_coverage_pct": 43.551748,
+        "distribution": {
+          "HOLD": 4876,
+          "BUY": 1799,
+          "SELL": 1963
+        },
+        "dominant_action_pct": 52.179692,
+        "mean_net_edge_bps": -15.186964,
+        "median_net_edge_bps": -12.440122,
+        "net_edge_summary": {
+          "min": -286.02046947,
+          "median": -12.44012219,
+          "mean": -15.18696399,
+          "max": 226.11042448
+        },
+        "win_rate_pct": 30.914407,
+        "profit_factor": 0.317273,
+        "good_action_count": 1163
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -39.75432,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 531,
+        "signal_coverage_pct": 6.147256,
+        "distribution": {
+          "HOLD": 8107,
+          "BUY": 237,
+          "SELL": 294
+        },
+        "dominant_action_pct": 55.367232,
+        "mean_net_edge_bps": -13.278516,
+        "median_net_edge_bps": -9.57774,
+        "net_edge_summary": {
+          "min": -269.2900952,
+          "median": -9.57773968,
+          "mean": -13.27851571,
+          "max": 167.86590889
+        },
+        "win_rate_pct": 35.781544,
+        "profit_factor": 0.440359,
+        "good_action_count": 190
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -58.661595,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 546,
+        "signal_coverage_pct": 6.320908,
+        "distribution": {
+          "HOLD": 8092,
+          "BUY": 284,
+          "SELL": 262
+        },
+        "dominant_action_pct": 52.014652,
+        "mean_net_edge_bps": -18.324562,
+        "median_net_edge_bps": -22.211068,
+        "net_edge_summary": {
+          "min": -199.86590889,
+          "median": -22.21106776,
+          "mean": -18.32456222,
+          "max": 254.02046947
+        },
+        "win_rate_pct": 27.106227,
+        "profit_factor": 0.367246,
+        "good_action_count": 148
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -52.606771,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 1562,
+        "signal_coverage_pct": 18.08289,
+        "distribution": {
+          "HOLD": 7076,
+          "BUY": 768,
+          "SELL": 794
+        },
+        "dominant_action_pct": 50.832266,
+        "mean_net_edge_bps": -15.475885,
+        "median_net_edge_bps": -12.63658,
+        "net_edge_summary": {
+          "min": -269.2900952,
+          "median": -12.63657991,
+          "mean": -15.47588453,
+          "max": 226.11042448
+        },
+        "win_rate_pct": 30.729834,
+        "profit_factor": 0.286044,
+        "good_action_count": 480
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BTCUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -88.191986,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 8637,
+        "signal_coverage_pct": 99.988423,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 4406,
+          "SELL": 4231
+        },
+        "dominant_action_pct": 51.013083,
+        "mean_net_edge_bps": -16.08469,
+        "median_net_edge_bps": -17.705746,
+        "net_edge_summary": {
+          "min": -286.02046947,
+          "median": -17.7057457,
+          "mean": -16.08468985,
+          "max": 355.88528045
+        },
+        "win_rate_pct": 25.020262,
+        "profit_factor": 0.28827,
+        "good_action_count": 2161
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -68.087072,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 12301,
+        "signal_coverage_pct": 28.477174,
+        "distribution": {
+          "HOLD": 30895,
+          "BUY": 6204,
+          "SELL": 6097
+        },
+        "dominant_action_pct": 50.434924,
+        "mean_net_edge_bps": -16.899974,
+        "median_net_edge_bps": -18.420136,
+        "net_edge_summary": {
+          "min": -280.92684856,
+          "median": -18.42013553,
+          "mean": -16.89997374,
+          "max": 514.28544906
+        },
+        "win_rate_pct": 21.811235,
+        "profit_factor": 0.267163,
+        "good_action_count": 2683
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -69.041882,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 12427,
+        "signal_coverage_pct": 28.768867,
+        "distribution": {
+          "HOLD": 30769,
+          "BUY": 6130,
+          "SELL": 6297
+        },
+        "dominant_action_pct": 50.671924,
+        "mean_net_edge_bps": -15.651993,
+        "median_net_edge_bps": -16.0,
+        "net_edge_summary": {
+          "min": -203.14689266,
+          "median": -16.0,
+          "mean": -15.65199299,
+          "max": 516.18684639
+        },
+        "win_rate_pct": 18.765591,
+        "profit_factor": 0.191404,
+        "good_action_count": 2332
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -60.250385,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 15401,
+        "signal_coverage_pct": 35.653764,
+        "distribution": {
+          "HOLD": 27795,
+          "BUY": 7718,
+          "SELL": 7683
+        },
+        "dominant_action_pct": 50.113629,
+        "mean_net_edge_bps": -15.228453,
+        "median_net_edge_bps": -12.500233,
+        "net_edge_summary": {
+          "min": -350.06038342,
+          "median": -12.50023332,
+          "mean": -15.22845326,
+          "max": 248.92684856
+        },
+        "win_rate_pct": 28.738394,
+        "profit_factor": 0.286736,
+        "good_action_count": 4426
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -46.665085,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 2559,
+        "signal_coverage_pct": 5.92416,
+        "distribution": {
+          "HOLD": 40637,
+          "BUY": 1307,
+          "SELL": 1252
+        },
+        "dominant_action_pct": 51.074639,
+        "mean_net_edge_bps": -14.315286,
+        "median_net_edge_bps": -11.231851,
+        "net_edge_summary": {
+          "min": -292.83615819,
+          "median": -11.23185123,
+          "mean": -14.31528598,
+          "max": 248.92684856
+        },
+        "win_rate_pct": 31.340367,
+        "profit_factor": 0.337916,
+        "good_action_count": 802
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -64.797133,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 2582,
+        "signal_coverage_pct": 5.977405,
+        "distribution": {
+          "HOLD": 40614,
+          "BUY": 1236,
+          "SELL": 1346
+        },
+        "dominant_action_pct": 52.130132,
+        "mean_net_edge_bps": -18.895669,
+        "median_net_edge_bps": -21.081616,
+        "net_edge_summary": {
+          "min": -280.92684856,
+          "median": -21.08161603,
+          "mean": -18.89566875,
+          "max": 260.83615819
+        },
+        "win_rate_pct": 22.618125,
+        "profit_factor": 0.270997,
+        "good_action_count": 584
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -55.728328,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 7262,
+        "signal_coverage_pct": 16.811742,
+        "distribution": {
+          "HOLD": 35934,
+          "BUY": 3722,
+          "SELL": 3540
+        },
+        "dominant_action_pct": 51.253098,
+        "mean_net_edge_bps": -14.858516,
+        "median_net_edge_bps": -12.438746,
+        "net_edge_summary": {
+          "min": -350.06038342,
+          "median": -12.43874624,
+          "mean": -14.85851586,
+          "max": 155.97005147
+        },
+        "win_rate_pct": 26.204902,
+        "profit_factor": 0.216978,
+        "good_action_count": 1903
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -91.616427,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 43195,
+        "signal_coverage_pct": 99.997685,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 21418,
+          "SELL": 21777
+        },
+        "dominant_action_pct": 50.415557,
+        "mean_net_edge_bps": -16.013861,
+        "median_net_edge_bps": -17.177302,
+        "net_edge_summary": {
+          "min": -300.28736074,
+          "median": -17.17730162,
+          "mean": -16.01386056,
+          "max": 516.18684639
+        },
+        "win_rate_pct": 21.632133,
+        "profit_factor": 0.244588,
+        "good_action_count": 9344
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -67.350624,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 7592,
+        "signal_coverage_pct": 29.293514,
+        "distribution": {
+          "HOLD": 18325,
+          "BUY": 3841,
+          "SELL": 3751
+        },
+        "dominant_action_pct": 50.592729,
+        "mean_net_edge_bps": -17.282077,
+        "median_net_edge_bps": -19.453635,
+        "net_edge_summary": {
+          "min": -272.73352436,
+          "median": -19.45363505,
+          "mean": -17.28207666,
+          "max": 491.72626932
+        },
+        "win_rate_pct": 23.485248,
+        "profit_factor": 0.295253,
+        "good_action_count": 1783
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -65.335213,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 5990,
+        "signal_coverage_pct": 23.112243,
+        "distribution": {
+          "HOLD": 19927,
+          "BUY": 2993,
+          "SELL": 2997
+        },
+        "dominant_action_pct": 50.033389,
+        "mean_net_edge_bps": -15.723,
+        "median_net_edge_bps": -16.0,
+        "net_edge_summary": {
+          "min": -235.40393152,
+          "median": -16.0,
+          "mean": -15.7229999,
+          "max": 528.96862654
+        },
+        "win_rate_pct": 20.534224,
+        "profit_factor": 0.216462,
+        "good_action_count": 1230
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -61.960899,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 10562,
+        "signal_coverage_pct": 40.753174,
+        "distribution": {
+          "HOLD": 15355,
+          "BUY": 5293,
+          "SELL": 5269
+        },
+        "dominant_action_pct": 50.113615,
+        "mean_net_edge_bps": -15.423376,
+        "median_net_edge_bps": -13.438172,
+        "net_edge_summary": {
+          "min": -365.62622197,
+          "median": -13.43817228,
+          "mean": -15.4233757,
+          "max": 240.73352436
+        },
+        "win_rate_pct": 29.123272,
+        "profit_factor": 0.306548,
+        "good_action_count": 3076
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -42.176937,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 1547,
+        "signal_coverage_pct": 5.969055,
+        "distribution": {
+          "HOLD": 24370,
+          "BUY": 792,
+          "SELL": 755
+        },
+        "dominant_action_pct": 51.195863,
+        "mean_net_edge_bps": -13.71245,
+        "median_net_edge_bps": -10.230325,
+        "net_edge_summary": {
+          "min": -308.31815092,
+          "median": -10.23032541,
+          "mean": -13.71244988,
+          "max": 240.73352436
+        },
+        "win_rate_pct": 34.259858,
+        "profit_factor": 0.424734,
+        "good_action_count": 530
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -65.128491,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 1514,
+        "signal_coverage_pct": 5.841726,
+        "distribution": {
+          "HOLD": 24403,
+          "BUY": 723,
+          "SELL": 791
+        },
+        "dominant_action_pct": 52.245707,
+        "mean_net_edge_bps": -19.706141,
+        "median_net_edge_bps": -22.645622,
+        "net_edge_summary": {
+          "min": -272.73352436,
+          "median": -22.64562222,
+          "mean": -19.70614145,
+          "max": 276.31815092
+        },
+        "win_rate_pct": 23.778071,
+        "profit_factor": 0.315279,
+        "good_action_count": 360
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -54.310555,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 4590,
+        "signal_coverage_pct": 17.710383,
+        "distribution": {
+          "HOLD": 21327,
+          "BUY": 2341,
+          "SELL": 2249
+        },
+        "dominant_action_pct": 51.002179,
+        "mean_net_edge_bps": -14.996853,
+        "median_net_edge_bps": -12.455993,
+        "net_edge_summary": {
+          "min": -365.62622197,
+          "median": -12.45599349,
+          "mean": -14.9968529,
+          "max": 136.43553009
+        },
+        "win_rate_pct": 28.082789,
+        "profit_factor": 0.249749,
+        "good_action_count": 1289
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -89.257436,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 25916,
+        "signal_coverage_pct": 99.996142,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 12827,
+          "SELL": 13089
+        },
+        "dominant_action_pct": 50.505479,
+        "mean_net_edge_bps": -15.987327,
+        "median_net_edge_bps": -17.194529,
+        "net_edge_summary": {
+          "min": -272.73352436,
+          "median": -17.19452906,
+          "mean": -15.98732706,
+          "max": 532.70960242
+        },
+        "win_rate_pct": 23.792252,
+        "profit_factor": 0.280904,
+        "good_action_count": 6166
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -59.285593,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 2637,
+        "signal_coverage_pct": 30.5279,
+        "distribution": {
+          "HOLD": 6001,
+          "BUY": 1325,
+          "SELL": 1312
+        },
+        "dominant_action_pct": 50.246492,
+        "mean_net_edge_bps": -16.591792,
+        "median_net_edge_bps": -19.39597,
+        "net_edge_summary": {
+          "min": -310.36501262,
+          "median": -19.39597012,
+          "mean": -16.59179207,
+          "max": 342.57513565
+        },
+        "win_rate_pct": 30.072052,
+        "profit_factor": 0.427676,
+        "good_action_count": 793
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -54.580538,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 1058,
+        "signal_coverage_pct": 12.248206,
+        "distribution": {
+          "HOLD": 7580,
+          "BUY": 553,
+          "SELL": 505
+        },
+        "dominant_action_pct": 52.268431,
+        "mean_net_edge_bps": -15.677268,
+        "median_net_edge_bps": -16.0,
+        "net_edge_summary": {
+          "min": -511.00348594,
+          "median": -16.0,
+          "mean": -15.6772684,
+          "max": 316.96213808
+        },
+        "win_rate_pct": 26.937618,
+        "profit_factor": 0.330813,
+        "good_action_count": 285
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -62.949511,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 4122,
+        "signal_coverage_pct": 47.719379,
+        "distribution": {
+          "HOLD": 4516,
+          "BUY": 2118,
+          "SELL": 2004
+        },
+        "dominant_action_pct": 51.382824,
+        "mean_net_edge_bps": -16.791274,
+        "median_net_edge_bps": -14.770356,
+        "net_edge_summary": {
+          "min": -374.57513565,
+          "median": -14.77035555,
+          "mean": -16.79127438,
+          "max": 254.45931453
+        },
+        "win_rate_pct": 33.017952,
+        "profit_factor": 0.379217,
+        "good_action_count": 1361
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -47.114278,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 519,
+        "signal_coverage_pct": 6.008335,
+        "distribution": {
+          "HOLD": 8119,
+          "BUY": 252,
+          "SELL": 267
+        },
+        "dominant_action_pct": 51.445087,
+        "mean_net_edge_bps": -18.188186,
+        "median_net_edge_bps": -13.652858,
+        "net_edge_summary": {
+          "min": -367.48088976,
+          "median": -13.65285765,
+          "mean": -18.18818625,
+          "max": 187.98310199
+        },
+        "win_rate_pct": 38.150289,
+        "profit_factor": 0.452222,
+        "good_action_count": 198
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -50.054683,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 527,
+        "signal_coverage_pct": 6.100949,
+        "distribution": {
+          "HOLD": 8111,
+          "BUY": 259,
+          "SELL": 268
+        },
+        "dominant_action_pct": 50.85389,
+        "mean_net_edge_bps": -16.231066,
+        "median_net_edge_bps": -19.567606,
+        "net_edge_summary": {
+          "min": -219.98310199,
+          "median": -19.56760614,
+          "mean": -16.23106566,
+          "max": 342.57513565
+        },
+        "win_rate_pct": 31.119545,
+        "profit_factor": 0.488143,
+        "good_action_count": 164
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -50.8177,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 1646,
+        "signal_coverage_pct": 19.055337,
+        "distribution": {
+          "HOLD": 6992,
+          "BUY": 870,
+          "SELL": 776
+        },
+        "dominant_action_pct": 52.855407,
+        "mean_net_edge_bps": -15.87283,
+        "median_net_edge_bps": -13.764023,
+        "net_edge_summary": {
+          "min": -367.48088976,
+          "median": -13.76402324,
+          "mean": -15.87283014,
+          "max": 166.25584594
+        },
+        "win_rate_pct": 33.353584,
+        "profit_factor": 0.360936,
+        "good_action_count": 549
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "SOLUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -80.456352,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 8637,
+        "signal_coverage_pct": 99.988423,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 4328,
+          "SELL": 4309
+        },
+        "dominant_action_pct": 50.109992,
+        "mean_net_edge_bps": -15.297898,
+        "median_net_edge_bps": -16.0,
+        "net_edge_summary": {
+          "min": -581.84002794,
+          "median": -16.0,
+          "mean": -15.29789814,
+          "max": 342.57513565
+        },
+        "win_rate_pct": 30.716684,
+        "profit_factor": 0.404677,
+        "good_action_count": 2653
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -74.047467,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 12012,
+        "signal_coverage_pct": 27.80813,
+        "distribution": {
+          "HOLD": 31184,
+          "BUY": 6143,
+          "SELL": 5869
+        },
+        "dominant_action_pct": 51.140526,
+        "mean_net_edge_bps": -16.480016,
+        "median_net_edge_bps": -17.346328,
+        "net_edge_summary": {
+          "min": -186.92452359,
+          "median": -17.34632791,
+          "mean": -16.48001639,
+          "max": 218.93125964
+        },
+        "win_rate_pct": 15.24309,
+        "profit_factor": 0.15058,
+        "good_action_count": 1831
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -79.522001,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 14479,
+        "signal_coverage_pct": 33.519307,
+        "distribution": {
+          "HOLD": 28717,
+          "BUY": 7309,
+          "SELL": 7170
+        },
+        "dominant_action_pct": 50.480006,
+        "mean_net_edge_bps": -16.454426,
+        "median_net_edge_bps": -16.794849,
+        "net_edge_summary": {
+          "min": -145.35560859,
+          "median": -16.79484938,
+          "mean": -16.4544255,
+          "max": 277.3197153
+        },
+        "win_rate_pct": 11.962152,
+        "profit_factor": 0.089114,
+        "good_action_count": 1732
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -66.227062,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 12366,
+        "signal_coverage_pct": 28.627651,
+        "distribution": {
+          "HOLD": 30830,
+          "BUY": 6119,
+          "SELL": 6247
+        },
+        "dominant_action_pct": 50.517548,
+        "mean_net_edge_bps": -15.651927,
+        "median_net_edge_bps": -14.020227,
+        "net_edge_summary": {
+          "min": -337.20255687,
+          "median": -14.02022653,
+          "mean": -15.65192672,
+          "max": 154.92452359
+        },
+        "win_rate_pct": 21.631894,
+        "profit_factor": 0.166144,
+        "good_action_count": 2675
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -63.489763,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 2632,
+        "signal_coverage_pct": 6.093157,
+        "distribution": {
+          "HOLD": 40564,
+          "BUY": 1333,
+          "SELL": 1299
+        },
+        "dominant_action_pct": 50.645897,
+        "mean_net_edge_bps": -16.908567,
+        "median_net_edge_bps": -14.732414,
+        "net_edge_summary": {
+          "min": -224.01029329,
+          "median": -14.73241426,
+          "mean": -16.90856734,
+          "max": 141.30299028
+        },
+        "win_rate_pct": 20.364742,
+        "profit_factor": 0.157506,
+        "good_action_count": 536
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -62.986403,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 2744,
+        "signal_coverage_pct": 6.35244,
+        "distribution": {
+          "HOLD": 40452,
+          "BUY": 1330,
+          "SELL": 1414
+        },
+        "dominant_action_pct": 51.530612,
+        "mean_net_edge_bps": -15.601881,
+        "median_net_edge_bps": -17.281642,
+        "net_edge_summary": {
+          "min": -173.30299028,
+          "median": -17.28164181,
+          "mean": -15.60188143,
+          "max": 192.01029329
+        },
+        "win_rate_pct": 17.930029,
+        "profit_factor": 0.215994,
+        "good_action_count": 492
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -67.933519,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 7301,
+        "signal_coverage_pct": 16.902028,
+        "distribution": {
+          "HOLD": 35895,
+          "BUY": 3599,
+          "SELL": 3702
+        },
+        "dominant_action_pct": 50.705383,
+        "mean_net_edge_bps": -15.894781,
+        "median_net_edge_bps": -14.382453,
+        "net_edge_summary": {
+          "min": -337.20255687,
+          "median": -14.38245285,
+          "mean": -15.89478112,
+          "max": 154.92452359
+        },
+        "win_rate_pct": 16.586769,
+        "profit_factor": 0.096246,
+        "good_action_count": 1211
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "3m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 4,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -99.779725,
+      "metrics": {
+        "clean_samples": 43196,
+        "signal_count": 43195,
+        "signal_coverage_pct": 99.997685,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 21897,
+          "SELL": 21298
+        },
+        "dominant_action_pct": 50.693367,
+        "mean_net_edge_bps": -16.307483,
+        "median_net_edge_bps": -16.943011,
+        "net_edge_summary": {
+          "min": -212.25148432,
+          "median": -16.94301072,
+          "mean": -16.30748341,
+          "max": 305.20255687
+        },
+        "win_rate_pct": 14.520199,
+        "profit_factor": 0.128558,
+        "good_action_count": 6272
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -72.893227,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 7508,
+        "signal_coverage_pct": 28.969402,
+        "distribution": {
+          "HOLD": 18409,
+          "BUY": 3859,
+          "SELL": 3649
+        },
+        "dominant_action_pct": 51.398508,
+        "mean_net_edge_bps": -16.824124,
+        "median_net_edge_bps": -17.90632,
+        "net_edge_summary": {
+          "min": -184.2195032,
+          "median": -17.90632035,
+          "mean": -16.82412425,
+          "max": 268.82982278
+        },
+        "win_rate_pct": 17.38146,
+        "profit_factor": 0.178213,
+        "good_action_count": 1305
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -76.070672,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 7478,
+        "signal_coverage_pct": 28.853648,
+        "distribution": {
+          "HOLD": 18439,
+          "BUY": 3778,
+          "SELL": 3700
+        },
+        "dominant_action_pct": 50.52153,
+        "mean_net_edge_bps": -16.4606,
+        "median_net_edge_bps": -16.643416,
+        "net_edge_summary": {
+          "min": -181.80710464,
+          "median": -16.64341568,
+          "mean": -16.46060041,
+          "max": 194.70079803
+        },
+        "win_rate_pct": 13.706873,
+        "profit_factor": 0.110608,
+        "good_action_count": 1025
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -66.320724,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 9148,
+        "signal_coverage_pct": 35.297295,
+        "distribution": {
+          "HOLD": 16769,
+          "BUY": 4558,
+          "SELL": 4590
+        },
+        "dominant_action_pct": 50.174902,
+        "mean_net_edge_bps": -15.486551,
+        "median_net_edge_bps": -13.803353,
+        "net_edge_summary": {
+          "min": -340.47954056,
+          "median": -13.80335302,
+          "mean": -15.48655063,
+          "max": 152.2195032
+        },
+        "win_rate_pct": 23.458679,
+        "profit_factor": 0.186938,
+        "good_action_count": 2146
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -53.918367,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 1562,
+        "signal_coverage_pct": 6.026932,
+        "distribution": {
+          "HOLD": 24355,
+          "BUY": 800,
+          "SELL": 762
+        },
+        "dominant_action_pct": 51.216389,
+        "mean_net_edge_bps": -14.928046,
+        "median_net_edge_bps": -12.757035,
+        "net_edge_summary": {
+          "min": -219.66227525,
+          "median": -12.75703522,
+          "mean": -14.92804584,
+          "max": 151.67425047
+        },
+        "win_rate_pct": 25.672215,
+        "profit_factor": 0.239021,
+        "good_action_count": 401
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -66.182832,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 1652,
+        "signal_coverage_pct": 6.374195,
+        "distribution": {
+          "HOLD": 24265,
+          "BUY": 793,
+          "SELL": 859
+        },
+        "dominant_action_pct": 51.997579,
+        "mean_net_edge_bps": -17.508859,
+        "median_net_edge_bps": -19.067416,
+        "net_edge_summary": {
+          "min": -183.67425047,
+          "median": -19.06741577,
+          "mean": -17.50885866,
+          "max": 187.66227525
+        },
+        "win_rate_pct": 18.523002,
+        "profit_factor": 0.220229,
+        "good_action_count": 306
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -64.386695,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 4705,
+        "signal_coverage_pct": 18.154107,
+        "distribution": {
+          "HOLD": 21212,
+          "BUY": 2378,
+          "SELL": 2327
+        },
+        "dominant_action_pct": 50.541977,
+        "mean_net_edge_bps": -15.642391,
+        "median_net_edge_bps": -14.078278,
+        "net_edge_summary": {
+          "min": -300.82982278,
+          "median": -14.07827814,
+          "mean": -15.64239085,
+          "max": 112.04743432
+        },
+        "win_rate_pct": 19.957492,
+        "profit_factor": 0.123633,
+        "good_action_count": 939
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "5m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 3,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -97.754443,
+      "metrics": {
+        "clean_samples": 25917,
+        "signal_count": 25916,
+        "signal_coverage_pct": 99.996142,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 13174,
+          "SELL": 12742
+        },
+        "dominant_action_pct": 50.833462,
+        "mean_net_edge_bps": -16.345233,
+        "median_net_edge_bps": -17.163468,
+        "net_edge_summary": {
+          "min": -208.51831063,
+          "median": -17.16346778,
+          "mean": -16.34523338,
+          "max": 328.3981415
+        },
+        "win_rate_pct": 16.507177,
+        "profit_factor": 0.156874,
+        "good_action_count": 4278
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "trend_following_ema",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 0.9
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -65.612937,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 2677,
+        "signal_coverage_pct": 30.99097,
+        "distribution": {
+          "HOLD": 5961,
+          "BUY": 1401,
+          "SELL": 1276
+        },
+        "dominant_action_pct": 52.334703,
+        "mean_net_edge_bps": -16.626723,
+        "median_net_edge_bps": -18.797725,
+        "net_edge_summary": {
+          "min": -179.15431679,
+          "median": -18.79772452,
+          "mean": -16.62672252,
+          "max": 259.45577581
+        },
+        "win_rate_pct": 24.579753,
+        "profit_factor": 0.276899,
+        "good_action_count": 658
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "trend_pullback_vwap",
+        "family": "trend",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_max": 0.3
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -63.326827,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 1659,
+        "signal_coverage_pct": 19.205835,
+        "distribution": {
+          "HOLD": 6979,
+          "BUY": 872,
+          "SELL": 787
+        },
+        "dominant_action_pct": 52.561784,
+        "mean_net_edge_bps": -15.715449,
+        "median_net_edge_bps": -16.0,
+        "net_edge_summary": {
+          "min": -235.21418304,
+          "median": -16.0,
+          "mean": -15.71544875,
+          "max": 205.47065241
+        },
+        "win_rate_pct": 21.217601,
+        "profit_factor": 0.202128,
+        "good_action_count": 352
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "vwap_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "vwap_abs_min": 0.28
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -63.269158,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 3692,
+        "signal_coverage_pct": 42.741375,
+        "distribution": {
+          "HOLD": 4946,
+          "BUY": 1844,
+          "SELL": 1848
+        },
+        "dominant_action_pct": 50.054171,
+        "mean_net_edge_bps": -15.295314,
+        "median_net_edge_bps": -12.979332,
+        "net_edge_summary": {
+          "min": -291.45577581,
+          "median": -12.97933227,
+          "mean": -15.2953143,
+          "max": 147.15431679
+        },
+        "win_rate_pct": 28.385699,
+        "profit_factor": 0.273813,
+        "good_action_count": 1048
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "rsi_bollinger_reversion",
+        "family": "mean_reversion",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 34,
+          "rsi_sell": 66
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -45.579238,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 494,
+        "signal_coverage_pct": 5.718916,
+        "distribution": {
+          "HOLD": 8144,
+          "BUY": 238,
+          "SELL": 256
+        },
+        "dominant_action_pct": 51.821862,
+        "mean_net_edge_bps": -13.98049,
+        "median_net_edge_bps": -11.082694,
+        "net_edge_summary": {
+          "min": -291.45577581,
+          "median": -11.08269372,
+          "mean": -13.98048974,
+          "max": 126.267095
+        },
+        "win_rate_pct": 31.781377,
+        "profit_factor": 0.349686,
+        "good_action_count": 157
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "atr_breakout_volume",
+        "family": "breakout",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "volume_floor": 1.15
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -64.861983,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 562,
+        "signal_coverage_pct": 6.506136,
+        "distribution": {
+          "HOLD": 8076,
+          "BUY": 279,
+          "SELL": 283
+        },
+        "dominant_action_pct": 50.355872,
+        "mean_net_edge_bps": -18.494378,
+        "median_net_edge_bps": -21.377792,
+        "net_edge_summary": {
+          "min": -158.267095,
+          "median": -21.37779197,
+          "mean": -18.49437785,
+          "max": 259.45577581
+        },
+        "win_rate_pct": 21.530249,
+        "profit_factor": 0.279844,
+        "good_action_count": 121
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "range_low_vol_reversal",
+        "family": "range",
+        "forward_bars": null,
+        "approvable": true,
+        "params": {
+          "rsi_buy": 40,
+          "rsi_sell": 60
+        }
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -61.387708,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 1573,
+        "signal_coverage_pct": 18.210234,
+        "distribution": {
+          "HOLD": 7065,
+          "BUY": 793,
+          "SELL": 780
+        },
+        "dominant_action_pct": 50.413223,
+        "mean_net_edge_bps": -17.382548,
+        "median_net_edge_bps": -13.596423,
+        "net_edge_summary": {
+          "min": -276.77692182,
+          "median": -13.59642348,
+          "mean": -17.38254782,
+          "max": 91.54987931
+        },
+        "win_rate_pct": 26.19199,
+        "profit_factor": 0.189745,
+        "good_action_count": 412
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    },
+    {
+      "contract_version": "4B.4.3.6.6.24M",
+      "report_type": "strategy_edge_candidate",
+      "decision": "BLOCK",
+      "ok": false,
+      "approved_for_research_candidate": false,
+      "approved_for_training_candidate": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_live_real": false,
+      "live_real_allowed": false,
+      "symbol": "BNBUSDT",
+      "interval": "15m",
+      "strategy": {
+        "name": "diagnostic_every_trend_tick",
+        "family": "diagnostic",
+        "forward_bars": null,
+        "approvable": false,
+        "params": {}
+      },
+      "cost_bps": 16.0,
+      "forward_bars": 2,
+      "reason_codes": [
+        "DIAGNOSTIC_STRATEGY_NOT_APPROVABLE",
+        "EDGE_COVERAGE_HIGH",
+        "EDGE_EXPECTED_EDGE_LOW",
+        "EDGE_MEDIAN_EDGE_LOW",
+        "EDGE_WIN_RATE_LOW",
+        "EDGE_PROFIT_FACTOR_LOW"
+      ],
+      "warnings": [
+        "EDGE_EXPECTED_EDGE_NEAR_FLOOR"
+      ],
+      "score": -90.035806,
+      "metrics": {
+        "clean_samples": 8638,
+        "signal_count": 8637,
+        "signal_coverage_pct": 99.988423,
+        "distribution": {
+          "HOLD": 1,
+          "BUY": 4410,
+          "SELL": 4227
+        },
+        "dominant_action_pct": 51.059396,
+        "mean_net_edge_bps": -16.228874,
+        "median_net_edge_bps": -17.234396,
+        "net_edge_summary": {
+          "min": -365.41338193,
+          "median": -17.23439646,
+          "mean": -16.22887428,
+          "max": 259.45577581
+        },
+        "win_rate_pct": 23.607734,
+        "profit_factor": 0.252539,
+        "good_action_count": 2039
+      },
+      "limits": {
+        "min_clean_samples": 1000,
+        "min_signal_count": 40,
+        "min_signal_coverage_pct": 0.35,
+        "max_signal_coverage_pct": 35.0,
+        "max_dominant_action_pct": 78.0,
+        "min_mean_net_edge_bps": 1.0,
+        "min_median_net_edge_bps": -2.0,
+        "min_win_rate_pct": 51.0,
+        "min_profit_factor": 1.04,
+        "min_edge_lift_bps": 3.0,
+        "target_signal_coverage_pct": 8.0
+      }
+    }
+  ],
+  "guardrails": {
+    "observation_only": true,
+    "get_only_public_market_data": true,
+    "no_post_actions": true,
+    "post_requests_allowed": false,
+    "config_mutation_performed": false,
+    "order_actions_performed": false,
+    "reload_performed": false,
+    "live_real_allowed": false
+  },
+  "source": "binance:ETHUSDT,BTCUSDT,SOLUSDT,BNBUSDT:3m,5m,15m:90d"
+}
