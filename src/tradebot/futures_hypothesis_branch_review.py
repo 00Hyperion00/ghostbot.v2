@@ -7,6 +7,7 @@ import json
 import math
 
 FUTURES_BRANCH_REVIEW_CONTRACT_VERSION = "4B.4.3.6.6.25F"
+FUTURES_BRANCH_REVIEW_HOTFIX_VERSION = "4B.4.3.6.6.25F-H1"
 REPORT_PREFIX = "4B436625F_futures_hypothesis_branch_review"
 
 TERMINAL_BLOCK_CODES = {
@@ -14,11 +15,18 @@ TERMINAL_BLOCK_CODES = {
     "DRY_RUN_SIGNAL_COUNT_LOW",
     "DRY_RUN_MEDIAN_EDGE_LOW",
     "DRY_RUN_WALK_FORWARD_STABILITY_LOW",
+    "DRY_RUN_OOS_EDGE_LOW",
+    "DRY_RUN_PROFIT_FACTOR_LOW",
     "NO_MEDIAN_EDGE_REFINEMENT_CANDIDATE_PASSED",
     "REFINEMENT_SIGNAL_COUNT_LOW",
     "REFINEMENT_SIDE_IMBALANCE_HIGH",
     "REFINEMENT_TOP_WIN_DEPENDENCY_HIGH",
     "REFINEMENT_OOS_EDGE_LOW",
+    "REFINEMENT_MEAN_EDGE_LOW",
+    "REFINEMENT_MEDIAN_EDGE_LOW",
+    "REFINEMENT_PROFIT_FACTOR_LOW",
+    "REFINEMENT_WALK_FORWARD_STABILITY_LOW",
+    "REFINEMENT_WIN_RATE_LOW",
 }
 
 SPARSE_CODES = {
@@ -183,6 +191,41 @@ def _first_present(mapping: Mapping[str, Any], *keys: str, default: Any = None) 
             return mapping[key]
     return default
 
+def _nested_get(mapping: Mapping[str, Any], *path: str, default: Any = None) -> Any:
+    current: Any = mapping
+    for key in path:
+        if not isinstance(current, Mapping) or key not in current or current[key] is None:
+            return default
+        current = current[key]
+    return current
+
+
+def _candidate_spec_fields(report: Mapping[str, Any]) -> tuple[str, str, str]:
+    spec = report.get("candidate_spec")
+    if not isinstance(spec, Mapping):
+        spec = report.get("spec")
+    if not isinstance(spec, Mapping):
+        spec = _nested_get(report, "candidate", "spec", default={})
+    if not isinstance(spec, Mapping):
+        spec = {}
+    return (
+        str(spec.get("symbol") or "").upper(),
+        str(spec.get("interval") or ""),
+        str(spec.get("strategy") or ""),
+    )
+
+
+def _merge_metric_fields(*mappings: Mapping[str, Any] | None) -> dict[str, Any]:
+    merged: dict[str, Any] = {}
+    for mapping in mappings:
+        if not isinstance(mapping, Mapping):
+            continue
+        metrics = mapping.get("metrics")
+        if isinstance(metrics, Mapping):
+            merged.update(metrics)
+        merged.update({key: value for key, value in mapping.items() if key != "metrics"})
+    return merged
+
 
 def infer_phase(report: Mapping[str, Any], source_report: str = "") -> str:
     text = " ".join(
@@ -283,32 +326,81 @@ def _normalize_candidate(
 
 
 def _selected_from_top_level(report: Mapping[str, Any], phase: str, source_report: str) -> NormalizedBranchCandidate | None:
+    """Normalize top-level selected/candidate blocks from 25D/25E reports.
+
+    25F-H1 fixes companion terminal audit recognition by supporting the actual
+    25D/25E schemas:
+    - 25D stores selected as a mapping and detailed metrics under candidate.metrics.
+    - 25E stores selected filter metrics under selected.metrics and the symbol under candidate_spec.
+    """
     selected = report.get("selected")
+    candidate = report.get("candidate") if isinstance(report.get("candidate"), Mapping) else {}
+    candidate_metrics = candidate.get("metrics") if isinstance(candidate, Mapping) else {}
+    selected_metrics = selected.get("metrics") if isinstance(selected, Mapping) else {}
+    spec_symbol, spec_interval, spec_strategy = _candidate_spec_fields(report)
+
     symbol = str(report.get("selected_symbol") or report.get("symbol") or "").upper()
     interval = str(report.get("selected_interval") or report.get("interval") or "")
     strategy = str(report.get("selected_strategy") or report.get("strategy") or "")
-    if isinstance(selected, str):
+
+    if isinstance(selected, Mapping):
+        symbol = str(selected.get("symbol") or symbol or spec_symbol).upper()
+        interval = str(selected.get("interval") or interval or spec_interval)
+        strategy = str(selected.get("strategy") or strategy or spec_strategy)
+    elif isinstance(selected, str):
         parts = selected.replace("`", "").split()
         if len(parts) >= 3:
             symbol = symbol or parts[0].upper()
             interval = interval or parts[1]
             strategy = strategy or parts[2]
+
+    if not symbol:
+        symbol = spec_symbol
+    if not interval:
+        interval = spec_interval
+    if not strategy:
+        strategy = spec_strategy
+
     if not symbol and not interval and not strategy:
         return None
+
+    metric_fields = _merge_metric_fields(candidate_metrics, selected_metrics, selected if isinstance(selected, Mapping) else None, report)
     synthetic = {
         "symbol": symbol,
         "interval": interval,
         "strategy": strategy,
         "decision": report.get("decision", "UNKNOWN"),
-        "signals": report.get("selected_signal_count") or report.get("signal_count"),
-        "mean_net_edge_bps": report.get("selected_mean_net_edge_bps") or report.get("mean_net_edge_bps"),
-        "median_net_edge_bps": report.get("selected_median_net_edge_bps") or report.get("median_net_edge_bps"),
-        "profit_factor": report.get("selected_profit_factor") or report.get("profit_factor"),
+        "signals": _first_present(
+            metric_fields,
+            "signals",
+            "signal_count",
+            "selected_signal_count",
+            default=0,
+        ),
+        "mean_net_edge_bps": _first_present(
+            metric_fields,
+            "mean_edge_bps",
+            "mean_net_edge_bps",
+            "selected_mean_net_edge_bps",
+            default=0.0,
+        ),
+        "median_net_edge_bps": _first_present(
+            metric_fields,
+            "median_edge_bps",
+            "median_net_edge_bps",
+            "selected_median_net_edge_bps",
+            default=None,
+        ),
+        "win_rate_pct": _first_present(metric_fields, "win_rate_pct", default=None),
+        "profit_factor": _first_present(metric_fields, "profit_factor", "selected_profit_factor", default=0.0),
+        "max_drawdown_pct": _first_present(metric_fields, "max_dd_pct", "max_drawdown_pct", default=None),
+        "oos_edge_bps": _first_present(metric_fields, "oos_edge_bps", "oos_mean_net_edge_bps", default=None),
+        "walk_forward_positive_rate_pct": _first_present(metric_fields, "walk_forward_positive_rate_pct", default=None),
+        "top_win_dependency_pct": _first_present(metric_fields, "top_win_dependency_pct", default=None),
         "reason_codes": report.get("reason_codes", ()),
         "warnings": report.get("warnings", ()),
     }
     return _normalize_candidate(synthetic, phase=phase, source_report=source_report)
-
 
 def normalize_report_candidates(report: Mapping[str, Any], source_report: str) -> tuple[NormalizedBranchCandidate, ...]:
     phase = infer_phase(report, source_report)
@@ -322,6 +414,13 @@ def normalize_report_candidates(report: Mapping[str, Any], source_report: str) -
     selected_candidate = _selected_from_top_level(report, phase, source_report)
     if selected_candidate is not None:
         candidates.append(selected_candidate)
+
+    # 25D dry-run reports nest detailed decision metrics under `candidate`.
+    candidate_block = report.get("candidate")
+    if isinstance(candidate_block, Mapping):
+        selected_candidate = _selected_from_top_level(report, phase, source_report)
+        if selected_candidate is not None:
+            candidates.append(selected_candidate)
 
     # Some 25C/25D/25E reports may nest the selected candidate under selection/best_candidate.
     selection = report.get("selection")
