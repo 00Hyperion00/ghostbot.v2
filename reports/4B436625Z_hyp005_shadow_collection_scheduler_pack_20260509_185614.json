@@ -1,0 +1,74 @@
+{
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_paper_transition_candidate": false,
+  "approved_for_scheduler_pack": true,
+  "approved_for_shadow_collection": true,
+  "approved_for_training_candidate": false,
+  "artifacts": {
+    "generated_paths": [
+      "reports\\4B436625Z_hyp005_windows_task_scheduler_pack_20260509_185614\\run_hyp005_shadow_cycle_no_order.ps1",
+      "reports\\4B436625Z_hyp005_windows_task_scheduler_pack_20260509_185614\\register_hyp005_shadow_cycle_task.ps1",
+      "reports\\4B436625Z_hyp005_windows_task_scheduler_pack_20260509_185614\\hyp005_shadow_collection_task.xml",
+      "reports\\4B436625Z_hyp005_windows_task_scheduler_pack_20260509_185614\\README_HYP005_NO_ORDER_SCHEDULER.md"
+    ],
+    "operator_readme_md": "reports\\4B436625Z_hyp005_windows_task_scheduler_pack_20260509_185614\\README_HYP005_NO_ORDER_SCHEDULER.md",
+    "pack_dir": "reports\\4B436625Z_hyp005_windows_task_scheduler_pack_20260509_185614",
+    "register_task_ps1": "reports\\4B436625Z_hyp005_windows_task_scheduler_pack_20260509_185614\\register_hyp005_shadow_cycle_task.ps1",
+    "shadow_cycle_ps1": "reports\\4B436625Z_hyp005_windows_task_scheduler_pack_20260509_185614\\run_hyp005_shadow_cycle_no_order.ps1",
+    "task_xml": "reports\\4B436625Z_hyp005_windows_task_scheduler_pack_20260509_185614\\hyp005_shadow_collection_task.xml"
+  },
+  "base_url": "https://api.binance.com",
+  "branch_name": "liquidity_sweep_reversal_vol_compression",
+  "candidate_spec_json": "reports\\4B436625U_hyp005_no_order_shadow_candidate_spec_20260509_175722.json",
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.25Z",
+  "days": 30,
+  "decision": "HYP005_SHADOW_SCHEDULER_PACK_READY",
+  "guardrails": {
+    "config_mutation_performed": false,
+    "live_real_allowed": false,
+    "no_order_scheduler_pack_only": true,
+    "order_actions_performed": false,
+    "paper_transition_readiness_is_not_paper_permission": true,
+    "post_requests_allowed": false,
+    "reload_performed": false,
+    "windows_task_scheduler_manual_import_only": true
+  },
+  "hypothesis_id": "HYP-005",
+  "interval": "4h",
+  "latest_acceptance_decision": "HYP005_SHADOW_PAPER_TRANSITION_BLOCK",
+  "latest_collection_decision": "HYP005_SHADOW_COLLECTION_ORCHESTRATOR_READY",
+  "latest_logger_decision": "HYP005_SHADOW_OBSERVATION_LOGGER_READY",
+  "no_order_scheduler_pack_only": true,
+  "ok": true,
+  "order_actions_performed": false,
+  "paper_transition_ready": false,
+  "phase": "4B.4.3.6.6.25Z",
+  "post_requests_allowed": false,
+  "progress_pct": 0.0,
+  "reason_codes": [
+    "NO_TRAINING_PAPER_LIVE_APPROVALS_DETECTED"
+  ],
+  "recommendation": "HYP-005 no-order Windows scheduler pack is ready. Review scripts manually before optional Task Scheduler registration; do not train, reload, paper trade, live trade, or send orders.",
+  "reload_performed": false,
+  "report_type": "hyp005_shadow_collection_scheduler_pack",
+  "run_every_hours": 4,
+  "scheduler_pack_ready": true,
+  "selected_strategy_family": "long_liquidity_sweep_reversal",
+  "shadow_observation_count": 0,
+  "shadow_sample_target": 30,
+  "source_operator_audit": "reports\\4B436625Y_hyp005_shadow_operator_daily_audit_20260509_180514.json",
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "BNBUSDT"
+  ],
+  "task_name": "TradeBot_HYP005_NoOrderShadowCollection",
+  "warnings": [
+    "PAPER_TRANSITION_STILL_BLOCKED_OR_PENDING",
+    "SHADOW_COLLECTION_IN_PROGRESS"
+  ],
+  "windows_task_scheduler_manual_import_only": true
+}
