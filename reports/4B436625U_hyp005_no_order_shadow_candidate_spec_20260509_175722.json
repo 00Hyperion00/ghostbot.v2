@@ -1,0 +1,227 @@
+{
+  "contract_version": "4B.4.3.6.6.25U",
+  "hypothesis_id": "HYP-005",
+  "branch_name": "liquidity_sweep_reversal_vol_compression",
+  "strategy_family": "long_liquidity_sweep_reversal",
+  "status": "NO_ORDER_SHADOW_PLAN_READY",
+  "source_25s_decision": "HYP005_EXPLORATION_PASS",
+  "source_25t_decision": "HYP005_ROBUSTNESS_PASS",
+  "entry_signal_definition": {
+    "strategy_family": "long_liquidity_sweep_reversal",
+    "side": "LONG_ONLY",
+    "timeframe": "4h",
+    "setup": "Prior support/liquidity low is swept intrabar; candle reclaims above the swept level and closes with reversal structure after volatility compression filter remains acceptable.",
+    "required_market_structure": [
+      "lookback_low_reference_present",
+      "downside_sweep_beyond_lookback_low",
+      "close_reclaim_above_swept_low",
+      "lower_wick_reversal_structure",
+      "volatility_compression_filter_not_breached"
+    ],
+    "parameters": {
+      "lookback_bars": 24,
+      "hold_bars": 6,
+      "min_sweep_bps": 18.0,
+      "min_wick_pct": 42.0,
+      "compression_window": 12,
+      "compression_baseline_bars": 48,
+      "max_compression_ratio": 1.05
+    },
+    "execution_mode": "NO_ORDER_SHADOW_ONLY"
+  },
+  "invalidation_conditions": {
+    "no_order_invalidation_only": true,
+    "conditions": [
+      "signal candle closes below swept liquidity low without reclaim",
+      "forward path violates swept low by more than configured adverse excursion threshold",
+      "spread/slippage proxy exceeds shadow max threshold",
+      "data quality or required observation fields are missing",
+      "market enters unsupported halt/outage/stale-data condition"
+    ],
+    "time_stop_bars": 6,
+    "mae_mfe_required": true,
+    "manual_review_required": true
+  },
+  "expected_hold_horizon": {
+    "timeframe": "4h",
+    "hold_bars": 6,
+    "approx_hours": 24,
+    "shadow_forward_return_bars": [
+      1,
+      2,
+      3,
+      6
+    ],
+    "no_position_opened": true
+  },
+  "risk_observation_fields": [
+    "timestamp_utc",
+    "symbol",
+    "timeframe",
+    "strategy_family",
+    "sweep_direction",
+    "lookback_low",
+    "swept_low",
+    "sweep_depth_bps",
+    "wick_pct",
+    "compression_ratio",
+    "entry_reference_price",
+    "invalidation_level",
+    "hold_horizon_bars",
+    "forward_return_bps_h1",
+    "forward_return_bps_h2",
+    "forward_return_bps_h3",
+    "forward_return_bps_final",
+    "mae_bps",
+    "mfe_bps",
+    "spread_slippage_proxy_bps",
+    "volume_context",
+    "regime_context",
+    "data_quality_ok",
+    "operator_review_status"
+  ],
+  "required_shadow_acceptance_metrics": [
+    {
+      "name": "shadow_sample_count",
+      "operator": ">=",
+      "threshold": 30,
+      "required": true,
+      "description": "Minimum no-order shadow observations before any paper-transition gate."
+    },
+    {
+      "name": "shadow_days_observed",
+      "operator": ">=",
+      "threshold": 30,
+      "required": true,
+      "description": "Minimum calendar coverage for shadow monitoring."
+    },
+    {
+      "name": "shadow_signal_capture_count",
+      "operator": ">=",
+      "threshold": 25,
+      "required": true,
+      "description": "Captured and reviewed candidate signals."
+    },
+    {
+      "name": "shadow_mean_forward_edge_bps",
+      "operator": ">=",
+      "threshold": 50.0,
+      "required": true,
+      "description": "Mean forward edge after estimated costs/slippage."
+    },
+    {
+      "name": "shadow_median_forward_edge_bps",
+      "operator": ">=",
+      "threshold": 30.0,
+      "required": true,
+      "description": "Median forward edge after estimated costs/slippage."
+    },
+    {
+      "name": "shadow_profit_factor",
+      "operator": ">=",
+      "threshold": 1.5,
+      "required": true,
+      "description": "Gross win/loss quality in no-order shadow data."
+    },
+    {
+      "name": "shadow_oos_edge_bps",
+      "operator": ">=",
+      "threshold": 25.0,
+      "required": true,
+      "description": "Most recent/out-of-sample shadow edge."
+    },
+    {
+      "name": "shadow_walk_forward_positive_rate_pct",
+      "operator": ">=",
+      "threshold": 60.0,
+      "required": true,
+      "description": "Segment stability requirement."
+    },
+    {
+      "name": "shadow_top_win_dependency_pct",
+      "operator": "<=",
+      "threshold": 45.0,
+      "required": true,
+      "description": "Avoids a result driven by a tiny number of wins."
+    },
+    {
+      "name": "shadow_dominant_symbol_pct",
+      "operator": "<=",
+      "threshold": 70.0,
+      "required": true,
+      "description": "Avoids one-symbol dependency."
+    },
+    {
+      "name": "shadow_wick_dependency_pct",
+      "operator": "<=",
+      "threshold": 85.0,
+      "required": true,
+      "description": "Avoids extreme wick-only artifact dependency."
+    },
+    {
+      "name": "shadow_slippage_proxy_bps",
+      "operator": "<=",
+      "threshold": 12.0,
+      "required": true,
+      "description": "Ensures edge survives a realistic spread/slippage proxy."
+    },
+    {
+      "name": "shadow_data_quality_pct",
+      "operator": ">=",
+      "threshold": 98.0,
+      "required": true,
+      "description": "Required field completeness and freshness."
+    },
+    {
+      "name": "shadow_missing_fields_pct",
+      "operator": "<=",
+      "threshold": 1.0,
+      "required": true,
+      "description": "Missing observation-field ceiling."
+    },
+    {
+      "name": "manual_reviewers",
+      "operator": ">=",
+      "threshold": 1,
+      "required": true,
+      "description": "Manual review remains mandatory before any further gate."
+    }
+  ],
+  "observed_robustness_metrics": {
+    "signal_count": 28,
+    "mean_net_edge_bps": 140.089198,
+    "penalized_mean_net_edge_bps": 122.089198,
+    "median_net_edge_bps": 109.881101,
+    "profit_factor": 4.197094,
+    "win_rate_pct": 82.142857,
+    "oos_mean_net_edge_bps": 104.924999,
+    "walk_forward_positive_rate_pct": 75.0,
+    "top_win_dependency_pct": 36.380414,
+    "dominant_symbol_pct": 35.714286,
+    "wick_dependency_pct": 0.0,
+    "symbols_traded": 4,
+    "recent_30d_signal_count": 21,
+    "recent_30d_mean_edge_bps": 98.77503,
+    "recent_60d_mean_edge_bps": 140.089198,
+    "small_sample_penalty_bps": 18.0
+  },
+  "required_source_reports": [
+    "reports\\4B436625S_hyp005_liquidity_sweep_reversal_exploration_20260509_172138.json",
+    "reports\\4B436625T_hyp005_robustness_walkforward_confirmation_20260509_174924.json"
+  ],
+  "guardrails": {
+    "observation_only": true,
+    "no_order_shadow_only": true,
+    "orders_allowed": false,
+    "paper_trading_allowed": false,
+    "live_trading_allowed": false,
+    "training_allowed": false,
+    "model_reload_allowed": false,
+    "config_mutation_allowed": false,
+    "post_requests_allowed": false,
+    "manual_review_required": true,
+    "paper_transition_requires_new_gate": true,
+    "live_transition_requires_separate_gate": true,
+    "candidate_spec_is_not_trading_permission": true
+  }
+}
