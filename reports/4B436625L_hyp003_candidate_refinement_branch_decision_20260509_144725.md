@@ -1,0 +1,72 @@
+# 4B.4.3.6.6.25L HYP-003 Candidate Refinement / Branch Decision Gate
+
+- contract_version: `4B.4.3.6.6.25L`
+- decision: **HYP003_BRANCH_CLOSURE_RECOMMENDED**
+- hypothesis_id: `HYP-003`
+- source_reports: `2`
+- approved_for_research_candidate: `False`
+- approved_for_training_candidate: `False`
+- approved_for_paper_candidate: `False`
+- approved_for_live_real: `False`
+- reason_codes: `['HYP003_SELECTED_CANDIDATE_ROBUSTNESS_BLOCK', 'NO_HYP003_ALTERNATE_CANDIDATE_AVAILABLE', 'ROBUST_MEAN_EDGE_LOW', 'ROBUST_MEDIAN_EDGE_LOW', 'ROBUST_OOS_EDGE_LOW', 'ROBUST_PROFIT_FACTOR_LOW', 'ROBUST_WALK_FORWARD_STABILITY_LOW', 'ROBUST_WIN_RATE_LOW']`
+- recommendation: `HYP-003 selected candidate failed robustness and no alternate 25J PASS candidate meets refinement criteria. Close this branch or return to registry; do not train, reload, paper trade, or enable live trading.`
+
+## Failed 25K Candidate
+
+- symbol: `ETHUSDT`
+- interval: `4h`
+- strategy_family: `range_mean_reversion`
+- regime: `range`
+- signal_count: `66`
+- mean_net_edge_bps: `-11.606522`
+- median_net_edge_bps: `-24.400868`
+- profit_factor: `0.74203`
+- oos_mean_net_edge_bps: `-21.839317`
+- walk_forward_positive_rate_pct: `25.0`
+
+## Exploration Candidates
+
+| # | phase | decision | score | symbol | interval | family | regime | signals | mean | median | pf | oos | reasons |
+|---:|---|---|---:|---|---|---|---|---:|---:|---:|---:|---:|---|
+| 1 | 25J | PASS | 103.821297 | ETHUSDT | 4h | range_mean_reversion | range | 67 | 23.979025 | 31.590359 | 1.581891 | 29.178376 | `()` |
+| 2 | 25J | PASS | 29.284412 | BTCUSDT | 4h | range_mean_reversion | range | 70 | 6.777121 | 2.331134 | 1.133686 | 1.815252 | `()` |
+| 3 | 25J | BLOCK | 84.643771 | SOLUSDT | 4h | low_vol_breakout_probe | low_vol | 3 | 98.628433 | 1.821076 | 4.665013 | 374.796624 | `('DIAGNOSTIC_STRATEGY_FAMILY_NOT_APPROVABLE', 'HYP003_SIGNAL_COUNT_LOW', 'HYP003_SIGNAL_COVERAGE_LOW', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+| 4 | 25J | BLOCK | -110.243282 | ETHUSDT | 1h | volatility_expansion_breakout | high_vol_trend | 36 | 8.763774 | -19.437791 | 1.171654 | -33.683966 | `('HYP003_MEDIAN_EDGE_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW')` |
+| 5 | 25J | BLOCK | -231.300433 | SOLUSDT | 4h | range_mean_reversion | range | 63 | -14.3247 | -30.823261 | 0.808639 | -29.787484 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW')` |
+| 6 | 25J | BLOCK | -265.988554 | BTCUSDT | 1h | range_mean_reversion | range | 304 | -19.082653 | -14.140526 | 0.47683 | -24.840529 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 7 | 25J | BLOCK | -272.658792 | ETHUSDT | 1h | range_mean_reversion | range | 306 | -25.705653 | -13.396401 | 0.438049 | -20.249083 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 8 | 25J | BLOCK | -287.205823 | SOLUSDT | 1h | trend_pullback_continuation | trend | 594 | -24.894481 | -27.364019 | 0.62449 | -28.434876 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 9 | 25J | BLOCK | -289.699847 | SOLUSDT | 1h | range_mean_reversion | range | 353 | -29.189677 | -21.94884 | 0.41377 | -27.537366 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 10 | 25J | BLOCK | -295.032753 | BTCUSDT | 1h | trend_pullback_continuation | trend | 587 | -25.164144 | -29.935069 | 0.501133 | -33.92937 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 11 | 25J | BLOCK | -295.597117 | BTCUSDT | 1h | volatility_expansion_breakout | high_vol_trend | 34 | -24.647174 | -37.876509 | 0.528827 | -59.514 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+| 12 | 25J | BLOCK | -299.51716 | ETHUSDT | 1h | trend_pullback_continuation | trend | 591 | -31.021447 | -29.567216 | 0.528504 | -60.8472 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 13 | 25J | BLOCK | -302.104961 | SOLUSDT | 1h | volatility_expansion_breakout | high_vol_trend | 43 | -25.647113 | -40.579083 | 0.647026 | -112.86289 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 14 | 25J | BLOCK | -366.05261 | ETHUSDT | 1h | low_vol_breakout_probe | low_vol | 20 | -11.583273 | -24.639321 | 0.749655 | -42.863407 | `('DIAGNOSTIC_STRATEGY_FAMILY_NOT_APPROVABLE', 'HYP003_SIGNAL_COVERAGE_LOW', 'HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+| 15 | 25J | BLOCK | -389.267738 | BTCUSDT | 4h | trend_pullback_continuation | trend | 150 | -69.393489 | -59.574659 | 0.316258 | -20.861053 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 16 | 25J | BLOCK | -390.154565 | SOLUSDT | 1h | low_vol_breakout_probe | low_vol | 22 | -25.704189 | -48.545821 | 0.445612 | -73.805423 | `('DIAGNOSTIC_STRATEGY_FAMILY_NOT_APPROVABLE', 'HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+| 17 | 25J | BLOCK | -419.050331 | BTCUSDT | 1h | low_vol_breakout_probe | low_vol | 18 | -29.265288 | -14.37911 | 0.226121 | -15.51997 | `('DIAGNOSTIC_STRATEGY_FAMILY_NOT_APPROVABLE', 'HYP003_SIGNAL_COUNT_LOW', 'HYP003_SIGNAL_COVERAGE_LOW', 'HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+| 18 | 25J | BLOCK | -534.818186 | ETHUSDT | 4h | trend_pullback_continuation | trend | 140 | -114.833943 | -126.579004 | 0.329475 | -76.307216 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 19 | 25J | BLOCK | -591.079094 | SOLUSDT | 4h | trend_pullback_continuation | trend | 136 | -133.779141 | -150.36875 | 0.275106 | -77.507769 | `('HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW')` |
+| 20 | 25J | BLOCK | -604.947396 | BTCUSDT | 4h | volatility_expansion_breakout | high_vol_trend | 10 | -121.398609 | -118.561078 | 0.143094 | -125.431394 | `('HYP003_SIGNAL_COUNT_LOW', 'HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+| 21 | 25J | BLOCK | -635.628757 | BTCUSDT | 4h | low_vol_breakout_probe | low_vol | 5 | -69.969065 | -81.582939 | 0.057157 | -113.686105 | `('DIAGNOSTIC_STRATEGY_FAMILY_NOT_APPROVABLE', 'HYP003_SIGNAL_COUNT_LOW', 'HYP003_SIGNAL_COVERAGE_LOW', 'HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW', 'HYP003_SIDE_IMBALANCE_HIGH', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+| 22 | 25J | BLOCK | -710.386843 | ETHUSDT | 4h | volatility_expansion_breakout | high_vol_trend | 7 | -171.682955 | -155.892012 | 0.004471 | -151.421287 | `('HYP003_SIGNAL_COUNT_LOW', 'HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+| 23 | 25J | BLOCK | -739.090943 | ETHUSDT | 4h | low_vol_breakout_probe | low_vol | 4 | -112.370183 | -126.215546 | 0.086752 | -68.472108 | `('DIAGNOSTIC_STRATEGY_FAMILY_NOT_APPROVABLE', 'HYP003_SIGNAL_COUNT_LOW', 'HYP003_SIGNAL_COVERAGE_LOW', 'HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW', 'HYP003_SIDE_IMBALANCE_HIGH', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+| 24 | 25J | BLOCK | -814.934286 | SOLUSDT | 4h | volatility_expansion_breakout | high_vol_trend | 9 | -218.435583 | -192.500902 | 0.075088 | -258.132725 | `('HYP003_SIGNAL_COUNT_LOW', 'HYP003_MEAN_EDGE_LOW', 'HYP003_MEDIAN_EDGE_LOW', 'HYP003_PROFIT_FACTOR_LOW', 'HYP003_WIN_RATE_LOW', 'HYP003_OOS_EDGE_LOW', 'HYP003_WALK_FORWARD_STABILITY_LOW', 'HYP003_TOP_WIN_DEPENDENCY_HIGH')` |
+
+## Guardrails
+
+- observation_only: `True`
+- public_market_data_requests_performed: `False`
+- post_requests_allowed: `False`
+- config_mutation_performed: `False`
+- order_actions_performed: `False`
+- reload_performed: `False`
+- training_allowed: `False`
+- paper_allowed: `False`
+- live_real_allowed: `False`
+- backtest_pass_is_not_paper_permission: `True`
+- paper_pass_is_not_live_permission: `True`
+
+## Policy
+
+This gate never fetches market data, trains models, reloads models, mutates config, starts paper trading, enables live trading, or sends orders. Any next candidate is research-only and must pass 25K before further planning.
