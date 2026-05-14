@@ -1,0 +1,19 @@
+{
+  "negative_count": 0,
+  "positive_count": 0,
+  "shadow_data_quality_pct": 0.0,
+  "shadow_days_observed": 0,
+  "shadow_dominant_symbol_pct": 0.0,
+  "shadow_mean_forward_edge_bps": null,
+  "shadow_median_forward_edge_bps": null,
+  "shadow_missing_fields_pct": 100.0,
+  "shadow_observation_count": 0,
+  "shadow_oos_edge_bps": null,
+  "shadow_profit_factor": 0.0,
+  "shadow_signal_capture_count": 0,
+  "shadow_slippage_proxy_bps": 0.0,
+  "shadow_top_win_dependency_pct": 100.0,
+  "shadow_walk_forward_positive_rate_pct": 0.0,
+  "shadow_wick_dependency_pct": 0.0,
+  "symbol_counts": {}
+}

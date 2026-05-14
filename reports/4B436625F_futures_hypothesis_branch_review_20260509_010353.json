@@ -1,0 +1,321 @@
+{
+  "contract_version": "4B.4.3.6.6.25F",
+  "phase": "4B.4.3.6.6.25F",
+  "report_type": "futures_hypothesis_branch_review_candidate_closure_decision",
+  "decision": "BRANCH_REVIEW_PENDING_COMPANION_AUDIT",
+  "ok": false,
+  "source_reports": 11,
+  "primary_symbol": "BTCUSDT",
+  "companion_symbols": [
+    "ETHUSDT"
+  ],
+  "interval": "4h",
+  "strategy": "funding_trend_exhaustion",
+  "approved_for_research_candidate": false,
+  "approved_for_training_candidate": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_live_real": false,
+  "live_real_allowed": false,
+  "reload_performed": false,
+  "config_mutation_performed": false,
+  "order_actions_performed": false,
+  "observation_only": true,
+  "no_post_actions": true,
+  "reason_codes": [
+    "COMBINED_DRY_RUN_CONFIRMATION_MISSING",
+    "COMPANION_DRY_RUN_REFINEMENT_AUDIT_REQUIRED"
+  ],
+  "recommendation": "Primary futures branch is too sparse or terminally blocked, while a companion exploration candidate has not been dry-run/refinement audited. Run companion audit before final closure; paper/live remain blocked.",
+  "primary_summary": {
+    "symbol": "BTCUSDT",
+    "interval": "4h",
+    "strategy": "funding_trend_exhaustion",
+    "exploration_pass": true,
+    "robustness_pass": true,
+    "dry_run_pass": false,
+    "refinement_pass": false,
+    "terminal_block": false,
+    "sparse_or_outlier_block": false,
+    "latest_decision": "PASS",
+    "best_phase": "25C",
+    "best_signal_count": 33,
+    "best_mean_net_edge_bps": 53.704409,
+    "best_median_net_edge_bps": 56.665439,
+    "best_profit_factor": 2.154669,
+    "reason_codes": [
+      "BRANCH_DRY_RUN_REFINEMENT_AUDIT_MISSING",
+      "EDGE_ACTION_SIDE_IMBALANCE_HIGH",
+      "EDGE_OOS_EDGE_LOW",
+      "EDGE_SAMPLE_COUNT_LOW",
+      "EDGE_SIGNAL_COUNT_LOW"
+    ],
+    "warnings": [
+      "EDGE_POSITIVE_BUT_BELOW_GATE",
+      "FUNDING_COVERAGE_DETAIL_UNAVAILABLE",
+      "LONG_SHORT_COVERAGE_DETAIL_UNAVAILABLE",
+      "OPEN_INTEREST_COVERAGE_DETAIL_UNAVAILABLE",
+      "OUTLIER_DEPENDENCY_DETAIL_UNAVAILABLE",
+      "TAKER_COVERAGE_DETAIL_UNAVAILABLE"
+    ]
+  },
+  "companion_summaries": [
+    {
+      "symbol": "ETHUSDT",
+      "interval": "4h",
+      "strategy": "funding_trend_exhaustion",
+      "exploration_pass": true,
+      "robustness_pass": true,
+      "dry_run_pass": false,
+      "refinement_pass": false,
+      "terminal_block": false,
+      "sparse_or_outlier_block": false,
+      "latest_decision": "PASS",
+      "best_phase": "25C",
+      "best_signal_count": 31,
+      "best_mean_net_edge_bps": 44.125478,
+      "best_median_net_edge_bps": 139.2081,
+      "best_profit_factor": 1.584716,
+      "reason_codes": [
+        "BRANCH_DRY_RUN_REFINEMENT_AUDIT_MISSING",
+        "EDGE_ACTION_SIDE_IMBALANCE_HIGH",
+        "EDGE_SAMPLE_COUNT_LOW",
+        "EDGE_SIGNAL_COUNT_LOW"
+      ],
+      "warnings": [
+        "EDGE_POSITIVE_BUT_BELOW_GATE",
+        "FUNDING_COVERAGE_DETAIL_UNAVAILABLE",
+        "LONG_SHORT_COVERAGE_DETAIL_UNAVAILABLE",
+        "OPEN_INTEREST_COVERAGE_DETAIL_UNAVAILABLE",
+        "OUTLIER_DEPENDENCY_DETAIL_UNAVAILABLE",
+        "TAKER_COVERAGE_DETAIL_UNAVAILABLE"
+      ]
+    }
+  ],
+  "combined_summary": {
+    "symbol_count": 2,
+    "symbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "signal_count": 64,
+    "weighted_mean_net_edge_bps": 49.064614,
+    "worst_median_net_edge_bps": 56.665439,
+    "min_profit_factor": 1.584716,
+    "all_have_exploration_pass": true,
+    "any_have_terminal_block": false,
+    "dry_run_or_refinement_confirmed_count": 0
+  },
+  "candidates": [
+    {
+      "source_phase": "25B",
+      "source_report": "reports\\4B436625B_futures_funding_open_interest_edge_exploration_20260508_092725.json",
+      "symbol": "ETHUSDT",
+      "interval": "4h",
+      "strategy": "funding_trend_exhaustion",
+      "decision": "BLOCK",
+      "signal_count": 8,
+      "coverage_pct": 0.0,
+      "mean_net_edge_bps": 152.277895,
+      "median_net_edge_bps": 178.849424,
+      "win_rate_pct": 87.5,
+      "profit_factor": 11.125555,
+      "max_drawdown_pct": 1.203117,
+      "oos_edge_bps": 175.276978,
+      "walk_forward_positive_rate_pct": 100.0,
+      "top_win_dependency_pct": null,
+      "reason_codes": [
+        "EDGE_SAMPLE_COUNT_LOW",
+        "EDGE_SIGNAL_COUNT_LOW",
+        "EDGE_ACTION_SIDE_IMBALANCE_HIGH"
+      ],
+      "warnings": [
+        "EDGE_POSITIVE_BUT_BELOW_GATE"
+      ]
+    },
+    {
+      "source_phase": "25B",
+      "source_report": "reports\\4B436625B_futures_funding_open_interest_edge_exploration_20260508_092725.json",
+      "symbol": "BTCUSDT",
+      "interval": "4h",
+      "strategy": "funding_trend_exhaustion",
+      "decision": "BLOCK",
+      "signal_count": 12,
+      "coverage_pct": 0.0,
+      "mean_net_edge_bps": 45.621033,
+      "median_net_edge_bps": 33.918707,
+      "win_rate_pct": 58.333333,
+      "profit_factor": 2.570111,
+      "max_drawdown_pct": 3.191181,
+      "oos_edge_bps": -68.499365,
+      "walk_forward_positive_rate_pct": 50.0,
+      "top_win_dependency_pct": null,
+      "reason_codes": [
+        "EDGE_SAMPLE_COUNT_LOW",
+        "EDGE_SIGNAL_COUNT_LOW",
+        "EDGE_ACTION_SIDE_IMBALANCE_HIGH",
+        "EDGE_OOS_EDGE_LOW"
+      ],
+      "warnings": [
+        "EDGE_POSITIVE_BUT_BELOW_GATE"
+      ]
+    },
+    {
+      "source_phase": "25B",
+      "source_report": "reports\\4B436625B_futures_funding_open_interest_edge_exploration_20260508_094539.json",
+      "symbol": "ETHUSDT",
+      "interval": "4h",
+      "strategy": "funding_trend_exhaustion",
+      "decision": "PASS",
+      "signal_count": 31,
+      "coverage_pct": 0.0,
+      "mean_net_edge_bps": 44.125478,
+      "median_net_edge_bps": 139.2081,
+      "win_rate_pct": 70.967742,
+      "profit_factor": 1.584716,
+      "max_drawdown_pct": 16.132221,
+      "oos_edge_bps": 175.610209,
+      "walk_forward_positive_rate_pct": 75.0,
+      "top_win_dependency_pct": null,
+      "reason_codes": [],
+      "warnings": []
+    },
+    {
+      "source_phase": "25B",
+      "source_report": "reports\\4B436625B_futures_funding_open_interest_edge_exploration_20260508_094539.json",
+      "symbol": "BTCUSDT",
+      "interval": "4h",
+      "strategy": "funding_trend_exhaustion",
+      "decision": "PASS",
+      "signal_count": 33,
+      "coverage_pct": 0.0,
+      "mean_net_edge_bps": 53.704409,
+      "median_net_edge_bps": 56.665439,
+      "win_rate_pct": 63.636364,
+      "profit_factor": 2.154669,
+      "max_drawdown_pct": 4.057151,
+      "oos_edge_bps": 18.238618,
+      "walk_forward_positive_rate_pct": 100.0,
+      "top_win_dependency_pct": null,
+      "reason_codes": [],
+      "warnings": []
+    },
+    {
+      "source_phase": "25C",
+      "source_report": "reports\\4B436625C_futures_candidate_robustness_audit_20260508_103723.json",
+      "symbol": "BTCUSDT",
+      "interval": "4h",
+      "strategy": "funding_trend_exhaustion",
+      "decision": "PASS",
+      "signal_count": 33,
+      "coverage_pct": 6.111111,
+      "mean_net_edge_bps": 53.704409,
+      "median_net_edge_bps": 56.665439,
+      "win_rate_pct": 63.636364,
+      "profit_factor": 2.154669,
+      "max_drawdown_pct": 4.057151,
+      "oos_edge_bps": 18.238618,
+      "walk_forward_positive_rate_pct": null,
+      "top_win_dependency_pct": null,
+      "reason_codes": [],
+      "warnings": [
+        "FUNDING_COVERAGE_DETAIL_UNAVAILABLE",
+        "OPEN_INTEREST_COVERAGE_DETAIL_UNAVAILABLE",
+        "LONG_SHORT_COVERAGE_DETAIL_UNAVAILABLE",
+        "TAKER_COVERAGE_DETAIL_UNAVAILABLE",
+        "OUTLIER_DEPENDENCY_DETAIL_UNAVAILABLE"
+      ]
+    },
+    {
+      "source_phase": "25C",
+      "source_report": "reports\\4B436625C_futures_candidate_robustness_audit_20260508_103723.json",
+      "symbol": "ETHUSDT",
+      "interval": "4h",
+      "strategy": "funding_trend_exhaustion",
+      "decision": "PASS",
+      "signal_count": 31,
+      "coverage_pct": 5.740741,
+      "mean_net_edge_bps": 44.125478,
+      "median_net_edge_bps": 139.2081,
+      "win_rate_pct": 70.967742,
+      "profit_factor": 1.584716,
+      "max_drawdown_pct": 16.132221,
+      "oos_edge_bps": 175.610209,
+      "walk_forward_positive_rate_pct": null,
+      "top_win_dependency_pct": null,
+      "reason_codes": [],
+      "warnings": [
+        "FUNDING_COVERAGE_DETAIL_UNAVAILABLE",
+        "OPEN_INTEREST_COVERAGE_DETAIL_UNAVAILABLE",
+        "LONG_SHORT_COVERAGE_DETAIL_UNAVAILABLE",
+        "TAKER_COVERAGE_DETAIL_UNAVAILABLE",
+        "OUTLIER_DEPENDENCY_DETAIL_UNAVAILABLE"
+      ]
+    },
+    {
+      "source_phase": "25C",
+      "source_report": "reports\\4B436625C_futures_candidate_robustness_audit_20260508_103728.json",
+      "symbol": "BTCUSDT",
+      "interval": "4h",
+      "strategy": "funding_trend_exhaustion",
+      "decision": "PASS",
+      "signal_count": 33,
+      "coverage_pct": 6.111111,
+      "mean_net_edge_bps": 53.704409,
+      "median_net_edge_bps": 56.665439,
+      "win_rate_pct": 63.636364,
+      "profit_factor": 2.154669,
+      "max_drawdown_pct": 4.057151,
+      "oos_edge_bps": 18.238618,
+      "walk_forward_positive_rate_pct": null,
+      "top_win_dependency_pct": null,
+      "reason_codes": [],
+      "warnings": [
+        "FUNDING_COVERAGE_DETAIL_UNAVAILABLE",
+        "OPEN_INTEREST_COVERAGE_DETAIL_UNAVAILABLE",
+        "LONG_SHORT_COVERAGE_DETAIL_UNAVAILABLE",
+        "TAKER_COVERAGE_DETAIL_UNAVAILABLE",
+        "OUTLIER_DEPENDENCY_DETAIL_UNAVAILABLE"
+      ]
+    },
+    {
+      "source_phase": "25C",
+      "source_report": "reports\\4B436625C_futures_candidate_robustness_audit_20260508_103728.json",
+      "symbol": "ETHUSDT",
+      "interval": "4h",
+      "strategy": "funding_trend_exhaustion",
+      "decision": "PASS",
+      "signal_count": 31,
+      "coverage_pct": 5.740741,
+      "mean_net_edge_bps": 44.125478,
+      "median_net_edge_bps": 139.2081,
+      "win_rate_pct": 70.967742,
+      "profit_factor": 1.584716,
+      "max_drawdown_pct": 16.132221,
+      "oos_edge_bps": 175.610209,
+      "walk_forward_positive_rate_pct": null,
+      "top_win_dependency_pct": null,
+      "reason_codes": [],
+      "warnings": [
+        "FUNDING_COVERAGE_DETAIL_UNAVAILABLE",
+        "OPEN_INTEREST_COVERAGE_DETAIL_UNAVAILABLE",
+        "LONG_SHORT_COVERAGE_DETAIL_UNAVAILABLE",
+        "TAKER_COVERAGE_DETAIL_UNAVAILABLE",
+        "OUTLIER_DEPENDENCY_DETAIL_UNAVAILABLE"
+      ]
+    }
+  ],
+  "next_actions": [
+    "Run the same 25D/25E dry-run and refinement path for companion futures candidates before closing or continuing HYP-002."
+  ],
+  "guardrails": {
+    "observation_only": true,
+    "no_post_actions": true,
+    "post_requests_allowed": false,
+    "config_mutation_performed": false,
+    "order_actions_performed": false,
+    "reload_performed": false,
+    "live_real_allowed": false,
+    "training_allowed": false,
+    "paper_allowed": false
+  }
+}

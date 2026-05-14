@@ -1,0 +1,25 @@
+{
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "branch_name": "liquidity_sweep_reversal_vol_compression",
+  "contract_version": "4B.4.3.6.6.25AA",
+  "days": 30,
+  "hypothesis_id": "HYP-005",
+  "interval": "4h",
+  "no_order_shadow_collection_only": true,
+  "post_requests_allowed": false,
+  "selected_strategy_family": "long_liquidity_sweep_reversal",
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "BNBUSDT",
+    "XRPUSDT",
+    "DOGEUSDT",
+    "ADAUSDT",
+    "AVAXUSDT",
+    "LINKUSDT",
+    "LTCUSDT"
+  ],
+  "symbols_arg": "BTCUSDT,ETHUSDT,SOLUSDT,BNBUSDT,XRPUSDT,DOGEUSDT,ADAUSDT,AVAXUSDT,LINKUSDT,LTCUSDT"
+}
