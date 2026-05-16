@@ -1,0 +1,76 @@
+[
+  {
+    "branch_name": "liquidity_sweep_reversal_vol_compression",
+    "compression_ratio": 0.997921,
+    "contract_version": "4B.4.3.6.6.25V",
+    "data_quality_ok": true,
+    "entry_reference_price": 9.3,
+    "forward_return_bps_final": -161.290323,
+    "forward_return_bps_h1": -86.021505,
+    "forward_return_bps_h2": -53.763441,
+    "forward_return_bps_h3": -21.505376,
+    "hold_horizon_bars": 6,
+    "hypothesis_id": "HYP-005",
+    "invalidation_level": 9.21,
+    "lookback_low": 9.26,
+    "mae_bps": -365.591398,
+    "mfe_bps": 64.516129,
+    "no_order_shadow_only": true,
+    "observation_id": "HYP-005-AVAXUSDT-4h-104-2026-04-19T000000Z0000",
+    "operator_review_status": "PENDING_REVIEW",
+    "order_action": "NONE",
+    "regime_context": {
+      "compression_ratio": 0.997921,
+      "lookback_bars": 24
+    },
+    "spread_slippage_proxy_bps": 4.193548,
+    "strategy_family": "long_liquidity_sweep_reversal",
+    "sweep_depth_bps": 53.99568,
+    "sweep_direction": "DOWNSIDE_SWEEP_LONG_REVERSAL",
+    "swept_low": 9.21,
+    "symbol": "AVAXUSDT",
+    "timeframe": "4h",
+    "timestamp_utc": "2026-04-19T00:00:00+00:00",
+    "volume_context": {
+      "signal_volume": 370155.38
+    },
+    "wick_pct": 69.230769
+  },
+  {
+    "branch_name": "liquidity_sweep_reversal_vol_compression",
+    "compression_ratio": 0.960663,
+    "contract_version": "4B.4.3.6.6.25V",
+    "data_quality_ok": true,
+    "entry_reference_price": 9.22,
+    "forward_return_bps_final": 0.0,
+    "forward_return_bps_h1": 32.537961,
+    "forward_return_bps_h2": 65.075922,
+    "forward_return_bps_h3": -21.691974,
+    "hold_horizon_bars": 6,
+    "hypothesis_id": "HYP-005",
+    "invalidation_level": 9.13,
+    "lookback_low": 9.21,
+    "mae_bps": -281.995662,
+    "mfe_bps": 151.843818,
+    "no_order_shadow_only": true,
+    "observation_id": "HYP-005-AVAXUSDT-4h-105-2026-04-19T040000Z0000",
+    "operator_review_status": "PENDING_REVIEW",
+    "order_action": "NONE",
+    "regime_context": {
+      "compression_ratio": 0.960663,
+      "lookback_bars": 24
+    },
+    "spread_slippage_proxy_bps": 6.507592,
+    "strategy_family": "long_liquidity_sweep_reversal",
+    "sweep_depth_bps": 86.862106,
+    "sweep_direction": "DOWNSIDE_SWEEP_LONG_REVERSAL",
+    "swept_low": 9.13,
+    "symbol": "AVAXUSDT",
+    "timeframe": "4h",
+    "timestamp_utc": "2026-04-19T04:00:00+00:00",
+    "volume_context": {
+      "signal_volume": 409467.66
+    },
+    "wick_pct": 45.0
+  }
+]

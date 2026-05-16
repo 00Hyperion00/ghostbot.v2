@@ -1,0 +1,21 @@
+{
+  "negative_count": 4,
+  "positive_count": 0,
+  "shadow_data_quality_pct": 100.0,
+  "shadow_days_observed": 1,
+  "shadow_dominant_symbol_pct": 100.0,
+  "shadow_mean_forward_edge_bps": -80.645162,
+  "shadow_median_forward_edge_bps": -80.645162,
+  "shadow_missing_fields_pct": 0.0,
+  "shadow_observation_count": 8,
+  "shadow_oos_edge_bps": -53.763441,
+  "shadow_profit_factor": 0.0,
+  "shadow_signal_capture_count": 8,
+  "shadow_slippage_proxy_bps": 5.35057,
+  "shadow_top_win_dependency_pct": 100.0,
+  "shadow_walk_forward_positive_rate_pct": 0.0,
+  "shadow_wick_dependency_pct": 57.115384,
+  "symbol_counts": {
+    "AVAXUSDT": 8
+  }
+}
