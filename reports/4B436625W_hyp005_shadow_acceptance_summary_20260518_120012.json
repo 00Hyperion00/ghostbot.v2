@@ -1,0 +1,25 @@
+{
+  "negative_count": 20,
+  "positive_count": 4,
+  "shadow_data_quality_pct": 100.0,
+  "shadow_days_observed": 4,
+  "shadow_dominant_symbol_pct": 42.857143,
+  "shadow_mean_forward_edge_bps": -96.079626,
+  "shadow_median_forward_edge_bps": -65.217391,
+  "shadow_missing_fields_pct": 3.174603,
+  "shadow_observation_count": 28,
+  "shadow_oos_edge_bps": -132.382485,
+  "shadow_profit_factor": 0.127618,
+  "shadow_signal_capture_count": 28,
+  "shadow_slippage_proxy_bps": 8.416221,
+  "shadow_top_win_dependency_pct": 25.0,
+  "shadow_walk_forward_positive_rate_pct": 0.0,
+  "shadow_wick_dependency_pct": 57.147043,
+  "symbol_counts": {
+    "ADAUSDT": 4,
+    "AVAXUSDT": 12,
+    "BNBUSDT": 4,
+    "DOGEUSDT": 4,
+    "XRPUSDT": 4
+  }
+}
