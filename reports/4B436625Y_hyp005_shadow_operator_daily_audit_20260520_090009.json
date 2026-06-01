@@ -1,0 +1,108 @@
+{
+  "active_blockers": [
+    "PAPER_TRANSITION_BLOCKED_BY_25W",
+    "PAPER_TRANSITION_READY_FALSE",
+    "SHADOW_SAMPLE_COUNT_BELOW_TARGET"
+  ],
+  "approved_for_live_real": false,
+  "approved_for_operator_audit": true,
+  "approved_for_paper_candidate": false,
+  "approved_for_paper_transition_candidate": false,
+  "approved_for_shadow_collection": true,
+  "approved_for_training_candidate": false,
+  "branch_name": "liquidity_sweep_reversal_vol_compression",
+  "commands": [
+    {
+      "description": "Collect no-order shadow observations from public market data.",
+      "name": "run_25v_logger",
+      "powershell": "python tools/run_hyp005_shadow_observation_logger_4B436625V.py `\n  --candidate-spec-json reports\\4B436625U_hyp005_no_order_shadow_candidate_spec_20260509_175722.json `\n  --symbols BTCUSDT,ETHUSDT,SOLUSDT,BNBUSDT,XRPUSDT,DOGEUSDT,ADAUSDT,AVAXUSDT,LINKUSDT,LTCUSDT `\n  --interval 4h `\n  --days 30 `\n  --base-url https://api.binance.com `\n  --out-dir reports `\n  --review-ok"
+    },
+    {
+      "description": "Merge ledgers, deduplicate observations, and update collection progress.",
+      "name": "run_25x_orchestrator",
+      "powershell": "python tools/run_hyp005_shadow_collection_orchestrator_4B436625X.py `\n  --reports-dir reports `\n  --include-all `\n  --symbols BTCUSDT,ETHUSDT,SOLUSDT,BNBUSDT,XRPUSDT,DOGEUSDT,ADAUSDT,AVAXUSDT,LINKUSDT,LTCUSDT `\n  --interval 4h `\n  --days 30 `\n  --base-url https://api.binance.com `\n  --out-dir reports `\n  --review-ok"
+    },
+    {
+      "description": "Check paper-transition readiness without enabling paper trading.",
+      "name": "run_25w_acceptance",
+      "powershell": "python tools/run_hyp005_shadow_acceptance_readiness_4B436625W.py `\n  --reports-dir reports `\n  --include-all `\n  --out-dir reports `\n  --review-ok"
+    },
+    {
+      "description": "Regenerate the operator audit pack and dashboard snapshot.",
+      "name": "run_25y_daily_audit",
+      "powershell": "python tools/run_hyp005_shadow_operator_runbook_4B436625Y.py `\n  --reports-dir reports `\n  --include-all `\n  --symbols BTCUSDT,ETHUSDT,SOLUSDT,BNBUSDT,XRPUSDT,DOGEUSDT,ADAUSDT,AVAXUSDT,LINKUSDT,LTCUSDT `\n  --interval 4h `\n  --days 30 `\n  --base-url https://api.binance.com `\n  --out-dir reports `\n  --review-ok"
+    }
+  ],
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.25Y",
+  "daily_audit_ready": true,
+  "dashboard": {
+    "active_blockers": [
+      "PAPER_TRANSITION_BLOCKED_BY_25W",
+      "PAPER_TRANSITION_READY_FALSE",
+      "SHADOW_SAMPLE_COUNT_BELOW_TARGET"
+    ],
+    "branch_name": "liquidity_sweep_reversal_vol_compression",
+    "contract_version": "4B.4.3.6.6.25Y",
+    "dashboard_status": "SHADOW_COLLECTION_IN_PROGRESS",
+    "hypothesis_id": "HYP-005",
+    "last_report_paths": {
+      "candidate_spec_json": "reports\\4B436625U_hyp005_no_order_shadow_candidate_spec_20260509_175722.json",
+      "latest_acceptance_decision": "HYP005_SHADOW_PAPER_TRANSITION_BLOCK",
+      "latest_collection_decision": "HYP005_SHADOW_COLLECTION_ORCHESTRATOR_READY",
+      "latest_logger_decision": "HYP005_SHADOW_OBSERVATION_LOGGER_BLOCK"
+    },
+    "latest_acceptance_decision": "HYP005_SHADOW_PAPER_TRANSITION_BLOCK",
+    "latest_collection_decision": "HYP005_SHADOW_COLLECTION_ORCHESTRATOR_READY",
+    "latest_logger_decision": "HYP005_SHADOW_OBSERVATION_LOGGER_BLOCK",
+    "next_operator_actions": [
+      "Run 25V after each 4h candle close or at least once daily.",
+      "Run 25X to merge/deduplicate ledgers and update progress.",
+      "Run 25W to keep paper-transition readiness blocked until acceptance metrics pass.",
+      "Do not train, reload, paper trade, live trade, or send orders from this audit pack."
+    ],
+    "no_order_operator_audit_only": true,
+    "paper_transition_ready": false,
+    "paper_transition_requires_separate_enablement": true,
+    "progress_pct": 56.666667,
+    "selected_strategy_family": "long_liquidity_sweep_reversal",
+    "shadow_observation_count": 17,
+    "shadow_sample_target": 30
+  },
+  "dashboard_status": "SHADOW_COLLECTION_IN_PROGRESS",
+  "decision": "HYP005_SHADOW_OPERATOR_AUDIT_READY",
+  "generated_at_utc": "2026-05-20T09:00:09Z",
+  "hypothesis_id": "HYP-005",
+  "latest_acceptance_decision": "HYP005_SHADOW_PAPER_TRANSITION_BLOCK",
+  "latest_collection_decision": "HYP005_SHADOW_COLLECTION_ORCHESTRATOR_READY",
+  "latest_logger_decision": "HYP005_SHADOW_OBSERVATION_LOGGER_BLOCK",
+  "live_real_allowed": false,
+  "no_order_operator_audit_only": true,
+  "ok": true,
+  "order_actions_performed": false,
+  "paper_trading_started": false,
+  "paper_transition_ready": false,
+  "phase": "4B.4.3.6.6.25Y",
+  "post_requests_allowed": false,
+  "progress_pct": 56.666667,
+  "reason_codes": [
+    "HYP005_SHADOW_ACCEPTANCE_DECISION_CONFIRMED",
+    "HYP005_SHADOW_COLLECTION_ORCHESTRATOR_CONFIRMED",
+    "HYP005_SHADOW_LOGGER_READY_CONFIRMED",
+    "NO_ORDER_OPERATOR_AUDIT_ONLY",
+    "NO_TRAINING_PAPER_LIVE_APPROVALS_DETECTED"
+  ],
+  "recommendation": "HYP-005 daily no-order audit pack is ready. Keep collecting shadow observations until the 25W acceptance gate passes; do not train, reload, paper trade, live trade, or send orders.",
+  "reload_performed": false,
+  "report_type": "hyp005_shadow_operator_daily_no_order_audit_pack",
+  "runtime_probe_only": true,
+  "selected_strategy_family": "long_liquidity_sweep_reversal",
+  "shadow_observation_count": 17,
+  "shadow_sample_target": 30,
+  "source_ledgers": 200,
+  "source_reports": 150,
+  "training_performed": false,
+  "warnings": [
+    "SHADOW_OPERATOR_ATTENTION_REQUIRED"
+  ]
+}
