@@ -26,6 +26,7 @@ from tradebot.research_hyp005_shadow_collection_orchestrator import (
 
 CLI_HOTFIX_SAFE_VERSION = HYP005_SHADOW_COLLECTION_ORCHESTRATOR_CONTRACT_VERSION
 HYP005_R1_STRICT_EXPLICIT_CHAIN_HOTFIX_VERSION = "4B.4.3.6.6.25AE-H3"
+HYP005_R1_COLLECTION_DAG_BOOTSTRAP_HOTFIX_VERSION = "4B.4.3.6.6.25AE-H4"
 
 
 def _latest(paths: list[Path]) -> Path | None:
@@ -104,8 +105,12 @@ def main() -> int:
     if args.strict_explicit_chain:
         if not candidate_spec_path or not logger_paths or not (ledger_json_paths or ledger_jsonl_paths):
             raise SystemExit("--strict-explicit-chain requires --candidate-spec-json, --logger-report-json, and --ledger-json/--ledger-jsonl")
-        _ensure_scoped_inputs(args.reports_dir, logger_paths + ledger_json_paths + ledger_jsonl_paths, label="25X explicit input")
-    elif not candidate_spec_path or not logger_paths or not acceptance_paths or not ledger_json_paths:
+        _ensure_scoped_inputs(
+            args.reports_dir,
+            logger_paths + acceptance_paths + ledger_json_paths + ledger_jsonl_paths,
+            label="25X explicit input",
+        )
+    elif not candidate_spec_path or not logger_paths or not (ledger_json_paths or ledger_jsonl_paths):
         discovered_spec, discovered_loggers, discovered_acceptance, discovered_ledgers, discovered_jsonls = _discover_reports(
             args.reports_dir, args.include_all
         )
@@ -114,6 +119,11 @@ def main() -> int:
         acceptance_paths = acceptance_paths or discovered_acceptance
         ledger_json_paths = ledger_json_paths or discovered_ledgers
         ledger_jsonl_paths = ledger_jsonl_paths or discovered_jsonls
+
+    # 25W acceptance is downstream of 25X. Prior acceptance reports are optional
+    # informational metadata only and never a bootstrap prerequisite.
+    if not args.strict_explicit_chain and not acceptance_paths:
+        acceptance_paths = [item for item in [_latest(sorted(args.reports_dir.glob("4B436625W_hyp005_shadow_observation_acceptance_*.json")))] if item]
 
     if not candidate_spec_path:
         raise SystemExit("candidate spec not found; pass --candidate-spec-json or use --reports-dir with 25U outputs")
@@ -168,9 +178,11 @@ def main() -> int:
     print(f" - selected_strategy_family: {payload['selected_strategy_family']}")
     print(f" - no_order_collection_only: {payload['no_order_collection_only']}")
     print(f" - shadow_collection_ready: {payload['shadow_collection_ready']}")
-    print(f" - shadow_observation_count: {progress['shadow_observation_count']}")
-    print(f" - shadow_sample_target: {progress['shadow_sample_target']}")
-    print(f" - progress_pct: {progress['progress_pct']}")
+    print(f" - collection_status: {payload['collection_status']}")
+    print(f" - acceptance_report_required_for_collection_ready: {payload['acceptance_report_required_for_collection_ready']}")
+    print(f" - shadow_observation_count: {payload['shadow_observation_count']}")
+    print(f" - shadow_sample_target: {payload['shadow_sample_target']}")
+    print(f" - progress_pct: {payload['progress_pct']}")
     print(f" - duplicate_observation_count: {progress['duplicate_observation_count']}")
     print(f" - approved_for_shadow_collection: {payload['approved_for_shadow_collection']}")
     print(f" - approved_for_paper_transition_candidate: {payload['approved_for_paper_transition_candidate']}")
@@ -193,3 +205,8 @@ if __name__ == "__main__":
 
 # marker inventory for apply verifier:
 # __candidate_spec_json __logger_report_json __acceptance_report_json __strict_explicit_chain method=GET public_market_data_GET_only
+
+# 25AE-H4 marker inventory:
+# HYP005_R1_COLLECTION_DAG_BOOTSTRAP_HOTFIX_VERSION
+# acceptance_report_required_for_collection_ready
+# previous acceptance metadata is informational only

@@ -17,6 +17,9 @@ from typing import Any, Iterable, Mapping, Sequence
 HYP005_SHADOW_COLLECTION_ORCHESTRATOR_CONTRACT_VERSION = "4B.4.3.6.6.25X"
 HYP005_SHADOW_COLLECTION_READY = "HYP005_SHADOW_COLLECTION_ORCHESTRATOR_READY"
 HYP005_SHADOW_COLLECTION_BLOCK = "HYP005_SHADOW_COLLECTION_ORCHESTRATOR_BLOCK"
+HYP005_SHADOW_COLLECTION_STATUS_IN_PROGRESS = "HYP005_SHADOW_COLLECTION_IN_PROGRESS"
+HYP005_SHADOW_COLLECTION_STATUS_TARGET_MET = "HYP005_SHADOW_COLLECTION_TARGET_MET"
+HYP005_R1_COLLECTION_DAG_BOOTSTRAP_HOTFIX_VERSION = "4B.4.3.6.6.25AE-H4"
 NO_ORDER_COLLECTION_ONLY = "NO_ORDER_COLLECTION_ONLY"
 NO_TRAINING_PAPER_LIVE_APPROVALS_DETECTED = "NO_TRAINING_PAPER_LIVE_APPROVALS_DETECTED"
 
@@ -97,6 +100,13 @@ class ShadowCollectionReport:
     reload_performed: bool
     training_performed: bool
     paper_trading_started: bool
+    collection_status: str
+    shadow_observation_count: int
+    shadow_sample_target: int
+    progress_pct: float
+    acceptance_report_required_for_collection_ready: bool
+    acceptance_report_seen: bool
+    previous_acceptance_informational_only: bool
     progress: dict[str, Any]
     plan: dict[str, Any]
     reason_codes: list[str]
@@ -223,6 +233,40 @@ def validate_acceptance_reports(acceptance_reports: Sequence[Mapping[str, Any]])
     if not saw_block_or_ready:
         reasons.append("HYP005_SHADOW_ACCEPTANCE_DECISION_NOT_CONFIRMED")
     return not reasons, sorted(set(reasons)), paper_ready
+
+
+def validate_optional_acceptance_reports(
+    acceptance_reports: Sequence[Mapping[str, Any]],
+) -> tuple[bool, list[str], bool, bool]:
+    """Inspect previous 25W reports as informational metadata only.
+
+    25X is upstream of 25W in the runtime DAG. Missing acceptance evidence must
+    never block collection bootstrap. Unsafe flags still block collection.
+    """
+
+    if not acceptance_reports:
+        return True, ["HYP005_SHADOW_ACCEPTANCE_REPORT_OPTIONAL_FOR_COLLECTION_BOOTSTRAP"], False, False
+
+    paper_ready = False
+    saw_decision = False
+    unsafe_reasons: list[str] = []
+    informational_reasons: list[str] = ["HYP005_SHADOW_PREVIOUS_ACCEPTANCE_INFORMATIONAL_ONLY"]
+    for report in acceptance_reports:
+        decision = str(report.get("decision", ""))
+        if decision in {"HYP005_SHADOW_PAPER_TRANSITION_BLOCK", "HYP005_SHADOW_PAPER_TRANSITION_READY"}:
+            saw_decision = True
+        if decision == "HYP005_SHADOW_PAPER_TRANSITION_READY":
+            paper_ready = True
+        if bool(report.get("approved_for_paper_candidate")) or bool(report.get("approved_for_live_real")):
+            unsafe_reasons.append("ACCEPTANCE_REPORT_UNSAFE_APPROVAL_DETECTED")
+        if bool(report.get("order_actions_performed")) or bool(report.get("post_requests_allowed")):
+            unsafe_reasons.append("ACCEPTANCE_REPORT_UNSAFE_ACTION_DETECTED")
+    if saw_decision:
+        informational_reasons.append("HYP005_SHADOW_PREVIOUS_ACCEPTANCE_DECISION_INFORMATIONAL_METADATA_SEEN")
+    else:
+        informational_reasons.append("HYP005_SHADOW_PREVIOUS_ACCEPTANCE_DECISION_INFORMATIONAL_METADATA_UNCONFIRMED")
+    reasons = sorted(set(informational_reasons + unsafe_reasons))
+    return not unsafe_reasons, reasons, paper_ready, saw_decision
 
 
 def _extract_observation_rows(payload: Any) -> list[dict[str, Any]]:
@@ -403,7 +447,7 @@ def build_hyp005_shadow_collection_orchestrator_report(
     limits = limits or Hyp005ShadowCollectionLimits(collection_days=days, scheduler_interval=interval)
     spec_ok, spec_reasons = validate_no_order_candidate_spec(candidate_spec)
     logger_ok, logger_reasons = validate_logger_reports(logger_reports)
-    acceptance_ok, acceptance_reasons, paper_ready_seen = validate_acceptance_reports(acceptance_reports)
+    acceptance_safe, acceptance_reasons, paper_ready_seen, acceptance_seen = validate_optional_acceptance_reports(acceptance_reports)
 
     hypothesis_id = _first_non_empty(
         candidate_spec.get("hypothesis_id"),
@@ -447,21 +491,25 @@ def build_hyp005_shadow_collection_orchestrator_report(
         reasons.append("HYP005_SHADOW_LOGGER_READY_CONFIRMED")
     else:
         reasons.extend(logger_reasons)
-    if acceptance_ok:
-        reasons.append("HYP005_SHADOW_ACCEPTANCE_DECISION_CONFIRMED")
+    reasons.extend(acceptance_reasons)
+    if acceptance_seen:
+        reasons.append("HYP005_SHADOW_PREVIOUS_ACCEPTANCE_METADATA_SEEN")
     else:
-        reasons.extend(acceptance_reasons)
+        reasons.append("HYP005_SHADOW_ACCEPTANCE_NOT_REQUIRED_FOR_25X_COLLECTION_READY")
     if paper_ready_seen:
         warnings.append("PAPER_TRANSITION_READY_ALREADY_PRESENT_REQUIRES_SEPARATE_ENABLEMENT")
-    else:
-        reasons.append("HYP005_SHADOW_ACCEPTANCE_BLOCK_OR_PENDING_CONFIRMED")
 
     if progress.duplicate_observation_pct > limits.max_duplicate_observation_pct:
         warnings.append("SHADOW_DUPLICATE_OBSERVATIONS_ELEVATED")
     if not progress.shadow_sample_target_met:
         warnings.append("SHADOW_SAMPLE_COLLECTION_IN_PROGRESS")
 
-    ready = spec_ok and logger_ok and acceptance_ok
+    ready = spec_ok and logger_ok and acceptance_safe
+    collection_status = (
+        HYP005_SHADOW_COLLECTION_STATUS_TARGET_MET
+        if progress.shadow_sample_target_met
+        else HYP005_SHADOW_COLLECTION_STATUS_IN_PROGRESS
+    )
     if ready:
         decision = HYP005_SHADOW_COLLECTION_READY
         reasons.extend([
@@ -469,13 +517,13 @@ def build_hyp005_shadow_collection_orchestrator_report(
             NO_TRAINING_PAPER_LIVE_APPROVALS_DETECTED,
         ])
         recommendation = (
-            "HYP-005 no-order shadow collection orchestrator is ready. Keep running the logger/scheduler until the shadow acceptance gate passes; do not train, reload, paper trade, or enable live trading."
+            "HYP-005 no-order shadow collection orchestrator is ready. Collection progress is independent from downstream 25W paper-transition readiness. Keep running the logger/scheduler; do not train, reload, paper trade, or enable live trading."
         )
     else:
         decision = HYP005_SHADOW_COLLECTION_BLOCK
         reasons.append("HYP005_SHADOW_COLLECTION_PREREQUISITES_NOT_MET")
         recommendation = (
-            "HYP-005 shadow collection prerequisites are incomplete. Fix the missing no-order spec/logger/acceptance evidence before scheduling collection; do not train, reload, paper trade, or enable live trading."
+            "HYP-005 shadow collection prerequisites are incomplete. Fix the no-order spec/logger safety evidence before scheduling collection; downstream 25W acceptance is not a 25X bootstrap prerequisite. Do not train, reload, paper trade, or enable live trading."
         )
 
     return ShadowCollectionReport(
@@ -504,6 +552,13 @@ def build_hyp005_shadow_collection_orchestrator_report(
         reload_performed=False,
         training_performed=False,
         paper_trading_started=False,
+        collection_status=collection_status,
+        shadow_observation_count=progress.shadow_observation_count,
+        shadow_sample_target=progress.shadow_sample_target,
+        progress_pct=progress.progress_pct,
+        acceptance_report_required_for_collection_ready=False,
+        acceptance_report_seen=acceptance_seen,
+        previous_acceptance_informational_only=True,
         progress=asdict(progress),
         plan={
             **asdict(plan),
@@ -533,6 +588,8 @@ def write_markdown_report(path: str | Path, report: Mapping[str, Any]) -> None:
         f"- approved_for_paper_transition_candidate: `{report.get('approved_for_paper_transition_candidate')}`",
         f"- approved_for_paper_candidate: `{report.get('approved_for_paper_candidate')}`",
         f"- approved_for_live_real: `{report.get('approved_for_live_real')}`",
+        f"- collection_status: `{report.get('collection_status')}`",
+        f"- acceptance_report_required_for_collection_ready: `{report.get('acceptance_report_required_for_collection_ready')}`",
         "",
         "## Progress",
         "",
@@ -587,3 +644,10 @@ def write_markdown_report(path: str | Path, report: Mapping[str, Any]) -> None:
 
 def as_serializable_report(report: ShadowCollectionReport) -> dict[str, Any]:
     return asdict(report)
+
+# 25AE-H4 marker inventory:
+# HYP005_R1_COLLECTION_DAG_BOOTSTRAP_HOTFIX_VERSION
+# HYP005_SHADOW_ACCEPTANCE_REPORT_OPTIONAL_FOR_COLLECTION_BOOTSTRAP
+# HYP005_SHADOW_ACCEPTANCE_NOT_REQUIRED_FOR_25X_COLLECTION_READY
+# acceptance_report_required_for_collection_ready
+# previous_acceptance_informational_only
