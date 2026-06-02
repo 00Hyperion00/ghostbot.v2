@@ -25,6 +25,7 @@ from tradebot.research_hyp005_shadow_collection_orchestrator import (
 )
 
 CLI_HOTFIX_SAFE_VERSION = HYP005_SHADOW_COLLECTION_ORCHESTRATOR_CONTRACT_VERSION
+HYP005_R1_STRICT_EXPLICIT_CHAIN_HOTFIX_VERSION = "4B.4.3.6.6.25AE-H3"
 
 
 def _latest(paths: list[Path]) -> Path | None:
@@ -59,6 +60,17 @@ def _load_many_json(paths: list[Path]) -> list[dict[str, Any]]:
     return values
 
 
+
+def _ensure_scoped_inputs(reports_dir: Path, paths: list[Path], *, label: str) -> None:
+    scope = reports_dir.resolve()
+    for path in paths:
+        resolved = path.resolve()
+        try:
+            resolved.relative_to(scope)
+        except ValueError as exc:
+            raise SystemExit(f"{label} must remain inside scoped reports-dir: {resolved}") from exc
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--candidate-spec-json", type=Path)
@@ -68,6 +80,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ledger-jsonl", action="append", type=Path, default=[])
     parser.add_argument("--reports-dir", type=Path, default=Path("reports"))
     parser.add_argument("--include-all", action="store_true")
+    parser.add_argument("--strict-explicit-chain", action="store_true", help="Require scoped explicit logger/ledger inputs; disable discovery fallback.")
     parser.add_argument("--symbols", default="BTCUSDT,ETHUSDT,SOLUSDT,BNBUSDT")
     parser.add_argument("--interval", default="4h")
     parser.add_argument("--days", type=int, default=30)
@@ -88,7 +101,11 @@ def main() -> int:
     ledger_json_paths = list(args.ledger_json)
     ledger_jsonl_paths = list(args.ledger_jsonl)
 
-    if not candidate_spec_path or not logger_paths or not acceptance_paths or not ledger_json_paths:
+    if args.strict_explicit_chain:
+        if not candidate_spec_path or not logger_paths or not (ledger_json_paths or ledger_jsonl_paths):
+            raise SystemExit("--strict-explicit-chain requires --candidate-spec-json, --logger-report-json, and --ledger-json/--ledger-jsonl")
+        _ensure_scoped_inputs(args.reports_dir, logger_paths + ledger_json_paths + ledger_jsonl_paths, label="25X explicit input")
+    elif not candidate_spec_path or not logger_paths or not acceptance_paths or not ledger_json_paths:
         discovered_spec, discovered_loggers, discovered_acceptance, discovered_ledgers, discovered_jsonls = _discover_reports(
             args.reports_dir, args.include_all
         )
@@ -175,4 +192,4 @@ if __name__ == "__main__":
     raise SystemExit(main())
 
 # marker inventory for apply verifier:
-# __candidate_spec_json __logger_report_json __acceptance_report_json method=GET public_market_data_GET_only
+# __candidate_spec_json __logger_report_json __acceptance_report_json __strict_explicit_chain method=GET public_market_data_GET_only

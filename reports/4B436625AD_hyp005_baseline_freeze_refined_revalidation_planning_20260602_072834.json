@@ -1,0 +1,211 @@
+{
+  "approved_for_continued_baseline_collection": false,
+  "approved_for_live_real": false,
+  "approved_for_next_scheduler_pack_patch": true,
+  "approved_for_paper_candidate": false,
+  "approved_for_paper_transition_candidate": false,
+  "approved_for_refined_candidate_revalidation_plan": true,
+  "approved_for_scheduler_regeneration": false,
+  "approved_for_scheduler_registration": false,
+  "approved_for_training_candidate": false,
+  "artifact_paths": {
+    "baseline_evidence_freeze_json": "reports\\4B436625AD_hyp005_baseline_evidence_freeze_20260602_072834.json",
+    "refined_candidate_revalidation_plan_json": "reports\\4B436625AD_hyp005_r1_refined_candidate_revalidation_plan_20260602_072834.json"
+  },
+  "artifact_sha256": {
+    "baseline_evidence_freeze_json": "43d45c0d8cf6aa638045c0b4389815cf076ac7235c9f3054978927b5c876974c",
+    "refined_candidate_revalidation_plan_json": "d6020ab393c68f7666cc8675d40cc95d9cde53576e1fd7b77a25612e172c8fee"
+  },
+  "baseline_evidence_frozen": true,
+  "baseline_evidence_snapshot": {
+    "baseline_branch_name": "liquidity_sweep_reversal_vol_compression",
+    "baseline_evidence_digest_sha256": "08180fa14b6f13791c4edca7dd7c0249b90c52b93a5dedc96c2f91d6261d3851",
+    "baseline_metrics": {
+      "high_slippage_symbols": [
+        "AVAXUSDT",
+        "DOGEUSDT"
+      ],
+      "matured_forward_return_count": 25,
+      "maturity_pending_count": 6,
+      "mean_forward_edge_bps": -15.642778,
+      "median_forward_edge_bps": 16.225838,
+      "observation_count": 31,
+      "profit_factor": 0.783427,
+      "tail_loss_count": 7,
+      "tail_loss_symbols": [
+        "AVAXUSDT",
+        "DOGEUSDT",
+        "ETHUSDT",
+        "LINKUSDT",
+        "XRPUSDT"
+      ],
+      "true_missing_required_fields_pct": 0.967742,
+      "win_rate_pct": 56.0
+    },
+    "baseline_observation_carry_forward_allowed": false,
+    "baseline_observations_reused_in_refined_branch": false,
+    "canonical_deduplication": {
+      "duplicate_removed_count": 3261,
+      "raw_observation_count": 3292,
+      "unique_observation_count": 31
+    },
+    "config_mutation_performed": false,
+    "frozen_at_utc": "2026-06-02T07:28:34Z",
+    "hypothesis_id": "HYP-005",
+    "immutable_by_convention": true,
+    "live_trading_allowed": false,
+    "order_actions_allowed": false,
+    "paper_trading_allowed": false,
+    "post_requests_allowed": false,
+    "recommended_pruned_symbols": [
+      "AVAXUSDT",
+      "DOGEUSDT"
+    ],
+    "recommended_refined_symbols": [
+      "ADAUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "selected_refinement_scenario": {
+      "excluded_symbols": [
+        "AVAXUSDT",
+        "DOGEUSDT"
+      ],
+      "included_symbols": [
+        "ADAUSDT",
+        "BNBUSDT",
+        "BTCUSDT",
+        "ETHUSDT",
+        "LINKUSDT",
+        "LTCUSDT",
+        "SOLUSDT",
+        "XRPUSDT"
+      ],
+      "passes_continuation_gate": false,
+      "scenario_id": "PRUNE_AVAXUSDT_DOGEUSDT"
+    },
+    "snapshot_contract_version": "4B.4.3.6.6.25AD",
+    "snapshot_type": "hyp005_baseline_evidence_freeze_write_once_digest_snapshot",
+    "source_25ac_contract_version": "4B.4.3.6.6.25AC",
+    "source_25ac_decision": "HYP005_BRANCH_REFINEMENT_REQUIRED",
+    "source_25ac_report": "reports\\4B436625AC_hyp005_symbol_risk_pruning_decision_20260602_071442.json",
+    "source_25ac_report_sha256": "20893869ca14fe88bd4112f2f006556c48dbe17f4d091f3c5dac9590fb34cccb",
+    "write_once_filename_required": true
+  },
+  "baseline_observation_carry_forward_allowed": false,
+  "baseline_observations_reused_in_refined_branch": false,
+  "baseline_scheduler_disable_performed": false,
+  "baseline_scheduler_disable_recommended": true,
+  "blockers": [],
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.25AD",
+  "decision": "HYP005_R1_REVALIDATION_PLANNING_READY",
+  "fresh_ledger_namespace": "HYP005_R1",
+  "fresh_ledger_required": true,
+  "generated_at_utc": "2026-06-02T07:28:34Z",
+  "hypothesis_id": "HYP-005",
+  "limits": {
+    "max_refined_symbol_count": 10,
+    "min_refined_symbol_count": 6,
+    "revalidation_sample_target": 30
+  },
+  "live_real_allowed": false,
+  "next_scheduler_pack_contract": "4B.4.3.6.6.25AE",
+  "ok": true,
+  "order_actions_performed": false,
+  "paper_trading_started": false,
+  "post_requests_allowed": false,
+  "reason_codes": [
+    "BASELINE_EVIDENCE_FROZEN",
+    "BASELINE_SCHEDULER_DISABLE_BEFORE_REGENERATION_REQUIRED",
+    "HYP005_R1_FRESH_LEDGER_NAMESPACE_DECLARED",
+    "LEGACY_BASELINE_OBSERVATIONS_NOT_REUSED",
+    "NO_AUTOMATIC_SCHEDULER_CONFIG_MUTATION",
+    "NO_TRAINING_PAPER_LIVE_APPROVALS_DETECTED",
+    "REFINED_CANDIDATE_REVALIDATION_PLANNED",
+    "SCHEDULER_REGENERATION_REQUIRES_SEPARATE_OPERATOR_PATCH",
+    "SOURCE_25AC_BRANCH_REFINEMENT_REQUIRED_CONFIRMED"
+  ],
+  "recommendation": "HYP-005 baseline evidence is frozen and HYP-005-R1 fresh no-order revalidation planning is ready. Keep paper/live/order disabled. Disable the baseline scheduler before a separate operator-reviewed 25AE scheduler pack is registered. Do not reuse legacy baseline observations in the refined branch.",
+  "recommended_pruned_symbols": [
+    "AVAXUSDT",
+    "DOGEUSDT"
+  ],
+  "recommended_refined_symbols": [
+    "ADAUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "LTCUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "recommended_refined_symbols_arg": "ADAUSDT,BNBUSDT,BTCUSDT,ETHUSDT,LINKUSDT,LTCUSDT,SOLUSDT,XRPUSDT",
+  "refined_branch_id": "HYP-005-R1",
+  "refined_candidate_spec": {
+    "approved_for_live_real": false,
+    "approved_for_paper_candidate": false,
+    "approved_for_training_candidate": false,
+    "baseline_evidence_digest_sha256": "08180fa14b6f13791c4edca7dd7c0249b90c52b93a5dedc96c2f91d6261d3851",
+    "baseline_scheduler_disable_required_before_refined_registration": true,
+    "candidate_spec_contract_version": "4B.4.3.6.6.25AD",
+    "candidate_spec_type": "hyp005_r1_fresh_no_order_shadow_revalidation_plan",
+    "config_mutation_allowed": false,
+    "config_mutation_performed": false,
+    "excluded_symbols": [
+      "AVAXUSDT",
+      "DOGEUSDT"
+    ],
+    "fresh_ledger_namespace": "HYP005_R1",
+    "fresh_ledger_report_prefix": "4B436625AE_hyp005_r1_shadow_observation_ledger",
+    "fresh_ledger_required": true,
+    "fresh_logger_report_prefix": "4B436625AE_hyp005_r1_shadow_observation_logger",
+    "hypothesis_id": "HYP-005",
+    "interval": "4h",
+    "legacy_baseline_observation_reuse_allowed": false,
+    "legacy_baseline_observations_reused": false,
+    "live_trading_allowed": false,
+    "model_reload_allowed": false,
+    "no_order_shadow_only": true,
+    "observation_only": true,
+    "orders_allowed": false,
+    "paper_trading_allowed": false,
+    "parent_baseline_branch": "liquidity_sweep_reversal_vol_compression",
+    "post_requests_allowed": false,
+    "refined_branch_id": "HYP-005-R1",
+    "refined_branch_name": "liquidity_sweep_reversal_vol_compression_r1_pruned_symbol_revalidation",
+    "runtime_probe_only": true,
+    "scheduler_pack_contract_required": "4B.4.3.6.6.25AE",
+    "scheduler_pack_generation_requires_separate_operator_patch": true,
+    "scheduler_registration_requires_operator_action": true,
+    "shadow_sample_target": 30,
+    "starting_unique_shadow_observation_count": 0,
+    "strategy_family": "long_liquidity_sweep_reversal",
+    "symbols": [
+      "ADAUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "symbols_arg": "ADAUSDT,BNBUSDT,BTCUSDT,ETHUSDT,LINKUSDT,LTCUSDT,SOLUSDT,XRPUSDT",
+    "training_allowed": false
+  },
+  "reload_performed": false,
+  "report_type": "hyp005_baseline_evidence_freeze_refined_candidate_revalidation_planning_gate",
+  "scheduler_regeneration_requires_separate_operator_patch": true,
+  "source_25ac_decision": "HYP005_BRANCH_REFINEMENT_REQUIRED",
+  "source_25ac_report": "reports\\4B436625AC_hyp005_symbol_risk_pruning_decision_20260602_071442.json",
+  "source_25ac_report_sha256": "20893869ca14fe88bd4112f2f006556c48dbe17f4d091f3c5dac9590fb34cccb",
+  "starting_unique_shadow_observation_count": 0,
+  "training_performed": false
+}

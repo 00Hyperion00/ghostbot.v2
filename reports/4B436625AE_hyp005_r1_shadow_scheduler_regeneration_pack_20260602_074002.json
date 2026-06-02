@@ -1,0 +1,61 @@
+{
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_scheduler_pack_generation": false,
+  "approved_for_scheduler_registration": false,
+  "approved_for_training_candidate": false,
+  "artifacts": null,
+  "baseline_scheduler_disable_performed": false,
+  "baseline_task_disabled_confirmed": true,
+  "baseline_task_name": "TradeBot_HYP005_NoOrderShadowCollection",
+  "blockers": [
+    "R1_SHADOW_SAMPLE_TARGET_NOT_30"
+  ],
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.25AE",
+  "decision": "HYP005_R1_SHADOW_SCHEDULER_PACK_BLOCK",
+  "fresh_ledger_namespace": "HYP005_R1",
+  "generated_at_utc": "2026-06-02T07:40:02Z",
+  "legacy_baseline_observation_reuse_allowed": false,
+  "legacy_baseline_observations_reused": false,
+  "live_trading_started": false,
+  "ok": false,
+  "order_actions_performed": false,
+  "paper_trading_started": false,
+  "post_requests_allowed": false,
+  "r1_reports_subdir": "reports\\hyp005_r1",
+  "r1_task_name": "TradeBot_HYP005_R1_NoOrderShadowCollection",
+  "reason_codes": [],
+  "recommendation": "HYP-005-R1 scheduler regeneration pack is blocked. Resolve blockers; do not mutate Windows tasks, reuse baseline observations, train, reload, paper trade, live trade, or send orders.",
+  "recommended_pruned_symbols": [
+    "AVAXUSDT",
+    "DOGEUSDT"
+  ],
+  "refined_branch_id": "HYP-005-R1",
+  "refined_symbols": [
+    "ADAUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "LTCUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "refined_symbols_arg": "ADAUSDT,BNBUSDT,BTCUSDT,ETHUSDT,LINKUSDT,LTCUSDT,SOLUSDT,XRPUSDT",
+  "reload_performed": false,
+  "report_type": "hyp005_r1_eight_symbol_no_order_shadow_scheduler_regeneration_pack",
+  "run_every_hours": 4,
+  "scheduler_registration_requires_manual_operator_action": true,
+  "scheduler_registration_script_checks_baseline_disabled_state": true,
+  "shadow_sample_target": 30,
+  "source_25ad_report": "reports\\4B436625AD_hyp005_baseline_freeze_refined_revalidation_planning_20260602_072834.json",
+  "source_25u_runtime_candidate_spec": "reports\\4B436625U_hyp005_no_order_shadow_candidate_spec_20260509_175722.json",
+  "starting_unique_shadow_observation_count": 0,
+  "training_performed": false,
+  "warnings": [
+    "SCHEDULER_REGENERATION_REQUIRES_SEPARATE_OPERATOR_PATCH_CONFIRMED",
+    "WINDOWS_TASK_REGISTRATION_REMAINS_MANUAL"
+  ],
+  "windows_task_mutation_performed": false
+}

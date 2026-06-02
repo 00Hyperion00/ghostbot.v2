@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
 HYP005_SHADOW_OPERATOR_AUDIT_CONTRACT_VERSION = "4B.4.3.6.6.25Y"
+HYP005_R1_OPERATOR_COMMANDS_SCOPE_HOTFIX_VERSION = "4B.4.3.6.6.25AE-H2"
 HYP005_SHADOW_OPERATOR_AUDIT_READY = "HYP005_SHADOW_OPERATOR_AUDIT_READY"
 HYP005_SHADOW_OPERATOR_AUDIT_BLOCK = "HYP005_SHADOW_OPERATOR_AUDIT_BLOCK"
 NO_ORDER_OPERATOR_AUDIT_ONLY = "NO_ORDER_OPERATOR_AUDIT_ONLY"
@@ -342,7 +343,8 @@ def build_operator_commands(
     )
     orchestrator = (
         "python tools/run_hyp005_shadow_collection_orchestrator_4B436625X.py `\n"
-        "  --reports-dir reports `\n"
+        f"  --candidate-spec-json {candidate_spec_path} `\n"
+        f"  --reports-dir {out_dir} `\n"
         "  --include-all `\n"
         f"  --symbols {symbol_csv} `\n"
         f"  --interval {interval} `\n"
@@ -353,14 +355,15 @@ def build_operator_commands(
     )
     acceptance = (
         "python tools/run_hyp005_shadow_acceptance_readiness_4B436625W.py `\n"
-        "  --reports-dir reports `\n"
+        f"  --reports-dir {out_dir} `\n"
         "  --include-all `\n"
         f"  --out-dir {out_dir} `\n"
         "  --review-ok"
     )
     audit = (
         "python tools/run_hyp005_shadow_operator_runbook_4B436625Y.py `\n"
-        "  --reports-dir reports `\n"
+        f"  --candidate-spec-json {candidate_spec_path} `\n"
+        f"  --reports-dir {out_dir} `\n"
         "  --include-all `\n"
         f"  --symbols {symbol_csv} `\n"
         f"  --interval {interval} `\n"
