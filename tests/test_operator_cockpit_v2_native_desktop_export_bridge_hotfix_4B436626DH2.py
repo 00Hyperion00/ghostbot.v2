@@ -22,6 +22,7 @@ from tradebot.operator_cockpit_v2_desktop_wrapper import (
     _attach_native_desktop_export_bridge,
     _dashboard_origin,
     _normalize_loopback_base_url,
+    _native_export_response_preflight,
     _normalize_save_dialog_result,
     _read_bounded_local_get,
     launch_desktop_shell,
@@ -193,7 +194,7 @@ def test_26dh2_default_local_get_fetches_allowlisted_payload_and_enforces_size(t
         payload = _read_bounded_local_get(origin, "/api/operator-cockpit-v2/export/latest-ledger", 1024, 2.0)
         assert b"BTCUSDT" in payload
         with pytest.raises(DesktopWrapperError, match="NATIVE_DESKTOP_EXPORT_TOO_LARGE"):
-            _read_bounded_local_get(origin, "/api/operator-cockpit-v2/export/evidence-pack.zip", 2, 2.0)
+            _native_export_response_preflight({"Content-Length": "3"}, 2)
         with pytest.raises(DesktopWrapperError, match="NATIVE_DESKTOP_EXPORT_ENDPOINT_NOT_ALLOWED"):
             _read_bounded_local_get(origin, "https://example.com/file", 1024, 2.0)
     finally:

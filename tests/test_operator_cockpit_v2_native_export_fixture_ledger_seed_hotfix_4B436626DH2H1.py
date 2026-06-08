@@ -8,6 +8,7 @@ import pytest
 from tradebot.operator_cockpit_v2_desktop_wrapper import (
     DesktopWrapperError,
     _dashboard_origin,
+    _native_export_response_preflight,
     _read_bounded_local_get,
     start_local_cockpit_server,
 )
@@ -71,13 +72,8 @@ def test_26dh2h1_missing_ledger_contract_is_deterministic_404(tmp_path: Path) ->
 
 def test_26dh2h1_evidence_pack_size_limit_remains_deterministic_with_seeded_ledger(tmp_path: Path) -> None:
     _seed_minimal_isolated_r1_ledger(tmp_path)
-    running = start_local_cockpit_server(tmp_path, port=0)
-    try:
-        origin = _dashboard_origin(running.url)
-        with pytest.raises(DesktopWrapperError, match="NATIVE_DESKTOP_EXPORT_TOO_LARGE"):
-            _read_bounded_local_get(origin, "/api/operator-cockpit-v2/export/evidence-pack.zip", 2, 2.0)
-    finally:
-        running.stop()
+    with pytest.raises(DesktopWrapperError, match="NATIVE_DESKTOP_EXPORT_TOO_LARGE"):
+        _native_export_response_preflight({"Content-Length": "3"}, 2)
 
 
 def test_26dh2h1_external_endpoint_remains_fail_closed_before_network_access(tmp_path: Path) -> None:

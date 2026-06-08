@@ -15,7 +15,7 @@ import webbrowser
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from types import ModuleType
-from typing import Any, Callable, Protocol
+from typing import Any, Callable, Mapping, Protocol
 
 from tradebot.operator_cockpit_v2_read_only import make_operator_cockpit_server
 
@@ -35,6 +35,9 @@ OPERATOR_COCKPIT_V2_NATIVE_DESKTOP_EXPORT_BRIDGE = True
 OPERATOR_COCKPIT_V2_NATIVE_SAVE_DIALOG_DOWNLOADS = True
 OPERATOR_COCKPIT_V2_NATIVE_EXPORT_ALLOWLIST_ONLY = True
 OPERATOR_COCKPIT_V2_NATIVE_EXPORT_LOOPBACK_ONLY = True
+OPERATOR_COCKPIT_V2_EVIDENCE_PACK_TIMEOUT_HOTFIX_VERSION = "4B.4.3.6.6.26D-H2-H2"
+OPERATOR_COCKPIT_V2_NATIVE_EXPORT_RESPONSE_PREFLIGHT = True
+OPERATOR_COCKPIT_V2_NATIVE_EXPORT_TIMEOUT_CONTRACT = True
 WINDOWS_PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
 WINDOWS_SYNCHRONIZE = 0x00100000
 WINDOWS_WAIT_OBJECT_0 = 0x00000000
@@ -53,6 +56,7 @@ DEFAULT_WINDOW_MIN_WIDTH = 1180
 DEFAULT_WINDOW_MIN_HEIGHT = 760
 DEFAULT_HEALTH_TIMEOUT_SECONDS = 6.0
 DEFAULT_NATIVE_EXPORT_TIMEOUT_SECONDS = 8.0
+DEFAULT_NATIVE_EVIDENCE_PACK_TIMEOUT_SECONDS = 30.0
 MAX_NATIVE_DESKTOP_EXPORT_BYTES = 16 * 1024 * 1024
 MAX_NATIVE_DESKTOP_TEXT_VIEW_BYTES = 5 * 1024 * 1024
 
@@ -108,13 +112,14 @@ class NativeDesktopActionSpec:
     filename: str
     mode: str
     max_bytes: int
+    timeout_seconds: float = DEFAULT_NATIVE_EXPORT_TIMEOUT_SECONDS
 
 
 NATIVE_DESKTOP_ACTIONS: dict[str, NativeDesktopActionSpec] = {
     "DOWNLOAD_SNAPSHOT_JSON": NativeDesktopActionSpec("DOWNLOAD_SNAPSHOT_JSON", "/api/operator-cockpit-v2/export/snapshot.json", "operator-cockpit-snapshot.json", "download", MAX_NATIVE_DESKTOP_EXPORT_BYTES),
     "OPEN_LATEST_AUDIT_JSON": NativeDesktopActionSpec("OPEN_LATEST_AUDIT_JSON", "/api/operator-cockpit-v2/view/latest-audit.json", "latest-25y-audit.json", "text", MAX_NATIVE_DESKTOP_TEXT_VIEW_BYTES),
     "OPEN_ACTION_MANIFEST": NativeDesktopActionSpec("OPEN_ACTION_MANIFEST", "/api/operator-cockpit-v2/actions/manifest", "safe-actions-manifest.json", "text", MAX_NATIVE_DESKTOP_TEXT_VIEW_BYTES),
-    "DOWNLOAD_EVIDENCE_PACK_ZIP": NativeDesktopActionSpec("DOWNLOAD_EVIDENCE_PACK_ZIP", "/api/operator-cockpit-v2/export/evidence-pack.zip", "operator-cockpit-evidence-pack.zip", "download", MAX_NATIVE_DESKTOP_EXPORT_BYTES),
+    "DOWNLOAD_EVIDENCE_PACK_ZIP": NativeDesktopActionSpec("DOWNLOAD_EVIDENCE_PACK_ZIP", "/api/operator-cockpit-v2/export/evidence-pack.zip", "operator-cockpit-evidence-pack.zip", "download", MAX_NATIVE_DESKTOP_EXPORT_BYTES, DEFAULT_NATIVE_EVIDENCE_PACK_TIMEOUT_SECONDS),
     "DOWNLOAD_MERGED_LEDGER_JSONL": NativeDesktopActionSpec("DOWNLOAD_MERGED_LEDGER_JSONL", "/api/operator-cockpit-v2/export/latest-ledger", "latest-merged-ledger.jsonl", "download", MAX_NATIVE_DESKTOP_EXPORT_BYTES),
 }
 
@@ -339,11 +344,38 @@ def _resolve_native_action(action_code: str, *, expected_mode: str | None = None
     return spec
 
 
+def _native_export_response_preflight(headers: Mapping[str, str], max_bytes: int) -> int | None:
+    """Reject invalid or oversized payload declarations before buffering response bytes."""
+    if max_bytes <= 0:
+        raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_MAX_BYTES_INVALID")
+    raw_length = headers.get("Content-Length")
+    if raw_length is None or not str(raw_length).strip():
+        return None
+    try:
+        declared_length = int(str(raw_length).strip(), 10)
+    except ValueError as error:
+        raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_CONTENT_LENGTH_INVALID") from error
+    if declared_length < 0:
+        raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_CONTENT_LENGTH_INVALID")
+    if declared_length > max_bytes:
+        raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_TOO_LARGE")
+    return declared_length
+
+
+def _is_native_export_timeout(error: BaseException) -> bool:
+    """Classify direct and urllib-wrapped socket timeout failures."""
+    if isinstance(error, TimeoutError):
+        return True
+    return isinstance(error, urllib.error.URLError) and isinstance(error.reason, TimeoutError)
+
+
 def _read_bounded_local_get(base_url: str, endpoint: str, max_bytes: int, timeout_seconds: float = DEFAULT_NATIVE_EXPORT_TIMEOUT_SECONDS) -> bytes:
     """Read one fixed local GET endpoint without redirects or unbounded buffering."""
     normalized_base = _normalize_loopback_base_url(base_url)
     if not endpoint.startswith("/api/operator-cockpit-v2/") or "?" in endpoint or "#" in endpoint:
         raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_ENDPOINT_NOT_ALLOWED")
+    if timeout_seconds <= 0:
+        raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_TIMEOUT_INVALID")
     url = normalized_base + endpoint
     opener = urllib.request.build_opener(_NoRedirectHandler())
     request = urllib.request.Request(url, method="GET", headers={"Cache-Control": "no-store"})
@@ -354,14 +386,7 @@ def _read_bounded_local_get(base_url: str, endpoint: str, max_bytes: int, timeou
             final_origin = _dashboard_origin(f"{final.scheme}://{final.netloc}/dashboard")
             if final_origin != normalized_base:
                 raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_ORIGIN_CHANGED")
-            raw_length = response.headers.get("Content-Length")
-            if raw_length:
-                try:
-                    declared_length = int(raw_length)
-                except ValueError as error:
-                    raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_CONTENT_LENGTH_INVALID") from error
-                if declared_length < 0 or declared_length > max_bytes:
-                    raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_TOO_LARGE")
+            _native_export_response_preflight(response.headers, max_bytes)
             chunks: list[bytes] = []
             total = 0
             while True:
@@ -375,8 +400,12 @@ def _read_bounded_local_get(base_url: str, endpoint: str, max_bytes: int, timeou
             return b"".join(chunks)
     except urllib.error.HTTPError as error:
         raise DesktopWrapperError(f"NATIVE_DESKTOP_EXPORT_HTTP_ERROR: {error.code}") from error
-    except urllib.error.URLError as error:
-        raise DesktopWrapperError(f"NATIVE_DESKTOP_EXPORT_LOCAL_GET_FAILED: {error.reason}") from error
+    except (TimeoutError, urllib.error.URLError) as error:
+        if _is_native_export_timeout(error):
+            raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_TIMEOUT") from error
+        if isinstance(error, urllib.error.URLError):
+            raise DesktopWrapperError(f"NATIVE_DESKTOP_EXPORT_LOCAL_GET_FAILED: {error.reason}") from error
+        raise
 
 
 def _write_binary_atomic(destination: Path, payload: bytes) -> None:
@@ -431,7 +460,7 @@ class NativeDesktopExportBridge:
         self._webview_module = webview_module
 
     def _fetch(self, spec: NativeDesktopActionSpec) -> bytes:
-        return self._fetcher(self.base_url, spec.endpoint, spec.max_bytes, DEFAULT_NATIVE_EXPORT_TIMEOUT_SECONDS)
+        return self._fetcher(self.base_url, spec.endpoint, spec.max_bytes, spec.timeout_seconds)
 
     def _choose_save_path(self, filename: str) -> Path | None:
         if self._window is None or self._webview_module is None:

@@ -16,6 +16,7 @@ from tradebot.operator_cockpit_v2_desktop_wrapper import (  # noqa: E402
     DEFAULT_DESKTOP_PORT,
     OPERATOR_COCKPIT_V2_DESKTOP_WRAPPER_VERSION,
     OPERATOR_COCKPIT_V2_NATIVE_EXPORT_BRIDGE_HOTFIX_VERSION,
+    OPERATOR_COCKPIT_V2_EVIDENCE_PACK_TIMEOUT_HOTFIX_VERSION,
     DesktopWrapperError,
     launch_desktop_shell,
     run_headless_smoke,
@@ -57,6 +58,8 @@ def main() -> int:
         print(" - browser_fallback_requires_explicit_flag: True")
         print(f" - native_export_bridge_hotfix_version: {OPERATOR_COCKPIT_V2_NATIVE_EXPORT_BRIDGE_HOTFIX_VERSION}")
         print(" - native_export_bridge: SAVE_DIALOG_ALLOWLIST_ONLY")
+        print(f" - evidence_pack_timeout_hotfix_version: {OPERATOR_COCKPIT_V2_EVIDENCE_PACK_TIMEOUT_HOTFIX_VERSION}")
+        print(" - native_export_timeout_contract: DETERMINISTIC")
         print(" - config_mutation_performed: False")
         print(" - scheduler_mutation_performed: False")
         print(" - trading_action_performed: False")
