@@ -12,6 +12,8 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
+from tradebot.hyp005_r1_canonical_epoch_contract import utc_artifact_stamp  # noqa: E402
+
 from tradebot.research_hyp005_shadow_observation_logger import (  # noqa: E402
     HYP005_SHADOW_OBSERVATION_CONTRACT_VERSION,
     LEDGER_PREFIX,
@@ -122,7 +124,7 @@ def main(argv: list[str] | None = None) -> int:
     report["source_reports"] = source_paths
     report["market_data_source"] = "input_csv" if args.input_csv else "public_market_data_GET_only"
     out_dir = Path(args.out_dir)
-    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    stamp = utc_artifact_stamp()
     json_path = out_dir / f"{REPORT_PREFIX}_{stamp}.json"
     md_path = out_dir / f"{REPORT_PREFIX}_{stamp}.md"
     ledger_json = out_dir / f"{LEDGER_PREFIX}_{stamp}.json"

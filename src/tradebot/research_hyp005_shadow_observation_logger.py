@@ -10,6 +10,11 @@ import csv
 import json
 import math
 
+from .hyp005_shadow_observation_identity import (
+    HYP005_SHADOW_OBSERVATION_END_TO_END_IDENTITY_VERSION,
+    normalize_observation_identity,
+)
+
 HYP005_SHADOW_OBSERVATION_CONTRACT_VERSION = "4B.4.3.6.6.25V"
 HYPOTHESIS_ID = "HYP-005"
 BRANCH_NAME = "liquidity_sweep_reversal_vol_compression"
@@ -463,7 +468,7 @@ def scan_liquidity_sweep_observations(
 
 
 def _observation_dicts(observations: Sequence[ShadowObservation]) -> list[dict[str, Any]]:
-    return [asdict(item) for item in observations]
+    return [normalize_observation_identity(asdict(item)) for item in observations]
 
 
 def summarize_observations(
@@ -571,6 +576,8 @@ def build_hyp005_shadow_observation_logger_report(
         "shadow_sample_target_met": summary["shadow_sample_target_met"],
         "shadow_summary": summary,
         "shadow_observations": observation_rows,
+        "identity_contract_version": HYP005_SHADOW_OBSERVATION_END_TO_END_IDENTITY_VERSION,
+        "canonical_identity_end_to_end": True,
         "no_order_shadow_only": True,
         "runtime_probe_only": True,
         "reason_codes": sorted(set(reason_codes)),

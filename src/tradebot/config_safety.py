@@ -5,6 +5,13 @@ from pathlib import Path
 from typing import Any
 
 from .enums import AutoSignalMode, ExecutionMode, MarketType
+from .position_sizing import PositionSizingError, validate_sizing_settings
+from .binance_environment import (
+    BINANCE_ENVIRONMENT_ROUTER_VERSION,
+    BinanceEnvironmentError,
+    binance_environment_snapshot,
+    resolve_binance_environment,
+)
 
 CONTRACT_VERSION = '4B.4.3.6.6.15'
 
@@ -25,6 +32,8 @@ class ConfigSafetyConfig:
     order_notional_usd: float
     sizing_mode: str
     risk_percent_quote_balance: float
+    quote_balance_reserve_usd: float
+    max_quote_budget_usd: float
     min_notional_buffer_multiplier: float
     max_daily_loss_pct: float
     max_consecutive_losses: int
@@ -67,6 +76,8 @@ def config_from_settings(settings: Any) -> ConfigSafetyConfig:
         order_notional_usd=float(getattr(settings, 'order_notional_usd', 0.0) or 0.0),
         sizing_mode=str(getattr(settings, 'sizing_mode', 'fixed_quote') or ''),
         risk_percent_quote_balance=float(getattr(settings, 'risk_percent_quote_balance', 0.0) or 0.0),
+        quote_balance_reserve_usd=float(getattr(settings, 'quote_balance_reserve_usd', 0.0) or 0.0),
+        max_quote_budget_usd=float(getattr(settings, 'max_quote_budget_usd', 0.0) or 0.0),
         min_notional_buffer_multiplier=float(getattr(settings, 'min_notional_buffer_multiplier', 0.0) or 0.0),
         max_daily_loss_pct=float(getattr(settings, 'max_daily_loss_pct', 0.0) or 0.0),
         max_consecutive_losses=int(getattr(settings, 'max_consecutive_losses', 0) or 0),
@@ -150,6 +161,14 @@ def build_config_safety_snapshot(settings: Any, *, base_dir: Path | None = None)
     is_real = cfg.execution_mode == ExecutionMode.LIVE_REAL.value or cfg.market_type == MarketType.SPOT_MAINNET.value
     is_demo_or_test = cfg.market_type in {MarketType.SPOT_DEMO.value, MarketType.SPOT_TESTNET.value}
     base_url_lower = cfg.base_url.lower()
+    try:
+        endpoint_profile = resolve_binance_environment(cfg.market_type, cfg.base_url)
+        endpoint_environment = binance_environment_snapshot(endpoint_profile, configured_rest_base_url=cfg.base_url)
+    except BinanceEnvironmentError as error:
+        endpoint_environment = error.to_snapshot()
+        criticals.append('Binance REST / WebSocket environment profili çelişiyor')
+        reason_codes.append(error.code)
+
 
     if is_live_mode and (not api_key['present'] or not api_secret['present']):
         criticals.append('Live/demo execution için API key/secret eksik')
@@ -167,12 +186,12 @@ def build_config_safety_snapshot(settings: Any, *, base_dir: Path | None = None)
         warnings.append('Demo/test profile mainnet benzeri endpoint kullanıyor')
         reason_codes.append('DEMO_PROFILE_MAINNET_ENDPOINT')
 
-    if cfg.order_notional_usd <= 0:
-        criticals.append('order_notional_usd pozitif değil')
-        reason_codes.append('ORDER_NOTIONAL_INVALID')
-    if cfg.sizing_mode == 'risk_percent' and not (0 < cfg.risk_percent_quote_balance <= 100):
-        criticals.append('risk_percent_quote_balance 0-100 aralığında değil')
-        reason_codes.append('RISK_PERCENT_INVALID')
+    try:
+        sizing_snapshot = validate_sizing_settings(cfg).to_dict()
+    except PositionSizingError as error:
+        sizing_snapshot = {'contract_version': '4B.4.3.6.6.27F', 'ok': False, 'reason_code': error.reason_code}
+        criticals.append('Entry sizing konfigürasyonu geçersiz')
+        reason_codes.append(error.reason_code)
     if cfg.min_notional_buffer_multiplier < 1.0:
         warnings.append('min_notional_buffer_multiplier 1.0 altında')
         reason_codes.append('MIN_NOTIONAL_BUFFER_LOW')
@@ -255,6 +274,8 @@ def build_config_safety_snapshot(settings: Any, *, base_dir: Path | None = None)
         'market_type': cfg.market_type,
         'base_url': cfg.base_url,
         'base_url_redacted': cfg.base_url,
+        'binance_environment_router_version': BINANCE_ENVIRONMENT_ROUTER_VERSION,
+        'binance_environment': endpoint_environment,
         'api_key': api_key,
         'api_secret': {'present': api_secret['present'], 'redacted': '***' if api_secret['present'] else '', 'length': api_secret['length']},
         'live_trading_armed': cfg.live_trading_armed,
@@ -264,6 +285,9 @@ def build_config_safety_snapshot(settings: Any, *, base_dir: Path | None = None)
         'order_notional_usd': cfg.order_notional_usd,
         'sizing_mode': cfg.sizing_mode,
         'risk_percent_quote_balance': cfg.risk_percent_quote_balance,
+        'quote_balance_reserve_usd': cfg.quote_balance_reserve_usd,
+        'max_quote_budget_usd': cfg.max_quote_budget_usd,
+        'position_sizing': sizing_snapshot,
         'risk_controls': {
             'max_daily_loss_pct': cfg.max_daily_loss_pct,
             'max_consecutive_losses': cfg.max_consecutive_losses,

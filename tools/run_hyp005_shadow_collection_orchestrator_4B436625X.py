@@ -23,10 +23,13 @@ from tradebot.research_hyp005_shadow_collection_orchestrator import (
     write_jsonl,
     write_markdown_report,
 )
+from tradebot.hyp005_r1_canonical_epoch_contract import utc_artifact_stamp
 
 CLI_HOTFIX_SAFE_VERSION = HYP005_SHADOW_COLLECTION_ORCHESTRATOR_CONTRACT_VERSION
 HYP005_R1_STRICT_EXPLICIT_CHAIN_HOTFIX_VERSION = "4B.4.3.6.6.25AE-H3"
 HYP005_R1_COLLECTION_DAG_BOOTSTRAP_HOTFIX_VERSION = "4B.4.3.6.6.25AE-H4"
+HYP005_END_TO_END_CANONICAL_IDENTITY_HOTFIX_VERSION = "4B.4.3.6.6.25V-H2"
+HYP005_CANONICAL_LEDGER_JSONL_SINGLE_SOURCE = True
 
 
 def _latest(paths: list[Path]) -> Path | None:
@@ -42,13 +45,15 @@ def _discover_reports(reports_dir: Path, include_all: bool) -> tuple[Path | None
 
     spec = _latest(candidate_specs)
     if include_all:
-        return spec, logger_reports, acceptance_reports, ledger_jsons, ledger_jsonls
+        # JSONL is the single ingestion truth. JSON remains an audit-equivalent sidecar only.
+        return spec, logger_reports, acceptance_reports, [], ledger_jsonls or ledger_jsons
+    latest_jsonl = _latest(ledger_jsonls)
     return (
         spec,
         [item for item in [_latest(logger_reports)] if item],
         [item for item in [_latest(acceptance_reports)] if item],
-        [item for item in [_latest(ledger_jsons)] if item],
-        [item for item in [_latest(ledger_jsonls)] if item],
+        [] if latest_jsonl else [item for item in [_latest(ledger_jsons)] if item],
+        [latest_jsonl] if latest_jsonl else [],
     )
 
 
@@ -134,6 +139,9 @@ def main() -> int:
 
     logger_reports = _load_many_json(logger_paths)
     acceptance_reports = _load_many_json(acceptance_paths)
+    if ledger_jsonl_paths:
+        # Explicit chains also prefer JSONL to avoid ingesting the equivalent JSON sidecar twice.
+        ledger_json_paths = []
     observation_sets = [load_observations_from_json(path) for path in ledger_json_paths]
     observation_sets.extend(load_observations_from_jsonl(path) for path in ledger_jsonl_paths)
     merged_observations, duplicate_count = merge_observations(observation_sets)
@@ -155,7 +163,7 @@ def main() -> int:
     )
     payload = as_serializable_report(report)
 
-    ts = utc_timestamp()
+    ts = utc_artifact_stamp()
     args.out_dir.mkdir(parents=True, exist_ok=True)
     report_json = args.out_dir / f"{DEFAULT_REPORT_PREFIX}_{ts}.json"
     report_md = args.out_dir / f"{DEFAULT_REPORT_PREFIX}_{ts}.md"

@@ -1,0 +1,28 @@
+4B.4.3.6.6.27E
+AI Startup / Runtime Reload Threshold Parity / Decision Contract Consistency Hardening
+
+Overlay files:
+- tools/_patch_payload/decision_contract_4B436627E.py
+- tools/apply_4B436627E_ai_startup_runtime_reload_threshold_parity.py
+- tools/rollback_4B436627E_ai_startup_runtime_reload_threshold_parity.py
+- tools/check_ai_startup_reload_threshold_parity_4B436627E.py
+- tests/test_ai_startup_reload_threshold_parity_4B436627E.py
+- docs/AI_STARTUP_RUNTIME_RELOAD_THRESHOLD_PARITY_4B436627E.md
+- docs/PATCH_MANIFEST_4B436627E.txt
+
+Apply-time active files:
+- src/tradebot/ai/decision_contract.py
+- src/tradebot/config.py
+- src/tradebot/ai/provider.py
+- src/tradebot/engine.py
+- src/tradebot/api.py
+- src/tradebot/ai/service.py
+- src/tradebot/cli.py
+- main.py
+
+Safety:
+- No training.
+- No runtime reload during apply/check.
+- No config mutation.
+- No scheduler mutation.
+- No paper/live/order enablement.

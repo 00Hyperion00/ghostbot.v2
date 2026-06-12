@@ -13,6 +13,7 @@ from .config import Settings
 from .engine import TradeBotEngine
 from .persistence import SQLiteStore
 from .ai.provider import XGBoostSignalProvider
+from .ai.decision_contract import AIDecisionContractError, assert_startup_reload_parity, decision_contract_from_payload, decision_contract_from_settings
 
 def train_xgb_model(*args: Any, **kwargs: Any) -> dict[str, Any]:
     # Lazy import keeps lightweight API/status tests from importing XGBoost/Scipy.
@@ -31,6 +32,7 @@ class AIReloadPayload(BaseModel):
     hold_band_low: float | None = None
     hold_band_high: float | None = None
     indecision_margin: float | None = None
+    threshold_profile: str | None = None
 
 
 class AITrainPayload(BaseModel):
@@ -45,15 +47,11 @@ class AITrainPayload(BaseModel):
     reload_after_train: bool = True
 
 
-def _threshold_payload(settings: Any, payload: AIReloadPayload) -> dict[str, float | None]:
-    return {
-        'threshold': payload.threshold if payload.threshold is not None else getattr(settings, 'ai_confidence_threshold', 0.60),
-        'buy_threshold': payload.buy_threshold if payload.buy_threshold is not None else getattr(settings, 'ai_buy_threshold', 0.64),
-        'sell_threshold': payload.sell_threshold if payload.sell_threshold is not None else getattr(settings, 'ai_sell_threshold', 0.57),
-        'hold_band_low': payload.hold_band_low if payload.hold_band_low is not None else getattr(settings, 'ai_hold_band_low', 0.45),
-        'hold_band_high': payload.hold_band_high if payload.hold_band_high is not None else getattr(settings, 'ai_hold_band_high', 0.55),
-        'indecision_margin': payload.indecision_margin if payload.indecision_margin is not None else getattr(settings, 'ai_indecision_margin', 0.08),
-    }
+def _threshold_payload(settings: Any, payload: AIReloadPayload) -> dict[str, float | str]:
+    startup_contract = decision_contract_from_settings(settings)
+    requested_contract = decision_contract_from_payload(payload, fallback=startup_contract)
+    assert_startup_reload_parity(startup_contract, requested_contract)
+    return startup_contract.threshold_kwargs()
 
 
 def _provider_payload(provider: Any, *, ok: bool, model_path: str, threshold: float) -> dict[str, Any]:
@@ -229,12 +227,17 @@ def create_app(engine: TradeBotEngine) -> FastAPI:
         return payload
 
     def _reload_ai_provider(payload: AIReloadPayload) -> dict[str, Any]:
-        thresholds = _threshold_payload(engine.settings, payload)
-        _safe_engine_log(engine, 'info', 'AI_RELOAD_REQUESTED', 'AI model reload talebi alındı', {'model_path': payload.model_path})
+        try:
+            thresholds = _threshold_payload(engine.settings, payload)
+        except AIDecisionContractError as exc:
+            result_payload = {'ok': False, 'reload_ok': False, 'model_path': payload.model_path, 'reason_code': str(exc), 'reload_performed': False}
+            _safe_engine_log(engine, 'warn', 'AI_RELOAD_BLOCKED_DECISION_CONTRACT', 'AI model reload karar kontratı nedeniyle engellendi', result_payload)
+            return result_payload
+        _safe_engine_log(engine, 'info', 'AI_RELOAD_REQUESTED', 'AI model reload talebi alındı', {'model_path': payload.model_path, 'decision_contract_version': '4B.4.3.6.6.27E'})
         provider = getattr(engine, 'ai_provider', None)
         model_path = payload.model_path
         if provider is None and engine.settings.ai_provider_enabled and engine.settings.ai_provider_mode == 'local_xgboost':
-            provider = XGBoostSignalProvider(model_path, threshold=float(thresholds['threshold'] or 0.60))
+            provider = XGBoostSignalProvider(model_path, **thresholds)
             reload_ok = bool(getattr(provider, 'available', False))
             if reload_ok:
                 engine.ai_provider = provider
@@ -252,6 +255,7 @@ def create_app(engine: TradeBotEngine) -> FastAPI:
             engine.settings.ai_hold_band_low = float(thresholds['hold_band_low'] or 0.45)
             engine.settings.ai_hold_band_high = float(thresholds['hold_band_high'] or 0.55)
             engine.settings.ai_indecision_margin = float(thresholds['indecision_margin'] or 0.08)
+            engine.settings.ai_threshold_profile = str(thresholds['threshold_profile'])
             _clear_runtime_ai_signal_cache(engine, provider)
 
         result_payload = _provider_payload(provider, ok=reload_ok, model_path=model_path, threshold=float(thresholds['threshold'] or 0.60))

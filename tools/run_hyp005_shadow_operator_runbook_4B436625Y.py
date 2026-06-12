@@ -23,6 +23,7 @@ from tradebot.research_hyp005_shadow_operator_runbook import (
     write_markdown_report,
     write_runbook_markdown,
 )
+from tradebot.hyp005_r1_canonical_epoch_contract import utc_artifact_stamp
 
 CLI_SAFE_VERSION = HYP005_SHADOW_OPERATOR_AUDIT_CONTRACT_VERSION
 HYP005_R1_STRICT_EXPLICIT_CHAIN_HOTFIX_VERSION = "4B.4.3.6.6.25AE-H3"
@@ -152,7 +153,7 @@ def main() -> int:
     )
     payload = as_serializable_report(report)
 
-    ts = utc_timestamp()
+    ts = utc_artifact_stamp()
     args.out_dir.mkdir(parents=True, exist_ok=True)
     report_json = args.out_dir / f"{DEFAULT_REPORT_PREFIX}_{ts}.json"
     report_md = args.out_dir / f"{DEFAULT_REPORT_PREFIX}_{ts}.md"

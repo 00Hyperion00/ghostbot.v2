@@ -7,6 +7,7 @@ from typing import Any, Iterable
 import pandas as pd
 
 from ..models import Candle, SignalDecision
+from .decision_contract import AIDecisionContract, build_decision_contract, decision_contract_from_provider
 
 
 @dataclass(slots=True)
@@ -35,14 +36,27 @@ class AIProviderConfig:
 
 
 class XGBoostSignalProvider:
-    def __init__(self, model_path: str, threshold: float = 0.60) -> None:
+    def __init__(
+        self,
+        model_path: str,
+        threshold: float = 0.60,
+        buy_threshold: float = 0.64,
+        sell_threshold: float = 0.57,
+        hold_band_low: float = 0.45,
+        hold_band_high: float = 0.55,
+        indecision_margin: float = 0.08,
+        threshold_profile: str = "runtime_settings",
+    ) -> None:
         self.model_path = model_path
-        self.threshold = threshold
-        self.buy_threshold = 0.64
-        self.sell_threshold = 0.57
-        self.hold_band_low = 0.45
-        self.hold_band_high = 0.55
-        self.indecision_margin = 0.08
+        self._apply_decision_contract(build_decision_contract(
+            threshold=threshold,
+            buy_threshold=buy_threshold,
+            sell_threshold=sell_threshold,
+            hold_band_low=hold_band_low,
+            hold_band_high=hold_band_high,
+            indecision_margin=indecision_margin,
+            threshold_profile=threshold_profile,
+        ))
         self._feature_lag = 1
         self._model = None
         self._load_error: str | None = None
@@ -98,6 +112,23 @@ class XGBoostSignalProvider:
     def feature_lag(self) -> int:
         return int(getattr(self, '_feature_lag', 1) or 1)
 
+    def _apply_decision_contract(self, contract: AIDecisionContract) -> None:
+        validated = contract.validate()
+        self.threshold = float(validated.threshold)
+        self.buy_threshold = float(validated.buy_threshold)
+        self.sell_threshold = float(validated.sell_threshold)
+        self.hold_band_low = float(validated.hold_band_low)
+        self.hold_band_high = float(validated.hold_band_high)
+        self.indecision_margin = float(validated.indecision_margin)
+        self.threshold_profile = str(validated.threshold_profile)
+
+    @property
+    def decision_contract(self) -> AIDecisionContract:
+        return decision_contract_from_provider(self)
+
+    def decision_contract_snapshot(self) -> dict[str, Any]:
+        return self.decision_contract.snapshot()
+
     @property
     def threshold_config(self) -> dict[str, float]:
         return {
@@ -123,6 +154,8 @@ class XGBoostSignalProvider:
             'last_reload_ok': self.last_reload_ok,
             'last_reload_error': self.last_reload_error,
             'threshold_config': self.threshold_config,
+            'threshold_profile': self.threshold_profile,
+            'decision_contract': self.decision_contract_snapshot(),
         }
 
     def _resolve_schema_path(self, model_path: str | Path) -> Path:
@@ -236,9 +269,20 @@ class XGBoostSignalProvider:
         hold_band_low: float | None = None,
         hold_band_high: float | None = None,
         indecision_margin: float | None = None,
+        threshold_profile: str | None = None,
     ) -> bool:
         candidate_path = model_path or self.model_path
         try:
+            candidate_contract = build_decision_contract(
+                threshold=threshold,
+                buy_threshold=buy_threshold,
+                sell_threshold=sell_threshold,
+                hold_band_low=hold_band_low,
+                hold_band_high=hold_band_high,
+                indecision_margin=indecision_margin,
+                threshold_profile=threshold_profile,
+                fallback=self.decision_contract,
+            )
             candidate = self._load_candidate(candidate_path)
         except Exception as exc:
             # Atomic reload: keep the currently loaded model/schema intact and report the failure.
@@ -249,18 +293,7 @@ class XGBoostSignalProvider:
                 self._schema_validated = False
             return False
 
-        if threshold is not None:
-            self.threshold = float(threshold)
-        if buy_threshold is not None:
-            self.buy_threshold = float(buy_threshold)
-        if sell_threshold is not None:
-            self.sell_threshold = float(sell_threshold)
-        if hold_band_low is not None:
-            self.hold_band_low = float(hold_band_low)
-        if hold_band_high is not None:
-            self.hold_band_high = float(hold_band_high)
-        if indecision_margin is not None:
-            self.indecision_margin = float(indecision_margin)
+        self._apply_decision_contract(candidate_contract)
         self._commit_candidate(candidate)
         return bool(self.available)
 

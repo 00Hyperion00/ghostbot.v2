@@ -11,6 +11,11 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
+from tradebot.hyp005_r1_canonical_epoch_contract import (  # noqa: E402
+    HYP005_R1_CANONICAL_EPOCH_HARDENING_VERSION,
+    utc_artifact_stamp,
+)
+
 HYP005_R1_STRICT_EXPLICIT_CHAIN_HOTFIX_VERSION = "4B.4.3.6.6.25AE-H3"
 
 from tradebot.research_hyp005_shadow_acceptance_readiness import (  # noqa: E402
@@ -49,8 +54,7 @@ def discover_input_paths(args: argparse.Namespace) -> list[Path]:
         paths.append(Path(raw))
     for raw in args.input_json or []:
         paths.append(Path(raw))
-    for raw in args.collection_report_json or []:
-        paths.append(Path(raw))
+    # 25AE-H5: collection reports are metadata, never observation-ledger inputs.
     if args.include_all or not paths:
         reports_dir = Path(args.reports_dir)
         for prefix in (
@@ -83,9 +87,9 @@ def main(argv: list[str] | None = None) -> int:
     if not args.review_ok:
         print("ERROR: --review-ok is required. 25W is readiness-only and cannot start paper/live trading.", file=sys.stderr)
         return 2
+    collection_paths = [Path(raw) for raw in args.collection_report_json or []]
     input_paths = discover_input_paths(args)
     if args.strict_explicit_chain:
-        collection_paths = [Path(raw) for raw in args.collection_report_json or []]
         ledger_paths = [Path(raw) for raw in (args.ledger_json or []) + (args.ledger_jsonl or [])]
         if not collection_paths or not ledger_paths:
             raise SystemExit("--strict-explicit-chain requires --collection-report-json and --ledger-json/--ledger-jsonl")
@@ -97,10 +101,13 @@ def main(argv: list[str] | None = None) -> int:
         manual_reviewers=args.manual_reviewers,
     )
     report["input_paths"] = [str(path) for path in input_paths]
-    report["collection_report_paths"] = [str(path) for path in (args.collection_report_json or [])]
+    report["ledger_input_paths"] = [str(path) for path in input_paths]
+    report["collection_report_paths"] = [str(path) for path in collection_paths]
+    report["source_collection_reports"] = len(collection_paths)
+    report["source_attribution_contract_version"] = HYP005_R1_CANONICAL_EPOCH_HARDENING_VERSION
     report["strict_explicit_chain"] = bool(args.strict_explicit_chain)
     out_dir = Path(args.out_dir)
-    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    stamp = utc_artifact_stamp()
     json_path = out_dir / f"{REPORT_PREFIX}_{stamp}.json"
     md_path = out_dir / f"{REPORT_PREFIX}_{stamp}.md"
     summary_path = out_dir / f"{SUMMARY_PREFIX}_{stamp}.json"
@@ -111,6 +118,7 @@ def main(argv: list[str] | None = None) -> int:
     summary = report.get("shadow_acceptance_summary") if isinstance(report.get("shadow_acceptance_summary"), dict) else {}
     print(f"{HYP005_SHADOW_ACCEPTANCE_CONTRACT_VERSION} HYP-005 shadow acceptance/readiness {report['decision']}")
     print(f" - source_ledgers: {len(source_ledgers)}")
+    print(f" - source_collection_reports: {len(collection_paths)}")
     print(f" - hypothesis_id: {report.get('hypothesis_id')}")
     print(f" - branch_name: {report.get('branch_name')}")
     print(f" - selected_strategy_family: {report.get('selected_strategy_family')}")

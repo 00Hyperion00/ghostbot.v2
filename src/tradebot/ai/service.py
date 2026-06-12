@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from .provider import XGBoostSignalProvider
+from .decision_contract import AIDecisionContractError, assert_startup_reload_parity, build_decision_contract, decision_contract_from_payload, decision_contract_from_provider
 
 
 class CandleIn(BaseModel):
@@ -33,6 +34,12 @@ class TradeResponse(BaseModel):
 
 class ConfigUpdate(BaseModel):
     threshold: float | None = None
+    buy_threshold: float | None = None
+    sell_threshold: float | None = None
+    hold_band_low: float | None = None
+    hold_band_high: float | None = None
+    indecision_margin: float | None = None
+    threshold_profile: str | None = None
     model_path: str | None = None
 
 
@@ -58,8 +65,14 @@ def create_ai_service(provider: XGBoostSignalProvider) -> FastAPI:
 
     @app.post('/update_config')
     async def update_config(config: ConfigUpdate) -> dict:
-        provider.reload(model_path=config.model_path, threshold=config.threshold)
-        payload = {'ok': True, 'model_path': provider.model_path, 'threshold': provider.threshold, 'available': provider.available}
+        startup_contract = decision_contract_from_provider(provider)
+        try:
+            requested_contract = decision_contract_from_payload(config, fallback=startup_contract)
+            assert_startup_reload_parity(startup_contract, requested_contract)
+        except AIDecisionContractError as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
+        reload_ok = provider.reload(model_path=config.model_path, **startup_contract.threshold_kwargs())
+        payload = {'ok': bool(reload_ok), 'model_path': provider.model_path, 'threshold': provider.threshold, 'available': provider.available}
         schema_info = getattr(provider, 'schema_info', None)
         if callable(schema_info):
             payload.update(schema_info())
@@ -93,5 +106,11 @@ def create_ai_service_from_env() -> FastAPI:
     provider = XGBoostSignalProvider(
         os.getenv('TRADEBOT_AI_MODEL_PATH', 'models/xgboost_trade_model.json'),
         threshold=float(os.getenv('TRADEBOT_AI_THRESHOLD', '0.60')),
+        buy_threshold=float(os.getenv('TRADEBOT_AI_BUY_THRESHOLD', '0.64')),
+        sell_threshold=float(os.getenv('TRADEBOT_AI_SELL_THRESHOLD', '0.57')),
+        hold_band_low=float(os.getenv('TRADEBOT_AI_HOLD_BAND_LOW', '0.45')),
+        hold_band_high=float(os.getenv('TRADEBOT_AI_HOLD_BAND_HIGH', '0.55')),
+        indecision_margin=float(os.getenv('TRADEBOT_AI_INDECISION_MARGIN', '0.08')),
+        threshold_profile=os.getenv('TRADEBOT_AI_THRESHOLD_PROFILE', 'runtime_settings'),
     )
     return create_ai_service(provider)

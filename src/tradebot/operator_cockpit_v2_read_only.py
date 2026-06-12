@@ -20,6 +20,14 @@ from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, Sequence
 from urllib.parse import urlparse
 
+from .hyp005_r1_canonical_epoch_contract import (
+    CANONICAL_R1_REPORTS_DIR,
+    CANONICAL_R1_TASK_NAME,
+    LEGACY_R1_REPORTS_DIR,
+    LEGACY_R1_TASK_NAME,
+    resolve_active_reports_dir,
+)
+
 OPERATOR_COCKPIT_V2_CONTRACT_VERSION = "4B.4.3.6.6.26A"
 OPERATOR_COCKPIT_V2_READ_ONLY = True
 OPERATOR_COCKPIT_V2_VISUAL_UX_FOUNDATION = True
@@ -46,10 +54,12 @@ MAX_OPERATOR_COCKPIT_EVIDENCE_PACK_BYTES = 12 * 1024 * 1024
 OPERATOR_COCKPIT_V2_NO_CONFIG_MUTATION = True
 OPERATOR_COCKPIT_V2_NO_SCHEDULER_MUTATION = True
 OPERATOR_COCKPIT_V2_NO_TRADING_ACTION = True
+OPERATOR_COCKPIT_V2_CANONICAL_EPOCH_HARDENING_VERSION = "4B.4.3.6.6.25AE-H5"
+OPERATOR_COCKPIT_V2_CANONICAL_SOURCE_PREFERRED_WITH_LEGACY_FALLBACK = True
 
-DEFAULT_R1_REPORTS_DIR = Path("reports") / "hyp005_r1_isolated"
+DEFAULT_R1_REPORTS_DIR = LEGACY_R1_REPORTS_DIR
 BASELINE_TASK_NAME = "TradeBot_HYP005_NoOrderShadowCollection"
-R1_TASK_NAME = "TradeBot_HYP005_R1_NoOrderShadowCollection"
+R1_TASK_NAME = LEGACY_R1_TASK_NAME
 DEFAULT_BACKEND_HEALTH_URL = "http://127.0.0.1:8000/health"
 
 SAFE_EXPORT_SOURCE_PATTERNS: dict[str, tuple[str, str, str]] = {
@@ -198,7 +208,7 @@ def _safe_latest_export_source(project_root: Path, kind: str) -> Path | None:
     spec = SAFE_EXPORT_SOURCE_PATTERNS.get(kind)
     if spec is None:
         return None
-    reports_dir = (project_root.resolve() / DEFAULT_R1_REPORTS_DIR).resolve()
+    reports_dir = resolve_active_reports_dir(project_root)
     latest = _latest_file(reports_dir, spec[0])
     if latest is None:
         return None
@@ -666,7 +676,7 @@ def collect_operator_cockpit_snapshot(
 ) -> JsonObject:
     """Build a read-only operator snapshot without changing config, scheduler or trading state."""
     root = project_root.resolve()
-    reports_dir = root / DEFAULT_R1_REPORTS_DIR
+    reports_dir = resolve_active_reports_dir(root)
     latest_25v = _latest_file(reports_dir, "4B436625V_hyp005_shadow_observation_logger_*.json")
     latest_25x = _latest_file(reports_dir, "4B436625X_hyp005_shadow_collection_orchestrator_*.json")
     latest_25y = _latest_file(reports_dir, "4B436625Y_hyp005_shadow_operator_daily_audit_*.json")
@@ -677,7 +687,8 @@ def collect_operator_cockpit_snapshot(
     rows = _read_jsonl(latest_merged)
     query = task_query or _default_task_query
     baseline_task = dict(query(BASELINE_TASK_NAME))
-    r1_task = dict(query(R1_TASK_NAME))
+    active_r1_task_name = CANONICAL_R1_TASK_NAME if reports_dir == (root / CANONICAL_R1_REPORTS_DIR).resolve() else R1_TASK_NAME
+    r1_task = dict(query(active_r1_task_name))
     backend = dict((backend_probe or _default_backend_probe)(backend_health_url))
     performance = _performance(rows)
     cluster = _worst_cluster(rows, performance)
@@ -702,7 +713,7 @@ def collect_operator_cockpit_snapshot(
             latest_25x_collection=_relative_or_name(latest_25x, root),
             latest_25y_audit=_relative_or_name(latest_25y, root),
             latest_merged_ledger=_relative_or_name(latest_merged, root),
-            r1_reports_dir=str(DEFAULT_R1_REPORTS_DIR),
+            r1_reports_dir=_relative_or_name(reports_dir, root) or str(DEFAULT_R1_REPORTS_DIR),
         )),
         "backend": backend,
         "scheduler": {"baseline_task": baseline_task, "r1_task": r1_task},

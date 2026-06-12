@@ -17,12 +17,15 @@ from .model_quality import ModelQualityMonitor, build_quality_sample, config_fro
 from .model_quality_gate import build_runtime_model_quality_gate
 from .performance import append_trade, close_trade_record, config_from_settings as performance_config_from_settings, new_entry_record, summarize_performance, update_open_trade_on_partial_exit
 from .order_reconciliation import ORDER_RECONCILIATION_CONTRACT_VERSION, build_reconciliation_snapshot
+from .order_preflight import OrderPreflightError, risk_reducing_exit_preflight_snapshot
 from .models import Balance, ExitIntent, PendingOrder, Position, RuntimeState, SignalDecision
 from .persistence import SQLiteStore
 from .risk import build_risk_plan
+from .position_sizing import PositionSizingError, build_entry_sizing_decision
 from .state_machine import transition
 from .strategy import build_signal_key, effective_auto_signal, evaluate_technical_strategy, normalize_signal_with_ai
 from .ai.provider import XGBoostSignalProvider
+from .ai.decision_contract import decision_contract_from_settings
 from .utils import infer_dust, is_effective_zero, round_down_to_step, round_price_to_tick, stable_hash, utc_ms
 
 
@@ -44,7 +47,8 @@ class TradeBotEngine:
         self._closed_candles = []
         self._latest_book: dict[str, Any] = {}
         self.symbol_rules = None
-        self.ai_provider = XGBoostSignalProvider(settings.ai_model_path, threshold=settings.ai_confidence_threshold) if settings.ai_provider_enabled and settings.ai_provider_mode == 'local_xgboost' else None
+        startup_ai_contract = decision_contract_from_settings(settings)
+        self.ai_provider = XGBoostSignalProvider(settings.ai_model_path, **startup_ai_contract.threshold_kwargs()) if settings.ai_provider_enabled and settings.ai_provider_mode == 'local_xgboost' else None
         self.model_quality_monitor = ModelQualityMonitor(config_from_settings(settings))
         self._last_model_quality_event_key = None
         self._save_runtime()
@@ -454,18 +458,44 @@ class TradeBotEngine:
                 return
             price_ref = (getattr(self, '_latest_book', {}) or {}).get('bestBid') or (getattr(self, '_closed_candles', [])[-1].close if getattr(self, '_closed_candles', []) else 0.0)
             price = round_price_to_tick(float(price_ref), self.symbol_rules.tick_size)
-            target_notional = min(self.settings.order_notional_usd, quote.free)
-            qty = round_down_to_step(target_notional / price, self.symbol_rules.step_size) if price > 0 else 0.0
-            if qty < self.symbol_rules.min_qty or qty * price < self.symbol_rules.min_notional * self.settings.min_notional_buffer_multiplier:
-                self.logger.warn('ENTRY_BLOCKED', 'Giriş emri minNotional/minQty nedeniyle engellendi', {'skipCode': 'MIN_NOTIONAL_BLOCKED', 'qty': qty, 'price': price, 'freeQuote': quote.free})
+            try:
+                sizing = build_entry_sizing_decision(
+                    settings=self.settings,
+                    symbol_rules=self.symbol_rules,
+                    free_quote_balance=quote.free,
+                    reference_price=price,
+                )
+            except PositionSizingError as error:
+                self.logger.warn('ENTRY_BLOCKED', 'Giriş miktarı fail-closed sizing kontratı tarafından engellendi', {
+                    'skipCode': error.reason_code,
+                    'price': price,
+                    'freeQuote': quote.free,
+                    'sizingMode': self.settings.sizing_mode,
+                    'sizingContractVersion': '4B.4.3.6.6.27F',
+                })
                 return
+            target_notional = sizing.quote_budget
+            qty = sizing.quantity
+            self.logger.info('ENTRY_SIZING_VERIFIED', 'Giriş miktarı fail-closed sizing kontratı ile doğrulandı', sizing.to_dict())
             client_id = self._build_client_order_id('TBBMO')
             if source == 'AUTO_SIGNAL':
                 self.logger.info('AUTO_ENTRY_ACCEPTED', 'Otomatik giriş sinyali kabul edildi', signal_meta or {})
                 self.runtime.auto_guard = f'BUY | key={signal_meta.get("signalKey", "-")} | {datetime.now().strftime("%H:%M:%S")}' if signal_meta else self.runtime.auto_guard
                 self.runtime.auto_debug = f"AUTO_ENTRY_ACCEPTED | {(signal_meta or {}).get('signalReason', '')}"
+            try:
+                preflight = await self.exchange.run_entry_order_preflight(
+                    symbol=self.settings.symbol,
+                    quantity=qty,
+                    price=price,
+                    client_order_id=client_id,
+                )
+            except OrderPreflightError as error:
+                self.runtime.last_preflight = f'BLOCKED | ENTRY | {error.code} | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
+                self.logger.warn('LIVE_PREFLIGHT_BLOCKED', 'Canlı giriş emri preflight tarafından engellendi', {**error.to_log_payload(),'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
+                self._save_runtime()
+                return
             self.runtime.last_preflight = f'OK | ENTRY | {self.settings.execution_mode.upper()} | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
-            self.logger.info('LIVE_PREFLIGHT_OK', 'Canlı emir preflight başarılı', {'action': 'ENTRY','openOrdersCount': 0,'orderTestOk': True,'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
+            self.logger.info('LIVE_PREFLIGHT_OK', 'Canlı emir preflight başarılı', {**preflight,'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
             order = await self.exchange.create_limit_order(symbol=self.settings.symbol, side='BUY', quantity=qty, price=price, client_order_id=client_id)
             self.runtime.pending = PendingOrder(side='BUY', price=price, qty=qty, status=order.get('status', 'NEW'), order_id=str(order.get('orderId')) if order.get('orderId') is not None else None, client_order_id=client_id, source=source, submitted_at=utc_ms(), remaining_qty=qty)
             prev = self.runtime.state
@@ -473,7 +503,7 @@ class TradeBotEngine:
             self.runtime.last_order_event = f'BUY pending @ {price} qty {qty} [passive/bid]'
             self.runtime.entry_lock_until = utc_ms() + (self.settings.auto_trade_cooldown_sec * 1000)
             self.logger.info('STATE_CHANGED', f'{prev} -> BUY_PENDING', {'reason': 'ENTRY_ORDER_SUBMITTED'})
-            self.logger.info('ORDER_SUBMITTED', 'Giriş emri oluşturuldu', {'freeQuote': quote.free,'minNotional': self.symbol_rules.min_notional * self.settings.min_notional_buffer_multiplier,'mode': self.settings.execution_mode,'notional': round(qty * price, 6),'price': price,'priceMode': self.settings.force_entry_price_mode,'priceRef': 'bid','priceRefValue': price_ref,'qty': qty,'quoteAsset': self.symbol_rules.quote_asset,'side': 'BUY','sizingMode': self.settings.sizing_mode,'source': source,'targetNotional': self.settings.order_notional_usd})
+            self.logger.info('ORDER_SUBMITTED', 'Giriş emri oluşturuldu', {'freeQuote': quote.free,'minNotional': self.symbol_rules.min_notional * self.settings.min_notional_buffer_multiplier,'mode': self.settings.execution_mode,'notional': round(qty * price, 6),'price': price,'priceMode': self.settings.force_entry_price_mode,'priceRef': 'bid','priceRefValue': price_ref,'qty': qty,'quoteAsset': self.symbol_rules.quote_asset,'side': 'BUY','sizingMode': sizing.sizing_mode,'sizingContractVersion': sizing.contract_version,'source': source,'targetNotional': target_notional,'sizingSnapshot': sizing.to_dict()})
             self._save_runtime()
 
 
@@ -504,8 +534,9 @@ class TradeBotEngine:
             if qty < self.symbol_rules.min_qty or qty * price < self.symbol_rules.min_notional * self.settings.min_notional_buffer_multiplier:
                 self.logger.warn('EXIT_BLOCKED', 'Çıkış emri minNotional/minQty nedeniyle engellendi', {'skipCode': 'MIN_NOTIONAL_BLOCKED', 'qty': qty, 'price': price, 'notional': qty * price})
                 return
-            self.runtime.last_preflight = f'OK | EXIT | {self.settings.execution_mode.upper()} | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
-            self.logger.info('LIVE_PREFLIGHT_OK', 'Canlı emir preflight başarılı', {'action': 'EXIT','openOrdersCount': 0,'orderTestOk': True,'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'SELL','symbol': self.settings.symbol})
+            exit_preflight = risk_reducing_exit_preflight_snapshot(symbol=self.settings.symbol).to_log_payload()
+            self.runtime.last_preflight = f'OK | EXIT | POLICY_ONLY | {self.settings.execution_mode.upper()} | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
+            self.logger.info('LIVE_PREFLIGHT_OK', 'Risk azaltıcı çıkış policy preflight başarılı', {**exit_preflight,'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'SELL','symbol': self.settings.symbol})
             client_id = self._build_client_order_id('TBSMO')
             if source == 'AUTO_SIGNAL':
                 self.logger.info('AUTO_EXIT_TRIGGERED', 'Otomatik çıkış sinyali tetiklendi', signal_meta or {})

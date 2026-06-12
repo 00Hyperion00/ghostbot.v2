@@ -18,11 +18,13 @@ from .class_balance import build_sample_weights, serialize_class_weight_map
 from .dataset_manifest import build_dataset_manifest, write_dataset_manifest
 from .feature_schema import write_feature_schema
 from .labeling import ATRLabelConfig, build_cost_aware_atr_targets
+from .candle_budget import TRAINING_CANDLE_BUDGET_VERSION, build_training_candle_budget
 
 
 def fetch_klines(symbol: str, interval: str, days: int, base_url: str = 'https://api.binance.com') -> pd.DataFrame:
     candles_per_call = 1000
-    total_candles = days * 24 * 60
+    budget = build_training_candle_budget(interval, days)
+    total_candles = budget.requested_candles
     all_klines = []
     end_time = int(time.time() * 1000)
     while len(all_klines) < total_candles:
@@ -36,7 +38,8 @@ def fetch_klines(symbol: str, interval: str, days: int, base_url: str = 'https:/
         end_time = data[0][0] - 1
         time.sleep(0.2)
     df = pd.DataFrame(all_klines, columns=['open_time','open','high','low','close','volume','close_time','quote_volume','trades','taker_base','taker_quote','ignore'])
-    return df[['open_time','close_time','open','high','low','close','volume','quote_volume']].astype(float)
+    frame = df[['open_time','close_time','open','high','low','close','volume','quote_volume']].astype(float)
+    return frame.tail(total_candles).reset_index(drop=True)
 
 
 def _ensure_training_matrix(
@@ -177,6 +180,8 @@ def train(
         'symbol': symbol,
         'interval': interval,
         'days': days,
+        'training_candle_budget_contract_version': TRAINING_CANDLE_BUDGET_VERSION,
+        'training_candle_budget': build_training_candle_budget(interval, days).to_dict(),
         'accuracy': float(acc),
         'calibrated_accuracy': float(calibrated_acc),
         'output': out_path.as_posix(),

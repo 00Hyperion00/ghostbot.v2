@@ -1,0 +1,19 @@
+4B.4.3.6.6.27C-H1
+Binance Demo Authenticated No-Order Preflight Probe / Evidence Export / Fail-Closed Runtime Verification
+
+Apply-time created file:
+- src/tradebot/binance_demo_authenticated_no_order_preflight.py
+
+Safety:
+- spot_demo + live_demo only
+- explicit operator flags required
+- GET /api/v3/openOrders permitted
+- POST /api/v3/order/test permitted
+- POST /api/v3/order forbidden
+- evidence secrets redacted
+- no config mutation
+- no scheduler mutation
+- no trading action
+- transactional apply restore
+- idempotent apply
+- created-file rollback marker

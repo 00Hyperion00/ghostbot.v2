@@ -14,6 +14,8 @@ import json
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
+from .hyp005_shadow_observation_identity import canonical_event_key, normalize_observation_identity
+
 HYP005_SHADOW_COLLECTION_ORCHESTRATOR_CONTRACT_VERSION = "4B.4.3.6.6.25X"
 HYP005_SHADOW_COLLECTION_READY = "HYP005_SHADOW_COLLECTION_ORCHESTRATOR_READY"
 HYP005_SHADOW_COLLECTION_BLOCK = "HYP005_SHADOW_COLLECTION_ORCHESTRATOR_BLOCK"
@@ -309,14 +311,8 @@ def load_observations_from_jsonl(path: str | Path) -> list[dict[str, Any]]:
 
 
 def observation_key(row: Mapping[str, Any]) -> tuple[str, ...]:
-    return (
-        str(row.get("timestamp_utc") or row.get("timestamp") or row.get("open_time") or ""),
-        str(row.get("symbol") or ""),
-        str(row.get("timeframe") or row.get("interval") or ""),
-        str(row.get("strategy_family") or row.get("signal_family") or ""),
-        str(row.get("sweep_direction") or ""),
-        str(row.get("entry_reference_price") or row.get("entry_reference") or ""),
-    )
+    """Return the canonical HYP-005 event identity; market-price drift must not create a new sample."""
+    return (canonical_event_key(row),)
 
 
 def merge_observations(observation_sets: Iterable[Iterable[Mapping[str, Any]]]) -> tuple[list[dict[str, Any]], int]:
@@ -325,7 +321,7 @@ def merge_observations(observation_sets: Iterable[Iterable[Mapping[str, Any]]]) 
     duplicate_count = 0
     for observations in observation_sets:
         for raw_row in observations:
-            row = dict(raw_row)
+            row = normalize_observation_identity(raw_row)
             key = observation_key(row)
             if key in seen:
                 duplicate_count += 1

@@ -1,0 +1,23 @@
+4B.4.3.6.6.27D
+Interval-Aware Training Candle Budget / Historical Range Accuracy Hardening
+
+Overlay files:
+- tools/_patch_payload/training_candle_budget_4B436627D.py
+- tools/apply_4B436627D_interval_aware_training_candle_budget.py
+- tools/rollback_4B436627D_interval_aware_training_candle_budget.py
+- tools/check_interval_aware_training_candle_budget_4B436627D.py
+- tests/test_interval_aware_training_candle_budget_4B436627D.py
+- docs/INTERVAL_AWARE_TRAINING_CANDLE_BUDGET_4B436627D.md
+- docs/PATCH_MANIFEST_4B436627D.txt
+
+Apply-time active files:
+- src/tradebot/training/candle_budget.py
+- src/tradebot/training/train_xgb.py
+
+Safety:
+- No training execution.
+- No scheduler mutation.
+- No config mutation.
+- No model reload.
+- No paper/live enablement.
+- No order action.

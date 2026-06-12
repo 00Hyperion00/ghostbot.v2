@@ -48,6 +48,8 @@ class Settings:
     min_notional_buffer_multiplier: float = 1.10
     sizing_mode: str = "fixed_quote"
     risk_percent_quote_balance: float = 2.5
+    quote_balance_reserve_usd: float = 0.0
+    max_quote_budget_usd: float = 0.0
 
     force_entry_price_mode: str = "passive"
     force_exit_price_mode: str = "aggressive"
@@ -87,6 +89,7 @@ class Settings:
     ai_hold_band_low: float = 0.45
     ai_hold_band_high: float = 0.55
     ai_indecision_margin: float = 0.08
+    ai_threshold_profile: str = "runtime_settings"
 
     model_quality_enabled: bool = True
     model_quality_window_size: int = 200

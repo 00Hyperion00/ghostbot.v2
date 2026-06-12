@@ -51,6 +51,12 @@ def main() -> None:
     ai_p = sub.add_parser('ai-service')
     ai_p.add_argument('--model-path', required=True)
     ai_p.add_argument('--threshold', type=float, default=0.60)
+    ai_p.add_argument('--buy-threshold', type=float, default=0.64)
+    ai_p.add_argument('--sell-threshold', type=float, default=0.57)
+    ai_p.add_argument('--hold-band-low', type=float, default=0.45)
+    ai_p.add_argument('--hold-band-high', type=float, default=0.55)
+    ai_p.add_argument('--indecision-margin', type=float, default=0.08)
+    ai_p.add_argument('--threshold-profile', default='runtime_settings')
     ai_p.add_argument('--host', default='127.0.0.1')
     ai_p.add_argument('--port', default=8000, type=int)
 
@@ -66,7 +72,7 @@ def main() -> None:
 
     args = parser.parse_args()
     if args.cmd == 'ai-service':
-        provider = XGBoostSignalProvider(args.model_path, threshold=args.threshold)
+        provider = XGBoostSignalProvider(args.model_path, threshold=args.threshold, buy_threshold=args.buy_threshold, sell_threshold=args.sell_threshold, hold_band_low=args.hold_band_low, hold_band_high=args.hold_band_high, indecision_margin=args.indecision_margin, threshold_profile=args.threshold_profile)
         app = create_ai_service(provider)
         uvicorn.run(app, host=args.host, port=args.port)
         return

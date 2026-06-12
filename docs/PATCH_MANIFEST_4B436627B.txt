@@ -1,0 +1,22 @@
+4B.4.3.6.6.27B
+Exchange-Level Fail-Closed Execution Policy Gate
+
+Overlay files:
+- tools/_patch_payload/execution_policy_4B436627B.py
+- tools/apply_4B436627B_exchange_level_fail_closed_execution_policy_gate.py
+- tools/rollback_4B436627B_exchange_level_fail_closed_execution_policy_gate.py
+- tools/check_execution_policy_gate_4B436627B.py
+- tests/test_execution_policy_gate_4B436627B.py
+- docs/EXCHANGE_LEVEL_FAIL_CLOSED_EXECUTION_POLICY_GATE_4B436627B.md
+- docs/PATCH_MANIFEST_4B436627B.txt
+
+Apply-time patched files:
+- src/tradebot/execution_policy.py
+- src/tradebot/exchange/binance.py
+
+Safety:
+- No scheduler configuration mutation.
+- No runtime config mutation.
+- No training or model reload.
+- No paper/live enablement.
+- No order action.
