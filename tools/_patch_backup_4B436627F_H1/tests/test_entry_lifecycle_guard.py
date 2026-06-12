@@ -7,7 +7,6 @@ from datetime import datetime, timezone
 import pytest
 
 from tradebot.engine import TradeBotEngine
-from tradebot.order_preflight import successful_entry_preflight_snapshot
 from tradebot.models import Balance, Candle, PendingOrder, RuntimeState, SymbolRules
 
 
@@ -30,9 +29,6 @@ class DummyExchange:
     def __init__(self, *, delay: float = 0.0) -> None:
         self.delay = delay
         self.create_calls = 0
-
-    async def run_entry_order_preflight(self, *, symbol: str, **kwargs):
-        return successful_entry_preflight_snapshot(symbol=symbol, open_orders_count=0).to_log_payload()
 
     async def create_limit_order(self, **kwargs):
         self.create_calls += 1

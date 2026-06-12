@@ -7,19 +7,6 @@ from typing import Any
 POSITION_SIZING_CONTRACT_VERSION = "4B.4.3.6.6.27F"
 SUPPORTED_SIZING_MODES = frozenset({"fixed_quote", "risk_percent_quote_balance"})
 LEGACY_SIZING_MODE_ALIASES = {"risk_percent": "risk_percent_quote_balance"}
-STABLE_ENTRY_SKIP_CODE_COMPAT_VERSION = "4B.4.3.6.6.27F-H1"
-
-_INSUFFICIENT_QUOTE_BALANCE_REASONS = frozenset({
-    "SIZING_QUOTE_BALANCE_NON_POSITIVE",
-    "SIZING_USABLE_QUOTE_BALANCE_NON_POSITIVE",
-    "SIZING_QUOTE_BUDGET_EXCEEDS_AVAILABLE_BALANCE",
-})
-_MIN_NOTIONAL_BLOCK_REASONS = frozenset({
-    "SIZING_QUOTE_BUDGET_BELOW_MIN_NOTIONAL",
-    "SIZING_QUANTITY_ROUNDED_TO_ZERO",
-    "SIZING_QUANTITY_BELOW_MIN_QTY",
-    "SIZING_ORDER_NOTIONAL_BELOW_BUFFERED_MIN_NOTIONAL",
-})
 
 
 class PositionSizingError(ValueError):
@@ -28,16 +15,6 @@ class PositionSizingError(ValueError):
     def __init__(self, reason_code: str, message: str | None = None) -> None:
         self.reason_code = reason_code
         super().__init__(message or reason_code)
-
-
-def stable_entry_skip_code_for_sizing_error(reason_code: str) -> str:
-    """Map internal sizing diagnostics to the stable external entry-block contract."""
-    normalized = str(reason_code or "").strip()
-    if normalized in _INSUFFICIENT_QUOTE_BALANCE_REASONS:
-        return "INSUFFICIENT_QUOTE_BALANCE"
-    if normalized in _MIN_NOTIONAL_BLOCK_REASONS:
-        return "MIN_NOTIONAL_BLOCKED"
-    return "ENTRY_SIZING_BLOCKED"
 
 
 def _decimal(value: object, *, field: str) -> Decimal:

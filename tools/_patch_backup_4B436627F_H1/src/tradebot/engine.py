@@ -17,11 +17,11 @@ from .model_quality import ModelQualityMonitor, build_quality_sample, config_fro
 from .model_quality_gate import build_runtime_model_quality_gate
 from .performance import append_trade, close_trade_record, config_from_settings as performance_config_from_settings, new_entry_record, summarize_performance, update_open_trade_on_partial_exit
 from .order_reconciliation import ORDER_RECONCILIATION_CONTRACT_VERSION, build_reconciliation_snapshot
-from .order_preflight import OrderPreflightError, blocked_entry_preflight_snapshot, risk_reducing_exit_preflight_snapshot
+from .order_preflight import OrderPreflightError, risk_reducing_exit_preflight_snapshot
 from .models import Balance, ExitIntent, PendingOrder, Position, RuntimeState, SignalDecision
 from .persistence import SQLiteStore
 from .risk import build_risk_plan
-from .position_sizing import PositionSizingError, build_entry_sizing_decision, stable_entry_skip_code_for_sizing_error
+from .position_sizing import PositionSizingError, build_entry_sizing_decision
 from .state_machine import transition
 from .strategy import build_signal_key, effective_auto_signal, evaluate_technical_strategy, normalize_signal_with_ai
 from .ai.provider import XGBoostSignalProvider
@@ -467,13 +467,11 @@ class TradeBotEngine:
                 )
             except PositionSizingError as error:
                 self.logger.warn('ENTRY_BLOCKED', 'Giriş miktarı fail-closed sizing kontratı tarafından engellendi', {
-                    'skipCode': stable_entry_skip_code_for_sizing_error(error.reason_code),
-                    'sizingReasonCode': error.reason_code,
+                    'skipCode': error.reason_code,
                     'price': price,
                     'freeQuote': quote.free,
                     'sizingMode': self.settings.sizing_mode,
                     'sizingContractVersion': '4B.4.3.6.6.27F',
-                    'skipCodeCompatVersion': '4B.4.3.6.6.27F-H1',
                 })
                 return
             target_notional = sizing.quote_budget
@@ -484,23 +482,6 @@ class TradeBotEngine:
                 self.logger.info('AUTO_ENTRY_ACCEPTED', 'Otomatik giriş sinyali kabul edildi', signal_meta or {})
                 self.runtime.auto_guard = f'BUY | key={signal_meta.get("signalKey", "-")} | {datetime.now().strftime("%H:%M:%S")}' if signal_meta else self.runtime.auto_guard
                 self.runtime.auto_debug = f"AUTO_ENTRY_ACCEPTED | {(signal_meta or {}).get('signalReason', '')}"
-            entry_preflight = getattr(self.exchange, 'run_entry_order_preflight', None)
-            if not callable(entry_preflight):
-                unavailable = blocked_entry_preflight_snapshot(
-                    symbol=self.settings.symbol,
-                    reason_code='PREFLIGHT_ADAPTER_UNAVAILABLE',
-                    message='Entry preflight adapter unavailable; new-risk entry denied',
-                    open_orders_check_performed=False,
-                    open_orders_count=None,
-                    order_test_performed=False,
-                    order_test_ok=None,
-                    policy_check_performed=False,
-                    policy_allowed=None,
-                ).to_log_payload()
-                self.runtime.last_preflight = f'BLOCKED | ENTRY | PREFLIGHT_ADAPTER_UNAVAILABLE | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
-                self.logger.warn('LIVE_PREFLIGHT_BLOCKED', 'Canlı giriş emri preflight adaptörü bulunamadığı için engellendi', {**unavailable,'causeReasonCode': 'ENTRY_PREFLIGHT_ADAPTER_UNAVAILABLE','notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
-                self._save_runtime()
-                return
             try:
                 preflight = await self.exchange.run_entry_order_preflight(
                     symbol=self.settings.symbol,
@@ -511,22 +492,6 @@ class TradeBotEngine:
             except OrderPreflightError as error:
                 self.runtime.last_preflight = f'BLOCKED | ENTRY | {error.code} | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
                 self.logger.warn('LIVE_PREFLIGHT_BLOCKED', 'Canlı giriş emri preflight tarafından engellendi', {**error.to_log_payload(),'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
-                self._save_runtime()
-                return
-            except Exception as error:
-                failed = blocked_entry_preflight_snapshot(
-                    symbol=self.settings.symbol,
-                    reason_code='PREFLIGHT_ADAPTER_CALL_FAILED',
-                    message='Entry preflight adapter call failed; new-risk entry denied',
-                    open_orders_check_performed=False,
-                    open_orders_count=None,
-                    order_test_performed=False,
-                    order_test_ok=None,
-                    policy_check_performed=False,
-                    policy_allowed=None,
-                ).to_log_payload()
-                self.runtime.last_preflight = f'BLOCKED | ENTRY | PREFLIGHT_ADAPTER_CALL_FAILED | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
-                self.logger.warn('LIVE_PREFLIGHT_BLOCKED', 'Canlı giriş emri preflight adaptör hatası nedeniyle engellendi', {**failed,'causeReasonCode': type(error).__name__,'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
                 self._save_runtime()
                 return
             self.runtime.last_preflight = f'OK | ENTRY | {self.settings.execution_mode.upper()} | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
