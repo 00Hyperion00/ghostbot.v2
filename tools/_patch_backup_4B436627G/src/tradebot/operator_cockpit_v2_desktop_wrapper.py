@@ -120,8 +120,6 @@ NATIVE_DESKTOP_ACTIONS: dict[str, NativeDesktopActionSpec] = {
     "OPEN_LATEST_AUDIT_JSON": NativeDesktopActionSpec("OPEN_LATEST_AUDIT_JSON", "/api/operator-cockpit-v2/view/latest-audit.json", "latest-25y-audit.json", "text", MAX_NATIVE_DESKTOP_TEXT_VIEW_BYTES),
     "OPEN_ACTION_MANIFEST": NativeDesktopActionSpec("OPEN_ACTION_MANIFEST", "/api/operator-cockpit-v2/actions/manifest", "safe-actions-manifest.json", "text", MAX_NATIVE_DESKTOP_TEXT_VIEW_BYTES),
     "DOWNLOAD_EVIDENCE_PACK_ZIP": NativeDesktopActionSpec("DOWNLOAD_EVIDENCE_PACK_ZIP", "/api/operator-cockpit-v2/export/evidence-pack.zip", "operator-cockpit-evidence-pack.zip", "download", MAX_NATIVE_DESKTOP_EXPORT_BYTES, DEFAULT_NATIVE_EVIDENCE_PACK_TIMEOUT_SECONDS),
-    "OPEN_RISK_SIZING_RUNTIME_TELEMETRY_JSON": NativeDesktopActionSpec("OPEN_RISK_SIZING_RUNTIME_TELEMETRY_JSON", "/api/operator-cockpit-v2/view/risk-sizing-runtime-telemetry.json", "risk-sizing-runtime-telemetry.json", "text", MAX_NATIVE_DESKTOP_TEXT_VIEW_BYTES),
-    "DOWNLOAD_RISK_SIZING_EVIDENCE_PACK_ZIP": NativeDesktopActionSpec("DOWNLOAD_RISK_SIZING_EVIDENCE_PACK_ZIP", "/api/operator-cockpit-v2/export/risk-sizing-evidence-pack.zip", "operator-cockpit-risk-sizing-evidence-pack.zip", "download", MAX_NATIVE_DESKTOP_EXPORT_BYTES, DEFAULT_NATIVE_EVIDENCE_PACK_TIMEOUT_SECONDS),
     "DOWNLOAD_MERGED_LEDGER_JSONL": NativeDesktopActionSpec("DOWNLOAD_MERGED_LEDGER_JSONL", "/api/operator-cockpit-v2/export/latest-ledger", "latest-merged-ledger.jsonl", "download", MAX_NATIVE_DESKTOP_EXPORT_BYTES),
 }
 
@@ -512,8 +510,6 @@ NATIVE_DESKTOP_EXPORT_BRIDGE_JS = r"""
     '/api/operator-cockpit-v2/view/latest-audit.json': ['text', 'OPEN_LATEST_AUDIT_JSON'],
     '/api/operator-cockpit-v2/actions/manifest': ['text', 'OPEN_ACTION_MANIFEST'],
     '/api/operator-cockpit-v2/export/evidence-pack.zip': ['download', 'DOWNLOAD_EVIDENCE_PACK_ZIP'],
-    '/api/operator-cockpit-v2/view/risk-sizing-runtime-telemetry.json': ['text', 'OPEN_RISK_SIZING_RUNTIME_TELEMETRY_JSON'],
-    '/api/operator-cockpit-v2/export/risk-sizing-evidence-pack.zip': ['download', 'DOWNLOAD_RISK_SIZING_EVIDENCE_PACK_ZIP'],
     '/api/operator-cockpit-v2/export/latest-ledger': ['download', 'DOWNLOAD_MERGED_LEDGER_JSONL']
   };
   function feedback(message) {

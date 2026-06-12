@@ -100,8 +100,6 @@ def test_26dh2_action_allowlist_is_fixed_and_loopback_base_url_rejects_external_
         "OPEN_LATEST_AUDIT_JSON",
         "OPEN_ACTION_MANIFEST",
         "DOWNLOAD_EVIDENCE_PACK_ZIP",
-        "OPEN_RISK_SIZING_RUNTIME_TELEMETRY_JSON",
-        "DOWNLOAD_RISK_SIZING_EVIDENCE_PACK_ZIP",
         "DOWNLOAD_MERGED_LEDGER_JSONL",
     }
     assert all(spec.endpoint.startswith("/api/operator-cockpit-v2/") for spec in NATIVE_DESKTOP_ACTIONS.values())

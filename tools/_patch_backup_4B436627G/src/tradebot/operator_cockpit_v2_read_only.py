@@ -27,15 +27,6 @@ from .hyp005_r1_canonical_epoch_contract import (
     LEGACY_R1_TASK_NAME,
     resolve_active_reports_dir,
 )
-from .risk_sizing_runtime_telemetry import (
-    RISK_SIZING_EVIDENCE_EXPORT_FAIL_CLOSED,
-    RISK_SIZING_OPERATOR_COCKPIT_AUDIT_PARITY,
-    RISK_SIZING_RUNTIME_TELEMETRY_ENABLED,
-    RISK_SIZING_RUNTIME_TELEMETRY_VERSION,
-    RiskSizingEvidenceExportBlocked,
-    assert_risk_sizing_evidence_export_ready,
-    collect_risk_sizing_runtime_telemetry,
-)
 
 OPERATOR_COCKPIT_V2_CONTRACT_VERSION = "4B.4.3.6.6.26A"
 OPERATOR_COCKPIT_V2_READ_ONLY = True
@@ -65,10 +56,6 @@ OPERATOR_COCKPIT_V2_NO_SCHEDULER_MUTATION = True
 OPERATOR_COCKPIT_V2_NO_TRADING_ACTION = True
 OPERATOR_COCKPIT_V2_CANONICAL_EPOCH_HARDENING_VERSION = "4B.4.3.6.6.25AE-H5"
 OPERATOR_COCKPIT_V2_CANONICAL_SOURCE_PREFERRED_WITH_LEGACY_FALLBACK = True
-OPERATOR_COCKPIT_V2_RISK_SIZING_TELEMETRY_VERSION = RISK_SIZING_RUNTIME_TELEMETRY_VERSION
-OPERATOR_COCKPIT_V2_RISK_SIZING_RUNTIME_TELEMETRY = RISK_SIZING_RUNTIME_TELEMETRY_ENABLED
-OPERATOR_COCKPIT_V2_RISK_SIZING_AUDIT_PARITY = RISK_SIZING_OPERATOR_COCKPIT_AUDIT_PARITY
-OPERATOR_COCKPIT_V2_RISK_SIZING_EVIDENCE_EXPORT_FAIL_CLOSED = RISK_SIZING_EVIDENCE_EXPORT_FAIL_CLOSED
 
 DEFAULT_R1_REPORTS_DIR = LEGACY_R1_REPORTS_DIR
 BASELINE_TASK_NAME = "TradeBot_HYP005_NoOrderShadowCollection"
@@ -244,7 +231,6 @@ def _read_bounded_export_bytes(path: Path, *, max_bytes: int = MAX_OPERATOR_COCK
 def _safe_action_manifest(project_root: Path) -> JsonObject:
     """Describe safe GET-only actions and visibly locked control-plane operations."""
     root = project_root.resolve()
-    telemetry = collect_risk_sizing_runtime_telemetry(root)
     exports: list[JsonObject] = []
     for kind, (_, download_name, content_type) in SAFE_EXPORT_SOURCE_PATTERNS.items():
         source = _safe_latest_export_source(root, kind)
@@ -268,8 +254,6 @@ def _safe_action_manifest(project_root: Path) -> JsonObject:
             {"code": "DOWNLOAD_SNAPSHOT_JSON", "label": "Snapshot JSON indir", "endpoint": "/api/operator-cockpit-v2/export/snapshot.json"},
             {"code": "OPEN_LATEST_AUDIT_JSON", "label": "Son audit JSON aç", "endpoint": "/api/operator-cockpit-v2/view/latest-audit.json"},
             {"code": "DOWNLOAD_EVIDENCE_PACK_ZIP", "label": "Evidence pack indir", "endpoint": "/api/operator-cockpit-v2/export/evidence-pack.zip"},
-            {"code": "OPEN_RISK_SIZING_RUNTIME_TELEMETRY_JSON", "label": "Risk-sizing telemetry JSON aç", "endpoint": "/api/operator-cockpit-v2/view/risk-sizing-runtime-telemetry.json"},
-            {"code": "DOWNLOAD_RISK_SIZING_EVIDENCE_PACK_ZIP", "label": "Risk-sizing evidence pack indir", "endpoint": "/api/operator-cockpit-v2/export/risk-sizing-evidence-pack.zip", "available": telemetry["export_ready"]},
         ],
         "locked": [
             {"code": "EMERGENCY_STOP", "label": "Emergency stop", "reason": "Control-plane entegrasyonu ve ayrı risk incelemesi bekleniyor."},
@@ -280,12 +264,6 @@ def _safe_action_manifest(project_root: Path) -> JsonObject:
             {"code": "SYMBOL_SET_MUTATION", "label": "Sembol seti değiştir", "reason": "Branch gate kararı ve ayrı patch gerektirir."},
         ],
         "exports": exports,
-        "risk_sizing_evidence_export_gate": {
-            "contract_version": telemetry["contract_version"],
-            "available": telemetry["export_ready"],
-            "fail_closed": True,
-            "blockers": telemetry["export_blockers"],
-        },
     }
 
 
@@ -314,29 +292,6 @@ def _build_in_memory_evidence_pack(
                 raise ValueError("OPERATOR_COCKPIT_EVIDENCE_PACK_TOO_LARGE")
             archive.writestr(f"operator-cockpit/sources/{download_name}", payload)
     return output.getvalue()
-
-
-def _build_risk_sizing_in_memory_evidence_pack(
-    project_root: Path,
-    *,
-    task_query: TaskQuery | None = None,
-    backend_probe: BackendProbe | None = None,
-) -> bytes:
-    """Build additive risk-sizing evidence only when runtime telemetry is audit-complete."""
-    root = project_root.resolve()
-    telemetry = collect_risk_sizing_runtime_telemetry(root)
-    assert_risk_sizing_evidence_export_ready(telemetry)
-    snapshot = collect_operator_cockpit_snapshot(root, task_query=task_query, backend_probe=backend_probe)
-    manifest = _safe_action_manifest(root)
-    output = io.BytesIO()
-    with zipfile.ZipFile(output, mode="w", compression=zipfile.ZIP_DEFLATED) as archive:
-        archive.writestr("operator-cockpit/snapshot.json", json.dumps(snapshot, ensure_ascii=False, indent=2).encode("utf-8"))
-        archive.writestr("operator-cockpit/safe-actions-manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2).encode("utf-8"))
-        archive.writestr("operator-cockpit/risk-sizing-runtime-telemetry.json", json.dumps(telemetry, ensure_ascii=False, indent=2).encode("utf-8"))
-    payload = output.getvalue()
-    if len(payload) > MAX_OPERATOR_COCKPIT_EVIDENCE_PACK_BYTES:
-        raise ValueError("OPERATOR_COCKPIT_EVIDENCE_PACK_TOO_LARGE")
-    return payload
 
 
 def _relative_or_name(path: Path | None, root: Path) -> str | None:
@@ -744,7 +699,6 @@ def collect_operator_cockpit_snapshot(
     progress_pct = _as_float(audit.get("progress_pct"))
     if progress_pct is None:
         progress_pct = round(min(sample_count / sample_target, 1.0) * 100, 6)
-    risk_sizing_telemetry = collect_risk_sizing_runtime_telemetry(root)
     return {
         "contract_version": OPERATOR_COCKPIT_V2_CONTRACT_VERSION,
         "visualization_pack_version": OPERATOR_COCKPIT_V2_VISUALIZATION_PACK_VERSION,
@@ -789,7 +743,6 @@ def collect_operator_cockpit_snapshot(
         "model": asdict(model),
         "visualizations": _visualizations(rows, performance, cluster),
         "safe_operator_actions": _safe_action_manifest(root),
-        "risk_sizing_runtime_telemetry": risk_sizing_telemetry,
         "operator_guidance": "Müdahale gerekmez. No-order shadow collection otomatik devam ediyor." if sample_count < sample_target else "Shadow hedefi tamamlandı. Bir sonraki audit gate değerlendirilmelidir.",
     }
 
@@ -834,7 +787,7 @@ DASHBOARD_HTML = r'''<!doctype html>
 <section id="logs" class="section"><div class="section-head"><div><h2>Audit Kaynakları</h2><small>Developer detayları ayrı tutulur.</small></div></div><details><summary class="btn">Kaynak yollarını göster</summary><pre id="sources" class="placeholder"></pre></details></section>
 </div><div>
 <section id="risk" class="section"><div class="section-head"><div><h2>Risk Merkezi</h2><small>Kritik bilgi önce; ayrıntı gerektiğinde.</small></div></div><div class="risk-list" id="risk-list"></div></section>
-<section id="actions" class="section"><div class="section-head"><div><h2>Güvenli Operatör Aksiyonları</h2><small>Yalnızca GET tabanlı görünürlük ve dışa aktarma.</small></div><span class="overview-badge">26C · GET ONLY</span></div><div class="action-grid"><button class="action-btn" id="action-backend-probe" type="button">Backend Probe Tekrarla</button><a class="action-btn" href="/api/operator-cockpit-v2/export/snapshot.json">Snapshot JSON İndir</a><a class="action-btn" href="/api/operator-cockpit-v2/view/latest-audit.json" target="_blank" rel="noopener">Son Audit JSON Aç</a><a class="action-btn" href="/api/operator-cockpit-v2/actions/manifest" target="_blank" rel="noopener">Kaynak Manifestini Aç</a><a class="action-btn" href="/api/operator-cockpit-v2/export/evidence-pack.zip">Evidence Pack ZIP İndir</a><a class="action-btn" href="/api/operator-cockpit-v2/view/risk-sizing-runtime-telemetry.json" target="_blank" rel="noopener">Risk-Sizing Telemetry JSON Aç</a><a class="action-btn" href="/api/operator-cockpit-v2/export/risk-sizing-evidence-pack.zip">Risk-Sizing Evidence ZIP İndir</a><a class="action-btn" href="/api/operator-cockpit-v2/export/latest-ledger">Merged Ledger İndir</a></div><div class="action-feedback" id="action-feedback">Aksiyonlar yalnızca local GET istekleridir; config, scheduler ve trading state değiştirilmez.</div><div class="locked-actions" id="locked-actions"></div></section>
+<section id="actions" class="section"><div class="section-head"><div><h2>Güvenli Operatör Aksiyonları</h2><small>Yalnızca GET tabanlı görünürlük ve dışa aktarma.</small></div><span class="overview-badge">26C · GET ONLY</span></div><div class="action-grid"><button class="action-btn" id="action-backend-probe" type="button">Backend Probe Tekrarla</button><a class="action-btn" href="/api/operator-cockpit-v2/export/snapshot.json">Snapshot JSON İndir</a><a class="action-btn" href="/api/operator-cockpit-v2/view/latest-audit.json" target="_blank" rel="noopener">Son Audit JSON Aç</a><a class="action-btn" href="/api/operator-cockpit-v2/actions/manifest" target="_blank" rel="noopener">Kaynak Manifestini Aç</a><a class="action-btn" href="/api/operator-cockpit-v2/export/evidence-pack.zip">Evidence Pack ZIP İndir</a><a class="action-btn" href="/api/operator-cockpit-v2/export/latest-ledger">Merged Ledger İndir</a></div><div class="action-feedback" id="action-feedback">Aksiyonlar yalnızca local GET istekleridir; config, scheduler ve trading state değiştirilmez.</div><div class="locked-actions" id="locked-actions"></div></section>
 <section id="scheduler" class="section"><div class="section-head"><div><h2>Scheduler</h2><small>Baseline kapalı, R1 aktif kalmalı.</small></div></div><div class="scheduler" id="scheduler-lines"></div></section>
 <section class="section"><div class="section-head"><div><h2>Worst Timestamp Cluster</h2><small>Market-wide tail risk erken görünümü</small></div></div><div class="metric-row" style="grid-template-columns:repeat(2,1fr)"><div class="metric"><div class="label">Timestamp</div><strong id="cluster-time">—</strong></div><div class="metric"><div class="label">Gross Loss Payı</div><strong id="cluster-share">—</strong></div></div><p class="hint" id="cluster-detail">—</p></section>
 <section id="model" class="section"><div class="section-head"><div><h2>Model ve Strateji</h2><small>Model yalnızca okunur; reload aksiyonu yoktur.</small></div></div><div class="scheduler" id="model-lines"></div></section>
@@ -947,21 +900,6 @@ class OperatorCockpitRequestHandler(BaseHTTPRequestHandler):
         if path == "/api/operator-cockpit-v2/export/snapshot.json":
             payload = collect_operator_cockpit_snapshot(self.project_root, task_query=self.task_query, backend_probe=self.backend_probe)
             self._write(HTTPStatus.OK, json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8"), "application/json; charset=utf-8", extra_headers=_attachment_headers("operator-cockpit-snapshot.json"))
-            return
-        if path == "/api/operator-cockpit-v2/view/risk-sizing-runtime-telemetry.json":
-            telemetry = collect_risk_sizing_runtime_telemetry(self.project_root)
-            self._json(HTTPStatus.OK, telemetry)
-            return
-        if path == "/api/operator-cockpit-v2/export/risk-sizing-evidence-pack.zip":
-            try:
-                body = _build_risk_sizing_in_memory_evidence_pack(self.project_root, task_query=self.task_query, backend_probe=self.backend_probe)
-            except RiskSizingEvidenceExportBlocked as error:
-                self._json(HTTPStatus.PRECONDITION_FAILED, {"ok": False, "error": str(error), "blockers": error.blockers, "read_only": True})
-                return
-            except ValueError as error:
-                self._json(HTTPStatus.REQUEST_ENTITY_TOO_LARGE, {"ok": False, "error": str(error), "read_only": True})
-                return
-            self._write(HTTPStatus.OK, body, "application/zip", extra_headers=_attachment_headers("operator-cockpit-risk-sizing-evidence-pack.zip"))
             return
         if path == "/api/operator-cockpit-v2/export/evidence-pack.zip":
             try:
