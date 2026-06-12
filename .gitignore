@@ -21,3 +21,9 @@ config.local.yaml
 *.tmp
 *.broken_before_*.py
 FIX_REPORT*.txt
+
+# BEGIN 4B.4.3.6.6.27G-H1 REPOSITORY HYGIENE
+reports/hyp005_r1_canonical/
+tools/_patch_backup_*/
+tools/_patch_payload_*/
+# END 4B.4.3.6.6.27G-H1 REPOSITORY HYGIENE
