@@ -7,6 +7,11 @@ Set-Location $ProjectRoot
 
 $env:PYTHONPATH = "src"
 $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD = "1"
+$env:PYTHONUTF8 = "1"
+$env:PYTHONIOENCODING = "utf-8"
+$OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+# 4B.4.3.6.6.27G-H2 Windows Unicode serialization parity
 
 $CanonicalReportsDir = [System.IO.Path]::GetFullPath((Join-Path $ProjectRoot "reports\hyp005_r1_canonical"))
 $ForbiddenLegacyDir = [System.IO.Path]::GetFullPath((Join-Path $ProjectRoot "reports\hyp005_r1_isolated"))

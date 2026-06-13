@@ -12,6 +12,11 @@ SRC_DIR = PROJECT_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
+from tradebot.hyp005_shadow_evidence_path_contract import (  # noqa: E402
+    normalize_logger_report_evidence_paths,
+    resolve_evidence_output_directory,
+    write_json_ascii_atomic,
+)
 from tradebot.hyp005_shadow_observation_identity import (  # noqa: E402
     HYP005_SHADOW_OBSERVATION_END_TO_END_IDENTITY_VERSION,
     HYP005_SHADOW_OBSERVATION_STABLE_IDENTITY_VERSION,
@@ -33,7 +38,7 @@ def _parse_out_dir(argv: list[str]) -> Path:
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("--out-dir", type=Path, required=True)
     args, _ = parser.parse_known_args(argv)
-    return args.out_dir.resolve()
+    return resolve_evidence_output_directory(args.out_dir, field="out_dir")
 
 
 def _signatures(out_dir: Path) -> dict[Path, FileSignature]:
@@ -105,11 +110,12 @@ def _align_latest_bundle(changed_paths: list[Path]) -> tuple[int, int]:
     write_json_atomic(ledger_json, json_rows)
     write_jsonl_atomic(ledger_jsonl, jsonl_rows)
     report_payload["shadow_observations"] = report_rows
+    report_payload = normalize_logger_report_evidence_paths(report_payload, require_exists=True)
     report_payload["identity_contract_version"] = HYP005_SHADOW_OBSERVATION_STABLE_IDENTITY_VERSION
     report_payload["identity_chain_contract_version"] = HYP005_SHADOW_OBSERVATION_END_TO_END_IDENTITY_VERSION
     report_payload["canonical_identity_end_to_end"] = True
     report_payload["identity_artifact_equivalence_verified"] = True
-    write_json_atomic(report_json, report_payload)
+    write_json_ascii_atomic(report_json, report_payload)
     assert_artifact_equivalence(_read_json(ledger_json), _read_jsonl(ledger_jsonl), _read_json(report_json)["shadow_observations"])
     return len(jsonl_rows), 3
 

@@ -13,6 +13,14 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from tradebot.hyp005_r1_canonical_epoch_contract import utc_artifact_stamp  # noqa: E402
+from tradebot.hyp005_shadow_evidence_path_contract import (  # noqa: E402
+    HYP005_SHADOW_EVIDENCE_PATH_UTF8_CONTRACT_VERSION,
+    normalize_logger_report_evidence_paths,
+    resolve_evidence_output_directory,
+    resolve_existing_evidence_path,
+    serialize_evidence_path,
+    write_json_ascii_atomic,
+)
 
 from tradebot.research_hyp005_shadow_observation_logger import (  # noqa: E402
     HYP005_SHADOW_OBSERVATION_CONTRACT_VERSION,
@@ -36,13 +44,15 @@ def latest_report(reports_dir: Path, prefix: str) -> Path | None:
 def resolve_candidate_spec(candidate_spec_json: str | None, input_jsons: list[str] | None, reports_dir: Path) -> tuple[dict[str, Any] | None, list[str]]:
     source_paths: list[str] = []
     if candidate_spec_json:
-        payload = load_json(candidate_spec_json)
-        source_paths.append(candidate_spec_json)
+        resolved_candidate_spec = resolve_existing_evidence_path(candidate_spec_json, field="candidate_spec_json", expect_directory=False)
+        payload = load_json(resolved_candidate_spec)
+        source_paths.append(serialize_evidence_path(resolved_candidate_spec))
         if isinstance(payload, dict):
             return payload, source_paths
     for item in input_jsons or []:
-        payload = load_json(item)
-        source_paths.append(item)
+        resolved_input = resolve_existing_evidence_path(item, field="input_json", expect_directory=False)
+        payload = load_json(resolved_input)
+        source_paths.append(serialize_evidence_path(resolved_input))
         if isinstance(payload, dict):
             if isinstance(payload.get("candidate_spec"), dict):
                 return payload["candidate_spec"], source_paths
@@ -55,7 +65,7 @@ def resolve_candidate_spec(candidate_spec_json: str | None, input_jsons: list[st
         path = latest_report(reports_dir, prefix)
         payload = load_json(path) if path else None
         if path:
-            source_paths.append(str(path))
+            source_paths.append(serialize_evidence_path(path))
         if isinstance(payload, dict):
             if isinstance(payload.get("candidate_spec"), dict):
                 return payload["candidate_spec"], source_paths
@@ -123,7 +133,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     report["source_reports"] = source_paths
     report["market_data_source"] = "input_csv" if args.input_csv else "public_market_data_GET_only"
-    out_dir = Path(args.out_dir)
+    out_dir = resolve_evidence_output_directory(args.out_dir, field="out_dir")
     stamp = utc_artifact_stamp()
     json_path = out_dir / f"{REPORT_PREFIX}_{stamp}.json"
     md_path = out_dir / f"{REPORT_PREFIX}_{stamp}.md"
@@ -132,9 +142,11 @@ def main(argv: list[str] | None = None) -> int:
     observations = report.get("shadow_observations") if isinstance(report.get("shadow_observations"), list) else []
     write_json(ledger_json, observations)
     write_jsonl(ledger_jsonl, observations)
-    report["ledger_json"] = str(ledger_json)
-    report["ledger_jsonl"] = str(ledger_jsonl)
-    write_json(json_path, report)
+    report["ledger_json"] = serialize_evidence_path(ledger_json)
+    report["ledger_jsonl"] = serialize_evidence_path(ledger_jsonl)
+    report = normalize_logger_report_evidence_paths(report, require_exists=True)
+    report["evidence_path_contract_version"] = HYP005_SHADOW_EVIDENCE_PATH_UTF8_CONTRACT_VERSION
+    write_json_ascii_atomic(json_path, report)
     md_path.parent.mkdir(parents=True, exist_ok=True)
     md_path.write_text(report_to_markdown(report), encoding="utf-8")
     summary = report.get("shadow_summary") if isinstance(report.get("shadow_summary"), dict) else {}
