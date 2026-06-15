@@ -54,6 +54,11 @@ def _sequence(value: Any) -> Sequence[Any]:
     return []
 
 
+def _ps_single_quoted(value: str | os.PathLike[str]) -> str:
+    text = str(value)
+    return "'" + text.replace("'", "''") + "'"
+
+
 def validate_28c_dry_run_report(report: Mapping[str, Any] | None) -> tuple[bool, list[str]]:
     payload = _mapping(report)
     reasons: list[str] = []
@@ -141,33 +146,72 @@ def build_registration_script(
     task_name: str = PROPOSED_SCHEDULER_TASK_NAME,
 ) -> str:
     symbol_arg = ",".join(symbol.upper().strip() for symbol in symbols if symbol.strip())
-    root = str(Path(project_root))
-    approval = str(Path(approval_json))
-    reports = str(Path(reports_dir))
+    root = Path(project_root).resolve()
+    approval = Path(approval_json).resolve()
+    reports = Path(reports_dir).resolve()
+    wrapper = (reports / "run_hyp006_r1_canonical_shadow_scheduler.ps1").resolve()
+    stdout_log = (reports / "hyp006_scheduler_stdout.log").resolve()
+    stderr_log = (reports / "hyp006_scheduler_stderr.log").resolve()
+    candidate_spec_dir = (root / "reports" / "hyp006_r1_candidate_spec").resolve()
     return "\n".join(
         [
-            "# 4B.4.3.6.6.28D HYP-006-R1 canonical no-order shadow scheduler registration script",
-            "# This script is emitted for operator review. The 28D Python patch does not execute it automatically.",
+            "# 4B.4.3.6.6.28D-H1 unicode-safe HYP-006-R1 canonical no-order shadow scheduler registration script",
+            "# This script is emitted for operator review. The Python patch does not execute Register-ScheduledTask automatically.",
             "$ErrorActionPreference = 'Stop'",
-            f"$ProjectRoot = {json.dumps(root)}",
-            f"$ApprovalJson = {json.dumps(approval)}",
-            f"$ReportsDir = {json.dumps(reports)}",
-            f"$TaskName = {json.dumps(task_name)}",
-            "Set-Location $ProjectRoot",
-            "$Python = 'python'",
-            "$ActionArgs = @(\"tools/run_4B436628D_hyp006_canonical_shadow_cycle.py\",",
-            "  \"--registration-approval-json\", $ApprovalJson,",
-            f"  \"--symbols\", {json.dumps(symbol_arg)},",
-            f"  \"--interval\", {json.dumps(interval)},",
-            f"  \"--days\", {int(days)},",
-            "  \"--out-dir\", $ReportsDir,",
-            "  \"--review-ok\") -join ' '",
-            "$Action = New-ScheduledTaskAction -Execute $Python -Argument $ActionArgs -WorkingDirectory $ProjectRoot",
+            f"$ProjectRoot = {_ps_single_quoted(root)}",
+            f"$ApprovalJson = {_ps_single_quoted(approval)}",
+            f"$ReportsDir = {_ps_single_quoted(reports)}",
+            f"$WrapperScript = {_ps_single_quoted(wrapper)}",
+            f"$StdoutLog = {_ps_single_quoted(stdout_log)}",
+            f"$StderrLog = {_ps_single_quoted(stderr_log)}",
+            f"$CandidateSpecDir = {_ps_single_quoted(candidate_spec_dir)}",
+            f"$TaskName = {_ps_single_quoted(task_name)}",
+            "Set-Location -LiteralPath $ProjectRoot",
+            "$Python = (Get-Command python -ErrorAction Stop).Source",
+            "if (-not (Test-Path -LiteralPath $Python)) { throw ('Python executable not found: ' + $Python) }",
+            "if (-not (Test-Path -LiteralPath $CandidateSpecDir)) { throw ('Candidate spec directory not found: ' + $CandidateSpecDir) }",
+            "$RegistrationJsonItem = Get-ChildItem -LiteralPath $CandidateSpecDir -Filter '4B436628B_hyp006_r1_candidate_spec_registration_gate_*.json' | Sort-Object LastWriteTime -Descending | Select-Object -First 1",
+            "if (-not $RegistrationJsonItem) { throw 'Latest 28B registration-json not found.' }",
+            "$RegistrationJson = $RegistrationJsonItem.FullName",
+            "$WrapperContent = @'",
+            "$ErrorActionPreference = 'Stop'",
+            "Set-Location -LiteralPath '__PROJECT_ROOT__'",
+            "$env:PYTHONPATH = 'src'",
+            "& '__PYTHON_EXE__' `",
+            "  'tools/run_4B436628D_hyp006_canonical_shadow_cycle.py' `",
+            "  --registration-approval-json '__APPROVAL_JSON__' `",
+            "  --registration-json '__REGISTRATION_JSON__' `",
+            "  --symbols '__SYMBOLS__' `",
+            "  --interval '__INTERVAL__' `",
+            "  --days __DAYS__ `",
+            "  --out-dir '__REPORTS_DIR__' `",
+            "  --review-ok `",
+            "  1>> '__STDOUT_LOG__' `",
+            "  2>> '__STDERR_LOG__'",
+            "exit $LASTEXITCODE",
+            "'@",
+            "$WrapperContent = $WrapperContent.Replace('__PROJECT_ROOT__', $ProjectRoot)",
+            "$WrapperContent = $WrapperContent.Replace('__PYTHON_EXE__', $Python)",
+            "$WrapperContent = $WrapperContent.Replace('__APPROVAL_JSON__', $ApprovalJson)",
+            "$WrapperContent = $WrapperContent.Replace('__REGISTRATION_JSON__', $RegistrationJson)",
+            f"$WrapperContent = $WrapperContent.Replace('__SYMBOLS__', {_ps_single_quoted(symbol_arg)})",
+            f"$WrapperContent = $WrapperContent.Replace('__INTERVAL__', {_ps_single_quoted(interval)})",
+            f"$WrapperContent = $WrapperContent.Replace('__DAYS__', {_ps_single_quoted(str(int(days)))})",
+            "$WrapperContent = $WrapperContent.Replace('__REPORTS_DIR__', $ReportsDir)",
+            "$WrapperContent = $WrapperContent.Replace('__STDOUT_LOG__', $StdoutLog)",
+            "$WrapperContent = $WrapperContent.Replace('__STDERR_LOG__', $StderrLog)",
+            "$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)",
+            "[System.IO.File]::WriteAllText($WrapperScript, $WrapperContent, $Utf8NoBom)",
+            "$ActionArgs = '-NoProfile -ExecutionPolicy Bypass -File \"' + $WrapperScript + '\"'",
+            "$Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument $ActionArgs -WorkingDirectory $ProjectRoot",
             "$Trigger = New-ScheduledTaskTrigger -Daily -At 00:05",
             "$Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 20)",
-            "# Operator action: uncomment the next line only after reviewing the 28D approval report.",
+            "# Operator action: uncomment the next line only after reviewing the 28D-H1 script and confirming no-order behavior.",
             "# Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Settings $Settings -Description 'HYP-006-R1 canonical no-order shadow collection. No paper/live/order actions.' -Force",
-            "Write-Host 'Registration script generated. Scheduler task not created until Register-ScheduledTask line is explicitly enabled by operator.'",
+            "Write-Host '28D-H1 registration script generated. Wrapper emitted. Scheduler task not created until Register-ScheduledTask line is explicitly enabled by operator.'",
+            "Write-Host ('WrapperScript: ' + $WrapperScript)",
+            "Write-Host ('Python: ' + $Python)",
+            "Write-Host ('RegistrationJson: ' + $RegistrationJson)",
             "",
         ]
     )

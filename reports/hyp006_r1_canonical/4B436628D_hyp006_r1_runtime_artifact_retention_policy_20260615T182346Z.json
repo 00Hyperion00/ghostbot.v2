@@ -1,0 +1,27 @@
+{
+  "accepted_baseline_artifacts_are_protected": true,
+  "cleanup_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.28D",
+  "gitignore_mutation_performed": false,
+  "max_runtime_reports_retained": 100,
+  "policy_name": "hyp006_r1_runtime_artifact_retention_policy",
+  "policy_status": "DECLARED_NOT_APPLIED_BY_DEFAULT",
+  "protected_baseline_prefixes": [
+    "4B436628B_hyp006_r1_candidate_spec_",
+    "4B436628C_hyp006_r1_no_order_shadow_runner_dry_run_",
+    "4B436628C_hyp006_r1_shadow_dry_run_ledger_",
+    "4B436628D_hyp006_r1_shadow_collection_registration_approval_"
+  ],
+  "recommended_gitignore_patterns_after_accepted_baseline": [
+    "reports/hyp006_r1_canonical/4B436628D_hyp006_r1_shadow_observation_logger_*.json",
+    "reports/hyp006_r1_canonical/4B436628D_hyp006_r1_shadow_ledger_*.jsonl",
+    "reports/hyp006_r1_canonical/4B436628D_hyp006_r1_shadow_collection_cycle_*.md"
+  ],
+  "reports_dir": "reports\\hyp006_r1_canonical",
+  "runtime_generated_patterns": [
+    "4B436628D_hyp006_r1_shadow_observation_logger_*.json",
+    "4B436628D_hyp006_r1_shadow_ledger_*.jsonl",
+    "4B436628D_hyp006_r1_shadow_collection_cycle_*.md"
+  ],
+  "scheduler_mutation_performed": false
+}
