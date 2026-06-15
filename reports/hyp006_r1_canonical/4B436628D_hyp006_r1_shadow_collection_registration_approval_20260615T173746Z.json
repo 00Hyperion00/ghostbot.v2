@@ -1,0 +1,180 @@
+{
+  "approved_for_canonical_no_order_shadow_registration": true,
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_shadow_collection": true,
+  "approved_for_training_candidate": false,
+  "blockers": [
+    "NO_28E_SCHEDULER_EXECUTION_HEALTH_VERIFY",
+    "NO_PAPER_LIVE_TRAINING_RELOAD_ORDER_ENABLEMENT",
+    "SCHEDULER_SCRIPT_EMITTED_NOT_EXECUTED_BY_PATCH"
+  ],
+  "branch_id": "HYP-006-R1",
+  "branch_name": "failed_downside_sweep_reversal_continuation_short",
+  "branch_state_mutation_performed": false,
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.28D",
+  "decision": "HYP006_R1_CANONICAL_NO_ORDER_SHADOW_REGISTRATION_APPROVED",
+  "dry_run_summary": {
+    "best_return_bps": 842.105263,
+    "dry_run_observation_count": 20,
+    "duplicate_existing_observation_count": 0,
+    "loss_count": 10,
+    "matured_count": 20,
+    "mean_return_bps": 108.911085,
+    "median_return_bps": 42.060988,
+    "net_return_bps": 2178.221695,
+    "new_unique_dry_run_observation_count": 20,
+    "profit_factor": 2.776782,
+    "sample_observation_ids": [
+      "HYP-006-ADAUSDT-4h-2026-05-16T080000Z",
+      "HYP-006-ADAUSDT-4h-2026-06-02T000000Z",
+      "HYP-006-BNBUSDT-4h-2026-05-18T040000Z",
+      "HYP-006-BNBUSDT-4h-2026-05-28T120000Z",
+      "HYP-006-BTCUSDT-4h-2026-05-23T000000Z",
+      "HYP-006-BTCUSDT-4h-2026-06-02T000000Z",
+      "HYP-006-ETHUSDT-4h-2026-05-18T160000Z",
+      "HYP-006-ETHUSDT-4h-2026-05-23T000000Z",
+      "HYP-006-ETHUSDT-4h-2026-05-27T160000Z",
+      "HYP-006-LINKUSDT-4h-2026-05-18T160000Z",
+      "HYP-006-LINKUSDT-4h-2026-05-27T160000Z",
+      "HYP-006-LINKUSDT-4h-2026-05-28T040000Z",
+      "HYP-006-LTCUSDT-4h-2026-05-18T080000Z",
+      "HYP-006-SOLUSDT-4h-2026-05-28T040000Z",
+      "HYP-006-XRPUSDT-4h-2026-05-17T200000Z",
+      "HYP-006-XRPUSDT-4h-2026-05-18T160000Z",
+      "HYP-006-XRPUSDT-4h-2026-05-20T000000Z",
+      "HYP-006-XRPUSDT-4h-2026-05-23T000000Z",
+      "HYP-006-XRPUSDT-4h-2026-05-27T120000Z",
+      "HYP-006-XRPUSDT-4h-2026-06-02T000000Z"
+    ],
+    "symbol_counts": {
+      "ADAUSDT": 2,
+      "BNBUSDT": 2,
+      "BTCUSDT": 2,
+      "ETHUSDT": 3,
+      "LINKUSDT": 3,
+      "LTCUSDT": 1,
+      "SOLUSDT": 1,
+      "XRPUSDT": 6
+    },
+    "symbols_observed": [
+      "ADAUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "symbols_observed_count": 8,
+    "win_count": 10,
+    "win_rate_pct": 50.0,
+    "worst_return_bps": -233.05228
+  },
+  "dry_run_validation": {
+    "ok": true,
+    "reasons": []
+  },
+  "generated_at_utc": "2026-06-15T17:37:46+00:00",
+  "hypothesis_id": "HYP-006",
+  "network_request_performed": false,
+  "next_required_gate": "28E_CANONICAL_SHADOW_SCHEDULER_EXECUTION_HEALTH_VERIFY",
+  "no_order_shadow_collection_registration_only": true,
+  "ok": true,
+  "order_actions_performed": false,
+  "paper_transition_candidate_found": false,
+  "post_requests_allowed": false,
+  "read_only": true,
+  "reason_codes": [
+    "CANONICAL_NO_ORDER_SHADOW_REGISTRATION_OPERATOR_APPROVAL_GATE",
+    "SCHEDULER_REGISTRATION_SCRIPT_ONLY_NOT_EXECUTED_BY_PATCH",
+    "RUNTIME_ARTIFACT_RETENTION_POLICY_DECLARED",
+    "PAPER_LIVE_GATES_REMAIN_CLOSED",
+    "NO_TRAINING_RELOAD_ORDER_ENABLEMENT"
+  ],
+  "recommendation": "Proceed to 28E scheduler registration execution/health verification only after reviewing the emitted script. Do not train, reload, paper trade, live trade, or send orders.",
+  "reload_performed": false,
+  "report_type": "hyp006_r1_canonical_no_order_shadow_collection_scheduler_registration_operator_approval_pack",
+  "risk_items": [
+    {
+      "code": "NO_ORDER_ONLY_NOT_EXECUTION_EDGE",
+      "detail": "28D authorizes only no-order shadow collection mechanics.",
+      "level": "critical"
+    },
+    {
+      "code": "SCHEDULER_HEALTH_NOT_VERIFIED",
+      "detail": "28E_CANONICAL_SHADOW_SCHEDULER_EXECUTION_HEALTH_VERIFY",
+      "level": "warning"
+    },
+    {
+      "code": "SHORT_SIDE_COSTS_STILL_UNMODELED",
+      "detail": "Funding, borrow, liquidation, and execution costs remain outside acceptance.",
+      "level": "warning"
+    }
+  ],
+  "runtime_artifact_retention_policy": {
+    "accepted_baseline_artifacts_are_protected": true,
+    "cleanup_mutation_performed": false,
+    "contract_version": "4B.4.3.6.6.28D",
+    "gitignore_mutation_performed": false,
+    "max_runtime_reports_retained": 100,
+    "policy_name": "hyp006_r1_runtime_artifact_retention_policy",
+    "policy_status": "DECLARED_NOT_APPLIED_BY_DEFAULT",
+    "protected_baseline_prefixes": [
+      "4B436628B_hyp006_r1_candidate_spec_",
+      "4B436628C_hyp006_r1_no_order_shadow_runner_dry_run_",
+      "4B436628C_hyp006_r1_shadow_dry_run_ledger_",
+      "4B436628D_hyp006_r1_shadow_collection_registration_approval_"
+    ],
+    "recommended_gitignore_patterns_after_accepted_baseline": [
+      "reports/hyp006_r1_canonical/4B436628D_hyp006_r1_shadow_observation_logger_*.json",
+      "reports/hyp006_r1_canonical/4B436628D_hyp006_r1_shadow_ledger_*.jsonl",
+      "reports/hyp006_r1_canonical/4B436628D_hyp006_r1_shadow_collection_cycle_*.md"
+    ],
+    "reports_dir": "reports\\hyp006_r1_canonical",
+    "runtime_generated_patterns": [
+      "4B436628D_hyp006_r1_shadow_observation_logger_*.json",
+      "4B436628D_hyp006_r1_shadow_ledger_*.jsonl",
+      "4B436628D_hyp006_r1_shadow_collection_cycle_*.md"
+    ],
+    "scheduler_mutation_performed": false
+  },
+  "scheduler_mutation_performed": false,
+  "scheduler_registration_approval": {
+    "approval_status": "APPROVED_FOR_SCRIPTED_REGISTRATION_REVIEW",
+    "operator_approval_recorded": true,
+    "proposed_reports_dir": "reports\\hyp006_r1_canonical",
+    "proposed_task_name": "TradeBot_HYP006_R1_Canonical_NoOrderShadowCollection",
+    "requires_28e_scheduler_health_verify": true,
+    "scheduler_mutation_performed": false,
+    "scheduler_script_emitted": true,
+    "scheduler_task_created": false,
+    "scheduler_task_modified": false
+  },
+  "scheduler_task_created": false,
+  "scheduler_task_modified": false,
+  "source_dry_run_contract_version": "4B.4.3.6.6.28C",
+  "source_dry_run_decision": "HYP006_R1_NO_ORDER_SHADOW_RUNNER_DRY_RUN_READY",
+  "source_paths": {
+    "dry_run_report_json": "C:\\Users\\muhas\\OneDrive\\Masa\u00fcst\u00fc\\trade_botV2\\reports\\hyp006_r1_canonical\\4B436628C_hyp006_r1_no_order_shadow_runner_dry_run_20260615T172544Z.json"
+  },
+  "strategy_family": "short_failed_liquidity_sweep_continuation",
+  "strategy_parameter_mutation_performed": false,
+  "symbols_requested": [
+    "ADAUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "LTCUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "trading_action_performed": false,
+  "training_performed": false,
+  "warnings": [
+    "28E_REQUIRED_BEFORE_SCHEDULER_HEALTH_ACCEPTANCE"
+  ]
+}
