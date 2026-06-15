@@ -87,11 +87,30 @@ R1_TASK_NAME = LEGACY_R1_TASK_NAME
 DEFAULT_BACKEND_HEALTH_URL = "http://127.0.0.1:8000/health"
 
 SAFE_EXPORT_SOURCE_PATTERNS: dict[str, tuple[str, str, str]] = {
-    "logger": ("4B436625V_hyp005_shadow_observation_logger_*.json", "latest-25v-logger.json", "application/json; charset=utf-8"),
-    "collection": ("4B436625X_hyp005_shadow_collection_orchestrator_*.json", "latest-25x-collection.json", "application/json; charset=utf-8"),
-    "audit": ("4B436625Y_hyp005_shadow_operator_daily_audit_*.json", "latest-25y-audit.json", "application/json; charset=utf-8"),
-    "ledger": ("4B436625X_hyp005_shadow_merged_ledger_*.jsonl", "latest-merged-ledger.jsonl", "application/x-ndjson; charset=utf-8"),
+    "logger": (
+        "4B436628D_hyp006_r1_shadow_observation_logger_*.json",
+        "latest-hyp006-shadow-logger.json",
+        "application/json; charset=utf-8",
+    ),
+    "collection": (
+        "4B436628G_hyp006_r1_shadow_sample_expansion_acceptance_tracking_*.json",
+        "latest-hyp006-acceptance-tracking.json",
+        "application/json; charset=utf-8",
+    ),
+    "audit": (
+        "4B436628F_hyp006_r1_operator_cockpit_baseline_*.json",
+        "latest-hyp006-operator-cockpit-baseline.json",
+        "application/json; charset=utf-8",
+    ),
+    "ledger": (
+        "4B436628D_hyp006_r1_shadow_ledger_*.jsonl",
+        "latest-hyp006-shadow-ledger.jsonl",
+        "application/x-ndjson; charset=utf-8",
+    ),
 }
+OPERATOR_COCKPIT_V2_HYP006_EXPORT_SOURCE_PARITY_HOTFIX_VERSION = "4B.4.3.6.6.28F-H2"
+OPERATOR_COCKPIT_V2_HYP006_EXPORTS_BOUND = True
+OPERATOR_COCKPIT_V2_LEGACY_HYP005_EXPORTS_SUPPRESSED = True
 
 JsonObject = dict[str, Any]
 TaskQuery = Callable[[str], Mapping[str, Any]]
@@ -228,17 +247,22 @@ def _latest_file(directory: Path, pattern: str) -> Path | None:
 
 
 def _safe_latest_export_source(project_root: Path, kind: str) -> Path | None:
-    """Resolve only a fixed, allowlisted isolated-R1 report source."""
+    """Resolve latest safe export source from HYP-006 canonical reports.
+
+    28F-H2 intentionally binds read-only exports to active HYP-006-R1 artifacts.
+    It does not mutate config, scheduler, model, trading state, or order state.
+    """
     spec = SAFE_EXPORT_SOURCE_PATTERNS.get(kind)
     if spec is None:
         return None
-    reports_dir = resolve_active_reports_dir(project_root)
+    root = project_root.resolve()
+    reports_dir = root / "reports" / "hyp006_r1_canonical"
     latest = _latest_file(reports_dir, spec[0])
     if latest is None:
         return None
     resolved = latest.resolve()
     try:
-        resolved.relative_to(reports_dir)
+        resolved.relative_to(reports_dir.resolve())
     except ValueError:
         return None
     return resolved

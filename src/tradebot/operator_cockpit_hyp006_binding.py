@@ -7,7 +7,7 @@ from pathlib import Path
 from statistics import mean, median
 from typing import Any, Mapping, Sequence
 
-OPERATOR_COCKPIT_HYP006_BINDING_VERSION = "4B.4.3.6.6.28F-H1"
+OPERATOR_COCKPIT_HYP006_BINDING_VERSION = "4B.4.3.6.6.28F-H2"
 BRANCH_ID = "HYP-006-R1"
 HYPOTHESIS_ID = "HYP-006"
 FRESH_LEDGER_NAMESPACE = "HYP006_R1"
