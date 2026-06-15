@@ -38,6 +38,8 @@ OPERATOR_COCKPIT_V2_NATIVE_EXPORT_LOOPBACK_ONLY = True
 OPERATOR_COCKPIT_V2_EVIDENCE_PACK_TIMEOUT_HOTFIX_VERSION = "4B.4.3.6.6.26D-H2-H2"
 OPERATOR_COCKPIT_V2_NATIVE_EXPORT_RESPONSE_PREFLIGHT = True
 OPERATOR_COCKPIT_V2_NATIVE_EXPORT_TIMEOUT_CONTRACT = True
+OPERATOR_COCKPIT_V2_NATIVE_EXPORT_412_HANDLING_HOTFIX_VERSION = "4B.4.3.6.6.28F-H3"
+OPERATOR_COCKPIT_V2_NATIVE_EXPORT_PRECONDITION_SAFE_MESSAGE = True
 WINDOWS_PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
 WINDOWS_SYNCHRONIZE = 0x00100000
 WINDOWS_WAIT_OBJECT_0 = 0x00000000
@@ -364,6 +366,18 @@ def _native_export_response_preflight(headers: Mapping[str, str], max_bytes: int
     return declared_length
 
 
+def _native_export_http_error_message(error: urllib.error.HTTPError) -> str:
+    """Map local HTTP export failures to operator-safe, fail-closed messages."""
+    code = int(getattr(error, "code", 0) or 0)
+    if code == 412:
+        return "NATIVE_DESKTOP_EXPORT_PRECONDITION_FAILED_REFRESH_SNAPSHOT_OR_RESTART_COCKPIT"
+    if code == 404:
+        return "NATIVE_DESKTOP_EXPORT_SOURCE_NOT_FOUND_REFRESH_SNAPSHOT"
+    if code == 413:
+        return "NATIVE_DESKTOP_EXPORT_TOO_LARGE"
+    return f"NATIVE_DESKTOP_EXPORT_HTTP_ERROR_{code}"
+
+
 def _is_native_export_timeout(error: BaseException) -> bool:
     """Classify direct and urllib-wrapped socket timeout failures."""
     if isinstance(error, TimeoutError):
@@ -401,7 +415,7 @@ def _read_bounded_local_get(base_url: str, endpoint: str, max_bytes: int, timeou
                 chunks.append(chunk)
             return b"".join(chunks)
     except urllib.error.HTTPError as error:
-        raise DesktopWrapperError(f"NATIVE_DESKTOP_EXPORT_HTTP_ERROR: {error.code}") from error
+        raise DesktopWrapperError(_native_export_http_error_message(error)) from error
     except (TimeoutError, urllib.error.URLError) as error:
         if _is_native_export_timeout(error):
             raise DesktopWrapperError("NATIVE_DESKTOP_EXPORT_TIMEOUT") from error
@@ -538,13 +552,13 @@ NATIVE_DESKTOP_EXPORT_BRIDGE_JS = r"""
     try {
       if (mode === 'download') {
         const result = await api.export_file(code);
-        if (!result.ok) { feedback('İndirme başarısız: ' + (result.error || 'Bilinmeyen hata')); return; }
+        if (!result.ok) { const e = result.error || 'Bilinmeyen hata'; feedback(e === 'NATIVE_DESKTOP_EXPORT_PRECONDITION_FAILED_REFRESH_SNAPSHOT_OR_RESTART_COCKPIT' ? 'İndirme hazırlığı başarısız: snapshot yenile veya cockpit’i yeniden başlat; sistem state değiştirilmedi.' : ('İndirme başarısız: ' + e)); return; }
         if (result.cancelled) { feedback('İndirme iptal edildi.'); return; }
         feedback('Dosya kaydedildi: ' + result.filename + ' · ' + result.bytes_written + ' byte');
         return;
       }
       const result = await api.read_text(code);
-      if (!result.ok) { feedback('JSON görünümü açılamadı: ' + (result.error || 'Bilinmeyen hata')); return; }
+      if (!result.ok) { const e = result.error || 'Bilinmeyen hata'; feedback(e === 'NATIVE_DESKTOP_EXPORT_PRECONDITION_FAILED_REFRESH_SNAPSHOT_OR_RESTART_COCKPIT' ? 'JSON görünümü hazırlanamadı: snapshot yenile veya cockpit’i yeniden başlat; sistem state değiştirilmedi.' : ('JSON görünümü açılamadı: ' + e)); return; }
       const overlay = ensureModal();
       overlay.querySelector('#native-desktop-json-title').textContent = result.filename || 'JSON';
       overlay.querySelector('#native-desktop-json-content').textContent = result.content || '';

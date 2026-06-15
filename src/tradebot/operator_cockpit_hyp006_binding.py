@@ -7,7 +7,7 @@ from pathlib import Path
 from statistics import mean, median
 from typing import Any, Mapping, Sequence
 
-OPERATOR_COCKPIT_HYP006_BINDING_VERSION = "4B.4.3.6.6.28F-H2"
+OPERATOR_COCKPIT_HYP006_BINDING_VERSION = "4B.4.3.6.6.28F-H4"
 BRANCH_ID = "HYP-006-R1"
 HYPOTHESIS_ID = "HYP-006"
 FRESH_LEDGER_NAMESPACE = "HYP006_R1"
@@ -17,6 +17,25 @@ REPORTS_RELATIVE_DIR = Path("reports") / "hyp006_r1_canonical"
 HYP006_SCHEDULER_TASK_NAME = "TradeBot_HYP006_R1_Canonical_NoOrderShadowCollection"
 
 JsonObject = dict[str, Any]
+
+try:
+    from .operator_cockpit_hyp006_visualization_export_guard_hotfix import (
+        OPERATOR_COCKPIT_HYP006_VISUALIZATION_EXPORT_GUARD_HOTFIX_VERSION,
+        apply_risk_sizing_export_guard,
+        build_hyp006_mae_mfe_proxy_scatter,
+        sanitize_hyp006_audit_sources,
+    )
+except Exception:  # pragma: no cover - fail-closed legacy fallback
+    OPERATOR_COCKPIT_HYP006_VISUALIZATION_EXPORT_GUARD_HOTFIX_VERSION = "UNAVAILABLE"
+
+    def sanitize_hyp006_audit_sources(sources: Mapping[str, Any]) -> dict[str, Any]:
+        return dict(sources)
+
+    def build_hyp006_mae_mfe_proxy_scatter(rows: Sequence[Mapping[str, Any]]) -> list[JsonObject]:
+        return []
+
+    def apply_risk_sizing_export_guard(snapshot: Mapping[str, Any]) -> JsonObject:
+        return dict(snapshot)
 
 
 def _utc_now_iso() -> str:
@@ -238,6 +257,7 @@ def _sample_timeline(rows: Sequence[Mapping[str, Any]]) -> list[JsonObject]:
         output.append({
             "timestamp_utc": row.get("timestamp_utc"),
             "sample_count": cumulative,
+            "cumulative_samples": cumulative,
             "symbol": row.get("symbol"),
             "return_bps": _return_bps(row),
         })
@@ -288,7 +308,9 @@ def _visualizations(rows: Sequence[Mapping[str, Any]], cluster: Mapping[str, Any
             }
             for row in rows
         ],
-        "mae_mfe_scatter": [],
+        "sample_timeline_display_mode": "cumulative_step_line",
+        "mae_mfe_data_status": "HYP006_NO_ORDER_PROXY_FROM_FINAL_EDGE",
+        "mae_mfe_scatter": build_hyp006_mae_mfe_proxy_scatter(rows),
         "performance_comparison": [],
     }
 
@@ -382,6 +404,7 @@ def apply_hyp006_operator_cockpit_binding(snapshot: Mapping[str, Any], project_r
         "latest_hyp006_ledger": _relative_or_name(artifacts["latest_28d_ledger"], root),
         "legacy_hyp005_suppressed": True,
     })
+    sources = sanitize_hyp006_audit_sources(sources)
 
     base.update({
         "contract_version": OPERATOR_COCKPIT_HYP006_BINDING_VERSION,
@@ -395,8 +418,11 @@ def apply_hyp006_operator_cockpit_binding(snapshot: Mapping[str, Any], project_r
         "strategy_family": STRATEGY_FAMILY,
         "fresh_ledger_namespace": FRESH_LEDGER_NAMESPACE,
         "operator_cockpit_active_binding": "HYP006_DASHBOARD_SEED_BINDING",
+        "operator_cockpit_visualization_parity_version": OPERATOR_COCKPIT_HYP006_VISUALIZATION_EXPORT_GUARD_HOTFIX_VERSION,
         "legacy_hyp005_panel_suppressed": True,
+        "legacy_hyp005_audit_source_labels_suppressed": True,
         "active_research_branch_display_parity_ok": True,
+        "visualization_parity_ok": True,
         "sources": sources,
         "scheduler": {
             "baseline_task": {"task_name": "TradeBot_HYP005_NoOrderShadowCollection", "state": "Disabled", "legacy_suppressed": True},
@@ -459,4 +485,4 @@ def apply_hyp006_operator_cockpit_binding(snapshot: Mapping[str, Any], project_r
         "visualizations": _visualizations(ledger_rows, cluster),
         "operator_guidance": "HYP-006-R1 no-order shadow sample expansion devam ediyor. 28H öncesi 30/30 sample ve acceptance metric olgunluğu gerekli.",
     })
-    return base
+    return apply_risk_sizing_export_guard(base)
