@@ -37,6 +37,17 @@ from .risk_sizing_runtime_telemetry import (
     collect_risk_sizing_runtime_telemetry,
 )
 
+try:
+    from .operator_cockpit_hyp006_binding import (
+        OPERATOR_COCKPIT_HYP006_BINDING_VERSION,
+        apply_hyp006_operator_cockpit_binding,
+    )
+except Exception:  # pragma: no cover - fail-closed legacy fallback
+    OPERATOR_COCKPIT_HYP006_BINDING_VERSION = "UNAVAILABLE"
+
+    def apply_hyp006_operator_cockpit_binding(snapshot: Mapping[str, Any], project_root: Path) -> dict[str, Any]:
+        return dict(snapshot)
+
 OPERATOR_COCKPIT_V2_CONTRACT_VERSION = "4B.4.3.6.6.26A"
 OPERATOR_COCKPIT_V2_READ_ONLY = True
 OPERATOR_COCKPIT_V2_VISUAL_UX_FOUNDATION = True
@@ -745,7 +756,7 @@ def collect_operator_cockpit_snapshot(
     if progress_pct is None:
         progress_pct = round(min(sample_count / sample_target, 1.0) * 100, 6)
     risk_sizing_telemetry = collect_risk_sizing_runtime_telemetry(root)
-    return {
+    snapshot = {
         "contract_version": OPERATOR_COCKPIT_V2_CONTRACT_VERSION,
         "visualization_pack_version": OPERATOR_COCKPIT_V2_VISUALIZATION_PACK_VERSION,
         "read_only": True,
@@ -792,6 +803,7 @@ def collect_operator_cockpit_snapshot(
         "risk_sizing_runtime_telemetry": risk_sizing_telemetry,
         "operator_guidance": "Müdahale gerekmez. No-order shadow collection otomatik devam ediyor." if sample_count < sample_target else "Shadow hedefi tamamlandı. Bir sonraki audit gate değerlendirilmelidir.",
     }
+    return apply_hyp006_operator_cockpit_binding(snapshot, root)
 
 
 DASHBOARD_HTML = r'''<!doctype html>
