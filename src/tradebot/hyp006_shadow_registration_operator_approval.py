@@ -15,6 +15,8 @@ from tradebot.hyp006_shadow_runner_dry_run import (
     PROPOSED_SCHEDULER_TASK_NAME,
     STRATEGY_FAMILY,
     PUBLIC_BINANCE_BASE_URL,
+    CANDIDATE_SCAN_ARTIFACT_PREFIX,
+    CANDIDATE_SCAN_HOOK_CONTRACT_VERSION,
     Candle,
     fetch_public_klines,
     group_by_symbol,
@@ -22,7 +24,8 @@ from tradebot.hyp006_shadow_runner_dry_run import (
     load_jsonl,
     parse_csv_rows,
     runtime_spec_from_candidate_spec,
-    scan_hyp006_short_probe_observations,
+    merge_candidate_scan_diagnostics,
+    scan_hyp006_short_probe_observations_with_diagnostics,
     summarize_observations,
     validate_candidate_spec_source,
     write_json_atomic,
@@ -52,11 +55,6 @@ def _sequence(value: Any) -> Sequence[Any]:
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray)):
         return value
     return []
-
-
-def _ps_single_quoted(value: str | os.PathLike[str]) -> str:
-    text = str(value)
-    return "'" + text.replace("'", "''") + "'"
 
 
 def validate_28c_dry_run_report(report: Mapping[str, Any] | None) -> tuple[bool, list[str]]:
@@ -146,72 +144,33 @@ def build_registration_script(
     task_name: str = PROPOSED_SCHEDULER_TASK_NAME,
 ) -> str:
     symbol_arg = ",".join(symbol.upper().strip() for symbol in symbols if symbol.strip())
-    root = Path(project_root).resolve()
-    approval = Path(approval_json).resolve()
-    reports = Path(reports_dir).resolve()
-    wrapper = (reports / "run_hyp006_r1_canonical_shadow_scheduler.ps1").resolve()
-    stdout_log = (reports / "hyp006_scheduler_stdout.log").resolve()
-    stderr_log = (reports / "hyp006_scheduler_stderr.log").resolve()
-    candidate_spec_dir = (root / "reports" / "hyp006_r1_candidate_spec").resolve()
+    root = str(Path(project_root))
+    approval = str(Path(approval_json))
+    reports = str(Path(reports_dir))
     return "\n".join(
         [
-            "# 4B.4.3.6.6.28D-H1 unicode-safe HYP-006-R1 canonical no-order shadow scheduler registration script",
-            "# This script is emitted for operator review. The Python patch does not execute Register-ScheduledTask automatically.",
+            "# 4B.4.3.6.6.28D HYP-006-R1 canonical no-order shadow scheduler registration script",
+            "# This script is emitted for operator review. The 28D Python patch does not execute it automatically.",
             "$ErrorActionPreference = 'Stop'",
-            f"$ProjectRoot = {_ps_single_quoted(root)}",
-            f"$ApprovalJson = {_ps_single_quoted(approval)}",
-            f"$ReportsDir = {_ps_single_quoted(reports)}",
-            f"$WrapperScript = {_ps_single_quoted(wrapper)}",
-            f"$StdoutLog = {_ps_single_quoted(stdout_log)}",
-            f"$StderrLog = {_ps_single_quoted(stderr_log)}",
-            f"$CandidateSpecDir = {_ps_single_quoted(candidate_spec_dir)}",
-            f"$TaskName = {_ps_single_quoted(task_name)}",
-            "Set-Location -LiteralPath $ProjectRoot",
-            "$Python = (Get-Command python -ErrorAction Stop).Source",
-            "if (-not (Test-Path -LiteralPath $Python)) { throw ('Python executable not found: ' + $Python) }",
-            "if (-not (Test-Path -LiteralPath $CandidateSpecDir)) { throw ('Candidate spec directory not found: ' + $CandidateSpecDir) }",
-            "$RegistrationJsonItem = Get-ChildItem -LiteralPath $CandidateSpecDir -Filter '4B436628B_hyp006_r1_candidate_spec_registration_gate_*.json' | Sort-Object LastWriteTime -Descending | Select-Object -First 1",
-            "if (-not $RegistrationJsonItem) { throw 'Latest 28B registration-json not found.' }",
-            "$RegistrationJson = $RegistrationJsonItem.FullName",
-            "$WrapperContent = @'",
-            "$ErrorActionPreference = 'Stop'",
-            "Set-Location -LiteralPath '__PROJECT_ROOT__'",
-            "$env:PYTHONPATH = 'src'",
-            "& '__PYTHON_EXE__' `",
-            "  'tools/run_4B436628D_hyp006_canonical_shadow_cycle.py' `",
-            "  --registration-approval-json '__APPROVAL_JSON__' `",
-            "  --registration-json '__REGISTRATION_JSON__' `",
-            "  --symbols '__SYMBOLS__' `",
-            "  --interval '__INTERVAL__' `",
-            "  --days __DAYS__ `",
-            "  --out-dir '__REPORTS_DIR__' `",
-            "  --review-ok `",
-            "  1>> '__STDOUT_LOG__' `",
-            "  2>> '__STDERR_LOG__'",
-            "exit $LASTEXITCODE",
-            "'@",
-            "$WrapperContent = $WrapperContent.Replace('__PROJECT_ROOT__', $ProjectRoot)",
-            "$WrapperContent = $WrapperContent.Replace('__PYTHON_EXE__', $Python)",
-            "$WrapperContent = $WrapperContent.Replace('__APPROVAL_JSON__', $ApprovalJson)",
-            "$WrapperContent = $WrapperContent.Replace('__REGISTRATION_JSON__', $RegistrationJson)",
-            f"$WrapperContent = $WrapperContent.Replace('__SYMBOLS__', {_ps_single_quoted(symbol_arg)})",
-            f"$WrapperContent = $WrapperContent.Replace('__INTERVAL__', {_ps_single_quoted(interval)})",
-            f"$WrapperContent = $WrapperContent.Replace('__DAYS__', {_ps_single_quoted(str(int(days)))})",
-            "$WrapperContent = $WrapperContent.Replace('__REPORTS_DIR__', $ReportsDir)",
-            "$WrapperContent = $WrapperContent.Replace('__STDOUT_LOG__', $StdoutLog)",
-            "$WrapperContent = $WrapperContent.Replace('__STDERR_LOG__', $StderrLog)",
-            "$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)",
-            "[System.IO.File]::WriteAllText($WrapperScript, $WrapperContent, $Utf8NoBom)",
-            "$ActionArgs = '-NoProfile -ExecutionPolicy Bypass -File \"' + $WrapperScript + '\"'",
-            "$Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument $ActionArgs -WorkingDirectory $ProjectRoot",
+            f"$ProjectRoot = {json.dumps(root)}",
+            f"$ApprovalJson = {json.dumps(approval)}",
+            f"$ReportsDir = {json.dumps(reports)}",
+            f"$TaskName = {json.dumps(task_name)}",
+            "Set-Location $ProjectRoot",
+            "$Python = 'python'",
+            "$ActionArgs = @(\"tools/run_4B436628D_hyp006_canonical_shadow_cycle.py\",",
+            "  \"--registration-approval-json\", $ApprovalJson,",
+            f"  \"--symbols\", {json.dumps(symbol_arg)},",
+            f"  \"--interval\", {json.dumps(interval)},",
+            f"  \"--days\", {int(days)},",
+            "  \"--out-dir\", $ReportsDir,",
+            "  \"--review-ok\") -join ' '",
+            "$Action = New-ScheduledTaskAction -Execute $Python -Argument $ActionArgs -WorkingDirectory $ProjectRoot",
             "$Trigger = New-ScheduledTaskTrigger -Daily -At 00:05",
             "$Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 20)",
-            "# Operator action: uncomment the next line only after reviewing the 28D-H1 script and confirming no-order behavior.",
+            "# Operator action: uncomment the next line only after reviewing the 28D approval report.",
             "# Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Settings $Settings -Description 'HYP-006-R1 canonical no-order shadow collection. No paper/live/order actions.' -Force",
-            "Write-Host '28D-H1 registration script generated. Wrapper emitted. Scheduler task not created until Register-ScheduledTask line is explicitly enabled by operator.'",
-            "Write-Host ('WrapperScript: ' + $WrapperScript)",
-            "Write-Host ('Python: ' + $Python)",
-            "Write-Host ('RegistrationJson: ' + $RegistrationJson)",
+            "Write-Host 'Registration script generated. Scheduler task not created until Register-ScheduledTask line is explicitly enabled by operator.'",
             "",
         ]
     )
@@ -378,11 +337,17 @@ def build_canonical_shadow_cycle_report(
     runtime_spec = runtime_spec_from_candidate_spec(candidate_spec_source)
     existing_ids = {str(row.get("observation_id")) for row in (existing_ledger_rows or []) if row.get("observation_id")}
     observations = []
+    scan_diagnostics: list[Mapping[str, Any]] = []
     if approval_ok and spec_ok:
         for _, symbol_candles in group_by_symbol(candles).items():
-            observations.extend(
-                scan_hyp006_short_probe_observations(symbol_candles, runtime_spec=runtime_spec, existing_ids=existing_ids)
+            symbol_observations, symbol_diagnostics = scan_hyp006_short_probe_observations_with_diagnostics(
+                symbol_candles,
+                runtime_spec=runtime_spec,
+                existing_ids=existing_ids,
             )
+            observations.extend(symbol_observations)
+            scan_diagnostics.append(symbol_diagnostics)
+    candidate_scan_diagnostics = merge_candidate_scan_diagnostics(scan_diagnostics)
     rows = []
     for item in observations:
         row = asdict(item)
@@ -450,6 +415,8 @@ def build_canonical_shadow_cycle_report(
             "max_slippage_proxy_bps": runtime_spec.max_slippage_proxy_bps,
             "timeframe": runtime_spec.timeframe,
         },
+        "runtime_candidate_scan_hook_contract_version": CANDIDATE_SCAN_HOOK_CONTRACT_VERSION,
+        "candidate_scan_diagnostics": candidate_scan_diagnostics,
         "shadow_observations": rows,
         "shadow_summary": canonical_summary,
         "rows_by_symbol": dict(rows_by_symbol or {}),
@@ -489,6 +456,9 @@ def write_markdown(path: str | os.PathLike[str], payload: Mapping[str, Any]) -> 
         f"- approved_for_paper_candidate: `{payload.get('approved_for_paper_candidate')}`",
         f"- approved_for_live_real: `{payload.get('approved_for_live_real')}`",
         f"- next_required_gate: `{payload.get('next_required_gate')}`",
+        f"- candidate_count: `{_mapping(payload.get('candidate_scan_diagnostics')).get('candidate_count')}`",
+        f"- near_miss_count: `{_mapping(payload.get('candidate_scan_diagnostics')).get('near_miss_count')}`",
+        f"- trigger_count: `{_mapping(payload.get('candidate_scan_diagnostics')).get('trigger_count')}`",
         "",
         "## Recommendation",
         "",
@@ -533,6 +503,41 @@ def write_registration_bundle(
     return report_json, retention_json, report_md, script_path
 
 
+def write_candidate_scan_markdown(path: str | os.PathLike[str], payload: Mapping[str, Any]) -> None:
+    gates = _mapping(payload.get("gate_block_counter"))
+    lines = [
+        "# 4B.4.3.6.6.28G-H3 HYP-006 Runtime Candidate Scan Hook",
+        "",
+        f"- contract_version: `{payload.get('contract_version')}`",
+        f"- branch_id: `{payload.get('branch_id')}`",
+        f"- read_only: `{payload.get('read_only')}`",
+        f"- scanned_candle_count: `{payload.get('scanned_candle_count')}`",
+        f"- candidate_count: `{payload.get('candidate_count')}`",
+        f"- near_miss_count: `{payload.get('near_miss_count')}`",
+        f"- trigger_count: `{payload.get('trigger_count')}`",
+        f"- approved_for_parameter_relaxation_candidate: `{payload.get('approved_for_parameter_relaxation_candidate')}`",
+        f"- approved_for_paper_candidate: `{payload.get('approved_for_paper_candidate')}`",
+        f"- approved_for_live_real: `{payload.get('approved_for_live_real')}`",
+        "",
+        "## Gate block counter",
+        "",
+    ]
+    if gates:
+        for gate, count in sorted(gates.items(), key=lambda item: (-int(item[1]), str(item[0]))):
+            lines.append(f"- `{gate}`: `{count}`")
+    else:
+        lines.append("- No failed gates were observed in this scan window.")
+    lines.extend([
+        "",
+        "## Recommendation",
+        "",
+        str(payload.get("recommendation", "Review no-order diagnostics only. Trading gates remain closed.")),
+    ])
+    resolved = Path(path).resolve()
+    resolved.parent.mkdir(parents=True, exist_ok=True)
+    resolved.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def write_cycle_bundle(payload: Mapping[str, Any], out_dir: str | os.PathLike[str]) -> tuple[Path, Path, Path]:
     target_dir = Path(out_dir)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -542,4 +547,13 @@ def write_cycle_bundle(payload: Mapping[str, Any], out_dir: str | os.PathLike[st
     write_json_atomic(report_json, payload)
     write_jsonl_atomic(ledger_jsonl, _sequence(payload.get("shadow_observations")))
     write_markdown(report_md, payload)
+    diagnostics = _mapping(payload.get("candidate_scan_diagnostics"))
+    if diagnostics:
+        candidate_json = target_dir / f"{CANDIDATE_SCAN_ARTIFACT_PREFIX}_{stamp}.json"
+        candidate_md = target_dir / f"{CANDIDATE_SCAN_ARTIFACT_PREFIX}_{stamp}.md"
+        diagnostics_payload = dict(diagnostics)
+        diagnostics_payload["canonical_cycle_report_json"] = str(report_json)
+        diagnostics_payload["canonical_cycle_ledger_jsonl"] = str(ledger_jsonl)
+        write_json_atomic(candidate_json, diagnostics_payload)
+        write_candidate_scan_markdown(candidate_md, diagnostics_payload)
     return report_json, ledger_jsonl, report_md

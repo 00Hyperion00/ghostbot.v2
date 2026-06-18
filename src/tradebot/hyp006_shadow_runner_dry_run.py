@@ -24,6 +24,9 @@ DRY_RUN_LEDGER_PREFIX = "4B436628C_hyp006_r1_shadow_dry_run_ledger"
 NEXT_REQUIRED_GATE = "28D_CANONICAL_NO_ORDER_SHADOW_COLLECTION_SCHEDULER_REGISTRATION_OPERATOR_APPROVAL"
 PROPOSED_SCHEDULER_TASK_NAME = "TradeBot_HYP006_R1_Canonical_NoOrderShadowCollection"
 PUBLIC_BINANCE_BASE_URL = "https://api.binance.com"
+CANDIDATE_SCAN_HOOK_CONTRACT_VERSION = "4B.4.3.6.6.28G-H3"
+CANDIDATE_SCAN_ARTIFACT_PREFIX = "4B436628G_H3_hyp006_r1_runtime_candidate_scan_gate_level_near_miss"
+NEAR_MISS_MAX_FAILED_GATES = 2
 
 
 @dataclass(frozen=True)
@@ -389,12 +392,193 @@ def existing_observation_ids(rows: Sequence[Mapping[str, Any]]) -> set[str]:
     return values
 
 
-def scan_hyp006_short_probe_observations(
+def _gate_counter_from_events(events: Sequence[Mapping[str, Any]]) -> dict[str, int]:
+    counter: Counter[str] = Counter()
+    for event in events:
+        for gate in event.get("failed_gates", []) if isinstance(event.get("failed_gates"), list) else []:
+            counter[str(gate)] += 1
+    return dict(sorted(counter.items(), key=lambda item: (-item[1], item[0])))
+
+
+def _empty_candidate_scan_diagnostics(
+    *,
+    runtime_spec: RuntimeSpec,
+    scanned_candle_count: int = 0,
+    skipped_insufficient_history_count: int = 0,
+) -> dict[str, Any]:
+    return {
+        "contract_version": CANDIDATE_SCAN_HOOK_CONTRACT_VERSION,
+        "report_type": "hyp006_r1_runtime_candidate_scan_gate_level_near_miss_emission",
+        "hypothesis_id": HYPOTHESIS_ID,
+        "branch_id": BRANCH_ID,
+        "branch_name": BRANCH_NAME,
+        "strategy_family": STRATEGY_FAMILY,
+        "timeframe": runtime_spec.timeframe,
+        "read_only": True,
+        "runtime_hook_enabled": True,
+        "raw_candidate_scan_artifact_found": True,
+        "no_order_measurement_only": True,
+        "strategy_parameter_mutation_performed": False,
+        "config_mutation_performed": False,
+        "scheduler_mutation_performed": False,
+        "scheduler_task_created": False,
+        "scheduler_task_modified": False,
+        "training_performed": False,
+        "reload_performed": False,
+        "trading_action_performed": False,
+        "order_actions_performed": False,
+        "approved_for_parameter_relaxation_candidate": False,
+        "approved_for_paper_candidate": False,
+        "approved_for_live_real": False,
+        "scanned_candle_count": scanned_candle_count,
+        "skipped_insufficient_history_count": skipped_insufficient_history_count,
+        "candidate_count": 0,
+        "near_miss_count": 0,
+        "trigger_count": 0,
+        "duplicate_existing_trigger_count": 0,
+        "symbol_candidate_counter": {},
+        "symbol_near_miss_counter": {},
+        "symbol_trigger_counter": {},
+        "gate_block_counter": {},
+        "sample_near_miss_events": [],
+        "sample_rejection_events": [],
+        "sample_trigger_events": [],
+    }
+
+
+def _build_gate_evaluation(
+    *,
+    candle: Candle,
+    lookback_low: float,
+    sweep_depth_bps: float,
+    wick_pct: float,
+    reclaim_reference: bool,
+    compression_ratio: float,
+    spread_slippage_proxy: float,
+    data_quality_ok: bool,
+    runtime_spec: RuntimeSpec,
+) -> dict[str, Any]:
+    swept_low = candle.low
+    gate_checks: dict[str, bool] = {
+        "DATA_QUALITY_FILTER": bool(data_quality_ok),
+        "DOWNSIDE_SWEEP_OCCURRED": swept_low < lookback_low,
+        "MIN_SWEEP_DEPTH_BPS": sweep_depth_bps >= runtime_spec.min_sweep_bps,
+        "RECLAIM_REFERENCE_CLOSE": bool(reclaim_reference),
+        "MIN_WICK_PCT_REFERENCE": wick_pct >= runtime_spec.min_wick_pct_reference,
+        "MAX_COMPRESSION_RATIO_REFERENCE": compression_ratio <= runtime_spec.max_compression_ratio_reference,
+        "MAX_SPREAD_SLIPPAGE_PROXY_BPS": spread_slippage_proxy <= runtime_spec.max_slippage_proxy_bps,
+    }
+    failed_gates = [gate for gate, passed in gate_checks.items() if not passed]
+    passed_gate_count = len(gate_checks) - len(failed_gates)
+    candidate_probe = bool(gate_checks["DOWNSIDE_SWEEP_OCCURRED"] and data_quality_ok)
+    trigger = not failed_gates
+    near_miss = bool(candidate_probe and not trigger and len(failed_gates) <= NEAR_MISS_MAX_FAILED_GATES)
+    return {
+        "timestamp_utc": candle.timestamp_utc,
+        "symbol": candle.symbol.upper(),
+        "timeframe": runtime_spec.timeframe,
+        "candidate_probe": candidate_probe,
+        "trigger": trigger,
+        "near_miss": near_miss,
+        "gate_checks": gate_checks,
+        "failed_gates": failed_gates,
+        "passed_gate_count": passed_gate_count,
+        "failed_gate_count": len(failed_gates),
+        "lookback_low": round(lookback_low, 8),
+        "swept_low": round(swept_low, 8),
+        "sweep_depth_bps": round(sweep_depth_bps, 6),
+        "min_sweep_bps": runtime_spec.min_sweep_bps,
+        "reclaim_reference": bool(reclaim_reference),
+        "wick_pct_reference": round(wick_pct, 6),
+        "min_wick_pct_reference": runtime_spec.min_wick_pct_reference,
+        "compression_ratio_reference": round(compression_ratio, 6),
+        "max_compression_ratio_reference": runtime_spec.max_compression_ratio_reference,
+        "spread_slippage_proxy_bps": round(spread_slippage_proxy, 6),
+        "max_slippage_proxy_bps": runtime_spec.max_slippage_proxy_bps,
+        "data_quality_ok": bool(data_quality_ok),
+    }
+
+
+def merge_candidate_scan_diagnostics(diagnostics: Sequence[Mapping[str, Any]], *, sample_limit: int = 100) -> dict[str, Any]:
+    candidate_count = 0
+    near_miss_count = 0
+    trigger_count = 0
+    duplicate_existing_trigger_count = 0
+    scanned_candle_count = 0
+    skipped_insufficient_history_count = 0
+    symbol_candidate_counter: Counter[str] = Counter()
+    symbol_near_miss_counter: Counter[str] = Counter()
+    symbol_trigger_counter: Counter[str] = Counter()
+    gate_block_counter: Counter[str] = Counter()
+    sample_near_miss_events: list[Mapping[str, Any]] = []
+    sample_rejection_events: list[Mapping[str, Any]] = []
+    sample_trigger_events: list[Mapping[str, Any]] = []
+    timeframe = "4h"
+
+    for item in diagnostics:
+        timeframe = str(item.get("timeframe") or timeframe)
+        candidate_count += int(item.get("candidate_count") or 0)
+        near_miss_count += int(item.get("near_miss_count") or 0)
+        trigger_count += int(item.get("trigger_count") or 0)
+        duplicate_existing_trigger_count += int(item.get("duplicate_existing_trigger_count") or 0)
+        scanned_candle_count += int(item.get("scanned_candle_count") or 0)
+        skipped_insufficient_history_count += int(item.get("skipped_insufficient_history_count") or 0)
+        symbol_candidate_counter.update({str(key): int(value) for key, value in dict(item.get("symbol_candidate_counter") or {}).items()})
+        symbol_near_miss_counter.update({str(key): int(value) for key, value in dict(item.get("symbol_near_miss_counter") or {}).items()})
+        symbol_trigger_counter.update({str(key): int(value) for key, value in dict(item.get("symbol_trigger_counter") or {}).items()})
+        gate_block_counter.update({str(key): int(value) for key, value in dict(item.get("gate_block_counter") or {}).items()})
+        sample_near_miss_events.extend([event for event in item.get("sample_near_miss_events", []) if isinstance(event, Mapping)])
+        sample_rejection_events.extend([event for event in item.get("sample_rejection_events", []) if isinstance(event, Mapping)])
+        sample_trigger_events.extend([event for event in item.get("sample_trigger_events", []) if isinstance(event, Mapping)])
+
+    return {
+        "contract_version": CANDIDATE_SCAN_HOOK_CONTRACT_VERSION,
+        "report_type": "hyp006_r1_runtime_candidate_scan_gate_level_near_miss_emission",
+        "hypothesis_id": HYPOTHESIS_ID,
+        "branch_id": BRANCH_ID,
+        "branch_name": BRANCH_NAME,
+        "strategy_family": STRATEGY_FAMILY,
+        "timeframe": timeframe,
+        "read_only": True,
+        "runtime_hook_enabled": True,
+        "raw_candidate_scan_artifact_found": True,
+        "no_order_measurement_only": True,
+        "strategy_parameter_mutation_performed": False,
+        "config_mutation_performed": False,
+        "scheduler_mutation_performed": False,
+        "scheduler_task_created": False,
+        "scheduler_task_modified": False,
+        "training_performed": False,
+        "reload_performed": False,
+        "trading_action_performed": False,
+        "order_actions_performed": False,
+        "approved_for_parameter_relaxation_candidate": False,
+        "approved_for_paper_candidate": False,
+        "approved_for_live_real": False,
+        "scanned_candle_count": scanned_candle_count,
+        "skipped_insufficient_history_count": skipped_insufficient_history_count,
+        "candidate_count": candidate_count,
+        "near_miss_count": near_miss_count,
+        "trigger_count": trigger_count,
+        "duplicate_existing_trigger_count": duplicate_existing_trigger_count,
+        "symbol_candidate_counter": dict(sorted(symbol_candidate_counter.items())),
+        "symbol_near_miss_counter": dict(sorted(symbol_near_miss_counter.items())),
+        "symbol_trigger_counter": dict(sorted(symbol_trigger_counter.items())),
+        "gate_block_counter": dict(sorted(gate_block_counter.items(), key=lambda pair: (-pair[1], pair[0]))),
+        "sample_near_miss_events": list(sample_near_miss_events[:sample_limit]),
+        "sample_rejection_events": list(sample_rejection_events[:sample_limit]),
+        "sample_trigger_events": list(sample_trigger_events[:sample_limit]),
+        "recommendation": "Review gate-level near-miss evidence before any separate research-only parameter sensitivity proposal. Trading gates remain closed.",
+    }
+
+
+def scan_hyp006_short_probe_observations_with_diagnostics(
     candles: Sequence[Candle],
     *,
     runtime_spec: RuntimeSpec,
     existing_ids: set[str] | None = None,
-) -> list[Hyp006DryRunObservation]:
+    sample_limit: int = 100,
+) -> tuple[list[Hyp006DryRunObservation], dict[str, Any]]:
     existing_ids = set(existing_ids or set())
     observations: list[Hyp006DryRunObservation] = []
     lookback = runtime_spec.lookback_bars
@@ -403,6 +587,25 @@ def scan_hyp006_short_probe_observations(
     compression_baseline = runtime_spec.compression_baseline_bars
     min_index = max(lookback, compression_window, compression_baseline) + 1
     ranges = [_range(item) for item in candles]
+    diagnostics = _empty_candidate_scan_diagnostics(
+        runtime_spec=runtime_spec,
+        scanned_candle_count=0,
+        skipped_insufficient_history_count=min(len(candles), min_index),
+    )
+    symbol_candidate_counter: Counter[str] = Counter()
+    symbol_near_miss_counter: Counter[str] = Counter()
+    symbol_trigger_counter: Counter[str] = Counter()
+    gate_block_counter: Counter[str] = Counter()
+    sample_near_miss_events: list[dict[str, Any]] = []
+    sample_rejection_events: list[dict[str, Any]] = []
+    sample_trigger_events: list[dict[str, Any]] = []
+
+    candidate_count = 0
+    near_miss_count = 0
+    trigger_count = 0
+    duplicate_existing_trigger_count = 0
+    scanned_candle_count = 0
+
     for idx in range(min_index, len(candles)):
         if idx + hold >= len(candles):
             continue
@@ -413,6 +616,7 @@ def scan_hyp006_short_probe_observations(
         lookback_low = min(item.low for item in prior)
         if lookback_low <= 0:
             continue
+        scanned_candle_count += 1
         swept_low = candle.low
         sweep_depth_bps = _basis_bps(lookback_low - swept_low, lookback_low)
         candle_range = max(candle.high - candle.low, 1e-12)
@@ -425,16 +629,33 @@ def scan_hyp006_short_probe_observations(
         compression_ratio = short_mean / base_mean if base_mean > 0 else 1.0
         spread_slippage_proxy = min(99.0, max(0.0, _basis_bps(candle.high - candle.low, candle.close) * 0.03))
         data_quality_ok = all(value > 0 for value in (candle.open, candle.high, candle.low, candle.close))
-        if not (
-            swept_low < lookback_low
-            and sweep_depth_bps >= runtime_spec.min_sweep_bps
-            and reclaim_reference
-            and wick_pct >= runtime_spec.min_wick_pct_reference
-            and compression_ratio <= runtime_spec.max_compression_ratio_reference
-            and spread_slippage_proxy <= runtime_spec.max_slippage_proxy_bps
-            and data_quality_ok
-        ):
+        event = _build_gate_evaluation(
+            candle=candle,
+            lookback_low=lookback_low,
+            sweep_depth_bps=sweep_depth_bps,
+            wick_pct=wick_pct,
+            reclaim_reference=reclaim_reference,
+            compression_ratio=compression_ratio,
+            spread_slippage_proxy=spread_slippage_proxy,
+            data_quality_ok=data_quality_ok,
+            runtime_spec=runtime_spec,
+        )
+        if event["candidate_probe"]:
+            candidate_count += 1
+            symbol_candidate_counter[event["symbol"]] += 1
+        if event["near_miss"]:
+            near_miss_count += 1
+            symbol_near_miss_counter[event["symbol"]] += 1
+            if len(sample_near_miss_events) < sample_limit:
+                sample_near_miss_events.append(event)
+        if event["failed_gates"]:
+            gate_block_counter.update(str(gate) for gate in event["failed_gates"])
+            if event["candidate_probe"] and not event["near_miss"] and len(sample_rejection_events) < sample_limit:
+                sample_rejection_events.append(event)
+
+        if not event["trigger"]:
             continue
+
         entry = candle.close
         h1_close = candles[idx + 1].close if idx + 1 < len(candles) else None
         h2_close = candles[idx + 2].close if idx + 2 < len(candles) else None
@@ -442,6 +663,15 @@ def scan_hyp006_short_probe_observations(
         final_close = candles[idx + hold].close if idx + hold < len(candles) else None
         mae, mfe = _short_mae_mfe(candles, idx, hold, entry)
         observation_id = stable_observation_id(candle.symbol, runtime_spec.timeframe, candle.timestamp_utc)
+        trigger_count += 1
+        symbol_trigger_counter[candle.symbol.upper()] += 1
+        if observation_id in existing_ids:
+            duplicate_existing_trigger_count += 1
+        trigger_event = dict(event)
+        trigger_event["observation_id"] = observation_id
+        trigger_event["duplicate_existing_observation"] = observation_id in existing_ids
+        if len(sample_trigger_events) < sample_limit:
+            sample_trigger_events.append(trigger_event)
         observations.append(
             Hyp006DryRunObservation(
                 contract_version=CONTRACT_VERSION,
@@ -475,6 +705,37 @@ def scan_hyp006_short_probe_observations(
                 operator_review_status="PENDING_28D_OPERATOR_REGISTRATION_REVIEW",
             )
         )
+
+    diagnostics.update(
+        {
+            "scanned_candle_count": scanned_candle_count,
+            "candidate_count": candidate_count,
+            "near_miss_count": near_miss_count,
+            "trigger_count": trigger_count,
+            "duplicate_existing_trigger_count": duplicate_existing_trigger_count,
+            "symbol_candidate_counter": dict(sorted(symbol_candidate_counter.items())),
+            "symbol_near_miss_counter": dict(sorted(symbol_near_miss_counter.items())),
+            "symbol_trigger_counter": dict(sorted(symbol_trigger_counter.items())),
+            "gate_block_counter": dict(sorted(gate_block_counter.items(), key=lambda pair: (-pair[1], pair[0]))),
+            "sample_near_miss_events": sample_near_miss_events,
+            "sample_rejection_events": sample_rejection_events,
+            "sample_trigger_events": sample_trigger_events,
+        }
+    )
+    return observations, diagnostics
+
+
+def scan_hyp006_short_probe_observations(
+    candles: Sequence[Candle],
+    *,
+    runtime_spec: RuntimeSpec,
+    existing_ids: set[str] | None = None,
+) -> list[Hyp006DryRunObservation]:
+    observations, _diagnostics = scan_hyp006_short_probe_observations_with_diagnostics(
+        candles,
+        runtime_spec=runtime_spec,
+        existing_ids=existing_ids,
+    )
     return observations
 
 
@@ -547,12 +808,20 @@ def build_hyp006_shadow_runner_dry_run_report(
     requested_symbols = sorted({item.upper() for item in (symbols or grouped.keys())})
     existing_ids = existing_observation_ids(list(existing_ledger_rows or []))
     observations: list[Hyp006DryRunObservation] = []
+    scan_diagnostics: list[Mapping[str, Any]] = []
     rows_by_symbol: dict[str, int] = {}
     for symbol in requested_symbols:
         rows = grouped.get(symbol, [])
         rows_by_symbol[symbol] = len(rows)
         if spec_ok:
-            observations.extend(scan_hyp006_short_probe_observations(rows, runtime_spec=runtime_spec, existing_ids=existing_ids))
+            symbol_observations, symbol_diagnostics = scan_hyp006_short_probe_observations_with_diagnostics(
+                rows,
+                runtime_spec=runtime_spec,
+                existing_ids=existing_ids,
+            )
+            observations.extend(symbol_observations)
+            scan_diagnostics.append(symbol_diagnostics)
+    candidate_scan_diagnostics = merge_candidate_scan_diagnostics(scan_diagnostics)
     summary = summarize_observations(observations)
     dry_run_ok = bool(spec_ok and rows_by_symbol and all(count > 0 for count in rows_by_symbol.values()))
     decision = "HYP006_R1_NO_ORDER_SHADOW_RUNNER_DRY_RUN_READY" if dry_run_ok else "HYP006_R1_NO_ORDER_SHADOW_RUNNER_DRY_RUN_BLOCKED"
@@ -585,6 +854,8 @@ def build_hyp006_shadow_runner_dry_run_report(
         "symbols_requested": requested_symbols,
         "dry_run_summary": summary,
         "dry_run_observations": observations_payload,
+        "candidate_scan_diagnostics": candidate_scan_diagnostics,
+        "runtime_candidate_scan_hook_contract_version": CANDIDATE_SCAN_HOOK_CONTRACT_VERSION,
         "candidate_spec_validation": {"ok": spec_ok, "reasons": sorted(set(spec_reasons))},
         "runner_dry_run_ready": dry_run_ok,
         "operator_registration_approval_gate_ready": dry_run_ok,
