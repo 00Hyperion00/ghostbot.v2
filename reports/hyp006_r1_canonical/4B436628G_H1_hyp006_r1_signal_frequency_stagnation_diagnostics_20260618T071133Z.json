@@ -1,0 +1,246 @@
+{
+  "approved_for_acceptance_review_candidate": false,
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_parameter_relaxation_candidate": false,
+  "approved_for_signal_frequency_review": true,
+  "blockers": [
+    "ACCEPTANCE_METRIC_FAILED_MIN_SHADOW_SAMPLE_TARGET",
+    "ACCEPTANCE_METRIC_FAILED_SHADOW_WALK_FORWARD_POSITIVE_RATE_PCT",
+    "ACCEPTANCE_TRACKING_REQUIREMENTS_NOT_MET",
+    "NO_NEW_SHADOW_OBSERVATIONS_SINCE_28F_BASELINE",
+    "PAPER_LIVE_TRAINING_RELOAD_ORDER_ENABLEMENT_NOT_PRESENT",
+    "SHADOW_SAMPLE_COUNT_BELOW_TARGET",
+    "HYP006_SIGNAL_FREQUENCY_STAGNATION_DETECTED",
+    "CANDIDATE_SCAN_ARTIFACT_NOT_FOUND"
+  ],
+  "branch_id": "HYP-006-R1",
+  "candidate_trigger_diagnostics": {
+    "candidate_scan_data_available": false,
+    "candidate_scan_data_limitation": "No candidate/near-miss scan artifact was found; report uses ledger repetition and latest 28G acceptance blockers only.",
+    "candidate_scan_files": [],
+    "candidate_scan_files_found": 0,
+    "gate_block_counter": {},
+    "near_miss_count": 0,
+    "symbol_candidate_counter": {},
+    "trigger_count": 0
+  },
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.28G-H1",
+  "current_unique_observation_ids": 20,
+  "decision": "HYP006_R1_SIGNAL_FREQUENCY_STAGNATION_DIAGNOSTICS_READY",
+  "gate_diagnostics": [
+    {
+      "delta": 0,
+      "name": "min_shadow_sample_target",
+      "operator": ">=",
+      "passed": false,
+      "threshold": 30.0,
+      "value": 20
+    },
+    {
+      "delta": 0.0,
+      "name": "shadow_mean_forward_edge_bps",
+      "operator": ">",
+      "passed": true,
+      "threshold": 0.0,
+      "value": 108.911085
+    },
+    {
+      "delta": 0.0,
+      "name": "shadow_median_forward_edge_bps",
+      "operator": ">",
+      "passed": true,
+      "threshold": 0.0,
+      "value": 9.884293
+    },
+    {
+      "delta": 0.0,
+      "name": "shadow_profit_factor",
+      "operator": ">=",
+      "passed": true,
+      "threshold": 1.15,
+      "value": 2.776782
+    },
+    {
+      "delta": 0.0,
+      "name": "shadow_walk_forward_positive_rate_pct",
+      "operator": ">=",
+      "passed": false,
+      "threshold": 55.0,
+      "value": 50.0
+    },
+    {
+      "delta": 0.0,
+      "name": "shadow_data_quality_pct",
+      "operator": ">=",
+      "passed": true,
+      "threshold": 99.0,
+      "value": 100.0
+    },
+    {
+      "delta": 0.0,
+      "name": "max_slippage_proxy_bps",
+      "operator": "<=",
+      "passed": true,
+      "threshold": 12.0,
+      "value": 11.729452
+    }
+  ],
+  "generated_at_utc": "2026-06-18T07:11:33.389928+00:00",
+  "hypothesis_id": "HYP-006",
+  "ledger_glob": "4B436628D_hyp006_r1_shadow_ledger_*.jsonl",
+  "ledger_runs_observed": 5,
+  "ledger_snapshots": [
+    {
+      "earliest_observation_utc": "2026-05-16T08:00:00+00:00",
+      "latest_observation_utc": "2026-06-02T00:00:00+00:00",
+      "length_bytes": 23290,
+      "modified_utc": "2026-06-17T21:05:06.079801+00:00",
+      "path": "reports\\hyp006_r1_canonical\\4B436628D_hyp006_r1_shadow_ledger_20260617T210506Z.jsonl",
+      "row_count": 20,
+      "sha256": "c41c839b6798a8ce51b81567545ee9c74b1cfc1cf287d79a671bf0387b895864",
+      "symbols": {
+        "ADAUSDT": 2,
+        "BNBUSDT": 2,
+        "BTCUSDT": 2,
+        "ETHUSDT": 3,
+        "LINKUSDT": 3,
+        "LTCUSDT": 1,
+        "SOLUSDT": 1,
+        "XRPUSDT": 6
+      },
+      "unique_count": 20
+    },
+    {
+      "earliest_observation_utc": "2026-05-16T08:00:00+00:00",
+      "latest_observation_utc": "2026-06-02T00:00:00+00:00",
+      "length_bytes": 23290,
+      "modified_utc": "2026-06-16T21:05:06.180372+00:00",
+      "path": "reports\\hyp006_r1_canonical\\4B436628D_hyp006_r1_shadow_ledger_20260616T210506Z.jsonl",
+      "row_count": 20,
+      "sha256": "c41c839b6798a8ce51b81567545ee9c74b1cfc1cf287d79a671bf0387b895864",
+      "symbols": {
+        "ADAUSDT": 2,
+        "BNBUSDT": 2,
+        "BTCUSDT": 2,
+        "ETHUSDT": 3,
+        "LINKUSDT": 3,
+        "LTCUSDT": 1,
+        "SOLUSDT": 1,
+        "XRPUSDT": 6
+      },
+      "unique_count": 20
+    },
+    {
+      "earliest_observation_utc": "2026-05-16T08:00:00+00:00",
+      "latest_observation_utc": "2026-06-02T00:00:00+00:00",
+      "length_bytes": 23290,
+      "modified_utc": "2026-06-15T21:05:06.231383+00:00",
+      "path": "reports\\hyp006_r1_canonical\\4B436628D_hyp006_r1_shadow_ledger_20260615T210506Z.jsonl",
+      "row_count": 20,
+      "sha256": "c41c839b6798a8ce51b81567545ee9c74b1cfc1cf287d79a671bf0387b895864",
+      "symbols": {
+        "ADAUSDT": 2,
+        "BNBUSDT": 2,
+        "BTCUSDT": 2,
+        "ETHUSDT": 3,
+        "LINKUSDT": 3,
+        "LTCUSDT": 1,
+        "SOLUSDT": 1,
+        "XRPUSDT": 6
+      },
+      "unique_count": 20
+    },
+    {
+      "earliest_observation_utc": "2026-05-16T08:00:00+00:00",
+      "latest_observation_utc": "2026-06-02T00:00:00+00:00",
+      "length_bytes": 23290,
+      "modified_utc": "2026-06-15T18:28:58.908772+00:00",
+      "path": "reports\\hyp006_r1_canonical\\4B436628D_hyp006_r1_shadow_ledger_20260615T182858Z.jsonl",
+      "row_count": 20,
+      "sha256": "c41c839b6798a8ce51b81567545ee9c74b1cfc1cf287d79a671bf0387b895864",
+      "symbols": {
+        "ADAUSDT": 2,
+        "BNBUSDT": 2,
+        "BTCUSDT": 2,
+        "ETHUSDT": 3,
+        "LINKUSDT": 3,
+        "LTCUSDT": 1,
+        "SOLUSDT": 1,
+        "XRPUSDT": 6
+      },
+      "unique_count": 20
+    },
+    {
+      "earliest_observation_utc": "2026-05-16T08:00:00+00:00",
+      "latest_observation_utc": "2026-06-02T00:00:00+00:00",
+      "length_bytes": 23290,
+      "modified_utc": "2026-06-15T17:37:55.440731+00:00",
+      "path": "reports\\hyp006_r1_canonical\\4B436628D_hyp006_r1_shadow_ledger_20260615T173755Z.jsonl",
+      "row_count": 20,
+      "sha256": "c41c839b6798a8ce51b81567545ee9c74b1cfc1cf287d79a671bf0387b895864",
+      "symbols": {
+        "ADAUSDT": 2,
+        "BNBUSDT": 2,
+        "BTCUSDT": 2,
+        "ETHUSDT": 3,
+        "LINKUSDT": 3,
+        "LTCUSDT": 1,
+        "SOLUSDT": 1,
+        "XRPUSDT": 6
+      },
+      "unique_count": 20
+    }
+  ],
+  "network_request_performed": false,
+  "new_unique_observation_count_latest_delta": 0,
+  "next_required_gate": "28G_H1_REVIEW_STAGNATION_DIAGNOSTICS_OR_CONTINUE_28G_REPEAT",
+  "ok": true,
+  "order_actions_performed": false,
+  "paper_live_order_enablement_present": false,
+  "post_requests_allowed": false,
+  "read_only": true,
+  "recommendation": "No new unique HYP-006 observations were detected across recent scheduler ledgers. Run candidate/near-miss instrumentation before any parameter relaxation; keep all trading gates closed.",
+  "reload_performed": false,
+  "report_json": "reports\\hyp006_r1_canonical\\4B436628G_H1_hyp006_r1_signal_frequency_stagnation_diagnostics_20260618T071133Z.json",
+  "report_md": "reports\\hyp006_r1_canonical\\4B436628G_H1_hyp006_r1_signal_frequency_stagnation_diagnostics_20260618T071133Z.md",
+  "report_type": "hyp006_r1_signal_frequency_candidate_trigger_stagnation_diagnostics_report",
+  "reports_dir": "reports\\hyp006_r1_canonical",
+  "risk_items": [
+    {
+      "code": "NO_ORDER_DIAGNOSTIC_ONLY",
+      "detail": "This report reads artifacts and writes diagnostic evidence only; it does not approve trading.",
+      "level": "critical"
+    },
+    {
+      "code": "SIGNAL_FREQUENCY_STAGNATION",
+      "detail": "Recent scheduler ledgers have not added new unique HYP-006 observations.",
+      "level": "warning"
+    },
+    {
+      "code": "PARAMETER_RELAXATION_REQUIRES_SEPARATE_RESEARCH_GATE",
+      "detail": "Any threshold change must be handled by a separate research-only patch with explicit risk approval.",
+      "level": "warning"
+    }
+  ],
+  "scheduler_mutation_performed": false,
+  "scheduler_task_created": false,
+  "scheduler_task_modified": false,
+  "stagnation": {
+    "latest_delta_unique_count": 0,
+    "latest_ledger_length_bytes": 23290,
+    "latest_ledger_path": "reports\\hyp006_r1_canonical\\4B436628D_hyp006_r1_shadow_ledger_20260617T210506Z.jsonl",
+    "latest_ledger_sha256": "c41c839b6798a8ce51b81567545ee9c74b1cfc1cf287d79a671bf0387b895864",
+    "ledger_runs_observed": 5,
+    "previous_ledger_path": "reports\\hyp006_r1_canonical\\4B436628D_hyp006_r1_shadow_ledger_20260616T210506Z.jsonl",
+    "stagnation_detected": true,
+    "stagnation_reason": "UNCHANGED_LEDGER_PAYLOAD_ACROSS_RECENT_RUNS",
+    "unchanged_payload_run_count": 5
+  },
+  "stagnation_detected": true,
+  "strategy_parameter_mutation_performed": false,
+  "target_remaining_count": 10,
+  "trading_action_performed": false,
+  "training_performed": false
+}

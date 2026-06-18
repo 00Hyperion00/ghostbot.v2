@@ -1,0 +1,291 @@
+{
+  "acceptance_tracking_metrics": {
+    "acceptance_requirements_met": false,
+    "failed_metric_codes": [
+      "ACCEPTANCE_METRIC_FAILED_MIN_SHADOW_SAMPLE_TARGET",
+      "ACCEPTANCE_METRIC_FAILED_SHADOW_WALK_FORWARD_POSITIVE_RATE_PCT"
+    ],
+    "metric_results": [
+      {
+        "delta": 0,
+        "name": "min_shadow_sample_target",
+        "operator": ">=",
+        "passed": false,
+        "previous_value": 20,
+        "threshold": 30.0,
+        "value": 20
+      },
+      {
+        "delta": 0.0,
+        "name": "shadow_mean_forward_edge_bps",
+        "operator": ">",
+        "passed": true,
+        "previous_value": 108.911085,
+        "threshold": 0.0,
+        "value": 108.911085
+      },
+      {
+        "delta": 0.0,
+        "name": "shadow_median_forward_edge_bps",
+        "operator": ">",
+        "passed": true,
+        "previous_value": 9.884293,
+        "threshold": 0.0,
+        "value": 9.884293
+      },
+      {
+        "delta": 0.0,
+        "name": "shadow_profit_factor",
+        "operator": ">=",
+        "passed": true,
+        "previous_value": 2.776782,
+        "threshold": 1.15,
+        "value": 2.776782
+      },
+      {
+        "delta": 0.0,
+        "name": "shadow_walk_forward_positive_rate_pct",
+        "operator": ">=",
+        "passed": false,
+        "previous_value": 50.0,
+        "threshold": 55.0,
+        "value": 50.0
+      },
+      {
+        "delta": 0.0,
+        "name": "shadow_data_quality_pct",
+        "operator": ">=",
+        "passed": true,
+        "previous_value": 100.0,
+        "threshold": 99.0,
+        "value": 100.0
+      },
+      {
+        "delta": 0.0,
+        "name": "max_slippage_proxy_bps",
+        "operator": "<=",
+        "passed": true,
+        "previous_value": 11.729452,
+        "threshold": 12.0,
+        "value": 11.729452
+      }
+    ],
+    "paper_transition_candidate_found": false,
+    "required_metrics": [
+      {
+        "name": "min_shadow_sample_target",
+        "operator": ">=",
+        "threshold": 30
+      },
+      {
+        "name": "shadow_mean_forward_edge_bps",
+        "operator": ">",
+        "threshold": 0.0
+      },
+      {
+        "name": "shadow_median_forward_edge_bps",
+        "operator": ">",
+        "threshold": 0.0
+      },
+      {
+        "name": "shadow_profit_factor",
+        "operator": ">=",
+        "threshold": 1.15
+      },
+      {
+        "name": "shadow_walk_forward_positive_rate_pct",
+        "operator": ">=",
+        "threshold": 55.0
+      },
+      {
+        "name": "shadow_data_quality_pct",
+        "operator": ">=",
+        "threshold": 99.0
+      },
+      {
+        "name": "max_slippage_proxy_bps",
+        "operator": "<=",
+        "threshold": 12.0
+      }
+    ],
+    "sample_progress_pct": 66.666667,
+    "sample_target": 30,
+    "sample_target_reached": false
+  },
+  "acceptance_tracking_ready": true,
+  "approved_for_acceptance_review_candidate": false,
+  "approved_for_acceptance_tracking": true,
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_shadow_collection_continuity": true,
+  "approved_for_training_candidate": false,
+  "baseline_summary": {
+    "best_return_bps": 842.105263,
+    "data_quality_pct": 100.0,
+    "ledger_row_count": 20,
+    "loss_count": 10,
+    "matured_count": 20,
+    "max_slippage_proxy_bps": 11.729452,
+    "mean_return_bps": 108.911085,
+    "median_return_bps": 9.884293,
+    "net_return_bps": 2178.221695,
+    "profit_factor": 2.776782,
+    "unique_observation_ids": 20,
+    "win_count": 10,
+    "win_rate_pct": 50.0,
+    "worst_return_bps": -233.05228
+  },
+  "blockers": [
+    "ACCEPTANCE_METRIC_FAILED_MIN_SHADOW_SAMPLE_TARGET",
+    "ACCEPTANCE_METRIC_FAILED_SHADOW_WALK_FORWARD_POSITIVE_RATE_PCT",
+    "ACCEPTANCE_TRACKING_REQUIREMENTS_NOT_MET",
+    "NO_NEW_SHADOW_OBSERVATIONS_SINCE_28F_BASELINE",
+    "PAPER_LIVE_TRAINING_RELOAD_ORDER_ENABLEMENT_NOT_PRESENT",
+    "SHADOW_SAMPLE_COUNT_BELOW_TARGET"
+  ],
+  "branch_id": "HYP-006-R1",
+  "branch_name": "failed_downside_sweep_reversal_continuation_short",
+  "branch_state_mutation_performed": false,
+  "config_mutation_performed": false,
+  "contract_version": "4B.4.3.6.6.28G",
+  "dashboard_delta_seed": {
+    "acceptance_tracking": {
+      "acceptance_requirements_met": false,
+      "failed_metric_codes": [
+        "ACCEPTANCE_METRIC_FAILED_MIN_SHADOW_SAMPLE_TARGET",
+        "ACCEPTANCE_METRIC_FAILED_SHADOW_WALK_FORWARD_POSITIVE_RATE_PCT"
+      ],
+      "mean_return_bps": 108.911085,
+      "median_return_bps": 9.884293,
+      "profit_factor": 2.776782,
+      "sample_progress_pct": 66.666667,
+      "sample_target": 30,
+      "sample_target_reached": false,
+      "unique_observation_ids": 20,
+      "win_rate_pct": 50.0
+    },
+    "branch_id": "HYP-006-R1",
+    "branch_name": "failed_downside_sweep_reversal_continuation_short",
+    "contract_version": "4B.4.3.6.6.28G",
+    "dashboard_delta_version": "HYP-006-R1-DASHBOARD-DELTA-001",
+    "display_state": "NO_ORDER_SHADOW_SAMPLE_EXPANSION_ACTIVE_ACCEPTANCE_INCOMPLETE",
+    "gate_status": {
+      "approved_for_acceptance_review_candidate": false,
+      "approved_for_acceptance_tracking": true,
+      "approved_for_live_real": false,
+      "approved_for_paper_candidate": false,
+      "approved_for_shadow_collection_continuity": true,
+      "approved_for_training_candidate": false,
+      "next_required_gate": "28G_REPEAT_SHADOW_SAMPLE_EXPANSION_AND_ACCEPTANCE_TRACKING",
+      "order_actions_allowed": false
+    },
+    "generated_at_utc": "2026-06-16T21:06:26+00:00",
+    "hypothesis_id": "HYP-006",
+    "no_order_shadow_only": true,
+    "operator_cockpit_visibility": true,
+    "read_only": true,
+    "risk_banner": "NO_ORDER_SHADOW_ONLY__PAPER_LIVE_TRAINING_RELOAD_ORDER_BLOCKED",
+    "sample_expansion": {
+      "current_unique_observation_ids": 20,
+      "new_observation_ids": [],
+      "new_unique_observation_count": 0,
+      "previous_unique_observation_ids": 20,
+      "removed_observation_ids": [],
+      "sample_progress_delta_pct": 0.0,
+      "target_remaining_count": 10
+    },
+    "source_paths": {
+      "ledger_jsonl": "C:\\Users\\muhas\\OneDrive\\Masa\u00fcst\u00fc\\trade_botV2\\reports\\hyp006_r1_canonical\\4B436628D_hyp006_r1_shadow_ledger_20260616T210506Z.jsonl",
+      "operator_cockpit_baseline_json": "C:\\Users\\muhas\\OneDrive\\Masa\u00fcst\u00fc\\trade_botV2\\reports\\hyp006_r1_canonical\\4B436628F_hyp006_r1_operator_cockpit_baseline_20260615T183954Z.json"
+    },
+    "strategy_family": "short_failed_liquidity_sweep_continuation"
+  },
+  "decision": "HYP006_R1_SHADOW_SAMPLE_EXPANSION_ACCEPTANCE_TRACKING_READY",
+  "generated_at_utc": "2026-06-16T21:06:26+00:00",
+  "hypothesis_id": "HYP-006",
+  "network_request_performed": false,
+  "next_required_gate": "28G_REPEAT_SHADOW_SAMPLE_EXPANSION_AND_ACCEPTANCE_TRACKING",
+  "ok": true,
+  "operator_cockpit_continuity_delta": {
+    "duplicate_observation_count": 0,
+    "duplicate_observation_ids": [],
+    "earliest_observation_utc": "2026-05-16T08:00:00+00:00",
+    "latest_observation_utc": "2026-06-02T00:00:00+00:00",
+    "ledger_row_count": 20,
+    "new_unique_observation_count": 0,
+    "no_order_rows_ok": true,
+    "symbols_observed": [
+      "ADAUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "symbols_observed_count": 8,
+    "target_remaining_count": 10,
+    "unique_observation_ids": 20,
+    "unsafe_row_count": 0,
+    "unsafe_rows": []
+  },
+  "operator_cockpit_continuity_delta_ready": true,
+  "order_actions_performed": false,
+  "paper_transition_candidate_found": false,
+  "post_requests_allowed": false,
+  "read_only": true,
+  "reason_codes": [
+    "HYP006_R1_SHADOW_SAMPLE_EXPANSION_TRACKING",
+    "ACCEPTANCE_TRACKING_METRICS_COMPUTED",
+    "OPERATOR_COCKPIT_CONTINUITY_DELTA_EVIDENCE",
+    "PAPER_LIVE_GATES_REMAIN_CLOSED",
+    "NO_TRAINING_RELOAD_ORDER_ENABLEMENT"
+  ],
+  "recommendation": "Continue no-order HYP-006-R1 shadow sample expansion. Do not train, reload, paper trade, live trade, or send orders.",
+  "reload_performed": false,
+  "report_type": "hyp006_r1_shadow_sample_expansion_acceptance_tracking_operator_cockpit_continuity_delta_evidence",
+  "risk_items": [
+    {
+      "code": "NO_ORDER_SHADOW_ONLY",
+      "detail": "28G tracks shadow samples only; it does not approve trading.",
+      "level": "critical"
+    },
+    {
+      "code": "ACCEPTANCE_REVIEW_SEPARATE_GATE",
+      "detail": "Even if metrics mature, paper/live remain blocked until a separate review gate.",
+      "level": "warning"
+    },
+    {
+      "code": "SHORT_SIDE_COSTS_STILL_UNMODELED",
+      "detail": "Funding, liquidation, execution cost, and adverse selection remain outside this tracking report.",
+      "level": "warning"
+    }
+  ],
+  "sample_expansion_delta": {
+    "current_unique_observation_ids": 20,
+    "new_observation_ids": [],
+    "new_unique_observation_count": 0,
+    "previous_unique_observation_ids": 20,
+    "removed_observation_ids": [],
+    "sample_progress_delta_pct": 0.0,
+    "target_remaining_count": 10
+  },
+  "sample_expansion_tracking_ready": true,
+  "scheduler_mutation_performed": false,
+  "scheduler_task_created": false,
+  "scheduler_task_modified": false,
+  "source_baseline_contract_version": "4B.4.3.6.6.28F",
+  "source_baseline_decision": "HYP006_R1_SHADOW_OPERATOR_COCKPIT_BASELINE_READY",
+  "source_paths": {
+    "ledger_jsonl": "C:\\Users\\muhas\\OneDrive\\Masa\u00fcst\u00fc\\trade_botV2\\reports\\hyp006_r1_canonical\\4B436628D_hyp006_r1_shadow_ledger_20260616T210506Z.jsonl",
+    "operator_cockpit_baseline_json": "C:\\Users\\muhas\\OneDrive\\Masa\u00fcst\u00fc\\trade_botV2\\reports\\hyp006_r1_canonical\\4B436628F_hyp006_r1_operator_cockpit_baseline_20260615T183954Z.json"
+  },
+  "strategy_family": "short_failed_liquidity_sweep_continuation",
+  "strategy_parameter_mutation_performed": false,
+  "trading_action_performed": false,
+  "training_performed": false,
+  "warnings": [
+    "28H_REQUIRED_BEFORE_ANY_PAPER_TRANSITION_CANDIDACY"
+  ]
+}
