@@ -141,10 +141,11 @@ class Settings:
     runtime_lock_path: str = ".tradebot/runtime.lock"
     sqlite_wal_enabled: bool = True
     sqlite_busy_timeout_ms: int = 5000
-    sqlite_schema_version: int = 1
+    sqlite_schema_version: int = 2
     sqlite_backup_enabled: bool = True
     fee_slippage_baseline_bps: float = 24.0
     promotion_gate_isolation_enabled: bool = True
+    # 4B.4.3.6.6.29C SQLite audit ledger upgrade
 
     # 4B.4.3.6.6.29B API/operator security hardening controls
     api_auth_token_ttl_sec: int = 900
