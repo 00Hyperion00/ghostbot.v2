@@ -183,6 +183,20 @@ class Settings:
     production_readiness_require_29c: bool = True
     production_readiness_require_29d: bool = True
     paper_candidate_preflight_enabled: bool = True
+
+    # 4B.4.3.6.6.30A-H1 paper candidate preflight missing fields repair
+    paper_transition_operator_approval_required: bool = True
+    paper_transition_operator_approved: bool = False
+    paper_transition_confirmation_phrase: str = "CONFIRM_PAPER_TRANSITION_CANDIDATE"
+    paper_transition_confirmation_token: str = ""
+    paper_exchange_sandbox_required: bool = True
+    paper_sandbox_allowed_market_types: str = "spot_demo,spot_testnet"
+    paper_transition_capital_cap_usd: float = 100.0
+    paper_order_notional_cap_usd: float = 25.0
+    paper_max_daily_loss_usd: float = 5.0
+    paper_max_daily_trades_cap: int = 5
+    paper_kill_switch_required: bool = True
+    paper_kill_switch_enabled: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
