@@ -145,6 +145,21 @@ class Settings:
     sqlite_backup_enabled: bool = True
     fee_slippage_baseline_bps: float = 24.0
     promotion_gate_isolation_enabled: bool = True
+
+    # 4B.4.3.6.6.29D replay/backtest/walk-forward gate controls
+    replay_gate_enabled: bool = True
+    deterministic_replay_required: bool = True
+    model_artifact_hash_required: bool = True
+    walk_forward_oos_gate_required: bool = True
+    last_known_good_model_registry_path: str = "models/last_known_good_model_registry.json"
+    replay_gate_min_oos_samples: int = 30
+    replay_gate_min_oos_win_rate_pct: float = 60.0
+    replay_gate_min_oos_profit_factor: float = 1.5
+    replay_gate_min_oos_mean_return_bps: float = 0.0
+    replay_gate_min_oos_worst_return_bps: float = -500.0
+    replay_gate_min_oos_worst_mae_bps: float = -500.0
+    replay_gate_min_unique_oos_days: int = 3
+    replay_gate_min_regime_count: int = 2
     # 4B.4.3.6.6.29C SQLite audit ledger upgrade
 
     # 4B.4.3.6.6.29B API/operator security hardening controls
