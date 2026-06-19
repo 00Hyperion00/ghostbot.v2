@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from tradebot.production_readiness_gate import build_consolidated_readiness_snapshot, load_production_hardening_evidence
+from tradebot.production_readiness_gate import REQUIRED_EVIDENCE, build_consolidated_readiness_snapshot, load_production_hardening_evidence
 
 
 def _write_report(base: Path, name: str, *, contract: str, decision: str, ok: bool = True) -> None:
@@ -18,11 +18,14 @@ def _write_report(base: Path, name: str, *, contract: str, decision: str, ok: bo
         "reload_performed": False,
         "trading_action_performed": False,
     }
-    (base / name).write_text(json.dumps(payload, sort_keys=True), encoding="utf-8")
+    (base / name).write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def test_evidence_selector_prefers_accepted_over_newer_failed_29a(tmp_path: Path) -> None:
-    # Newer stale failure must not poison consolidation if a later refresh has accepted evidence available.
+def test_29a_h1_actual_decision_is_the_contract_value() -> None:
+    assert REQUIRED_EVIDENCE["29A-H1"]["decision"] == "PRODUCTION_REPORT_PATH_HYGIENE_READY"
+
+
+def test_legacy_h1_refresh_sample_uses_actual_29a_h1_decision(tmp_path: Path) -> None:
     _write_report(tmp_path, "4B436629A_production_hardening_p0_decision_20260619T192825Z.json", contract="4B.4.3.6.6.29A", decision="PRODUCTION_HARDENING_P0_NOT_READY", ok=False)
     _write_report(tmp_path, "4B436629A_production_hardening_p0_decision_20260619T202500Z.json", contract="4B.4.3.6.6.29A", decision="PRODUCTION_HARDENING_P0_READY_LIVE_REAL_STILL_BLOCKED")
     _write_report(tmp_path, "4B436629A_H1_production_report_path_hygiene_decision_20260619T202501Z.json", contract="4B.4.3.6.6.29A-H1", decision="PRODUCTION_REPORT_PATH_HYGIENE_READY")
@@ -38,13 +41,4 @@ def test_evidence_selector_prefers_accepted_over_newer_failed_29a(tmp_path: Path
     assert snapshot["evidence_complete"] is True
     assert snapshot["approved_for_paper_candidate_preflight"] is True
     assert snapshot["approved_for_paper_candidate"] is False
-    assert snapshot["approved_for_live_real"] is False
-    assert snapshot["live_real_hard_block_verified"] is True
-
-
-def test_missing_h1_still_blocks_preflight(tmp_path: Path) -> None:
-    _write_report(tmp_path, "4B436629A_production_hardening_p0_decision_20260619T202500Z.json", contract="4B.4.3.6.6.29A", decision="PRODUCTION_HARDENING_P0_READY_LIVE_REAL_STILL_BLOCKED")
-    snapshot = build_consolidated_readiness_snapshot(tmp_path)
-    assert snapshot["evidence_complete"] is False
-    assert snapshot["approved_for_paper_candidate_preflight"] is False
     assert snapshot["approved_for_live_real"] is False

@@ -20,7 +20,7 @@ REQUIRED_EVIDENCE: dict[str, dict[str, str]] = {
     "29A-H1": {
         "pattern": "4B436629A_H1_production_report_path_hygiene_decision_*.json",
         "contract_version": "4B.4.3.6.6.29A-H1",
-        "decision": "PRODUCTION_REPORT_PATH_HYGIENE_READY_LIVE_REAL_STILL_BLOCKED",
+        "decision": "PRODUCTION_REPORT_PATH_HYGIENE_READY",
     },
     "29B": {
         "pattern": "4B436629B_api_operator_security_hardening_decision_*.json",
