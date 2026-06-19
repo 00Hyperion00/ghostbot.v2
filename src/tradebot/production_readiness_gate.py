@@ -92,18 +92,45 @@ def _load_json(path: Path) -> dict[str, Any]:
     return payload
 
 
-def _latest_matching(evidence_dir: Path, pattern: str) -> Path | None:
+# 4B.4.3.6.6.29E-H1 accepted-evidence selector: prefer latest accepted evidence over latest stale failure.
+def _evidence_payload_is_acceptable(path: Path, spec: Mapping[str, str]) -> bool:
+    try:
+        payload = _load_json(path)
+    except Exception:
+        return False
+    if str(payload.get("contract_version") or "") != spec["contract_version"]:
+        return False
+    if str(payload.get("decision") or "") != spec["decision"]:
+        return False
+    if bool(payload.get("approved_for_live_real", False)):
+        return False
+    if bool(payload.get("trading_action_performed", False)):
+        return False
+    if bool(payload.get("runtime_overlay_activation_performed", False)):
+        return False
+    if bool(payload.get("training_performed", False)) or bool(payload.get("reload_performed", False)):
+        return False
+    return True
+
+
+def _latest_matching(evidence_dir: Path, pattern: str, spec: Mapping[str, str] | None = None) -> Path | None:
     matches = [path for path in evidence_dir.glob(pattern) if path.is_file()]
     if not matches:
         return None
-    return sorted(matches, key=lambda item: item.name)[-1]
+    ordered = sorted(matches, key=lambda item: item.name, reverse=True)
+    if spec is not None:
+        for path in ordered:
+            if _evidence_payload_is_acceptable(path, spec):
+                return path
+    return ordered[0]
+
 
 
 def load_production_hardening_evidence(evidence_dir: str | Path) -> dict[str, EvidenceItem]:
     base = Path(evidence_dir)
     out: dict[str, EvidenceItem] = {}
     for key, spec in REQUIRED_EVIDENCE.items():
-        path = _latest_matching(base, spec["pattern"])
+        path = _latest_matching(base, spec["pattern"], spec)
         reasons: list[str] = []
         if path is None:
             out[key] = EvidenceItem(key, False, None, None, None, [f"{key}_EVIDENCE_MISSING"], False, False, False)

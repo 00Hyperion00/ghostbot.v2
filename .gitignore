@@ -38,3 +38,8 @@ reports/**/tmp/
 reports/production_hardeninsrc=*/
 reports/production_hardeninsrc=src/
 # END 4B.4.3.6.6.29A-H1 REPORT PATH HYGIENE
+# BEGIN 4B.4.3.6.6.29E-H1 PATCH PAYLOAD EXCLUSION
+/tools/_patch_payload/
+tools/_patch_payload/
+tools/_patch_payload/**
+# END 4B.4.3.6.6.29E-H1 PATCH PAYLOAD EXCLUSION
