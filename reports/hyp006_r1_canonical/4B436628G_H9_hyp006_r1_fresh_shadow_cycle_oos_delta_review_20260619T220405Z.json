@@ -1,0 +1,240 @@
+{
+  "approved_for_hyp006_oos_delta_review": false,
+  "approved_for_hyp006_oos_monitoring_continuation": false,
+  "approved_for_live_real": false,
+  "approved_for_paper_candidate": false,
+  "approved_for_paper_transition_candidate": false,
+  "approved_for_parameter_relaxation_candidate": false,
+  "approved_for_runtime_overlay_activation_candidate": false,
+  "blockers": [
+    "LATEST_H8_DECISION_NOT_READY"
+  ],
+  "bnbusdt_matured_count": 13,
+  "bnbusdt_matured_count_delta": 0,
+  "contract_version": "4B.4.3.6.6.28G-H9",
+  "decision": "HYP006_R1_FRESH_SHADOW_CYCLE_OOS_DELTA_REVIEW_BLOCKED",
+  "evidence": {
+    "H3": {
+      "contract_version": "4B.4.3.6.6.28G-H3",
+      "decision": null,
+      "ok": true,
+      "path": "reports/hyp006_r1_canonical/4B436628G_H3_hyp006_r1_runtime_candidate_scan_gate_level_near_miss_20260619T210504Z.json",
+      "present": true,
+      "reason": "ARTIFACT_ACCEPTED"
+    },
+    "H4": {
+      "contract_version": "4B.4.3.6.6.28G-H4",
+      "decision": "HYP006_R1_NEAR_MISS_OUTCOME_ATTRIBUTION_READY",
+      "ok": true,
+      "path": "reports/hyp006_r1_canonical/4B436628G_H4_hyp006_r1_near_miss_outcome_attribution_20260619T220404Z.json",
+      "present": true,
+      "reason": "ARTIFACT_ACCEPTED"
+    },
+    "H5": {
+      "contract_version": "4B.4.3.6.6.28G-H5",
+      "decision": "HYP006_R1_COUNTERFACTUAL_FILTER_CANDIDATE_RANKING_READY",
+      "ok": true,
+      "path": "reports/hyp006_r1_canonical/4B436628G_H5_hyp006_r1_counterfactual_filter_candidate_ranking_20260619T220404Z.json",
+      "present": true,
+      "reason": "ARTIFACT_ACCEPTED"
+    },
+    "H6": {
+      "contract_version": "4B.4.3.6.6.28G-H6",
+      "decision": "HYP006_R1_NO_ORDER_FILTER_SHADOW_OVERLAY_DESIGN_READY",
+      "ok": true,
+      "path": "reports/hyp006_r1_canonical/4B436628G_H6_hyp006_r1_no_order_filter_shadow_overlay_design_20260619T220404Z.json",
+      "present": true,
+      "reason": "ARTIFACT_ACCEPTED"
+    },
+    "H7": {
+      "contract_version": "4B.4.3.6.6.28G-H7",
+      "decision": "NO_ORDER_BNBUSDT_PRIMARY_OVERLAY_SHADOW_MEASUREMENT_READY",
+      "ok": true,
+      "path": "reports/hyp006_r1_canonical/4B436628G_H7_hyp006_r1_no_order_overlay_simulation_bnbusdt_primary_filter_shadow_measurement_20260619T220405Z.json",
+      "present": true,
+      "reason": "ARTIFACT_ACCEPTED"
+    },
+    "H8": {
+      "contract_version": "4B.4.3.6.6.28G-H8",
+      "decision": "HYP006_R1_BNBUSDT_OVERLAY_OOS_EVALUATION_BLOCKED",
+      "ok": true,
+      "path": "reports/hyp006_r1_canonical/4B436628G_H8_hyp006_r1_bnbusdt_overlay_oos_evaluation_runtime_activation_blocked_decision_20260619T220405Z.json",
+      "present": true,
+      "reason": "ARTIFACT_ACCEPTED"
+    }
+  },
+  "fresh_h3_artifact_json": "reports/hyp006_r1_canonical/4B436628G_H3_hyp006_r1_runtime_candidate_scan_gate_level_near_miss_20260619T210504Z.json",
+  "fresh_h3_target_stamp": "20260619T210504Z",
+  "fresh_shadow_cycle_review_only": true,
+  "generated_at_utc": "2026-06-19T22:04:05+00:00",
+  "h3_delta_summary": {
+    "bnbusdt_candidate_count_delta": 2,
+    "bnbusdt_near_miss_count_delta": 0,
+    "candidate_count_delta": 4,
+    "near_miss_count_delta": -1,
+    "previous_h3_present": true,
+    "scanned_candle_count_delta": 0,
+    "trigger_count_delta": 0
+  },
+  "h4_h8_chain_complete": true,
+  "h4_h8_chain_executed": true,
+  "h4_h8_chain_results": [
+    {
+      "ok": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "4B.4.3.6.6.28G-H4 HYP-006 near-miss outcome attribution HYP006_R1_NEAR_MISS_OUTCOME_ATTRIBUTION_READY\n - read_only: True\n - counterfactual_research_only: True\n - network_request_performed: True\n - attributed_near_miss_event_count: 100\n - matured_near_miss_event_count: 100\n - approved_for_gate_combo_counterfactual_review_candidate: True\n - approved_for_parameter_relaxation_candidate: False\n - approved_for_paper_candidate: False\n - approved_for_live_real: False\n - training_performed: False\n - reload_performed: False\n - trading_action_performed: False\n - near_miss_mean_return_bps: 83.238151\n - near_miss_win_rate_pct: 52.0\n - near_miss_profit_factor: 2.204657\n - near_miss_worst_return_bps: -455.587378\n - near_miss_best_return_bps: 698.275862\nreport_json: reports\\hyp006_r1_canonical\\4B436628G_H4_hyp006_r1_near_miss_outcome_attribution_20260619T220404Z.json\nreport_md: reports\\hyp006_r1_canonical\\4B436628G_H4_hyp006_r1_near_miss_outcome_attribution_20260619T220404Z.md\n",
+      "tool": "tools/run_4B436628G_H4_hyp006_near_miss_outcome_attribution.py"
+    },
+    {
+      "ok": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "4B.4.3.6.6.28G-H5 HYP-006 counterfactual filter candidate ranking HYP006_R1_COUNTERFACTUAL_FILTER_CANDIDATE_RANKING_READY\n - read_only: True\n - counterfactual_research_only: True\n - candidate_row_count: 30\n - accepted_review_candidate_count: 3\n - watchlist_low_sample_candidate_count: 5\n - rejected_counterfactual_candidate_count: 22\n - tail_risk_flag_count: 6\n - do_not_relax_gate_combo_count: 5\n - approved_for_filter_candidate_review: True\n - approved_for_parameter_relaxation_candidate: False\n - approved_for_paper_candidate: False\n - approved_for_live_real: False\n - training_performed: False\n - reload_performed: False\n - trading_action_performed: False\nreport_json: reports\\hyp006_r1_canonical\\4B436628G_H5_hyp006_r1_counterfactual_filter_candidate_ranking_20260619T220404Z.json\nreport_md: reports\\hyp006_r1_canonical\\4B436628G_H5_hyp006_r1_counterfactual_filter_candidate_ranking_20260619T220404Z.md\n",
+      "tool": "tools/run_4B436628G_H5_hyp006_counterfactual_filter_candidate_ranking.py"
+    },
+    {
+      "ok": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "4B.4.3.6.6.28G-H6 HYP-006 no-order filter shadow overlay design HYP006_R1_NO_ORDER_FILTER_SHADOW_OVERLAY_DESIGN_READY\n - read_only: True\n - filter_shadow_overlay_design_only: True\n - accepted_primary_overlay_candidate_count: 1\n - quarantine_review_candidate_count: 2\n - watchlist_overlay_candidate_count: 5\n - do_not_relax_blocklist_count: 5\n - approved_for_filter_shadow_overlay_candidate: True\n - approved_for_quarantine_review_candidate: True\n - approved_for_parameter_relaxation_candidate: False\n - approved_for_paper_candidate: False\n - approved_for_live_real: False\n - runtime_overlay_activation_performed: False\n - training_performed: False\n - reload_performed: False\n - trading_action_performed: False\nreport_json: reports\\hyp006_r1_canonical\\4B436628G_H6_hyp006_r1_no_order_filter_shadow_overlay_design_20260619T220404Z.json\nreport_md: reports\\hyp006_r1_canonical\\4B436628G_H6_hyp006_r1_no_order_filter_shadow_overlay_design_20260619T220404Z.md\n",
+      "tool": "tools/run_4B436628G_H6_hyp006_no_order_filter_shadow_overlay_design.py"
+    },
+    {
+      "ok": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "4B.4.3.6.6.28G-H7 HYP-006 no-order overlay simulation NO_ORDER_BNBUSDT_PRIMARY_OVERLAY_SHADOW_MEASUREMENT_READY\n - read_only: True\n - overlay_simulation_measurement_only: True\n - primary_measurement_candidate_count: 1\n - approved_for_overlay_shadow_measurement: True\n - approved_for_runtime_overlay_activation_candidate: False\n - approved_for_parameter_relaxation_candidate: False\n - approved_for_paper_candidate: False\n - approved_for_live_real: False\n - runtime_overlay_activation_performed: False\n - training_performed: False\n - reload_performed: False\n - trading_action_performed: False\nreport_json: reports\\hyp006_r1_canonical\\4B436628G_H7_hyp006_r1_no_order_overlay_simulation_bnbusdt_primary_filter_shadow_measurement_20260619T220405Z.json\nreport_md: reports\\hyp006_r1_canonical\\4B436628G_H7_hyp006_r1_no_order_overlay_simulation_bnbusdt_primary_filter_shadow_measurement_20260619T220405Z.md\n",
+      "tool": "tools/run_4B436628G_H7_hyp006_no_order_overlay_simulation_bnbusdt.py"
+    },
+    {
+      "ok": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "4B.4.3.6.6.28G-H8 HYP-006 BNBUSDT overlay OOS evaluation HYP006_R1_BNBUSDT_OVERLAY_OOS_EVALUATION_BLOCKED\n - read_only: True\n - no_order_oos_evaluation_only: True\n - approved_for_bnbusdt_oos_evaluation: False\n - approved_for_oos_monitoring_continuation: False\n - approved_for_runtime_overlay_activation_candidate: False\n - approved_for_parameter_relaxation_candidate: False\n - approved_for_paper_candidate: False\n - approved_for_live_real: False\n - runtime_overlay_activation_performed: False\n - training_performed: False\n - reload_performed: False\n - trading_action_performed: False\n - latest_matured_count: 13\n - latest_win_rate_pct: 76.923077\n - latest_mean_return_bps: 126.61364\n - latest_profit_factor: 5.432608\n - matured_count_delta: 0\nreport_json: reports\\hyp006_r1_canonical\\4B436628G_H8_hyp006_r1_bnbusdt_overlay_oos_evaluation_runtime_activation_blocked_decision_20260619T220405Z.json\nreport_md: reports\\hyp006_r1_canonical\\4B436628G_H8_hyp006_r1_bnbusdt_overlay_oos_evaluation_runtime_activation_blocked_decision_20260619T220405Z.md\n",
+      "tool": "tools/run_4B436628G_H8_hyp006_bnbusdt_overlay_oos_evaluation.py"
+    }
+  ],
+  "h4_h8_evidence_complete": false,
+  "hyp006_strategy_threshold_mutation_performed": false,
+  "latest_h3_summary": {
+    "bnbusdt_candidate_count": 23,
+    "bnbusdt_near_miss_count": 13,
+    "branch_id": "HYP-006-R1",
+    "branch_name": "failed_downside_sweep_reversal_continuation_short",
+    "candidate_count": 228,
+    "contract_version": "4B.4.3.6.6.28G-H3",
+    "near_miss_count": 121,
+    "read_only": true,
+    "scanned_candle_count": 1768,
+    "source": "reports/hyp006_r1_canonical/4B436628G_H3_hyp006_r1_runtime_candidate_scan_gate_level_near_miss_20260619T210504Z.json",
+    "timeframe": "4h",
+    "trigger_count": 20
+  },
+  "latest_h8_summary": {
+    "approved_for_bnbusdt_oos_evaluation": false,
+    "approved_for_oos_monitoring_continuation": false,
+    "contract_version": "4B.4.3.6.6.28G-H8",
+    "decision": "HYP006_R1_BNBUSDT_OVERLAY_OOS_EVALUATION_BLOCKED",
+    "event_count": 13,
+    "event_count_delta": 0,
+    "matured_count": 13,
+    "matured_count_delta": 0,
+    "mean_return_bps": 126.61364,
+    "mean_return_bps_delta": 0.0,
+    "median_return_bps": 142.929363,
+    "net_return_bps": 1645.977319,
+    "ok": true,
+    "oos_guard_pass": false,
+    "oos_guard_reasons": [
+      "MATURED_COUNT_DELTA_BELOW_OOS_MIN",
+      "EVENT_COUNT_DELTA_BELOW_OOS_MIN"
+    ],
+    "profit_factor": 5.432608,
+    "profit_factor_delta": 0.0,
+    "source": "reports/hyp006_r1_canonical/4B436628G_H8_hyp006_r1_bnbusdt_overlay_oos_evaluation_runtime_activation_blocked_decision_20260619T220405Z.json",
+    "symbol": "BNBUSDT",
+    "tail_risk_monitoring_required": true,
+    "tail_risk_reasons": [
+      "WORST_MAE_MONITORING_REQUIRED"
+    ],
+    "win_rate_pct": 76.923077,
+    "win_rate_pct_delta": 0.0,
+    "worst_mae_bps": -426.691375,
+    "worst_mae_bps_delta": 0.0,
+    "worst_return_bps": -312.205541,
+    "worst_return_bps_delta": 0.0
+  },
+  "ok": true,
+  "order_actions_performed": false,
+  "paper_live_order_blocked": true,
+  "paper_live_order_enablement_present": false,
+  "paper_transition_decision": {
+    "live_real_allowed": false,
+    "paper_candidate_allowed": false,
+    "paper_transition_candidate_allowed": false,
+    "paper_transition_reason": "HYP006_H9_IS_NO_ORDER_OOS_DELTA_REVIEW_ONLY_PAPER_TRANSITION_REQUIRES_30B_OPERATOR_APPROVAL_GATE"
+  },
+  "paper_transition_still_blocked": true,
+  "previous_h3_artifact_json": "reports/hyp006_r1_canonical/4B436628G_H3_hyp006_r1_runtime_candidate_scan_gate_level_near_miss_20260618T210506Z.json",
+  "previous_h3_summary": {
+    "bnbusdt_candidate_count": 21,
+    "bnbusdt_near_miss_count": 13,
+    "branch_id": "HYP-006-R1",
+    "branch_name": "failed_downside_sweep_reversal_continuation_short",
+    "candidate_count": 224,
+    "contract_version": "4B.4.3.6.6.28G-H3",
+    "near_miss_count": 122,
+    "read_only": true,
+    "scanned_candle_count": 1768,
+    "source": "reports/hyp006_r1_canonical/4B436628G_H3_hyp006_r1_runtime_candidate_scan_gate_level_near_miss_20260618T210506Z.json",
+    "timeframe": "4h",
+    "trigger_count": 20
+  },
+  "previous_h8_summary": {
+    "approved_for_bnbusdt_oos_evaluation": true,
+    "approved_for_oos_monitoring_continuation": true,
+    "contract_version": "4B.4.3.6.6.28G-H8",
+    "decision": "HYP006_R1_BNBUSDT_OVERLAY_OOS_EVALUATION_READY_RUNTIME_ACTIVATION_BLOCKED",
+    "event_count": 13,
+    "event_count_delta": 1,
+    "matured_count": 13,
+    "matured_count_delta": 1,
+    "mean_return_bps": 126.61364,
+    "mean_return_bps_delta": 21.51453,
+    "median_return_bps": 142.929363,
+    "net_return_bps": 1645.977319,
+    "ok": true,
+    "oos_guard_pass": true,
+    "oos_guard_reasons": [],
+    "profit_factor": 5.432608,
+    "profit_factor_delta": 1.036232,
+    "source": "reports/hyp006_r1_canonical/4B436628G_H8_hyp006_r1_bnbusdt_overlay_oos_evaluation_runtime_activation_blocked_decision_20260619T111005Z.json",
+    "symbol": "BNBUSDT",
+    "tail_risk_monitoring_required": true,
+    "tail_risk_reasons": [
+      "WORST_MAE_MONITORING_REQUIRED"
+    ],
+    "win_rate_pct": 76.923077,
+    "win_rate_pct_delta": 1.923077,
+    "worst_mae_bps": -426.691375,
+    "worst_mae_bps_delta": 0.0,
+    "worst_return_bps": -312.205541,
+    "worst_return_bps_delta": 0.0
+  },
+  "read_only": true,
+  "recommendation": "Do not promote. Complete fresh H4-H8 evidence and keep paper/live/live-real/order gates closed.",
+  "reload_performed": false,
+  "report_type": "hyp006_r1_fresh_shadow_cycle_oos_delta_review_paper_transition_still_blocked_decision_pack",
+  "runtime_activation_blocked": true,
+  "runtime_overlay_activation_performed": false,
+  "scheduler_mutation_performed": false,
+  "strategy_parameter_mutation_performed": false,
+  "tail_risk_reasons": [
+    "WORST_MAE_MONITORING_REQUIRED"
+  ],
+  "tail_risk_worsened": false,
+  "trading_action_performed": false,
+  "training_performed": false,
+  "training_reload_blocked": true
+}
