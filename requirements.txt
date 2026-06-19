@@ -13,5 +13,3 @@ customtkinter>=5.2
 matplotlib>=3.10
 pytest>=8.0
 pytest-asyncio>=0.23
-setuptools>=68
-wheel>=0.43

@@ -129,12 +129,35 @@ class Settings:
     api_host: str = "127.0.0.1"
     api_port: int = 8787
 
+    # 4B.4.3.6.6.29A production hardening controls
+    strict_config_validation: bool = True
+    api_auth_enabled: bool = False
+    api_auth_token: str = ""
+    api_auth_header: str = "X-TradeBot-Auth"
+    api_auth_env_var: str = "TRADEBOT_API_TOKEN"
+    destructive_action_confirmation_required: bool = False
+    destructive_action_confirmation_header: str = "X-TradeBot-Confirm"
+    runtime_lock_enabled: bool = True
+    runtime_lock_path: str = ".tradebot/runtime.lock"
+    sqlite_wal_enabled: bool = True
+    sqlite_busy_timeout_ms: int = 5000
+    sqlite_schema_version: int = 1
+    sqlite_backup_enabled: bool = True
+    fee_slippage_baseline_bps: float = 24.0
+    promotion_gate_isolation_enabled: bool = True
+
     @classmethod
     def from_yaml(cls, path: str | Path) -> "Settings":
         payload = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
         if not isinstance(payload, dict):
             raise TypeError("Settings yaml must decode to a mapping")
         allowed = {field.name for field in fields(cls)}
+        unknown_keys = sorted(str(key) for key in payload if key not in allowed)
+        strict_value = payload.get("strict_config_validation", True)
+        strict_config_validation = bool(strict_value)
+        if unknown_keys and strict_config_validation:
+            joined = ", ".join(unknown_keys)
+            raise ValueError(f"Unknown Settings yaml key(s): {joined}")
         filtered = {key: value for key, value in payload.items() if key in allowed}
         return cls(**filtered)
 
@@ -143,6 +166,7 @@ class Settings:
         payload.pop('api_host', None)
         payload.pop('api_port', None)
         if not include_secrets:
+            payload['api_auth_token'] = '[REDACTED]' if payload.get('api_auth_token') else ''
             payload['api_key'] = '[REDACTED]' if self.api_key else ''
             payload['api_secret'] = '[REDACTED]' if self.api_secret else ''
         return payload

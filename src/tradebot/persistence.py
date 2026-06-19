@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import sqlite3
 import threading
 from pathlib import Path
@@ -17,7 +18,14 @@ class SQLiteStore:
         self._lock = threading.RLock()
         self._conn = sqlite3.connect(self.path, check_same_thread=False)
         self._conn.row_factory = sqlite3.Row
+        self._configure_connection()
         self._bootstrap()
+
+    def _configure_connection(self) -> None:
+        # 4B.4.3.6.6.29A SQLite audit baseline: avoid silent lock errors and enable WAL.
+        self._conn.execute("PRAGMA busy_timeout = 5000")
+        self._conn.execute("PRAGMA journal_mode = WAL")
+        self._conn.execute("PRAGMA foreign_keys = ON")
 
     def _bootstrap(self) -> None:
         with self._conn:
@@ -35,6 +43,28 @@ class SQLiteStore:
                     data TEXT NOT NULL
                 )
                 """
+            )
+
+            self._conn.execute(
+                "CREATE TABLE IF NOT EXISTS schema_meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)"
+            )
+            self._conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS operator_actions (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ts INTEGER NOT NULL,
+                    action TEXT NOT NULL,
+                    actor TEXT NOT NULL,
+                    confirmation TEXT NOT NULL,
+                    outcome TEXT NOT NULL,
+                    data TEXT NOT NULL
+                )
+                """
+            )
+            self._conn.execute("PRAGMA user_version = 1")
+            self._conn.execute(
+                "INSERT INTO schema_meta(key, value) VALUES('schema_version', '1') "
+                "ON CONFLICT(key) DO UPDATE SET value=excluded.value"
             )
 
     def set_json(self, key: str, value: Any) -> None:
@@ -79,6 +109,29 @@ class SQLiteStore:
             }))
         return out
 
+
+
+    def integrity_check(self) -> dict[str, Any]:
+        with self._lock:
+            rows = self._conn.execute("PRAGMA integrity_check").fetchall()
+            journal = self._conn.execute("PRAGMA journal_mode").fetchone()
+            user_version = self._conn.execute("PRAGMA user_version").fetchone()
+        results = [str(row[0]) for row in rows]
+        return {
+            "ok": results == ["ok"],
+            "contract_version": "4B.4.3.6.6.29A",
+            "integrity_check": results,
+            "journal_mode": str(journal[0]) if journal else None,
+            "schema_version": int(user_version[0]) if user_version else 0,
+        }
+
+    def backup_to(self, destination: str | Path) -> Path:
+        target = Path(destination)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with self._lock:
+            self._conn.commit()
+            shutil.copy2(self.path, target)
+        return target
 
     def fetch_audit_events(
         self,

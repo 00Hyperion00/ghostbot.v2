@@ -14,6 +14,7 @@ from .engine import TradeBotEngine
 from .persistence import SQLiteStore
 from .ai.provider import XGBoostSignalProvider
 from .ai.decision_contract import AIDecisionContractError, assert_startup_reload_parity, decision_contract_from_payload, decision_contract_from_settings
+from .api_security import install_api_security
 
 def train_xgb_model(*args: Any, **kwargs: Any) -> dict[str, Any]:
     # Lazy import keeps lightweight API/status tests from importing XGBoost/Scipy.
@@ -189,6 +190,7 @@ def _build_degraded_status_payload(app: FastAPI, engine: Any) -> dict[str, Any]:
 
 def create_app(engine: TradeBotEngine) -> FastAPI:
     app = FastAPI(title="Trade Bot Python API", version="0.2.6")
+    install_api_security(app, engine.settings, logger=getattr(engine, "logger", None))
 
     @app.get('/health')
     async def health() -> dict:

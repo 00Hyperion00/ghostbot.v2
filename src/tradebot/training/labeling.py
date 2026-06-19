@@ -11,11 +11,11 @@ from ..features import build_atr_targets, build_feature_frame, clean_feature_fra
 class ATRLabelConfig:
     lookahead: int = 10
     atr_multiplier: float = 1.5
-    entry_fee_bps: float = 0.0
-    exit_fee_bps: float = 0.0
-    entry_slippage_bps: float = 0.0
-    exit_slippage_bps: float = 0.0
-    min_profit_bps: float = 0.0
+    entry_fee_bps: float = 10.0
+    exit_fee_bps: float = 10.0
+    entry_slippage_bps: float = 2.0
+    exit_slippage_bps: float = 2.0
+    min_profit_bps: float = 24.0
     use_high_low_barriers: bool = True
     ambiguous_barrier_policy: str = 'hold'
 
