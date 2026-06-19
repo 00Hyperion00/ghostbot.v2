@@ -175,6 +175,16 @@ class Settings:
     live_real_arm_confirmation_header: str = "X-TradeBot-Live-Arm"
     live_real_start_confirmation: str = "CONFIRM_LIVE_REAL_START"
 
+    # 4B.4.3.6.6.29E production readiness consolidation gate controls
+    production_readiness_consolidation_enabled: bool = True
+    production_readiness_evidence_dir: str = "reports/production_hardening"
+    production_readiness_require_29a: bool = True
+    production_readiness_require_29b: bool = True
+    production_readiness_require_29c: bool = True
+    production_readiness_require_29d: bool = True
+    paper_candidate_preflight_enabled: bool = True
+    live_real_hard_block_required: bool = True
+
     @classmethod
     def from_yaml(cls, path: str | Path) -> "Settings":
         payload = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
