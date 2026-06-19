@@ -146,6 +146,19 @@ class Settings:
     fee_slippage_baseline_bps: float = 24.0
     promotion_gate_isolation_enabled: bool = True
 
+    # 4B.4.3.6.6.29B API/operator security hardening controls
+    api_auth_token_ttl_sec: int = 900
+    api_auth_token_issued_at_ms: int = 0
+    api_auth_token_issued_at_env_var: str = "TRADEBOT_API_TOKEN_ISSUED_AT_MS"
+    api_operator_id_header: str = "X-TradeBot-Operator"
+    api_local_only_required: bool = True
+    operator_audit_enabled: bool = True
+    live_real_arm_ttl_sec: int = 900
+    live_real_armed_at_ms: int = 0
+    live_real_arm_expires_at_ms: int = 0
+    live_real_arm_confirmation_header: str = "X-TradeBot-Live-Arm"
+    live_real_start_confirmation: str = "CONFIRM_LIVE_REAL_START"
+
     @classmethod
     def from_yaml(cls, path: str | Path) -> "Settings":
         payload = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
