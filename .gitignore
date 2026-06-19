@@ -34,3 +34,7 @@ runtime_reports/
 reports/**/scratch/
 reports/**/tmp/
 # END 4B.4.3.6.6.29A PRODUCTION HARDENING P0
+# BEGIN 4B.4.3.6.6.29A-H1 REPORT PATH HYGIENE
+reports/production_hardeninsrc=*/
+reports/production_hardeninsrc=src/
+# END 4B.4.3.6.6.29A-H1 REPORT PATH HYGIENE

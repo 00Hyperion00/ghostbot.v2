@@ -8,6 +8,37 @@ from pathlib import Path
 from check_4B436629A_production_hardening_p0 import CONTRACT_VERSION, build_report
 
 
+
+CANONICAL_REPORTS_DIR = Path("reports") / "production_hardening"
+BAD_REPORTS_DIR_FRAGMENTS = (
+    "production_hardeninsrc",
+    "hardeninsrc",
+    "src=src",
+    "$env:",
+    "%pythonpath%",
+)
+
+
+def _resolve_canonical_reports_dir(root: Path, raw_reports_dir: str) -> Path:
+    raw = str(raw_reports_dir or "").strip()
+    if not raw:
+        raw = CANONICAL_REPORTS_DIR.as_posix()
+    lowered = raw.replace("\\", "/").lower()
+    if any(fragment in lowered for fragment in BAD_REPORTS_DIR_FRAGMENTS):
+        raise ValueError(
+            "REPORTS_DIR_NOT_CANONICAL_PRODUCTION_HARDENING: "
+            "refusing suspicious production hardening reports-dir path"
+        )
+    candidate = Path(raw)
+    resolved = candidate.resolve() if candidate.is_absolute() else (root / candidate).resolve()
+    canonical = (root / CANONICAL_REPORTS_DIR).resolve()
+    if resolved != canonical:
+        raise ValueError(
+            "REPORTS_DIR_NOT_CANONICAL_PRODUCTION_HARDENING: "
+            f"expected {CANONICAL_REPORTS_DIR.as_posix()}, got {raw!r}"
+        )
+    return canonical
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate 4B.4.3.6.6.29A Production Hardening P0 decision report")
     parser.add_argument("--reports-dir", default="reports/production_hardening")
@@ -43,7 +74,7 @@ def main() -> int:
         "checks": report["checks"],
         "recommendation": "Continue HYP-006 no-order OOS monitoring separately. Do not infer production readiness from HYP performance. Keep paper/live/live-real blocked until further production gates pass.",
     }
-    reports_dir = Path(args.reports_dir)
+    reports_dir = _resolve_canonical_reports_dir(root, args.reports_dir)
     reports_dir.mkdir(parents=True, exist_ok=True)
     json_path = reports_dir / f"4B436629A_production_hardening_p0_decision_{now}.json"
     md_path = json_path.with_suffix(".md")
