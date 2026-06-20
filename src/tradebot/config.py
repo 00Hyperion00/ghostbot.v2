@@ -265,6 +265,16 @@ class Settings:
     paper_sandbox_dry_run_simulated_fill_ledger_path: str = "reports/production_hardening/4B436630I_internal_simulated_fill_ledger.jsonl"
     paper_sandbox_dry_run_internal_no_exchange_submit_required: bool = True
     paper_sandbox_dry_run_internal_paper_candidate_still_blocked_required: bool = True
+
+    # 4B.4.3.6.6.30J paper sandbox dry-run reconciliation + audit ledger proof controls
+    paper_sandbox_dry_run_reconciliation_audit_proof_enabled: bool = True
+    paper_sandbox_dry_run_reconciliation_consume_30i_ledger_required: bool = True
+    paper_sandbox_dry_run_reconciliation_mismatch_zero_required: bool = True
+    paper_sandbox_dry_run_reconciliation_sqlite_mirror_required: bool = True
+    paper_sandbox_dry_run_reconciliation_no_exchange_submit_required: bool = True
+    paper_sandbox_dry_run_reconciliation_paper_candidate_still_blocked_required: bool = True
+    paper_sandbox_dry_run_reconciliation_tolerance: float = 1e-9
+    paper_sandbox_dry_run_reconciliation_sqlite_path: str = "reports/production_hardening/4B436630J_reconciliation_audit_mirror.db"
     live_real_hard_block_required: bool = True
 
     @classmethod
