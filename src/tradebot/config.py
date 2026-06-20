@@ -216,6 +216,16 @@ class Settings:
     paper_transition_final_risk_cap_verification_required: bool = True
     paper_transition_final_risk_cap_verified: bool = False
     paper_transition_still_no_order_enablement_required: bool = True
+
+    # 4B.4.3.6.6.30D operator approval evidence capture controls
+    paper_transition_approval_evidence_capture_enabled: bool = True
+    paper_transition_approval_evidence_operator_id_required: bool = True
+    paper_transition_approval_evidence_ttl_bound_required: bool = True
+    paper_transition_approval_evidence_snapshot_required: bool = True
+    paper_transition_approval_evidence_capture_report_required: bool = True
+    paper_transition_approval_evidence_require_30b_ready: bool = True
+    paper_transition_approval_evidence_require_30c_ready: bool = True
+    paper_transition_approval_evidence_still_no_order_enablement_required: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
