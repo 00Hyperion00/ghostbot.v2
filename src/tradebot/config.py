@@ -338,6 +338,17 @@ class Settings:
     paper_sandbox_dry_run_execution_no_live_real_required: bool = True
     paper_sandbox_dry_run_execution_simulated_fill_price_usd: float = 2500.0
     paper_sandbox_dry_run_execution_simulated_fee_bps: float = 10.0
+
+
+    # 4B.4.3.6.6.30O paper sandbox execution reconciliation controls
+    paper_sandbox_execution_reconciliation_gate_enabled: bool = True
+    paper_sandbox_execution_reconciliation_consume_30n_required: bool = True
+    paper_sandbox_execution_reconciliation_mismatch_zero_required: bool = True
+    paper_sandbox_execution_reconciliation_sqlite_mirror_required: bool = True
+    paper_sandbox_execution_reconciliation_sqlite_path: str = "reports/production_hardening/4B436630O_reconciliation_audit_mirror.sqlite"
+    paper_sandbox_execution_reconciliation_no_exchange_submit_required: bool = True
+    paper_sandbox_execution_reconciliation_no_live_real_required: bool = True
+    paper_sandbox_execution_reconciliation_tolerance: float = 1e-09
     live_real_hard_block_required: bool = True
 
     @classmethod
