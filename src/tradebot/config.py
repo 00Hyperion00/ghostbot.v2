@@ -245,6 +245,18 @@ class Settings:
     paper_sandbox_dry_run_single_simulated_intent_required: bool = True
     paper_sandbox_dry_run_no_exchange_submit_required: bool = True
     paper_sandbox_dry_run_paper_candidate_still_blocked_required: bool = True
+    # 4B.4.3.6.6.30H paper sandbox dry-run execution readiness lock controls
+    paper_sandbox_dry_run_execution_readiness_lock_enabled: bool = True
+    paper_sandbox_dry_run_execution_readiness_lock_consume_30g_required: bool = True
+    paper_sandbox_dry_run_operator_explicit_lock_required: bool = True
+    paper_sandbox_dry_run_operator_lock_operator_id: str = ""
+    paper_sandbox_dry_run_operator_lock_phrase: str = "LOCK_PAPER_SANDBOX_DRY_RUN_READINESS"
+    paper_sandbox_dry_run_operator_lock_token: str = ""
+    paper_sandbox_dry_run_operator_lock_issued: bool = False
+    paper_sandbox_dry_run_operator_lock_issued_at_ms: int = 0
+    paper_sandbox_dry_run_operator_lock_ttl_sec: int = 900
+    paper_sandbox_dry_run_exchange_submit_hard_block_audit_required: bool = True
+    paper_sandbox_dry_run_execution_still_disabled_required: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
