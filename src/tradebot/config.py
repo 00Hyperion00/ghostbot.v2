@@ -257,6 +257,14 @@ class Settings:
     paper_sandbox_dry_run_operator_lock_ttl_sec: int = 900
     paper_sandbox_dry_run_exchange_submit_hard_block_audit_required: bool = True
     paper_sandbox_dry_run_execution_still_disabled_required: bool = True
+    # 4B.4.3.6.6.30I paper sandbox dry-run internal execution harness controls
+    paper_sandbox_dry_run_internal_execution_harness_enabled: bool = True
+    paper_sandbox_dry_run_internal_execution_consume_30h_lock_required: bool = True
+    paper_sandbox_dry_run_internal_only_harness_required: bool = True
+    paper_sandbox_dry_run_simulated_fill_ledger_append_required: bool = True
+    paper_sandbox_dry_run_simulated_fill_ledger_path: str = "reports/production_hardening/4B436630I_internal_simulated_fill_ledger.jsonl"
+    paper_sandbox_dry_run_internal_no_exchange_submit_required: bool = True
+    paper_sandbox_dry_run_internal_paper_candidate_still_blocked_required: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
