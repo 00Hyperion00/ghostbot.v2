@@ -44,3 +44,10 @@ tools/_patch_payload/
 tools/_patch_payload/**
 # END 4B.4.3.6.6.29E-H1 PATCH PAYLOAD EXCLUSION
 _patch_payload/
+
+# 4B patch artifact hygiene
+_patch_backup/
+tools/_patch_backup/
+tests/_patch_backup/
+docs/_patch_backup/
+*.pyc
