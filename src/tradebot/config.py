@@ -306,6 +306,21 @@ class Settings:
     paper_sandbox_candidate_unlock_no_exchange_submit_required: bool = True
     paper_sandbox_candidate_unlock_no_live_real_required: bool = True
     paper_sandbox_candidate_unlock_order_enablement_still_blocked_required: bool = True
+
+    # 4B.4.3.6.6.30M paper sandbox execution preflight controls
+    paper_sandbox_execution_preflight_enabled: bool = True
+    paper_sandbox_execution_preflight_consume_30l_required: bool = True
+    paper_sandbox_execution_preflight_authorization_required: bool = True
+    paper_sandbox_execution_preflight_operator_id: str = ""
+    paper_sandbox_execution_preflight_authorization_phrase: str = "AUTHORIZE_PAPER_SANDBOX_EXECUTION_PREFLIGHT"
+    paper_sandbox_execution_preflight_authorization_token: str = ""
+    paper_sandbox_execution_preflight_authorization_issued: bool = False
+    paper_sandbox_execution_preflight_authorization_issued_at_ms: int = 0
+    paper_sandbox_execution_preflight_authorization_ttl_sec: int = 900
+    paper_sandbox_execution_preflight_order_envelope_required: bool = True
+    paper_sandbox_execution_preflight_no_exchange_submit_required: bool = True
+    paper_sandbox_execution_preflight_no_live_real_required: bool = True
+    paper_sandbox_execution_preflight_order_envelope_path: str = "reports/production_hardening/4B436630M_order_envelope_preflight.json"
     live_real_hard_block_required: bool = True
 
     @classmethod
