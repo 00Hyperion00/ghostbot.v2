@@ -84,6 +84,10 @@ def _run_json_tool(root: Path, rel: str) -> dict[str, Any]:
     return payload
 
 
+def _check_any(checks: dict[str, Any], *keys: str) -> bool:
+    return any(bool(checks.get(key)) for key in keys)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--once-json", action="store_true")
@@ -96,7 +100,9 @@ def main() -> int:
         rel: not (root / rel).exists()
         for rel in ("_patch_payload", "tools/_patch_payload", "_patch_backup", "tools/_patch_backup", "tests/_patch_backup", "docs/_patch_backup")
     }
-    target_report = _run_json_tool(root, "tools/check_4B436630L_paper_sandbox_candidate_unlock_gate.py") if (root / "tools/check_4B436630L_paper_sandbox_candidate_unlock_gate.py").exists() else {"ok": False, "missing": True}
+    target_path = "tools/check_4B436630L_paper_sandbox_candidate_unlock_gate.py"
+    target_report = _run_json_tool(root, target_path) if (root / target_path).exists() else {"ok": False, "missing": True}
+    target_checks = target_report.get("checks", {}) if isinstance(target_report.get("checks"), dict) else {}
     checks = {
         "all_expected_files_present": all(expected.values()),
         "all_py_compile_ok": all(item.get("ok") for item in compiled.values()),
@@ -104,13 +110,21 @@ def main() -> int:
         "target_30l_checker_ok": bool(target_report.get("ok")),
         "config_30l_fields_present": all(field in config_text for field in CONFIG_FIELDS),
         "patch_artifacts_absent_before_checker": all(patch_artifacts_absent.values()),
-        "base_30k_checker_ok": bool(target_report.get("checks", {}).get("base_30k_checker_ok")),
-        "explicit_unlock_gate_present": bool(target_report.get("checks", {}).get("explicit_candidate_unlock_gate_present")),
-        "sandbox_preflight_gate_present": bool(target_report.get("checks", {}).get("sandbox_order_enablement_preflight_gate_present")),
-        "exchange_submit_still_blocked": bool(target_report.get("checks", {}).get("exchange_submit_still_blocked")),
-        "paper_execution_still_blocked": bool(target_report.get("checks", {}).get("paper_execution_still_blocked")),
-        "paper_candidate_unlocked_candidate_only": bool(target_report.get("checks", {}).get("paper_candidate_unlocked_candidate_only")),
-        "live_real_still_blocked": bool(target_report.get("checks", {}).get("live_real_still_blocked")),
+        "base_30k_checker_ok": bool(target_checks.get("base_30k_checker_ok")),
+        "explicit_unlock_gate_present": _check_any(
+            target_checks,
+            "explicit_paper_candidate_unlock_gate_present",
+            "explicit_candidate_unlock_gate_present",
+        ),
+        "sandbox_preflight_gate_present": _check_any(
+            target_checks,
+            "sandbox_only_order_enablement_preflight_gate_present",
+            "sandbox_order_enablement_preflight_gate_present",
+        ),
+        "exchange_submit_still_blocked": bool(target_checks.get("exchange_submit_still_blocked")),
+        "paper_execution_still_blocked": bool(target_checks.get("paper_execution_still_blocked")),
+        "paper_candidate_unlocked_candidate_only": bool(target_checks.get("paper_candidate_unlocked_candidate_only")),
+        "live_real_still_blocked": bool(target_checks.get("live_real_still_blocked")),
     }
     payload = {
         "ok": all(checks.values()),
@@ -123,7 +137,7 @@ def main() -> int:
         "target_30l_report_summary": {
             "ok": bool(target_report.get("ok")),
             "contract_version": target_report.get("contract_version"),
-            "checks": target_report.get("checks", {}),
+            "checks": target_checks,
             "module_probe": target_report.get("module_probe", {}),
         },
         "read_only": True,
