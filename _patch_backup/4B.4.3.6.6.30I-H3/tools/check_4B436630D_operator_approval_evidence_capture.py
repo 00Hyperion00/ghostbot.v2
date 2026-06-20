@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import py_compile
 import shutil
 import sys
 from pathlib import Path
@@ -77,20 +78,15 @@ def copy_payload(root: Path) -> None:
             shutil.copy2(src, dst)
 
 
-def syntax_check(path: Path) -> bool:
-    try:
-        source = path.read_text(encoding="utf-8")
-        compile(source, str(path), "exec")
-        return True
-    except Exception:
-        return False
-
-
 def compile_py(root: Path) -> dict[str, bool]:
     out: dict[str, bool] = {}
     for rel in PY_FILES:
         path = root / rel
-        out[rel] = path.exists() and syntax_check(path)
+        try:
+            py_compile.compile(str(path), doraise=True)
+            out[rel] = True
+        except Exception:
+            out[rel] = False
     return out
 
 
@@ -120,8 +116,8 @@ def run_check(root: Path) -> dict[str, Any]:
     try:
         from tradebot.paper_transition_approval_evidence_capture import (
             CONTRACT_VERSION as module_contract,
-            INPUT_REQUIRED_DECISION,
             READY_DECISION,
+            INPUT_REQUIRED_DECISION,
             build_from_operator_inputs,
         )
         now = 1_800_000_000_000
@@ -171,7 +167,6 @@ def run_check(root: Path) -> dict[str, Any]:
         "checks": checks,
         "expected_files": expected,
         "compiled": compiled,
-        "syntax_compile_no_pyc": True,
         "config_fields": {field: field in config_text for field in CONFIG_FIELDS},
         "module_probe": probe,
         "read_only": True,
@@ -202,7 +197,6 @@ def main() -> int:
         for key, value in report["checks"].items():
             print(f" - {key}: {value}")
     return 0 if report.get("ok") else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -16,15 +16,12 @@ def _repo_root() -> Path:
 
 def main() -> int:
     root = _repo_root()
-    src = root / "src"
-    if str(src) not in sys.path:
-        sys.path.insert(0, str(src))
-
+    if str(root / "src") not in sys.path:
+        sys.path.insert(0, str(root / "src"))
     from tradebot.paper_transition_approval_evidence_capture import (
         build_from_operator_inputs,
         write_report_bundle,
     )
-
     parser = argparse.ArgumentParser()
     parser.add_argument("--reports-dir", default="reports/production_hardening")
     parser.add_argument("--operator-id", default="")
@@ -36,7 +33,6 @@ def main() -> int:
     parser.add_argument("--ttl-sec", type=int, default=None)
     parser.add_argument("--once-json", action="store_true")
     args = parser.parse_args()
-
     payload = build_from_operator_inputs(
         operator_id=args.operator_id,
         confirmation_token=args.confirmation_token,
@@ -48,7 +44,6 @@ def main() -> int:
         ttl_sec=args.ttl_sec,
     )
     json_path, md_path = write_report_bundle(payload, args.reports_dir)
-
     if args.once_json:
         print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     else:
@@ -73,7 +68,6 @@ def main() -> int:
         print(f"report_json: {json_path}")
         print(f"report_md: {md_path}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())
