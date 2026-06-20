@@ -321,6 +321,23 @@ class Settings:
     paper_sandbox_execution_preflight_no_exchange_submit_required: bool = True
     paper_sandbox_execution_preflight_no_live_real_required: bool = True
     paper_sandbox_execution_preflight_order_envelope_path: str = "reports/production_hardening/4B436630M_order_envelope_preflight.json"
+
+    # 4B.4.3.6.6.30N paper sandbox dry-run execution gate controls
+    paper_sandbox_dry_run_execution_gate_enabled: bool = True
+    paper_sandbox_dry_run_execution_consume_30m_required: bool = True
+    paper_sandbox_dry_run_execution_authorization_required: bool = True
+    paper_sandbox_dry_run_execution_operator_id: str = ""
+    paper_sandbox_dry_run_execution_authorization_phrase: str = "AUTHORIZE_INTERNAL_PAPER_SANDBOX_DRY_RUN_EXECUTION"
+    paper_sandbox_dry_run_execution_authorization_token: str = ""
+    paper_sandbox_dry_run_execution_authorization_issued: bool = False
+    paper_sandbox_dry_run_execution_authorization_issued_at_ms: int = 0
+    paper_sandbox_dry_run_execution_authorization_ttl_sec: int = 900
+    paper_sandbox_dry_run_execution_ledger_append_required: bool = True
+    paper_sandbox_dry_run_execution_ledger_path: str = "reports/production_hardening/4B436630N_internal_paper_execution_ledger.jsonl"
+    paper_sandbox_dry_run_execution_no_exchange_submit_required: bool = True
+    paper_sandbox_dry_run_execution_no_live_real_required: bool = True
+    paper_sandbox_dry_run_execution_simulated_fill_price_usd: float = 2500.0
+    paper_sandbox_dry_run_execution_simulated_fee_bps: float = 10.0
     live_real_hard_block_required: bool = True
 
     @classmethod
