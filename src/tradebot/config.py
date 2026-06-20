@@ -197,6 +197,15 @@ class Settings:
     paper_max_daily_trades_cap: int = 5
     paper_kill_switch_required: bool = True
     paper_kill_switch_enabled: bool = True
+    # 4B.4.3.6.6.30B paper transition operator approval gate controls
+    paper_transition_operator_id: str = ""
+    paper_transition_approval_issued_at_ms: int = 0
+    paper_transition_approval_ttl_sec: int = 900
+    paper_transition_runtime_envelope: str = "sandbox_only"
+    paper_transition_dry_run_reconciliation_required: bool = True
+    paper_transition_dry_run_reconciliation_probe_passed: bool = True
+    paper_transition_dry_run_probe_order_actions_performed: bool = False
+    paper_transition_max_open_orders: int = 1
     live_real_hard_block_required: bool = True
 
     @classmethod
