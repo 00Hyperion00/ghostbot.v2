@@ -291,6 +291,21 @@ class Settings:
     paper_sandbox_operator_caps_confirmed: bool = False
     paper_sandbox_operator_paper_candidate_still_blocked_required: bool = True
     paper_sandbox_operator_no_live_real_required: bool = True
+
+    # 4B.4.3.6.6.30L paper sandbox candidate unlock controls
+    paper_sandbox_candidate_unlock_gate_enabled: bool = True
+    paper_sandbox_candidate_unlock_consume_30k_required: bool = True
+    paper_sandbox_candidate_unlock_explicit_unlock_required: bool = True
+    paper_sandbox_candidate_unlock_operator_id: str = ""
+    paper_sandbox_candidate_unlock_phrase: str = "UNLOCK_PAPER_SANDBOX_CANDIDATE"
+    paper_sandbox_candidate_unlock_token: str = ""
+    paper_sandbox_candidate_unlock_issued: bool = False
+    paper_sandbox_candidate_unlock_issued_at_ms: int = 0
+    paper_sandbox_candidate_unlock_ttl_sec: int = 900
+    paper_sandbox_candidate_unlock_sandbox_only_preflight_required: bool = True
+    paper_sandbox_candidate_unlock_no_exchange_submit_required: bool = True
+    paper_sandbox_candidate_unlock_no_live_real_required: bool = True
+    paper_sandbox_candidate_unlock_order_enablement_still_blocked_required: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
