@@ -226,6 +226,12 @@ class Settings:
     paper_transition_approval_evidence_require_30b_ready: bool = True
     paper_transition_approval_evidence_require_30c_ready: bool = True
     paper_transition_approval_evidence_still_no_order_enablement_required: bool = True
+    # 4B.4.3.6.6.30E paper transition review rerun controls
+    paper_transition_review_rerun_enabled: bool = True
+    paper_transition_review_rerun_consume_30d_ready_required: bool = True
+    paper_transition_review_rerun_require_30c_ready: bool = True
+    paper_transition_review_rerun_still_no_order_enablement_required: bool = True
+    paper_transition_review_rerun_evidence_report_required: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
