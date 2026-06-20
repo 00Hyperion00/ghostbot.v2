@@ -530,12 +530,35 @@ def render_markdown_report(payload: Mapping[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _report_decision_suffix(payload: Mapping[str, Any]) -> str:
+    decision = str(payload.get("decision") or "unknown").strip().lower()
+    if decision == READY_DECISION.lower():
+        return "ready"
+    if decision == INPUT_REQUIRED_DECISION.lower():
+        return "input_required"
+    if decision == NOT_READY_DECISION.lower():
+        return "not_ready"
+    slug = "".join(char if char.isalnum() else "_" for char in decision).strip("_")
+    while "__" in slug:
+        slug = slug.replace("__", "_")
+    return (slug or "unknown")[:96]
+
+
+def _unique_report_paths(target: Path, payload: Mapping[str, Any]) -> tuple[Path, Path]:
+    stem = f"{REPORT_PREFIX}_{utc_stamp()}_{_report_decision_suffix(payload)}"
+    for index in range(1000):
+        suffix = "" if index == 0 else f"_{index:03d}"
+        json_path = target / f"{stem}{suffix}.json"
+        md_path = target / f"{stem}{suffix}.md"
+        if not json_path.exists() and not md_path.exists():
+            return json_path, md_path
+    raise RuntimeError(f"could not allocate unique report path for {stem}")
+
+
 def write_report_bundle(payload: Mapping[str, Any], out_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> tuple[Path, Path]:
     target = Path(out_dir)
     target.mkdir(parents=True, exist_ok=True)
-    stamp = utc_stamp()
-    json_path = target / f"{REPORT_PREFIX}_{stamp}.json"
-    md_path = target / f"{REPORT_PREFIX}_{stamp}.md"
+    json_path, md_path = _unique_report_paths(target, payload)
     write_json_atomic(json_path, payload)
     md_path.write_text(render_markdown_report(payload), encoding="utf-8", newline="\n")
     return json_path, md_path

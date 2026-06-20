@@ -43,3 +43,4 @@ reports/production_hardeninsrc=src/
 tools/_patch_payload/
 tools/_patch_payload/**
 # END 4B.4.3.6.6.29E-H1 PATCH PAYLOAD EXCLUSION
+_patch_payload/
