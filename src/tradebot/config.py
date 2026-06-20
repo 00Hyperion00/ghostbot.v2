@@ -206,6 +206,16 @@ class Settings:
     paper_transition_dry_run_reconciliation_probe_passed: bool = True
     paper_transition_dry_run_probe_order_actions_performed: bool = False
     paper_transition_max_open_orders: int = 1
+    # 4B.4.3.6.6.30C paper transition candidate review controls
+    paper_transition_candidate_review_enabled: bool = True
+    paper_transition_operator_evidence_required: bool = True
+    paper_transition_runtime_envelope_freeze_required: bool = True
+    paper_transition_runtime_envelope_frozen: bool = False
+    paper_transition_runtime_envelope_freeze_phrase: str = "FREEZE_PAPER_TRANSITION_SANDBOX_ENVELOPE"
+    paper_transition_runtime_envelope_freeze_token: str = ""
+    paper_transition_final_risk_cap_verification_required: bool = True
+    paper_transition_final_risk_cap_verified: bool = False
+    paper_transition_still_no_order_enablement_required: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
