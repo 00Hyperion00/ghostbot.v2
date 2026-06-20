@@ -238,6 +238,13 @@ class Settings:
     paper_sandbox_dry_run_order_path_simulation_required: bool = True
     paper_sandbox_dry_run_operator_go_no_go_required: bool = True
     paper_sandbox_dry_run_still_no_order_enablement_required: bool = True
+
+    # 4B.4.3.6.6.30G paper sandbox dry-run execution candidate gate controls
+    paper_sandbox_dry_run_execution_candidate_gate_enabled: bool = True
+    paper_sandbox_dry_run_execution_candidate_consume_30f_plan_required: bool = True
+    paper_sandbox_dry_run_single_simulated_intent_required: bool = True
+    paper_sandbox_dry_run_no_exchange_submit_required: bool = True
+    paper_sandbox_dry_run_paper_candidate_still_blocked_required: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
