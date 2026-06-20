@@ -275,6 +275,22 @@ class Settings:
     paper_sandbox_dry_run_reconciliation_paper_candidate_still_blocked_required: bool = True
     paper_sandbox_dry_run_reconciliation_tolerance: float = 1e-9
     paper_sandbox_dry_run_reconciliation_sqlite_path: str = "reports/production_hardening/4B436630J_reconciliation_audit_mirror.db"
+
+    # 4B.4.3.6.6.30K paper sandbox operator final go/no-go controls
+    paper_sandbox_operator_final_go_no_go_gate_enabled: bool = True
+    paper_sandbox_operator_final_approval_required: bool = True
+    paper_sandbox_operator_final_approval_operator_id: str = ""
+    paper_sandbox_operator_final_approval_phrase: str = "APPROVE_PAPER_SANDBOX_GO_NO_GO"
+    paper_sandbox_operator_final_approval_token: str = ""
+    paper_sandbox_operator_final_approval_issued: bool = False
+    paper_sandbox_operator_final_approval_issued_at_ms: int = 0
+    paper_sandbox_operator_final_approval_ttl_sec: int = 900
+    paper_sandbox_operator_kill_switch_check_required: bool = True
+    paper_sandbox_operator_kill_switch_confirmed: bool = False
+    paper_sandbox_operator_caps_check_required: bool = True
+    paper_sandbox_operator_caps_confirmed: bool = False
+    paper_sandbox_operator_paper_candidate_still_blocked_required: bool = True
+    paper_sandbox_operator_no_live_real_required: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
