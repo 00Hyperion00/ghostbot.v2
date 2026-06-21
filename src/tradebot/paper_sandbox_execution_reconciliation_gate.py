@@ -4,6 +4,7 @@ import json
 import os
 import sqlite3
 import tempfile
+import time
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -14,15 +15,14 @@ from .config import Settings
 CONTRACT_VERSION = "4B.4.3.6.6.30O"
 SOURCE_30N_CONTRACT_VERSION = "4B.4.3.6.6.30N"
 SOURCE_30N_READY_DECISION = "PAPER_SANDBOX_DRY_RUN_EXECUTION_GATE_READY_LEDGER_APPENDED_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL"
-REPORT_TYPE = "paper_sandbox_execution_reconciliation_gate_mismatch_zero_sqlite_no_exchange_submit_no_live_real"
+REPORT_TYPE = "paper_sandbox_execution_reconciliation_gate_mismatch_zero_sqlite_mirror_no_exchange_submit_no_live_real"
 REPORT_PREFIX = "4B436630O_paper_sandbox_execution_reconciliation_gate"
 DEFAULT_REPORTS_DIR = "reports/production_hardening"
-DEFAULT_LEDGER_NAME = "4B436630N_internal_paper_execution_ledger.jsonl"
-DEFAULT_SQLITE_NAME = "4B436630O_reconciliation_audit_mirror.sqlite"
+DEFAULT_SQLITE_NAME = "4B436630O_paper_execution_reconciliation_audit_mirror.db"
 
-READY_DECISION = "PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_READY_MISMATCH_ZERO_SQLITE_MIRRORED_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL"
+READY_DECISION = "PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_READY_MISMATCH_ZERO_SQLITE_MIRROR_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL"
 SOURCE_30N_REQUIRED_DECISION = "PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_30N_LEDGER_REQUIRED_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL"
-SQLITE_MIRROR_REQUIRED_DECISION = "PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_SQLITE_MIRROR_REQUIRED_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL"
+RECONCILIATION_BLOCKED_DECISION = "PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_RECONCILIATION_BLOCKED_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL"
 NOT_READY_DECISION = "PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_NOT_READY_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL"
 
 RISK_FLAGS: dict[str, bool] = {
@@ -48,17 +48,14 @@ RISK_FLAGS: dict[str, bool] = {
 
 
 @dataclass(frozen=True, slots=True)
-class Source30NLedgerStatus:
+class Source30NStatus:
     ok: bool
     source_report_path: str | None
     source_contract_version: str | None
     source_decision: str | None
-    ledger_path: str | None
-    ledger_event_present: bool
-    ledger_rows: int
     execution_gate: bool
     order_envelope_consumed: bool
-    internal_simulation: bool
+    internal_execution_simulated: bool
     ledger_append: bool
     approved_for_paper_sandbox_dry_run_execution: bool
     approved_for_exchange_submit: bool
@@ -66,6 +63,20 @@ class Source30NLedgerStatus:
     exchange_submit_performed: bool
     trading_action_performed: bool
     order_actions_performed: bool
+    ledger_path: str | None
+    reason_codes: list[str]
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class LedgerConsumptionStatus:
+    ok: bool
+    ledger_path: str
+    event_count: int
+    selected_event_id: str | None
+    selected_event: dict[str, Any]
     reason_codes: list[str]
 
     def to_dict(self) -> dict[str, Any]:
@@ -75,23 +86,24 @@ class Source30NLedgerStatus:
 @dataclass(frozen=True, slots=True)
 class ReconciliationStatus:
     ok: bool
+    required: bool
+    tolerance: float
     mismatch_count: int
     mismatch_zero: bool
-    order_fill_reconciled: bool
-    position_reconciled: bool
-    balance_reconciled: bool
-    expected_quote_notional_usd: float
-    actual_quote_notional_usd: float
-    expected_fill_qty: float
-    actual_fill_qty: float
+    order_notional_usd: float
+    fill_notional_usd: float
+    notional_mismatch_usd: float
+    expected_base_delta: float
+    actual_base_delta: float
+    base_delta_mismatch: float
+    expected_quote_delta_usd: float
+    actual_quote_delta_usd: float
+    quote_delta_mismatch_usd: float
     expected_fee_usd: float
     actual_fee_usd: float
-    expected_quote_balance_delta_usd: float
-    actual_quote_balance_delta_usd: float
-    expected_base_balance_delta: float
-    actual_base_balance_delta: float
-    tolerance: float
-    mismatch_details: list[str]
+    fee_mismatch_usd: float
+    position_qty_after: float
+    quote_balance_after_usd: float
     reason_codes: list[str]
 
     def to_dict(self) -> dict[str, Any]:
@@ -102,13 +114,15 @@ class ReconciliationStatus:
 class SQLiteMirrorStatus:
     ok: bool
     required: bool
-    sqlite_mirror_requested: bool
     sqlite_path: str
-    orders_rows: int
-    fills_rows: int
-    positions_rows: int
-    balances_rows: int
-    audit_summary_rows: int
+    schema_version: int
+    orders_count: int
+    fills_count: int
+    positions_count: int
+    balance_snapshots_count: int
+    risk_events_count: int
+    operator_actions_count: int
+    audit_snapshot_ok: bool
     reason_codes: list[str]
 
     def to_dict(self) -> dict[str, Any]:
@@ -120,6 +134,7 @@ class NoExchangeSubmitStatus:
     ok: bool
     required: bool
     approved_for_exchange_submit: bool
+    submitted_to_exchange: bool
     exchange_submit_performed: bool
     network_submit_attempted: bool
     exchange_order_id_present: bool
@@ -137,6 +152,7 @@ class NoLiveRealStatus:
     approved_for_live_real: bool
     live_trading_armed: bool
     live_real_double_confirm: bool
+    exchange_submit_performed: bool
     reason_codes: list[str]
 
     def to_dict(self) -> dict[str, Any]:
@@ -149,22 +165,23 @@ class PaperSandboxExecutionReconciliationDecision:
     ok: bool
     decision: str
     approved_for_paper_sandbox_execution_reconciliation_gate: bool
-    approved_for_30n_paper_execution_ledger_consumption: bool
+    approved_for_30n_ledger_consumption: bool
     approved_for_order_fill_position_balance_reconciliation: bool
     approved_for_mismatch_zero_proof: bool
     approved_for_sqlite_audit_mirror: bool
-    approved_for_no_exchange_submit_verification: bool
     approved_for_paper_sandbox_dry_run_execution: bool
     approved_for_exchange_submit: bool
     approved_for_paper_candidate: bool
     approved_for_live_real: bool
-    source_30n_paper_execution_ledger_verified: bool
-    order_fill_position_balance_reconciled: bool
-    mismatch_count: int
-    mismatch_zero_verified: bool
+    approved_for_runtime_overlay_activation_candidate: bool
+    approved_for_parameter_relaxation_candidate: bool
+    source_30n_ledger_verified: bool
+    ledger_consumed: bool
+    reconciliation_mismatch_zero_verified: bool
     sqlite_audit_mirror_verified: bool
     no_exchange_submit_verified: bool
     no_live_real_verified: bool
+    mismatch_count: int
     paper_order_enablement_still_blocked: bool
     live_real_hard_block_verified: bool
     runtime_activation_blocked: bool
@@ -175,12 +192,12 @@ class PaperSandboxExecutionReconciliationDecision:
     exchange_submit_performed: bool
     reason_codes: list[str]
     source_30n: dict[str, Any]
+    ledger_consumption: dict[str, Any]
     reconciliation: dict[str, Any]
-    sqlite_mirror: dict[str, Any]
+    sqlite_audit_mirror: dict[str, Any]
     no_exchange_submit: dict[str, Any]
     no_live_real: dict[str, Any]
     source_30n_snapshot: dict[str, Any]
-    ledger_event: dict[str, Any]
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -192,6 +209,10 @@ def utc_now_iso() -> str:
 
 def utc_stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+
+def _now_ms() -> int:
+    return int(time.time() * 1000)
 
 
 def load_json(path: str | os.PathLike[str]) -> Any:
@@ -214,18 +235,8 @@ def write_json_atomic(path: str | os.PathLike[str], payload: Any) -> None:
         temp_path.unlink(missing_ok=True)
 
 
-def write_text_atomic(path: str | os.PathLike[str], text: str) -> None:
-    resolved = Path(path).resolve()
-    resolved.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(mode="wb", prefix=f".{resolved.name}.", suffix=".tmp", dir=resolved.parent, delete=False) as handle:
-        temp_path = Path(handle.name)
-        handle.write(text.encode("utf-8"))
-        handle.flush()
-        os.fsync(handle.fileno())
-    try:
-        temp_path.replace(resolved)
-    finally:
-        temp_path.unlink(missing_ok=True)
+def _mapping(value: Any) -> Mapping[str, Any]:
+    return value if isinstance(value, Mapping) else {}
 
 
 def _setting(settings: Any, key: str, default: Any) -> Any:
@@ -234,9 +245,10 @@ def _setting(settings: Any, key: str, default: Any) -> Any:
 
 def _float(value: Any, default: float = 0.0) -> float:
     try:
-        return float(value)
+        parsed = float(value)
     except (TypeError, ValueError):
         return default
+    return parsed if parsed == parsed and abs(parsed) != float("inf") else default
 
 
 def _int(value: Any, default: int = 0) -> int:
@@ -255,65 +267,37 @@ def latest_30n_ready_report(reports_dir: str | os.PathLike[str] = DEFAULT_REPORT
     return sorted(matches, key=lambda item: item.name, reverse=True)[0] if matches else None
 
 
-def read_jsonl(path: str | os.PathLike[str]) -> list[dict[str, Any]]:
-    ledger = Path(path)
-    if not ledger.exists():
-        return []
-    rows: list[dict[str, Any]] = []
-    with ledger.open("r", encoding="utf-8-sig") as handle:
-        for line in handle:
-            text = line.strip()
-            if not text:
-                continue
-            payload = json.loads(text)
-            if isinstance(payload, dict):
-                rows.append(payload)
-    return rows
+def default_sqlite_path(reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> Path:
+    return Path(reports_dir) / DEFAULT_SQLITE_NAME
 
 
-def latest_30n_ledger_event(ledger_path: str | os.PathLike[str]) -> tuple[dict[str, Any] | None, int]:
-    rows = read_jsonl(ledger_path)
-    candidates = [row for row in rows if row.get("contract_version") == SOURCE_30N_CONTRACT_VERSION]
-    return (candidates[-1], len(rows)) if candidates else (None, len(rows))
+def resolve_ledger_path(path_value: str | None, *, reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> Path | None:
+    if not path_value:
+        return None
+    path = Path(path_value)
+    if path.exists():
+        return path
+    if not path.is_absolute():
+        candidate = Path(reports_dir) / path
+        if candidate.exists():
+            return candidate
+    return path
 
 
-def resolve_ledger_path(
-    settings: Any,
-    source_30n_snapshot: Mapping[str, Any],
-    *,
-    reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR,
-) -> Path:
-    candidate = str(source_30n_snapshot.get("paper_execution_ledger_path") or "").strip()
-    if candidate:
-        return Path(candidate)
-    configured = str(_setting(settings, "paper_sandbox_dry_run_execution_ledger_path", "") or "").strip()
-    if configured:
-        return Path(configured)
-    return Path(reports_dir) / DEFAULT_LEDGER_NAME
-
-
-def evaluate_source_30n_ledger(
-    source_30n_snapshot: Mapping[str, Any],
-    ledger_event: Mapping[str, Any] | None,
-    *,
-    source_report_path: str | None = None,
-    ledger_path: str | None = None,
-    ledger_rows: int = 0,
-) -> Source30NLedgerStatus:
-    event = ledger_event or {}
+def evaluate_source_30n(source_30n_snapshot: Mapping[str, Any], *, source_report_path: str | None = None) -> Source30NStatus:
     contract = str(source_30n_snapshot.get("contract_version") or "") or None
     decision = str(source_30n_snapshot.get("decision") or "") or None
     execution_gate = bool(source_30n_snapshot.get("approved_for_paper_sandbox_dry_run_execution_gate", False))
-    envelope = bool(source_30n_snapshot.get("approved_for_30m_order_envelope_consumption", False))
-    simulation = bool(source_30n_snapshot.get("approved_for_internal_paper_execution_simulation", False))
-    ledger_append = bool(source_30n_snapshot.get("approved_for_paper_execution_ledger_append", False))
+    envelope_consumed = bool(source_30n_snapshot.get("approved_for_30m_order_envelope_consumption", False))
+    simulated = bool(source_30n_snapshot.get("approved_for_internal_paper_execution_simulation", False)) or bool(source_30n_snapshot.get("internal_paper_execution_simulated", False))
+    ledger_append = bool(source_30n_snapshot.get("approved_for_paper_execution_ledger_append", False)) or bool(source_30n_snapshot.get("paper_execution_ledger_appended", False))
     dry_execution = bool(source_30n_snapshot.get("approved_for_paper_sandbox_dry_run_execution", False))
     exchange_submit = bool(source_30n_snapshot.get("approved_for_exchange_submit", False))
     live_real = bool(source_30n_snapshot.get("approved_for_live_real", False))
     exchange_performed = bool(source_30n_snapshot.get("exchange_submit_performed", False))
     trading_action = bool(source_30n_snapshot.get("trading_action_performed", False))
     order_actions = bool(source_30n_snapshot.get("order_actions_performed", False))
-    event_present = bool(event)
+    ledger_path = str(source_30n_snapshot.get("paper_execution_ledger_path") or _mapping(source_30n_snapshot.get("internal_paper_execution_simulation")).get("ledger_path") or "") or None
     reasons: list[str] = []
     if contract != SOURCE_30N_CONTRACT_VERSION:
         reasons.append("SOURCE_30N_CONTRACT_VERSION_MISMATCH")
@@ -321,45 +305,30 @@ def evaluate_source_30n_ledger(
         reasons.append("SOURCE_30N_READY_LEDGER_DECISION_REQUIRED")
     if not execution_gate:
         reasons.append("SOURCE_30N_EXECUTION_GATE_NOT_APPROVED")
-    if not envelope:
-        reasons.append("SOURCE_30N_ORDER_ENVELOPE_CONSUMPTION_NOT_APPROVED")
-    if not simulation:
-        reasons.append("SOURCE_30N_INTERNAL_SIMULATION_NOT_APPROVED")
+    if not envelope_consumed:
+        reasons.append("SOURCE_30N_30M_ORDER_ENVELOPE_NOT_CONSUMED")
+    if not simulated:
+        reasons.append("SOURCE_30N_INTERNAL_EXECUTION_NOT_SIMULATED")
     if not ledger_append:
-        reasons.append("SOURCE_30N_LEDGER_APPEND_NOT_APPROVED")
+        reasons.append("SOURCE_30N_LEDGER_APPEND_NOT_VERIFIED")
     if not dry_execution:
-        reasons.append("SOURCE_30N_INTERNAL_DRY_RUN_EXECUTION_FLAG_REQUIRED")
+        reasons.append("SOURCE_30N_DRY_RUN_EXECUTION_NOT_APPROVED")
     if exchange_submit or exchange_performed:
         reasons.append("SOURCE_30N_EXCHANGE_SUBMIT_UNEXPECTEDLY_ENABLED_OR_PERFORMED")
     if live_real:
         reasons.append("SOURCE_30N_LIVE_REAL_UNEXPECTEDLY_APPROVED")
     if trading_action or order_actions:
-        reasons.append("SOURCE_30N_TRADING_OR_ORDER_ACTION_UNEXPECTEDLY_PERFORMED")
-    if not event_present:
-        reasons.append("SOURCE_30N_LEDGER_EVENT_MISSING")
-    if event_present and event.get("contract_version") != SOURCE_30N_CONTRACT_VERSION:
-        reasons.append("SOURCE_30N_LEDGER_EVENT_CONTRACT_MISMATCH")
-    if event_present and event.get("event_type") != "internal_paper_sandbox_dry_run_execution_simulated_fill_no_exchange_submit":
-        reasons.append("SOURCE_30N_LEDGER_EVENT_TYPE_MISMATCH")
-    if event_present and bool(event.get("exchange_submit_performed", False)):
-        reasons.append("SOURCE_30N_LEDGER_EVENT_EXCHANGE_SUBMIT_PERFORMED")
-    if event_present and bool(event.get("submitted_to_exchange", False)):
-        reasons.append("SOURCE_30N_LEDGER_EVENT_SUBMITTED_TO_EXCHANGE")
-    if event_present and bool(event.get("network_submit_attempted", False)):
-        reasons.append("SOURCE_30N_LEDGER_EVENT_NETWORK_SUBMIT_ATTEMPTED")
-    if event_present and bool(event.get("live_real_approved", False)):
-        reasons.append("SOURCE_30N_LEDGER_EVENT_LIVE_REAL_APPROVED")
-    return Source30NLedgerStatus(
+        reasons.append("SOURCE_30N_ORDER_OR_TRADING_ACTION_UNEXPECTEDLY_PERFORMED")
+    if not ledger_path:
+        reasons.append("SOURCE_30N_LEDGER_PATH_MISSING")
+    return Source30NStatus(
         ok=not reasons,
         source_report_path=source_report_path,
         source_contract_version=contract,
         source_decision=decision,
-        ledger_path=ledger_path,
-        ledger_event_present=event_present,
-        ledger_rows=ledger_rows,
         execution_gate=execution_gate,
-        order_envelope_consumed=envelope,
-        internal_simulation=simulation,
+        order_envelope_consumed=envelope_consumed,
+        internal_execution_simulated=simulated,
         ledger_append=ledger_append,
         approved_for_paper_sandbox_dry_run_execution=dry_execution,
         approved_for_exchange_submit=exchange_submit,
@@ -367,321 +336,298 @@ def evaluate_source_30n_ledger(
         exchange_submit_performed=exchange_performed,
         trading_action_performed=trading_action,
         order_actions_performed=order_actions,
-        reason_codes=reasons or ["SOURCE_30N_PAPER_EXECUTION_LEDGER_VERIFIED"],
+        ledger_path=ledger_path,
+        reason_codes=reasons or ["SOURCE_30N_INTERNAL_PAPER_EXECUTION_LEDGER_VERIFIED"],
     )
 
 
-def _close_enough(left: float, right: float, tolerance: float) -> bool:
-    return abs(left - right) <= max(tolerance, 0.0)
+def read_jsonl(path: str | os.PathLike[str]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    with Path(path).open("r", encoding="utf-8-sig") as handle:
+        for line in handle:
+            text = line.strip()
+            if not text:
+                continue
+            value = json.loads(text)
+            if isinstance(value, dict):
+                rows.append(value)
+    return rows
 
 
-def evaluate_reconciliation(ledger_event: Mapping[str, Any], *, tolerance: float = 1e-9) -> ReconciliationStatus:
-    side = str(ledger_event.get("side") or "").upper()
-    fill_price = _float(ledger_event.get("simulated_fill_price_usd"), 0.0)
-    fill_qty = _float(ledger_event.get("simulated_fill_qty"), 0.0)
-    quote_notional = _float(ledger_event.get("quote_notional_usd"), 0.0)
-    fee_usd = _float(ledger_event.get("simulated_fee_usd"), 0.0)
-    quote_delta = _float(ledger_event.get("quote_balance_delta_usd"), 0.0)
-    base_delta = _float(ledger_event.get("base_balance_delta"), ledger_event.get("signed_position_qty_delta", 0.0))
-    fee_bps = _float(ledger_event.get("simulated_fee_bps"), 0.0)
-    expected_notional = round(fill_price * fill_qty, 12)
-    expected_fee = round(expected_notional * fee_bps / 10000.0, 12)
-    expected_quote_delta = round(-(expected_notional + expected_fee), 12) if side == "BUY" else round(expected_notional - expected_fee, 12)
-    expected_base_delta = round(fill_qty, 12) if side == "BUY" else round(-fill_qty, 12)
-    mismatches: list[str] = []
-    if not _close_enough(quote_notional, expected_notional, tolerance):
-        mismatches.append("ORDER_FILL_NOTIONAL_MISMATCH")
-    if not _close_enough(fee_usd, expected_fee, tolerance):
-        mismatches.append("FILL_FEE_MISMATCH")
-    if not _close_enough(quote_delta, expected_quote_delta, tolerance):
-        mismatches.append("QUOTE_BALANCE_DELTA_MISMATCH")
-    if not _close_enough(base_delta, expected_base_delta, tolerance):
-        mismatches.append("BASE_POSITION_OR_BALANCE_DELTA_MISMATCH")
-    if side not in {"BUY", "SELL"}:
-        mismatches.append("SIDE_UNSUPPORTED")
-    if fill_price <= 0 or fill_qty <= 0 or quote_notional <= 0:
-        mismatches.append("NON_POSITIVE_FILL_INPUT")
-    mismatch_count = len(mismatches)
-    order_fill = not any(item in mismatches for item in ("ORDER_FILL_NOTIONAL_MISMATCH", "FILL_FEE_MISMATCH", "SIDE_UNSUPPORTED", "NON_POSITIVE_FILL_INPUT"))
-    position = "BASE_POSITION_OR_BALANCE_DELTA_MISMATCH" not in mismatches and side in {"BUY", "SELL"}
-    balance = "QUOTE_BALANCE_DELTA_MISMATCH" not in mismatches and side in {"BUY", "SELL"}
-    return ReconciliationStatus(
-        ok=mismatch_count == 0,
-        mismatch_count=mismatch_count,
-        mismatch_zero=mismatch_count == 0,
-        order_fill_reconciled=order_fill,
-        position_reconciled=position,
-        balance_reconciled=balance,
-        expected_quote_notional_usd=expected_notional,
-        actual_quote_notional_usd=quote_notional,
-        expected_fill_qty=fill_qty,
-        actual_fill_qty=fill_qty,
-        expected_fee_usd=expected_fee,
-        actual_fee_usd=fee_usd,
-        expected_quote_balance_delta_usd=expected_quote_delta,
-        actual_quote_balance_delta_usd=quote_delta,
-        expected_base_balance_delta=expected_base_delta,
-        actual_base_balance_delta=base_delta,
-        tolerance=tolerance,
-        mismatch_details=mismatches,
-        reason_codes=["ORDER_FILL_POSITION_BALANCE_RECONCILIATION_MISMATCH_ZERO"] if mismatch_count == 0 else mismatches,
-    )
-
-
-def _sqlite_path(settings: Any, reports_dir: str | os.PathLike[str]) -> Path:
-    configured = str(_setting(settings, "paper_sandbox_execution_reconciliation_sqlite_path", "") or "").strip()
-    if configured:
-        return Path(configured)
-    return Path(reports_dir) / DEFAULT_SQLITE_NAME
-
-
-def write_sqlite_audit_mirror(
-    path: str | os.PathLike[str],
+def consume_30n_ledger(
+    ledger_path: str | os.PathLike[str] | None,
+    source_30n_snapshot: Mapping[str, Any],
     *,
-    source_report: Mapping[str, Any],
-    ledger_event: Mapping[str, Any],
-    reconciliation: ReconciliationStatus,
-) -> SQLiteMirrorStatus:
-    sqlite_path = Path(path)
-    sqlite_path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(str(sqlite_path))
+    reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR,
+) -> LedgerConsumptionStatus:
+    reasons: list[str] = []
+    if ledger_path is None:
+        reasons.append("LEDGER_PATH_REQUIRED")
+        return LedgerConsumptionStatus(False, "", 0, None, {}, reasons)
+    resolved = resolve_ledger_path(str(ledger_path), reports_dir=reports_dir)
+    if resolved is None or not resolved.exists():
+        reasons.append("LEDGER_FILE_NOT_FOUND")
+        return LedgerConsumptionStatus(False, str(resolved or ledger_path), 0, None, {}, reasons)
     try:
-        conn.execute("CREATE TABLE IF NOT EXISTS orders (event_id TEXT PRIMARY KEY, symbol TEXT, side TEXT, order_type TEXT, quote_notional_usd REAL, submitted_to_exchange INTEGER)")
-        conn.execute("CREATE TABLE IF NOT EXISTS fills (event_id TEXT PRIMARY KEY, fill_price_usd REAL, fill_qty REAL, fee_usd REAL, exchange_submit_performed INTEGER)")
-        conn.execute("CREATE TABLE IF NOT EXISTS positions (event_id TEXT PRIMARY KEY, symbol TEXT, base_asset TEXT, position_qty_delta REAL)")
-        conn.execute("CREATE TABLE IF NOT EXISTS balances (event_id TEXT PRIMARY KEY, quote_asset TEXT, quote_balance_delta_usd REAL, base_balance_delta REAL)")
-        conn.execute("CREATE TABLE IF NOT EXISTS audit_summary (contract_version TEXT, source_contract_version TEXT, mismatch_count INTEGER, mismatch_zero INTEGER, no_exchange_submit INTEGER, no_live_real INTEGER, generated_at_utc TEXT)")
-        event_id = str(ledger_event.get("event_id") or "")
-        conn.execute(
-            "INSERT OR REPLACE INTO orders VALUES (?, ?, ?, ?, ?, ?)",
-            (event_id, ledger_event.get("symbol"), ledger_event.get("side"), ledger_event.get("order_type"), _float(ledger_event.get("quote_notional_usd"), 0.0), int(bool(ledger_event.get("submitted_to_exchange", False)))),
-        )
-        conn.execute(
-            "INSERT OR REPLACE INTO fills VALUES (?, ?, ?, ?, ?)",
-            (event_id, _float(ledger_event.get("simulated_fill_price_usd"), 0.0), _float(ledger_event.get("simulated_fill_qty"), 0.0), _float(ledger_event.get("simulated_fee_usd"), 0.0), int(bool(ledger_event.get("exchange_submit_performed", False)))),
-        )
-        conn.execute(
-            "INSERT OR REPLACE INTO positions VALUES (?, ?, ?, ?)",
-            (event_id, ledger_event.get("symbol"), ledger_event.get("base_asset"), _float(ledger_event.get("signed_position_qty_delta"), _float(ledger_event.get("base_balance_delta"), 0.0))),
-        )
-        conn.execute(
-            "INSERT OR REPLACE INTO balances VALUES (?, ?, ?, ?)",
-            (event_id, ledger_event.get("quote_asset"), _float(ledger_event.get("quote_balance_delta_usd"), 0.0), _float(ledger_event.get("base_balance_delta"), 0.0)),
-        )
-        conn.execute("DELETE FROM audit_summary WHERE contract_version = ?", (CONTRACT_VERSION,))
-        conn.execute(
-            "INSERT INTO audit_summary VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (
-                CONTRACT_VERSION,
-                source_report.get("contract_version"),
-                reconciliation.mismatch_count,
-                int(reconciliation.mismatch_zero),
-                int(not bool(ledger_event.get("exchange_submit_performed", False)) and not bool(ledger_event.get("submitted_to_exchange", False))),
-                int(not bool(ledger_event.get("live_real_approved", False))),
-                utc_now_iso(),
-            ),
-        )
-        conn.commit()
-        rows = {
-            "orders_rows": conn.execute("SELECT COUNT(*) FROM orders").fetchone()[0],
-            "fills_rows": conn.execute("SELECT COUNT(*) FROM fills").fetchone()[0],
-            "positions_rows": conn.execute("SELECT COUNT(*) FROM positions").fetchone()[0],
-            "balances_rows": conn.execute("SELECT COUNT(*) FROM balances").fetchone()[0],
-            "audit_summary_rows": conn.execute("SELECT COUNT(*) FROM audit_summary WHERE contract_version = ?", (CONTRACT_VERSION,)).fetchone()[0],
-        }
-    finally:
-        conn.close()
-    ok = all(int(value) > 0 for value in rows.values())
-    return SQLiteMirrorStatus(
-        ok=ok,
-        required=True,
-        sqlite_mirror_requested=True,
-        sqlite_path=str(sqlite_path),
-        orders_rows=int(rows["orders_rows"]),
-        fills_rows=int(rows["fills_rows"]),
-        positions_rows=int(rows["positions_rows"]),
-        balances_rows=int(rows["balances_rows"]),
-        audit_summary_rows=int(rows["audit_summary_rows"]),
-        reason_codes=["SQLITE_AUDIT_MIRROR_WRITTEN"] if ok else ["SQLITE_AUDIT_MIRROR_INCOMPLETE"],
+        rows = read_jsonl(resolved)
+    except Exception as exc:
+        reasons.append(f"LEDGER_READ_FAILED:{type(exc).__name__}")
+        return LedgerConsumptionStatus(False, str(resolved), 0, None, {}, reasons)
+    event_id = str(_mapping(_mapping(source_30n_snapshot.get("internal_paper_execution_simulation")).get("event")).get("event_id") or "")
+    candidates = [row for row in rows if row.get("contract_version") == SOURCE_30N_CONTRACT_VERSION]
+    selected: dict[str, Any] = {}
+    if event_id:
+        for row in candidates:
+            if row.get("event_id") == event_id:
+                selected = row
+                break
+    if not selected and candidates:
+        selected = candidates[-1]
+    if not selected:
+        reasons.append("NO_30N_LEDGER_EVENT_FOUND")
+    if bool(selected.get("exchange_submit_performed")) or bool(selected.get("submitted_to_exchange")) or bool(selected.get("network_submit_attempted")):
+        reasons.append("LEDGER_EVENT_UNEXPECTED_EXCHANGE_SUBMIT")
+    if bool(selected.get("live_real_approved")):
+        reasons.append("LEDGER_EVENT_UNEXPECTED_LIVE_REAL")
+    return LedgerConsumptionStatus(
+        ok=not reasons,
+        ledger_path=str(resolved),
+        event_count=len(rows),
+        selected_event_id=str(selected.get("event_id") or "") or None,
+        selected_event=selected,
+        reason_codes=reasons or ["LEDGER_EVENT_CONSUMED"],
     )
 
 
-def evaluate_sqlite_mirror(
-    settings: Any,
-    *,
-    sqlite_path: str | os.PathLike[str],
-    write_sqlite_mirror_requested: bool,
-    source_report: Mapping[str, Any],
-    ledger_event: Mapping[str, Any],
-    reconciliation: ReconciliationStatus,
-) -> SQLiteMirrorStatus:
-    required = bool(_setting(settings, "paper_sandbox_execution_reconciliation_sqlite_mirror_required", True))
-    if write_sqlite_mirror_requested:
-        status = write_sqlite_audit_mirror(sqlite_path, source_report=source_report, ledger_event=ledger_event, reconciliation=reconciliation)
-        return SQLiteMirrorStatus(
-            ok=status.ok,
-            required=required,
-            sqlite_mirror_requested=True,
-            sqlite_path=status.sqlite_path,
-            orders_rows=status.orders_rows,
-            fills_rows=status.fills_rows,
-            positions_rows=status.positions_rows,
-            balances_rows=status.balances_rows,
-            audit_summary_rows=status.audit_summary_rows,
-            reason_codes=status.reason_codes,
-        )
-    ok = not required
-    return SQLiteMirrorStatus(
-        ok=ok,
+def reconcile_event(event: Mapping[str, Any], *, tolerance: float = 1e-9, required: bool = True) -> ReconciliationStatus:
+    reasons: list[str] = []
+    symbol = str(event.get("symbol") or "UNKNOWN").upper()
+    side = str(event.get("side") or "BUY").upper()
+    order_notional = _float(event.get("quote_notional_usd"), 0.0)
+    price = _float(event.get("simulated_fill_price_usd"), 0.0)
+    qty = _float(event.get("simulated_fill_qty"), 0.0)
+    fee = _float(event.get("simulated_fee_usd"), 0.0)
+    fee_bps = _float(event.get("simulated_fee_bps"), 0.0)
+    fill_notional = price * qty
+    expected_fee = order_notional * fee_bps / 10_000.0
+    expected_base_delta = qty if side == "BUY" else -qty
+    actual_base_delta = _float(event.get("base_balance_delta", event.get("signed_position_qty_delta", 0.0)), 0.0)
+    expected_quote_delta = -order_notional - fee if side == "BUY" else order_notional - fee
+    actual_quote_delta = _float(event.get("quote_balance_delta_usd"), 0.0)
+    notional_mismatch = abs(order_notional - fill_notional)
+    base_mismatch = abs(expected_base_delta - actual_base_delta)
+    quote_mismatch = abs(expected_quote_delta - actual_quote_delta)
+    fee_mismatch = abs(expected_fee - fee)
+    mismatch_count = 0
+    if not required:
+        reasons.append("RECONCILIATION_MUST_REMAIN_REQUIRED")
+    if not event:
+        reasons.append("LEDGER_EVENT_REQUIRED")
+    if order_notional <= 0 or price <= 0 or qty <= 0:
+        reasons.append("RECONCILIATION_NUMERIC_FIELDS_INVALID")
+    for code, value in (
+        ("ORDER_FILL_NOTIONAL_MISMATCH", notional_mismatch),
+        ("BASE_DELTA_MISMATCH", base_mismatch),
+        ("QUOTE_DELTA_MISMATCH", quote_mismatch),
+        ("FEE_MISMATCH", fee_mismatch),
+    ):
+        if value > tolerance:
+            mismatch_count += 1
+            reasons.append(code)
+    return ReconciliationStatus(
+        ok=required and not reasons,
         required=required,
-        sqlite_mirror_requested=False,
-        sqlite_path=str(sqlite_path),
-        orders_rows=0,
-        fills_rows=0,
-        positions_rows=0,
-        balances_rows=0,
-        audit_summary_rows=0,
-        reason_codes=["SQLITE_AUDIT_MIRROR_WRITE_REQUIRED"] if required else ["SQLITE_AUDIT_MIRROR_NOT_REQUIRED"],
+        tolerance=tolerance,
+        mismatch_count=mismatch_count + (0 if required else 1),
+        mismatch_zero=mismatch_count == 0 and required and bool(event),
+        order_notional_usd=order_notional,
+        fill_notional_usd=fill_notional,
+        notional_mismatch_usd=notional_mismatch,
+        expected_base_delta=expected_base_delta,
+        actual_base_delta=actual_base_delta,
+        base_delta_mismatch=base_mismatch,
+        expected_quote_delta_usd=expected_quote_delta,
+        actual_quote_delta_usd=actual_quote_delta,
+        quote_delta_mismatch_usd=quote_mismatch,
+        expected_fee_usd=expected_fee,
+        actual_fee_usd=fee,
+        fee_mismatch_usd=fee_mismatch,
+        position_qty_after=actual_base_delta,
+        quote_balance_after_usd=actual_quote_delta,
+        reason_codes=reasons or ["ORDER_FILL_POSITION_BALANCE_RECONCILIATION_MISMATCH_ZERO"],
     )
 
 
-def evaluate_no_exchange_submit(settings: Any, source_30n_snapshot: Mapping[str, Any], ledger_event: Mapping[str, Any]) -> NoExchangeSubmitStatus:
+def _bootstrap_sqlite(conn: sqlite3.Connection) -> None:
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA busy_timeout=5000")
+    conn.execute("CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY, applied_at_utc TEXT, description TEXT)")
+    conn.execute("CREATE TABLE IF NOT EXISTS paper_orders(id INTEGER PRIMARY KEY AUTOINCREMENT, event_id TEXT, symbol TEXT, side TEXT, order_type TEXT, quote_notional_usd REAL, submitted_to_exchange INTEGER, raw_json TEXT)")
+    conn.execute("CREATE TABLE IF NOT EXISTS paper_fills(id INTEGER PRIMARY KEY AUTOINCREMENT, event_id TEXT, symbol TEXT, side TEXT, price REAL, qty REAL, fee_usd REAL, raw_json TEXT)")
+    conn.execute("CREATE TABLE IF NOT EXISTS paper_positions(id INTEGER PRIMARY KEY AUTOINCREMENT, event_id TEXT, symbol TEXT, qty REAL, entry_price REAL, raw_json TEXT)")
+    conn.execute("CREATE TABLE IF NOT EXISTS paper_balance_snapshots(id INTEGER PRIMARY KEY AUTOINCREMENT, event_id TEXT, asset TEXT, delta REAL, raw_json TEXT)")
+    conn.execute("CREATE TABLE IF NOT EXISTS paper_risk_events(id INTEGER PRIMARY KEY AUTOINCREMENT, event_id TEXT, event_type TEXT, severity TEXT, reason_code TEXT, raw_json TEXT)")
+    conn.execute("CREATE TABLE IF NOT EXISTS paper_operator_actions(id INTEGER PRIMARY KEY AUTOINCREMENT, event_id TEXT, action TEXT, outcome TEXT, raw_json TEXT)")
+    conn.execute("INSERT OR IGNORE INTO schema_migrations(version, applied_at_utc, description) VALUES(?,?,?)", (1, utc_now_iso(), "30O paper execution reconciliation mirror"))
+
+
+def sqlite_count(conn: sqlite3.Connection, table: str) -> int:
+    return int(conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0])
+
+
+def mirror_to_sqlite(sqlite_path: str | os.PathLike[str], event: Mapping[str, Any], reconciliation: ReconciliationStatus, *, required: bool = True) -> SQLiteMirrorStatus:
+    reasons: list[str] = []
+    if not required:
+        reasons.append("SQLITE_MIRROR_MUST_REMAIN_REQUIRED")
+    path = Path(sqlite_path)
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        conn = sqlite3.connect(path)
+        try:
+            _bootstrap_sqlite(conn)
+            raw_event = json.dumps(dict(event), sort_keys=True)
+            event_id = str(event.get("event_id") or "")
+            symbol = str(event.get("symbol") or "")
+            side = str(event.get("side") or "")
+            conn.execute("INSERT INTO paper_orders(event_id,symbol,side,order_type,quote_notional_usd,submitted_to_exchange,raw_json) VALUES(?,?,?,?,?,?,?)", (event_id, symbol, side, str(event.get("order_type") or ""), _float(event.get("quote_notional_usd"), 0.0), 1 if bool(event.get("submitted_to_exchange")) else 0, raw_event))
+            conn.execute("INSERT INTO paper_fills(event_id,symbol,side,price,qty,fee_usd,raw_json) VALUES(?,?,?,?,?,?,?)", (event_id, symbol, side, _float(event.get("simulated_fill_price_usd"), 0.0), _float(event.get("simulated_fill_qty"), 0.0), _float(event.get("simulated_fee_usd"), 0.0), raw_event))
+            conn.execute("INSERT INTO paper_positions(event_id,symbol,qty,entry_price,raw_json) VALUES(?,?,?,?,?)", (event_id, symbol, reconciliation.actual_base_delta, _float(event.get("simulated_fill_price_usd"), 0.0), raw_event))
+            conn.execute("INSERT INTO paper_balance_snapshots(event_id,asset,delta,raw_json) VALUES(?,?,?,?)", (event_id, str(event.get("base_asset") or "BASE"), reconciliation.actual_base_delta, raw_event))
+            conn.execute("INSERT INTO paper_balance_snapshots(event_id,asset,delta,raw_json) VALUES(?,?,?,?)", (event_id, str(event.get("quote_asset") or "QUOTE"), reconciliation.actual_quote_delta_usd, raw_event))
+            conn.execute("INSERT INTO paper_risk_events(event_id,event_type,severity,reason_code,raw_json) VALUES(?,?,?,?,?)", (event_id, "RECONCILIATION", "INFO", "MISMATCH_ZERO" if reconciliation.mismatch_zero else "MISMATCH_NONZERO", json.dumps(reconciliation.to_dict(), sort_keys=True)))
+            conn.execute("INSERT INTO paper_operator_actions(event_id,action,outcome,raw_json) VALUES(?,?,?,?)", (event_id, "PAPER_EXECUTION_RECONCILIATION", "READY" if reconciliation.ok else "BLOCKED", json.dumps(reconciliation.to_dict(), sort_keys=True)))
+            conn.commit()
+            counts = {
+                "orders": sqlite_count(conn, "paper_orders"),
+                "fills": sqlite_count(conn, "paper_fills"),
+                "positions": sqlite_count(conn, "paper_positions"),
+                "balances": sqlite_count(conn, "paper_balance_snapshots"),
+                "risks": sqlite_count(conn, "paper_risk_events"),
+                "actions": sqlite_count(conn, "paper_operator_actions"),
+            }
+            schema_version = int(conn.execute("PRAGMA user_version").fetchone()[0])
+            if counts["orders"] < 1 or counts["fills"] < 1 or counts["positions"] < 1 or counts["balances"] < 2 or counts["risks"] < 1 or counts["actions"] < 1:
+                reasons.append("SQLITE_MIRROR_COUNTS_INCOMPLETE")
+            return SQLiteMirrorStatus(
+                ok=required and not reasons,
+                required=required,
+                sqlite_path=str(path),
+                schema_version=schema_version,
+                orders_count=counts["orders"],
+                fills_count=counts["fills"],
+                positions_count=counts["positions"],
+                balance_snapshots_count=counts["balances"],
+                risk_events_count=counts["risks"],
+                operator_actions_count=counts["actions"],
+                audit_snapshot_ok=not reasons,
+                reason_codes=reasons or ["SQLITE_AUDIT_MIRROR_VERIFIED"],
+            )
+        finally:
+            conn.close()
+    except Exception as exc:
+        reasons.append(f"SQLITE_MIRROR_FAILED:{type(exc).__name__}")
+        return SQLiteMirrorStatus(False, required, str(path), 0, 0, 0, 0, 0, 0, 0, False, reasons)
+
+
+def evaluate_no_exchange_submit(settings: Any, source_30n_snapshot: Mapping[str, Any], event: Mapping[str, Any]) -> NoExchangeSubmitStatus:
     required = bool(_setting(settings, "paper_sandbox_execution_reconciliation_no_exchange_submit_required", True))
     approved = bool(source_30n_snapshot.get("approved_for_exchange_submit", False))
-    report_performed = bool(source_30n_snapshot.get("exchange_submit_performed", False))
-    ledger_performed = bool(ledger_event.get("exchange_submit_performed", False)) or bool(ledger_event.get("submitted_to_exchange", False))
-    network = bool(ledger_event.get("network_submit_attempted", False))
-    exchange_order_id = bool(ledger_event.get("exchange_order_id"))
-    client_order_id = bool(ledger_event.get("exchange_client_order_id"))
+    submitted = bool(event.get("submitted_to_exchange", False))
+    performed = bool(source_30n_snapshot.get("exchange_submit_performed", False)) or bool(event.get("exchange_submit_performed", False))
+    network = bool(event.get("network_submit_attempted", False))
+    order_id = bool(event.get("exchange_order_id"))
+    client_id = bool(event.get("exchange_client_order_id"))
     reasons: list[str] = []
     if not required:
-        reasons.append("NO_EXCHANGE_SUBMIT_RECONCILIATION_GATE_MUST_REMAIN_REQUIRED")
-    if approved or report_performed or ledger_performed:
+        reasons.append("NO_EXCHANGE_SUBMIT_GATE_MUST_REMAIN_REQUIRED")
+    if approved or submitted or performed or network:
         reasons.append("EXCHANGE_SUBMIT_UNEXPECTEDLY_APPROVED_OR_PERFORMED")
-    if network:
-        reasons.append("NETWORK_SUBMIT_UNEXPECTEDLY_ATTEMPTED")
-    if exchange_order_id:
+    if order_id:
         reasons.append("EXCHANGE_ORDER_ID_UNEXPECTEDLY_PRESENT")
-    if client_order_id:
+    if client_id:
         reasons.append("EXCHANGE_CLIENT_ORDER_ID_UNEXPECTEDLY_PRESENT")
-    return NoExchangeSubmitStatus(
-        ok=required and not reasons,
-        required=required,
-        approved_for_exchange_submit=approved,
-        exchange_submit_performed=report_performed or ledger_performed,
-        network_submit_attempted=network,
-        exchange_order_id_present=exchange_order_id,
-        exchange_client_order_id_present=client_order_id,
-        reason_codes=reasons or ["NO_EXCHANGE_SUBMIT_VERIFIED_EXECUTION_RECONCILIATION"],
-    )
+    return NoExchangeSubmitStatus(required and not reasons, required, approved, submitted, performed, network, order_id, client_id, reasons or ["NO_EXCHANGE_SUBMIT_VERIFIED_RECONCILIATION"])
 
 
-def evaluate_no_live_real(settings: Any, source_30n_snapshot: Mapping[str, Any], ledger_event: Mapping[str, Any]) -> NoLiveRealStatus:
+def evaluate_no_live_real(settings: Any, source_30n_snapshot: Mapping[str, Any], event: Mapping[str, Any]) -> NoLiveRealStatus:
     required = bool(_setting(settings, "paper_sandbox_execution_reconciliation_no_live_real_required", True))
-    approved = bool(source_30n_snapshot.get("approved_for_live_real", False)) or bool(ledger_event.get("live_real_approved", False))
+    approved = bool(source_30n_snapshot.get("approved_for_live_real", False)) or bool(event.get("live_real_approved", False))
     live_armed = bool(_setting(settings, "live_trading_armed", False))
     live_confirm = bool(_setting(settings, "live_real_double_confirm", False))
+    performed = bool(source_30n_snapshot.get("exchange_submit_performed", False)) or bool(event.get("exchange_submit_performed", False))
     reasons: list[str] = []
     if not required:
-        reasons.append("NO_LIVE_REAL_RECONCILIATION_GATE_MUST_REMAIN_REQUIRED")
+        reasons.append("NO_LIVE_REAL_GATE_MUST_REMAIN_REQUIRED")
     if approved or live_armed or live_confirm:
         reasons.append("LIVE_REAL_UNEXPECTEDLY_ENABLED_OR_ARMED")
-    return NoLiveRealStatus(
-        ok=required and not reasons,
-        required=required,
-        approved_for_live_real=approved,
-        live_trading_armed=live_armed,
-        live_real_double_confirm=live_confirm,
-        reason_codes=reasons or ["NO_LIVE_REAL_VERIFIED_EXECUTION_RECONCILIATION"],
-    )
+    if performed:
+        reasons.append("EXCHANGE_SUBMIT_UNEXPECTEDLY_PERFORMED")
+    return NoLiveRealStatus(required and not reasons, required, approved, live_armed, live_confirm, performed, reasons or ["NO_LIVE_REAL_VERIFIED_RECONCILIATION"])
 
 
 def build_paper_sandbox_execution_reconciliation_snapshot(
     settings: Any,
     source_30n_snapshot: Mapping[str, Any],
-    ledger_event: Mapping[str, Any] | None,
     *,
     source_report_path: str | None = None,
-    ledger_path: str | None = None,
-    ledger_rows: int = 0,
-    write_sqlite_mirror: bool = False,
+    ledger_event: Mapping[str, Any] | None = None,
+    event: Mapping[str, Any] | None = None,
+    ledger_path: str | os.PathLike[str] | None = None,
+    reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR,
     sqlite_path: str | os.PathLike[str] | None = None,
 ) -> dict[str, Any]:
-    source = evaluate_source_30n_ledger(
-        source_30n_snapshot,
-        ledger_event,
-        source_report_path=source_report_path,
-        ledger_path=ledger_path,
-        ledger_rows=ledger_rows,
-    )
-    event = dict(ledger_event or {})
+    source = evaluate_source_30n(source_30n_snapshot, source_report_path=source_report_path)
+    override_event = _mapping(ledger_event if ledger_event is not None else event)
+    if override_event:
+        resolved_ledger = str(ledger_path or source.ledger_path or "") or "DIRECT_LEDGER_EVENT_PROBE"
+        if bool(override_event.get("exchange_submit_performed")) or bool(override_event.get("submitted_to_exchange")) or bool(override_event.get("network_submit_attempted")):
+            ledger = LedgerConsumptionStatus(False, resolved_ledger, 1, str(override_event.get("event_id") or "") or None, dict(override_event), ["LEDGER_EVENT_UNEXPECTED_EXCHANGE_SUBMIT"])
+        elif bool(override_event.get("live_real_approved")):
+            ledger = LedgerConsumptionStatus(False, resolved_ledger, 1, str(override_event.get("event_id") or "") or None, dict(override_event), ["LEDGER_EVENT_UNEXPECTED_LIVE_REAL"])
+        else:
+            ledger = LedgerConsumptionStatus(True, resolved_ledger, 1, str(override_event.get("event_id") or "") or None, dict(override_event), ["LEDGER_EVENT_CONSUMED_DIRECT_PROBE"])
+    else:
+        resolved_ledger = str(ledger_path or source.ledger_path or "") or None
+        ledger = consume_30n_ledger(resolved_ledger, source_30n_snapshot, reports_dir=reports_dir)
+    event = ledger.selected_event
     tolerance = _float(_setting(settings, "paper_sandbox_execution_reconciliation_tolerance", 1e-9), 1e-9)
-    reconciliation = evaluate_reconciliation(event, tolerance=tolerance) if event else ReconciliationStatus(
-        ok=False,
-        mismatch_count=1,
-        mismatch_zero=False,
-        order_fill_reconciled=False,
-        position_reconciled=False,
-        balance_reconciled=False,
-        expected_quote_notional_usd=0.0,
-        actual_quote_notional_usd=0.0,
-        expected_fill_qty=0.0,
-        actual_fill_qty=0.0,
-        expected_fee_usd=0.0,
-        actual_fee_usd=0.0,
-        expected_quote_balance_delta_usd=0.0,
-        actual_quote_balance_delta_usd=0.0,
-        expected_base_balance_delta=0.0,
-        actual_base_balance_delta=0.0,
-        tolerance=tolerance,
-        mismatch_details=["LEDGER_EVENT_MISSING"],
-        reason_codes=["LEDGER_EVENT_MISSING"],
-    )
-    resolved_sqlite_path = Path(sqlite_path) if sqlite_path is not None else _sqlite_path(settings, Path(ledger_path or DEFAULT_REPORTS_DIR).parent if ledger_path else DEFAULT_REPORTS_DIR)
-    sqlite_status = evaluate_sqlite_mirror(
-        settings,
-        sqlite_path=resolved_sqlite_path,
-        write_sqlite_mirror_requested=write_sqlite_mirror,
-        source_report=source_30n_snapshot,
-        ledger_event=event,
-        reconciliation=reconciliation,
-    )
+    reconciliation = reconcile_event(event, tolerance=tolerance, required=bool(_setting(settings, "paper_sandbox_execution_reconciliation_mismatch_zero_required", True)))
+    resolved_sqlite = sqlite_path or _setting(settings, "paper_sandbox_execution_reconciliation_sqlite_path", "") or default_sqlite_path(reports_dir)
+    sqlite = mirror_to_sqlite(resolved_sqlite, event, reconciliation, required=bool(_setting(settings, "paper_sandbox_execution_reconciliation_sqlite_mirror_required", True))) if event and reconciliation.ok else SQLiteMirrorStatus(False, True, str(resolved_sqlite), 0, 0, 0, 0, 0, 0, 0, False, ["SQLITE_MIRROR_SKIPPED_RECONCILIATION_NOT_READY"])
     no_submit = evaluate_no_exchange_submit(settings, source_30n_snapshot, event)
     no_live = evaluate_no_live_real(settings, source_30n_snapshot, event)
-    mismatch_zero_required = bool(_setting(settings, "paper_sandbox_execution_reconciliation_mismatch_zero_required", True))
-    mismatch_ok = reconciliation.mismatch_zero if mismatch_zero_required else True
-    ready = source.ok and reconciliation.ok and mismatch_ok and sqlite_status.ok and no_submit.ok and no_live.ok
+    ready = source.ok and ledger.ok and reconciliation.ok and reconciliation.mismatch_zero and sqlite.ok and no_submit.ok and no_live.ok
     if ready:
         decision = READY_DECISION
-    elif not source.ok:
+    elif not source.ok or not ledger.ok:
         decision = SOURCE_30N_REQUIRED_DECISION
-    elif not sqlite_status.ok:
-        decision = SQLITE_MIRROR_REQUIRED_DECISION
+    elif not reconciliation.ok or not reconciliation.mismatch_zero:
+        decision = RECONCILIATION_BLOCKED_DECISION
     else:
         decision = NOT_READY_DECISION
-    reasons = [*source.reason_codes, *reconciliation.reason_codes, *sqlite_status.reason_codes, *no_submit.reason_codes, *no_live.reason_codes]
-    reasons.extend(["ORDER_FILL_POSITION_BALANCE_RECONCILIATION", "MISMATCH_ZERO_PROOF", "NO_EXCHANGE_SUBMIT_VERIFIED", "NO_LIVE_REAL_VERIFIED"])
+    reasons = [*source.reason_codes, *ledger.reason_codes, *reconciliation.reason_codes, *sqlite.reason_codes, *no_submit.reason_codes, *no_live.reason_codes]
     payload = PaperSandboxExecutionReconciliationDecision(
         contract_version=CONTRACT_VERSION,
         ok=True,
         decision=decision,
         approved_for_paper_sandbox_execution_reconciliation_gate=ready,
-        approved_for_30n_paper_execution_ledger_consumption=source.ok,
+        approved_for_30n_ledger_consumption=source.ok and ledger.ok,
         approved_for_order_fill_position_balance_reconciliation=reconciliation.ok,
-        approved_for_mismatch_zero_proof=reconciliation.mismatch_zero,
-        approved_for_sqlite_audit_mirror=sqlite_status.ok,
-        approved_for_no_exchange_submit_verification=no_submit.ok,
+        approved_for_mismatch_zero_proof=reconciliation.mismatch_zero and reconciliation.mismatch_count == 0,
+        approved_for_sqlite_audit_mirror=sqlite.ok,
         approved_for_paper_sandbox_dry_run_execution=False,
         approved_for_exchange_submit=False,
         approved_for_paper_candidate=True,
         approved_for_live_real=False,
-        source_30n_paper_execution_ledger_verified=source.ok,
-        order_fill_position_balance_reconciled=reconciliation.ok,
-        mismatch_count=reconciliation.mismatch_count,
-        mismatch_zero_verified=reconciliation.mismatch_zero,
-        sqlite_audit_mirror_verified=sqlite_status.ok,
+        approved_for_runtime_overlay_activation_candidate=False,
+        approved_for_parameter_relaxation_candidate=False,
+        source_30n_ledger_verified=source.ok,
+        ledger_consumed=ledger.ok,
+        reconciliation_mismatch_zero_verified=reconciliation.mismatch_zero and reconciliation.mismatch_count == 0,
+        sqlite_audit_mirror_verified=sqlite.ok,
         no_exchange_submit_verified=no_submit.ok,
         no_live_real_verified=no_live.ok,
+        mismatch_count=reconciliation.mismatch_count,
         paper_order_enablement_still_blocked=True,
         live_real_hard_block_verified=True,
         runtime_activation_blocked=True,
@@ -692,12 +638,12 @@ def build_paper_sandbox_execution_reconciliation_snapshot(
         exchange_submit_performed=False,
         reason_codes=reasons,
         source_30n=source.to_dict(),
+        ledger_consumption=ledger.to_dict(),
         reconciliation=reconciliation.to_dict(),
-        sqlite_mirror=sqlite_status.to_dict(),
+        sqlite_audit_mirror=sqlite.to_dict(),
         no_exchange_submit=no_submit.to_dict(),
         no_live_real=no_live.to_dict(),
         source_30n_snapshot=dict(source_30n_snapshot),
-        ledger_event=event,
     ).to_dict()
     payload.update({
         **RISK_FLAGS,
@@ -708,8 +654,6 @@ def build_paper_sandbox_execution_reconciliation_snapshot(
         "sqlite_audit_mirror_gate": True,
         "no_exchange_submit_gate": True,
         "no_live_real_gate": True,
-        "sqlite_path": str(resolved_sqlite_path),
-        "paper_execution_reconciliation_ready": ready,
     })
     return payload
 
@@ -718,79 +662,53 @@ def build_from_latest_30n_ready_report(
     settings: Any | None = None,
     *,
     reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR,
-    write_sqlite_mirror: bool = False,
     sqlite_path: str | os.PathLike[str] | None = None,
 ) -> dict[str, Any]:
-    resolved_settings = settings or Settings()
     source_path = latest_30n_ready_report(reports_dir)
+    source: Mapping[str, Any]
     if source_path is None:
-        return build_paper_sandbox_execution_reconciliation_snapshot(
-            resolved_settings,
-            {},
-            None,
-            source_report_path=None,
-            ledger_path=str(resolve_ledger_path(resolved_settings, {}, reports_dir=reports_dir)),
-            ledger_rows=0,
-            write_sqlite_mirror=write_sqlite_mirror,
-            sqlite_path=sqlite_path,
-        )
-    source = load_json(source_path)
-    ledger_path = resolve_ledger_path(resolved_settings, source, reports_dir=reports_dir)
-    event, ledger_rows = latest_30n_ledger_event(ledger_path)
+        source = {}
+        source_str = None
+    else:
+        source = _mapping(load_json(source_path))
+        source_str = str(source_path)
     return build_paper_sandbox_execution_reconciliation_snapshot(
-        resolved_settings,
+        settings or Settings(),
         source,
-        event,
-        source_report_path=str(source_path),
-        ledger_path=str(ledger_path),
-        ledger_rows=ledger_rows,
-        write_sqlite_mirror=write_sqlite_mirror,
+        source_report_path=source_str,
+        reports_dir=reports_dir,
         sqlite_path=sqlite_path,
     )
 
 
-def write_markdown_report(path: str | os.PathLike[str], snapshot: Mapping[str, Any]) -> None:
+def write_report_bundle(payload: Mapping[str, Any], reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> tuple[Path, Path]:
+    reports = Path(reports_dir)
+    suffix = "ready" if payload.get("decision") == READY_DECISION else "blocked"
+    stamp = utc_stamp()
+    json_path = reports / f"{REPORT_PREFIX}_{stamp}_{suffix}.json"
+    md_path = reports / f"{REPORT_PREFIX}_{stamp}_{suffix}.md"
+    write_json_atomic(json_path, payload)
     lines = [
-        "# 4B.4.3.6.6.30O Paper Sandbox Execution Reconciliation Gate",
+        f"# {CONTRACT_VERSION} Paper Sandbox Execution Reconciliation Gate",
         "",
-        "This report consumes the 30N internal paper execution ledger, reconciles order/fill/position/balance, writes a SQLite audit mirror when requested, and keeps exchange submit and live-real blocked.",
+        "This report consumes the 30N paper execution ledger, reconciles order/fill/position/balance with mismatch=0, mirrors evidence to SQLite, and keeps exchange submit and live-real blocked.",
         "",
         "## Decision",
-        f"- `decision`: `{snapshot.get('decision')}`",
-        f"- `read_only`: `{snapshot.get('read_only')}`",
-        f"- `approved_for_paper_sandbox_execution_reconciliation_gate`: `{snapshot.get('approved_for_paper_sandbox_execution_reconciliation_gate')}`",
-        f"- `approved_for_30n_paper_execution_ledger_consumption`: `{snapshot.get('approved_for_30n_paper_execution_ledger_consumption')}`",
-        f"- `approved_for_order_fill_position_balance_reconciliation`: `{snapshot.get('approved_for_order_fill_position_balance_reconciliation')}`",
-        f"- `approved_for_mismatch_zero_proof`: `{snapshot.get('approved_for_mismatch_zero_proof')}`",
-        f"- `approved_for_sqlite_audit_mirror`: `{snapshot.get('approved_for_sqlite_audit_mirror')}`",
-        f"- `approved_for_paper_sandbox_dry_run_execution`: `{snapshot.get('approved_for_paper_sandbox_dry_run_execution')}`",
-        f"- `approved_for_exchange_submit`: `{snapshot.get('approved_for_exchange_submit')}`",
-        f"- `approved_for_live_real`: `{snapshot.get('approved_for_live_real')}`",
-        f"- `mismatch_count`: `{snapshot.get('mismatch_count')}`",
-        f"- `exchange_submit_performed`: `{snapshot.get('exchange_submit_performed')}`",
-        f"- `trading_action_performed`: `{snapshot.get('trading_action_performed')}`",
-        "",
-        "## Gate checks",
-        f"- `source_30n_paper_execution_ledger_verified`: `{snapshot.get('source_30n_paper_execution_ledger_verified')}`",
-        f"- `order_fill_position_balance_reconciled`: `{snapshot.get('order_fill_position_balance_reconciled')}`",
-        f"- `mismatch_zero_verified`: `{snapshot.get('mismatch_zero_verified')}`",
-        f"- `sqlite_audit_mirror_verified`: `{snapshot.get('sqlite_audit_mirror_verified')}`",
-        f"- `no_exchange_submit_verified`: `{snapshot.get('no_exchange_submit_verified')}`",
-        f"- `no_live_real_verified`: `{snapshot.get('no_live_real_verified')}`",
+        f"- `decision`: `{payload.get('decision')}`",
+        f"- `approved_for_paper_sandbox_execution_reconciliation_gate`: `{payload.get('approved_for_paper_sandbox_execution_reconciliation_gate')}`",
+        f"- `approved_for_30n_ledger_consumption`: `{payload.get('approved_for_30n_ledger_consumption')}`",
+        f"- `approved_for_order_fill_position_balance_reconciliation`: `{payload.get('approved_for_order_fill_position_balance_reconciliation')}`",
+        f"- `approved_for_mismatch_zero_proof`: `{payload.get('approved_for_mismatch_zero_proof')}`",
+        f"- `approved_for_sqlite_audit_mirror`: `{payload.get('approved_for_sqlite_audit_mirror')}`",
+        f"- `approved_for_exchange_submit`: `{payload.get('approved_for_exchange_submit')}`",
+        f"- `approved_for_live_real`: `{payload.get('approved_for_live_real')}`",
+        f"- `mismatch_count`: `{payload.get('mismatch_count')}`",
+        f"- `exchange_submit_performed`: `{payload.get('exchange_submit_performed')}`",
         "",
         "## Reason codes",
+        *[f"- `{reason}`" for reason in payload.get("reason_codes", [])],
+        "",
     ]
-    lines.extend(f"- `{item}`" for item in snapshot.get("reason_codes", []))
-    write_text_atomic(path, "\n".join(lines) + "\n")
-
-
-def persist_report(snapshot: Mapping[str, Any], *, reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> tuple[Path, Path]:
-    reports = Path(reports_dir)
-    reports.mkdir(parents=True, exist_ok=True)
-    suffix = "ready" if snapshot.get("decision") == READY_DECISION else "sqlite_required" if snapshot.get("decision") == SQLITE_MIRROR_REQUIRED_DECISION else "not_ready"
-    stem = f"{REPORT_PREFIX}_{utc_stamp()}_{suffix}"
-    json_path = reports / f"{stem}.json"
-    md_path = reports / f"{stem}.md"
-    write_json_atomic(json_path, dict(snapshot))
-    write_markdown_report(md_path, snapshot)
+    md_path.parent.mkdir(parents=True, exist_ok=True)
+    md_path.write_text("\n".join(lines), encoding="utf-8")
     return json_path, md_path
