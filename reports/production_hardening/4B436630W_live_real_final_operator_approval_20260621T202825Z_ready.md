@@ -1,0 +1,26 @@
+# 4B.4.3.6.6.30W Live-Real Final Operator Approval
+
+Consumes 30V live-real preflight, captures explicit final operator approval, and keeps live-real submit blocked until 30X.
+
+## Decision
+- `decision`: `LIVE_REAL_FINAL_OPERATOR_APPROVAL_READY_FINAL_APPROVAL_CAPTURED_SUBMIT_BLOCKED_UNTIL_30X_NO_LIVE_REAL_ORDER`
+- `approved_for_live_real_final_operator_approval`: `True`
+- `approved_for_30x_live_real_micro_canary_candidate`: `True`
+- `source_30v_live_real_preflight_verified`: `True`
+- `final_operator_approval_verified`: `True`
+- `hard_live_submit_block_verified`: `True`
+- `live_real_submit_blocked_until_30x`: `True`
+- `order_action_count`: `0`
+- `exchange_submit_count`: `0`
+- `network_submit_count`: `0`
+- `approved_for_exchange_submit`: `False`
+- `approved_for_live_real`: `False`
+- `live_real_order_performed`: `False`
+
+## Operator approval
+- `operator_id`: `operator-30w`
+- `approval_token_matched`: `True`
+- `captured_at_utc`: `2026-06-21T20:28:25+00:00`
+
+## Reason codes
+- `LIVE_REAL_FINAL_OPERATOR_APPROVAL_READY_SUBMIT_BLOCKED_UNTIL_30X`

@@ -464,6 +464,21 @@ class Settings:
     live_real_preflight_network_submit_cap: int = 0
     live_real_preflight_max_total_notional_usd: float = 0.0
     live_real_preflight_runtime_seconds_cap: int = 120
+
+    # 4B.4.3.6.6.30W live-real final operator approval controls
+    live_real_final_operator_approval_enabled: bool = True
+    live_real_final_consume_30v_required: bool = True
+    live_real_final_operator_approval_required: bool = True
+    live_real_final_operator_id_required: bool = True
+    live_real_final_operator_approval_token: str = "APPROVE_LIVE_REAL_FINAL_OPERATOR_APPROVAL"
+    live_real_final_hard_submit_block_required: bool = True
+    live_real_final_no_live_order_required: bool = True
+    live_real_final_submit_blocked_until_30x: bool = True
+    live_real_final_order_action_cap: int = 0
+    live_real_final_exchange_submit_cap: int = 0
+    live_real_final_network_submit_cap: int = 0
+    live_real_final_max_total_notional_usd: float = 0.0
+    live_real_final_runtime_seconds_cap: int = 120
     live_real_hard_block_required: bool = True
 
     @classmethod
