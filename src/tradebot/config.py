@@ -388,6 +388,19 @@ class Settings:
     first_paper_sandbox_canary_step_size: float = 0.0001
     first_paper_sandbox_canary_estimated_price_usd: float = 2500.0
     first_paper_sandbox_canary_order_intent_path: str = "reports/production_hardening/4B436630Q_single_canary_order_intent.json"
+
+    # 4B.4.3.6.6.30R paper sandbox canary reconciliation controls
+    paper_sandbox_canary_reconciliation_enabled: bool = True
+    paper_sandbox_canary_reconciliation_consume_30q_required: bool = True
+    paper_sandbox_canary_reconciliation_order_intent_required: bool = True
+    paper_sandbox_canary_reconciliation_submit_guard_required: bool = True
+    paper_sandbox_canary_reconciliation_mismatch_zero_required: bool = True
+    paper_sandbox_canary_reconciliation_no_live_real_required: bool = True
+    paper_sandbox_canary_reconciliation_order_intent_path: str = "reports/production_hardening/4B436630Q_single_canary_order_intent.json"
+    paper_sandbox_canary_reconciliation_expected_fill_count: int = 0
+    paper_sandbox_canary_reconciliation_expected_account_delta_usd: float = 0.0
+    paper_sandbox_canary_reconciliation_expected_position_delta_qty: float = 0.0
+    paper_sandbox_canary_reconciliation_expected_fee_usd: float = 0.0
     live_real_hard_block_required: bool = True
 
     @classmethod
