@@ -236,13 +236,39 @@ def _bool_any(snapshot: Mapping[str, Any], *keys: str) -> bool:
     return any(bool(snapshot.get(key, False)) for key in keys)
 
 
-def latest_30o_ready_report(reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> Path | None:
+def candidate_30o_ready_reports(reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> list[Path]:
     reports = Path(reports_dir)
-    matches = [
-        item for item in reports.glob("4B436630O_paper_sandbox_execution_reconciliation_gate_*_ready.json")
-        if item.is_file()
-    ]
-    return sorted(matches, key=lambda item: item.name, reverse=True)[0] if matches else None
+    patterns = (
+        "4B436630O_paper_sandbox_execution_reconciliation_gate_*_ready.json",
+        "*30O*reconciliation*ready*.json",
+    )
+    matches: dict[str, Path] = {}
+    for pattern in patterns:
+        for item in reports.glob(pattern):
+            if item.is_file():
+                matches[str(item.resolve())] = item
+    return sorted(matches.values(), key=lambda item: (item.stat().st_mtime, item.name), reverse=True)
+
+
+def latest_30o_ready_report(reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> Path | None:
+    candidates = candidate_30o_ready_reports(reports_dir)
+    return candidates[0] if candidates else None
+
+
+def select_valid_30o_reconciliation_report(reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> tuple[Path | None, Mapping[str, Any]]:
+    first_path: Path | None = None
+    first_payload: Mapping[str, Any] = {}
+    for path in candidate_30o_ready_reports(reports_dir):
+        try:
+            payload = _mapping(load_json(path))
+        except Exception:
+            continue
+        if first_path is None:
+            first_path = path
+            first_payload = payload
+        if evaluate_source_30o_reconciliation(payload, source_report_path=str(path)).ok:
+            return path, payload
+    return first_path, first_payload
 
 
 def _nested_mapping_value(snapshot: Mapping[str, Any], *path: str) -> Any:
@@ -371,6 +397,9 @@ def _normalized_30o_source_snapshot(source_30o_snapshot: Mapping[str, Any]) -> d
         or module_probe.get("ledger_consumed", False)
         or checks.get("target_ledger_consumed", False)
         or _recursive_bool(direct, exact_keys={"ledger_consumed", "paper_execution_ledger_consumed", "approved_for_30n_ledger_consumption", "source_30n_ledger_consumed"})
+        or _recursive_bool(direct, path_terms=("ledger", "consumed"))
+        or _recursive_bool(direct, path_terms=("ledger", "reconciled"))
+        or _recursive_bool(direct, path_terms=("ledger", "event"))
         or (_recursive_first_value(direct, {"ledger_event", "source_ledger_event", "paper_execution_ledger_event"}) is not None and str(decision or "") in SOURCE_30O_READY_DECISIONS)
     )
     reconciliation_ready = bool(
@@ -693,11 +722,10 @@ def build_paper_sandbox_submit_arm_preflight_snapshot(
 
 def build_from_latest_30o_ready_report(settings: Any | None = None, *, reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> dict[str, Any]:
     resolved_settings = settings or Settings()
-    latest = latest_30o_ready_report(reports_dir)
-    if latest is None:
+    selected_path, source = select_valid_30o_reconciliation_report(reports_dir)
+    if selected_path is None:
         return build_paper_sandbox_submit_arm_preflight_snapshot(resolved_settings, {}, source_report_path=None)
-    source = _mapping(load_json(latest))
-    return build_paper_sandbox_submit_arm_preflight_snapshot(resolved_settings, source, source_report_path=str(latest))
+    return build_paper_sandbox_submit_arm_preflight_snapshot(resolved_settings, source, source_report_path=str(selected_path))
 
 
 def write_report_bundle(payload: Mapping[str, Any], reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> tuple[Path, Path]:
