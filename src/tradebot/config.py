@@ -448,6 +448,22 @@ class Settings:
     paper_promotion_review_kill_switch_required: bool = True
     paper_promotion_review_max_total_notional_usd: float = 0.0
     paper_promotion_review_runtime_seconds_cap: int = 120
+
+    # 4B.4.3.6.6.30V live-real preflight gate controls
+    live_real_preflight_enabled: bool = True
+    live_real_preflight_consume_30u_required: bool = True
+    live_real_preflight_capability_audit_required: bool = True
+    live_real_preflight_api_env_audit_required: bool = True
+    live_real_preflight_account_capability_audit_required: bool = True
+    live_real_preflight_api_key_presence_required: bool = False
+    live_real_preflight_account_capability_mode: str = "offline_redacted_audit"
+    live_real_preflight_hard_submit_block_required: bool = True
+    live_real_preflight_no_live_order_required: bool = True
+    live_real_preflight_order_action_cap: int = 0
+    live_real_preflight_exchange_submit_cap: int = 0
+    live_real_preflight_network_submit_cap: int = 0
+    live_real_preflight_max_total_notional_usd: float = 0.0
+    live_real_preflight_runtime_seconds_cap: int = 120
     live_real_hard_block_required: bool = True
 
     @classmethod
