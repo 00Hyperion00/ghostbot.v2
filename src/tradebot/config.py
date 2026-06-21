@@ -401,6 +401,23 @@ class Settings:
     paper_sandbox_canary_reconciliation_expected_account_delta_usd: float = 0.0
     paper_sandbox_canary_reconciliation_expected_position_delta_qty: float = 0.0
     paper_sandbox_canary_reconciliation_expected_fee_usd: float = 0.0
+
+    # 4B.4.3.6.6.30S paper mode runtime guardrail controls
+    paper_mode_runtime_guardrail_enabled: bool = True
+    paper_mode_runtime_guardrail_consume_30r_required: bool = True
+    paper_mode_runtime_guardrail_loop_required: bool = True
+    paper_mode_runtime_guardrail_strict_caps_required: bool = True
+    paper_mode_runtime_guardrail_kill_switch_required: bool = True
+    paper_mode_runtime_guardrail_kill_switch_enabled: bool = True
+    paper_mode_runtime_guardrail_no_exchange_submit_required: bool = True
+    paper_mode_runtime_guardrail_no_live_real_required: bool = True
+    paper_mode_runtime_guardrail_max_ticks: int = 3
+    paper_mode_runtime_guardrail_tick_cap: int = 5
+    paper_mode_runtime_guardrail_order_action_cap: int = 0
+    paper_mode_runtime_guardrail_exchange_submit_cap: int = 0
+    paper_mode_runtime_guardrail_network_submit_cap: int = 0
+    paper_mode_runtime_guardrail_max_notional_usd: float = 0.0
+    paper_mode_runtime_guardrail_runtime_seconds_cap: int = 30
     live_real_hard_block_required: bool = True
 
     @classmethod
