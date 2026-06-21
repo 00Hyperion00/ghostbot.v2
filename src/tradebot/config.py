@@ -418,6 +418,23 @@ class Settings:
     paper_mode_runtime_guardrail_network_submit_cap: int = 0
     paper_mode_runtime_guardrail_max_notional_usd: float = 0.0
     paper_mode_runtime_guardrail_runtime_seconds_cap: int = 30
+
+    # 4B.4.3.6.6.30T paper soak / evidence window controls
+    paper_soak_evidence_window_enabled: bool = True
+    paper_soak_evidence_window_consume_30s_required: bool = True
+    paper_soak_evidence_window_min_cycles_required: int = 3
+    paper_soak_evidence_window_cycle_count: int = 5
+    paper_soak_evidence_window_cycle_cap: int = 10
+    paper_soak_evidence_window_cap_continuity_required: bool = True
+    paper_soak_evidence_window_kill_switch_required: bool = True
+    paper_soak_evidence_window_kill_switch_enabled: bool = True
+    paper_soak_evidence_window_no_exchange_submit_required: bool = True
+    paper_soak_evidence_window_no_live_real_required: bool = True
+    paper_soak_evidence_window_order_action_cap: int = 0
+    paper_soak_evidence_window_exchange_submit_cap: int = 0
+    paper_soak_evidence_window_network_submit_cap: int = 0
+    paper_soak_evidence_window_max_notional_usd: float = 0.0
+    paper_soak_evidence_window_runtime_seconds_cap: int = 90
     live_real_hard_block_required: bool = True
 
     @classmethod
