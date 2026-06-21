@@ -435,6 +435,19 @@ class Settings:
     paper_soak_evidence_window_network_submit_cap: int = 0
     paper_soak_evidence_window_max_notional_usd: float = 0.0
     paper_soak_evidence_window_runtime_seconds_cap: int = 90
+
+    # 4B.4.3.6.6.30U paper promotion review controls
+    paper_promotion_review_enabled: bool = True
+    paper_promotion_review_consume_30t_required: bool = True
+    paper_promotion_review_risk_acceptance_required: bool = True
+    paper_promotion_review_min_soak_cycles_required: int = 3
+    paper_promotion_review_zero_action_counts_required: bool = True
+    paper_promotion_review_no_exchange_submit_required: bool = True
+    paper_promotion_review_no_live_real_required: bool = True
+    paper_promotion_review_cap_continuity_required: bool = True
+    paper_promotion_review_kill_switch_required: bool = True
+    paper_promotion_review_max_total_notional_usd: float = 0.0
+    paper_promotion_review_runtime_seconds_cap: int = 120
     live_real_hard_block_required: bool = True
 
     @classmethod
