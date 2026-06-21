@@ -349,6 +349,24 @@ class Settings:
     paper_sandbox_execution_reconciliation_no_exchange_submit_required: bool = True
     paper_sandbox_execution_reconciliation_no_live_real_required: bool = True
     paper_sandbox_execution_reconciliation_tolerance: float = 1e-09
+
+    # 4B.4.3.6.6.30P paper sandbox submit-arm preflight controls
+    paper_sandbox_submit_arm_preflight_enabled: bool = True
+    paper_sandbox_submit_arm_consume_30o_required: bool = True
+    paper_sandbox_submit_arm_api_mode: str = "testnet"
+    paper_sandbox_submit_arm_base_url: str = "https://testnet.binance.vision"
+    paper_sandbox_submit_arm_min_notional_usd: float = 5.0
+    paper_sandbox_submit_arm_lot_size_step_qty: float = 0.0001
+    paper_sandbox_submit_arm_min_qty: float = 0.0001
+    paper_sandbox_submit_arm_simulated_price_usd: float = 2500.0
+    paper_sandbox_submit_arm_api_mode_required: bool = True
+    paper_sandbox_submit_arm_endpoint_required: bool = True
+    paper_sandbox_submit_arm_min_notional_check_required: bool = True
+    paper_sandbox_submit_arm_lot_size_check_required: bool = True
+    paper_sandbox_submit_arm_risk_caps_check_required: bool = True
+    paper_sandbox_submit_arm_kill_switch_check_required: bool = True
+    paper_sandbox_submit_arm_no_exchange_submit_required: bool = True
+    paper_sandbox_submit_arm_no_live_real_required: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
