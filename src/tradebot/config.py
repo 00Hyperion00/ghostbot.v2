@@ -479,6 +479,33 @@ class Settings:
     live_real_final_network_submit_cap: int = 0
     live_real_final_max_total_notional_usd: float = 0.0
     live_real_final_runtime_seconds_cap: int = 120
+
+    # 4B.4.3.6.6.30X first live-real micro canary controls
+    live_real_micro_canary_enabled: bool = True
+    live_real_micro_canary_consume_30w_required: bool = True
+    live_real_micro_canary_operator_approval_required: bool = True
+    live_real_micro_canary_operator_id_required: bool = True
+    live_real_micro_canary_approval_token: str = "APPROVE_FIRST_LIVE_REAL_MICRO_CANARY"
+    live_real_micro_canary_symbol: str = "ETHUSDT"
+    live_real_micro_canary_side: str = "BUY"
+    live_real_micro_canary_order_type: str = "MARKET"
+    live_real_micro_canary_quantity: float = 0.002
+    live_real_micro_canary_mark_price: float = 2500.0
+    live_real_micro_canary_min_notional_usd: float = 5.0
+    live_real_micro_canary_max_notional_usd: float = 10.0
+    live_real_micro_canary_max_total_notional_usd: float = 10.0
+    live_real_micro_canary_single_order_cap: int = 1
+    live_real_micro_canary_exchange_submit_cap: int = 1
+    live_real_micro_canary_network_submit_cap: int = 1
+    live_real_micro_canary_leverage: int = 1
+    live_real_micro_canary_max_leverage: int = 1
+    live_real_micro_canary_reduce_only: bool = False
+    live_real_micro_canary_post_only: bool = False
+    live_real_micro_canary_time_in_force: str = "IOC"
+    live_real_micro_canary_kill_switch_armed: bool = True
+    live_real_micro_canary_hard_caps_required: bool = True
+    live_real_micro_canary_perform_network_submit: bool = False
+    live_real_micro_canary_submit_handoff_mode: str = "manual_runtime_only"
     live_real_hard_block_required: bool = True
 
     @classmethod
