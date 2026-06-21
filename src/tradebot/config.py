@@ -367,6 +367,27 @@ class Settings:
     paper_sandbox_submit_arm_kill_switch_check_required: bool = True
     paper_sandbox_submit_arm_no_exchange_submit_required: bool = True
     paper_sandbox_submit_arm_no_live_real_required: bool = True
+
+    # 4B.4.3.6.6.30Q first paper sandbox canary submit gate controls
+    first_paper_sandbox_canary_submit_gate_enabled: bool = True
+    first_paper_sandbox_canary_consume_30p_required: bool = True
+    first_paper_sandbox_canary_operator_approval_required: bool = True
+    first_paper_sandbox_canary_operator_id: str = ""
+    first_paper_sandbox_canary_operator_approval_phrase: str = "APPROVE_FIRST_PAPER_SANDBOX_CANARY_SUBMIT_GATE"
+    first_paper_sandbox_canary_operator_approval_token: str = ""
+    first_paper_sandbox_canary_operator_approval_issued: bool = False
+    first_paper_sandbox_canary_operator_approval_issued_at_ms: int = 0
+    first_paper_sandbox_canary_operator_approval_ttl_sec: int = 900
+    first_paper_sandbox_canary_order_intent_required: bool = True
+    first_paper_sandbox_canary_submit_guard_required: bool = True
+    first_paper_sandbox_canary_no_live_real_required: bool = True
+    first_paper_sandbox_canary_quote_notional_usd: float = 10.0
+    first_paper_sandbox_canary_notional_cap_usd: float = 10.0
+    first_paper_sandbox_canary_min_notional_usd: float = 5.0
+    first_paper_sandbox_canary_min_qty: float = 0.0001
+    first_paper_sandbox_canary_step_size: float = 0.0001
+    first_paper_sandbox_canary_estimated_price_usd: float = 2500.0
+    first_paper_sandbox_canary_order_intent_path: str = "reports/production_hardening/4B436630Q_single_canary_order_intent.json"
     live_real_hard_block_required: bool = True
 
     @classmethod
