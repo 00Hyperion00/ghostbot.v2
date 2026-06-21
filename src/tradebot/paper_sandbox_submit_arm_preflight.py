@@ -245,19 +245,178 @@ def latest_30o_ready_report(reports_dir: str | os.PathLike[str] = DEFAULT_REPORT
     return sorted(matches, key=lambda item: item.name, reverse=True)[0] if matches else None
 
 
+def _nested_mapping_value(snapshot: Mapping[str, Any], *path: str) -> Any:
+    current: Any = snapshot
+    for key in path:
+        if not isinstance(current, Mapping):
+            return None
+        current = current.get(key)
+    return current
+
+
+def _iter_mapping_values(value: Any) -> list[tuple[str, Any]]:
+    """Flatten nested evidence safely for 30O direct reports and H6 checker summaries."""
+    flattened: list[tuple[str, Any]] = []
+
+    def visit(prefix: str, item: Any, depth: int = 0) -> None:
+        if depth > 8:
+            return
+        if isinstance(item, Mapping):
+            for key, child in item.items():
+                key_str = str(key)
+                next_prefix = f"{prefix}.{key_str}" if prefix else key_str
+                flattened.append((next_prefix, child))
+                visit(next_prefix, child, depth + 1)
+        elif isinstance(item, list):
+            for idx, child in enumerate(item[:50]):
+                next_prefix = f"{prefix}[{idx}]"
+                flattened.append((next_prefix, child))
+                visit(next_prefix, child, depth + 1)
+
+    visit("", value)
+    return flattened
+
+
+def _recursive_bool(source: Mapping[str, Any], *, exact_keys: set[str] | None = None, path_terms: tuple[str, ...] = ()) -> bool:
+    exact = exact_keys or set()
+    terms = tuple(term.lower() for term in path_terms)
+    for path, value in _iter_mapping_values(source):
+        key = path.rsplit(".", 1)[-1].lower()
+        path_lower = path.lower()
+        if exact and key in exact and bool(value):
+            return True
+        if terms and all(term in path_lower for term in terms) and bool(value):
+            return True
+    return False
+
+
+def _recursive_any_bad_bool(source: Mapping[str, Any], exact_keys: set[str]) -> bool:
+    for path, value in _iter_mapping_values(source):
+        key = path.rsplit(".", 1)[-1].lower()
+        if key in exact_keys and bool(value):
+            return True
+    return False
+
+
+def _recursive_first_value(source: Mapping[str, Any], exact_keys: set[str]) -> Any:
+    for path, value in _iter_mapping_values(source):
+        key = path.rsplit(".", 1)[-1].lower()
+        if key in exact_keys:
+            return value
+    return None
+
+
+def _recursive_mismatch_count(source: Mapping[str, Any]) -> int:
+    for path, value in _iter_mapping_values(source):
+        key = path.rsplit(".", 1)[-1].lower()
+        if key in {"mismatch_count", "reconciliation_mismatch_count", "mismatches_count", "mismatchcount"}:
+            return _int(value, 999999)
+    mismatches = _recursive_first_value(source, {"mismatches", "reconciliation_mismatches"})
+    if isinstance(mismatches, list):
+        return len(mismatches)
+    return _int(source.get("mismatch_count", source.get("reconciliation_mismatch_count", 0)), 0)
+
+
+def _normalized_30o_source_snapshot(source_30o_snapshot: Mapping[str, Any]) -> dict[str, Any]:
+    """Normalize direct 30O reports, H6 final evidence, and 30O-H6 checker summaries."""
+    direct = dict(source_30o_snapshot)
+    target_summary = _mapping(direct.get("target_30o_report_summary"))
+    target_checks = _mapping(target_summary.get("checks"))
+    target_probe = _mapping(target_summary.get("module_probe"))
+    module_probe = _mapping(direct.get("module_probe"))
+    checks = _mapping(direct.get("checks"))
+
+    contract = (
+        direct.get("contract_version")
+        or target_summary.get("contract_version")
+        or direct.get("source_contract_version")
+        or _recursive_first_value(direct, {"contract_version"})
+    )
+    decision = (
+        direct.get("decision")
+        or target_probe.get("decision")
+        or module_probe.get("decision")
+        or _recursive_first_value(direct, {"decision"})
+    )
+    mismatch_count = _recursive_mismatch_count(direct)
+    mismatch_zero = bool(
+        direct.get("mismatch_zero", False)
+        or direct.get("reconciliation_ok", False)
+        or target_checks.get("target_mismatch_zero", False)
+        or target_probe.get("mismatch_zero", False)
+        or module_probe.get("mismatch_zero", False)
+        or checks.get("target_mismatch_zero", False)
+        or _recursive_bool(direct, exact_keys={"mismatch_zero", "mismatch_count_zero", "mismatch_zero_proof", "reconciliation_mismatch_zero"})
+        or (mismatch_count == 0 and str(decision or "") in SOURCE_30O_READY_DECISIONS)
+    )
+    sqlite_ok = bool(
+        direct.get("sqlite_mirror_ok", False)
+        or direct.get("sqlite_audit_mirror_ok", False)
+        or direct.get("audit_mirror_sqlite_ok", False)
+        or direct.get("sqlite_mirrored", False)
+        or target_checks.get("target_sqlite_mirror_ok", False)
+        or target_probe.get("sqlite_mirror_ok", False)
+        or module_probe.get("sqlite_mirror_ok", False)
+        or checks.get("target_sqlite_mirror_ok", False)
+        or _recursive_bool(direct, exact_keys={"sqlite_mirror_ok", "sqlite_audit_mirror_ok", "audit_mirror_sqlite_ok", "sqlite_mirrored", "sqlite_ok"})
+        or _recursive_bool(direct, path_terms=("sqlite", "ok"))
+        or _recursive_bool(direct, path_terms=("sqlite", "mirror"))
+    )
+    ledger_consumed = bool(
+        direct.get("ledger_consumed", False)
+        or direct.get("paper_execution_ledger_consumed", False)
+        or direct.get("approved_for_30n_ledger_consumption", False)
+        or target_checks.get("target_ledger_consumed", False)
+        or target_probe.get("ledger_consumed", False)
+        or module_probe.get("ledger_consumed", False)
+        or checks.get("target_ledger_consumed", False)
+        or _recursive_bool(direct, exact_keys={"ledger_consumed", "paper_execution_ledger_consumed", "approved_for_30n_ledger_consumption", "source_30n_ledger_consumed"})
+        or (_recursive_first_value(direct, {"ledger_event", "source_ledger_event", "paper_execution_ledger_event"}) is not None and str(decision or "") in SOURCE_30O_READY_DECISIONS)
+    )
+    reconciliation_ready = bool(
+        str(decision or "") in SOURCE_30O_READY_DECISIONS
+        or direct.get("approved_for_paper_sandbox_execution_reconciliation_gate", False)
+        or direct.get("source_30n_ledger_reconciled", False)
+        or target_checks.get("target_reconciliation_ok", False)
+        or target_probe.get("reconciliation_ok", False)
+        or module_probe.get("reconciliation_ok", False)
+        or checks.get("target_reconciliation_ok", False)
+        or _recursive_bool(direct, exact_keys={"reconciliation_ok", "reconciliation_ready", "approved_for_paper_sandbox_execution_reconciliation_gate"})
+    )
+    bad_exchange = _recursive_any_bad_bool(direct, {"approved_for_exchange_submit", "exchange_submit_performed", "network_submit_attempted"})
+    bad_live = _recursive_any_bad_bool(direct, {"approved_for_live_real", "live_real_approved", "live_trading_armed", "live_real_double_confirm"})
+    trading_action = _recursive_any_bad_bool(direct, {"trading_action_performed", "order_actions_performed"})
+    return {
+        "contract_version": contract,
+        "decision": decision,
+        "mismatch_count": mismatch_count,
+        "mismatch_zero": mismatch_zero,
+        "sqlite_mirror_ok": sqlite_ok,
+        "ledger_consumed": ledger_consumed,
+        "reconciliation_ready": reconciliation_ready,
+        "approved_for_exchange_submit": bad_exchange,
+        "approved_for_live_real": bad_live,
+        "exchange_submit_performed": bool(direct.get("exchange_submit_performed", False) or _recursive_bool(direct, exact_keys={"exchange_submit_performed", "network_submit_attempted"})),
+        "trading_action_performed": bool(direct.get("trading_action_performed", False) or trading_action),
+        "order_actions_performed": bool(direct.get("order_actions_performed", False) or trading_action),
+        "target_exchange_submit_blocked": bool(target_checks.get("target_exchange_submit_blocked", False) or target_probe.get("exchange_submit_blocked", False) or checks.get("target_exchange_submit_blocked", False)),
+        "target_live_real_blocked": bool(target_checks.get("target_live_real_blocked", False) or target_probe.get("live_real_blocked", False) or checks.get("target_live_real_blocked", False)),
+    }
+
 def evaluate_source_30o_reconciliation(source_30o_snapshot: Mapping[str, Any], *, source_report_path: str | None = None) -> Source30OReconciliationStatus:
-    contract = str(source_30o_snapshot.get("contract_version") or "") or None
-    decision = str(source_30o_snapshot.get("decision") or "") or None
-    mismatch_count = _int(source_30o_snapshot.get("mismatch_count", source_30o_snapshot.get("reconciliation_mismatch_count", 0)), 0)
-    mismatch_zero = mismatch_count == 0 and bool(source_30o_snapshot.get("mismatch_zero", True))
-    sqlite_ok = _bool_any(source_30o_snapshot, "sqlite_mirror_ok", "sqlite_audit_mirror_ok", "audit_mirror_sqlite_ok", "sqlite_mirrored")
-    ledger_consumed = _bool_any(source_30o_snapshot, "ledger_consumed", "paper_execution_ledger_consumed", "approved_for_30n_ledger_consumption")
-    reconciliation_ready = bool(decision in SOURCE_30O_READY_DECISIONS or source_30o_snapshot.get("approved_for_paper_sandbox_execution_reconciliation_gate", False))
-    exchange_approved = bool(source_30o_snapshot.get("approved_for_exchange_submit", False))
-    live_real = bool(source_30o_snapshot.get("approved_for_live_real", False))
-    exchange_performed = bool(source_30o_snapshot.get("exchange_submit_performed", False))
-    trading_action = bool(source_30o_snapshot.get("trading_action_performed", False))
-    order_actions = bool(source_30o_snapshot.get("order_actions_performed", False))
+    normalized = _normalized_30o_source_snapshot(source_30o_snapshot)
+    contract = str(normalized.get("contract_version") or "") or None
+    decision = str(normalized.get("decision") or "") or None
+    mismatch_count = _int(normalized.get("mismatch_count"), 0)
+    mismatch_zero = mismatch_count == 0 and bool(normalized.get("mismatch_zero", False))
+    sqlite_ok = bool(normalized.get("sqlite_mirror_ok", False))
+    ledger_consumed = bool(normalized.get("ledger_consumed", False))
+    reconciliation_ready = bool(normalized.get("reconciliation_ready", False))
+    exchange_approved = bool(normalized.get("approved_for_exchange_submit", False))
+    live_real = bool(normalized.get("approved_for_live_real", False))
+    exchange_performed = bool(normalized.get("exchange_submit_performed", False))
+    trading_action = bool(normalized.get("trading_action_performed", False))
+    order_actions = bool(normalized.get("order_actions_performed", False))
     reasons: list[str] = []
     if not contract or not contract.startswith(SOURCE_30O_CONTRACT_PREFIX):
         reasons.append("SOURCE_30O_CONTRACT_VERSION_REQUIRED")
@@ -292,7 +451,6 @@ def evaluate_source_30o_reconciliation(source_30o_snapshot: Mapping[str, Any], *
         order_actions_performed=order_actions,
         reason_codes=reasons or ["SOURCE_30O_RECONCILIATION_PROOF_VERIFIED"],
     )
-
 
 def _is_lot_aligned(qty: float, step: float) -> bool:
     if qty <= 0 or step <= 0:
