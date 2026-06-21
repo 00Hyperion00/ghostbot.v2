@@ -506,6 +506,24 @@ class Settings:
     live_real_micro_canary_hard_caps_required: bool = True
     live_real_micro_canary_perform_network_submit: bool = False
     live_real_micro_canary_submit_handoff_mode: str = "manual_runtime_only"
+
+    # 4B.4.3.6.6.30Y live-real micro canary reconciliation controls
+    live_real_micro_canary_reconciliation_enabled: bool = True
+    live_real_micro_canary_reconciliation_consume_30x_required: bool = True
+    live_real_micro_canary_reconciliation_execution_evidence_required: bool = True
+    live_real_micro_canary_reconciliation_fill_status_required: str = "FILLED"
+    live_real_micro_canary_reconciliation_mismatch_count_required: int = 0
+    live_real_micro_canary_reconciliation_quantity_tolerance: float = 0.000000001
+    live_real_micro_canary_reconciliation_notional_tolerance_usd: float = 0.50
+    live_real_micro_canary_reconciliation_emergency_stop_required: bool = True
+    live_real_micro_canary_reconciliation_emergency_stop_armed: bool = True
+    live_real_micro_canary_reconciliation_kill_switch_armed: bool = True
+    live_real_micro_canary_reconciliation_no_patch_network_submit_required: bool = True
+    live_real_micro_canary_reconciliation_further_live_real_submit_blocked: bool = True
+
+    # 4B.4.3.6.6.30Y-H1 manual min-notional quantity adjustment controls
+    live_real_micro_canary_reconciliation_allow_min_notional_quantity_adjustment: bool = True
+    live_real_micro_canary_reconciliation_min_notional_adjustment_requires_operator_reason: bool = True
     live_real_hard_block_required: bool = True
 
     @classmethod
