@@ -11,13 +11,13 @@
   "contract_version": "4B.4.3.6.6.31A",
   "decision": "LIVE_MICRO_CANARY_FREEZE_AUDIT_CLOSURE_30Z_READY_REQUIRED_NO_FURTHER_LIVE_ORDER",
   "emergency_stop_continuity_verified": false,
-  "evidence_pack_file_count": 13,
-  "evidence_pack_id": "LIVE_MICRO_CANARY_30X_30Y_30Z_20260622T073450Z",
-  "evidence_pack_manifest_sha256": "def0cb070f68fdcb7c82967a7291cf2407612ffed4cda1957c29c588dc0f34c6",
+  "evidence_pack_file_count": 15,
+  "evidence_pack_id": "LIVE_MICRO_CANARY_8114595899_CLOSURE_H1",
+  "evidence_pack_manifest_sha256": "61bddd8b33434a2dac25df3df1e8eea54b0c46e3a975013ca64ebd1f0323d762",
   "evidence_pack_seal": {
-    "evidence_pack_id": "LIVE_MICRO_CANARY_30X_30Y_30Z_20260622T073450Z",
-    "file_count": 13,
-    "manifest_sha256": "def0cb070f68fdcb7c82967a7291cf2407612ffed4cda1957c29c588dc0f34c6",
+    "evidence_pack_id": "LIVE_MICRO_CANARY_8114595899_CLOSURE_H1",
+    "file_count": 15,
+    "manifest_sha256": "61bddd8b33434a2dac25df3df1e8eea54b0c46e3a975013ca64ebd1f0323d762",
     "missing_required_patterns": [],
     "ok": true,
     "reason_codes": [
@@ -94,9 +94,19 @@
         "relative_path": "4B436630Z_post_live_micro_canary_risk_review_20260622T063926Z_ready.md",
         "sha256": "f49833faf1ca23288e162f6e01680dd58b4854022f9c494bf25ecd124d935d8a",
         "size_bytes": 695
+      },
+      {
+        "relative_path": "4B436630Z_post_live_micro_canary_risk_review_20260622T081654Z_ready.json",
+        "sha256": "433ce34d04bb561e43a863600b3646816557cca6b73d41c1d45c09e4fa2553ad",
+        "size_bytes": 296350
+      },
+      {
+        "relative_path": "4B436630Z_post_live_micro_canary_risk_review_20260622T081654Z_ready.md",
+        "sha256": "f49833faf1ca23288e162f6e01680dd58b4854022f9c494bf25ecd124d935d8a",
+        "size_bytes": 695
       }
     ],
-    "total_size_bytes": 1702532
+    "total_size_bytes": 1999577
   },
   "evidence_pack_sealed": true,
   "freeze": {
@@ -112,24 +122,23 @@
       "EMERGENCY_STOP_CONTINUITY_REQUIRED"
     ]
   },
-  "generated_at_utc": "2026-06-22T07:34:51+00:00",
+  "generated_at_utc": "2026-06-22T08:23:18+00:00",
   "hyp006_strategy_threshold_mutation_performed": false,
   "live_micro_canary_freeze_audit_closure_only": true,
   "live_real_order_freeze_active": true,
   "no_further_live_orders_verified": false,
   "operator_audit": {
-    "audit_comment": null,
-    "finalization_token_verified": false,
+    "audit_comment": "31A-H1 recovery: consume regenerated 30Z READY; freeze micro-canary chain; no additional live order approved.",
+    "finalization_token_verified": true,
     "no_further_live_orders_confirmed": true,
-    "ok": false,
-    "operator_audit_finalized": false,
-    "operator_id": null,
+    "ok": true,
+    "operator_audit_finalized": true,
+    "operator_id": "operator-31a",
     "reason_codes": [
-      "OPERATOR_ID_REQUIRED",
-      "FINALIZATION_TOKEN_REQUIRED"
+      "OPERATOR_AUDIT_FINALIZED"
     ]
   },
-  "operator_audit_finalized": false,
+  "operator_audit_finalized": true,
   "patch_exchange_submit_performed": false,
   "patch_live_real_order_performed": false,
   "patch_network_submit_attempted": false,
@@ -138,9 +147,6 @@
     "SOURCE_30Z_READY_DECISION_REQUIRED",
     "SOURCE_30Z_MISMATCH_ZERO_REQUIRED",
     "SOURCE_30Z_EMERGENCY_STOP_CONTINUITY_REQUIRED",
-    "HYP006_REPORT_SEPARATION_ACKNOWLEDGEMENT_REQUIRED",
-    "OPERATOR_ID_REQUIRED",
-    "FINALIZATION_TOKEN_REQUIRED",
     "EMERGENCY_STOP_CONTINUITY_REQUIRED"
   ],
   "release_hygiene": {
@@ -247,7 +253,7 @@
       "reports/hyp006_r1_canonical/4B436628G_H7_hyp006_r1_no_order_overlay_simulation_bnbusdt_primary_filter_shadow_measurement_20260618T135853Z.json",
       "reports/hyp006_r1_canonical/4B436628G_H7_hyp006_r1_no_order_overlay_simulation_bnbusdt_primary_filter_shadow_measurement_20260618T135853Z.md"
     ],
-    "hyp006_separation_acknowledged": false,
+    "hyp006_separation_acknowledged": true,
     "non_production_report_candidates": [
       "reports/4B436625AE_hyp005_r1_windows_task_scheduler_pack_20260602_075823/README_HYP005_R1_SCHEDULER_PACK.md",
       "reports/4B436625AE_hyp005_r1_windows_task_scheduler_pack_20260602_075823/TradeBot_HYP005_R1_NoOrderShadowCollection.xml",
@@ -350,13 +356,13 @@
       "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260610_124534Z.jsonl",
       "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260610_125315Z.json"
     ],
-    "ok": false,
+    "ok": true,
     "production_hardening_reports_present": true,
     "reason_codes": [
-      "HYP006_REPORT_SEPARATION_ACKNOWLEDGEMENT_REQUIRED"
+      "RELEASE_HYGIENE_VERIFIED_NO_MUTATING_CLEANUP_PERFORMED"
     ]
   },
-  "release_hygiene_verified": false,
+  "release_hygiene_verified": true,
   "reload_performed": false,
   "report_type": "live_micro_canary_freeze_audit_closure",
   "runtime_overlay_activation_performed": false,

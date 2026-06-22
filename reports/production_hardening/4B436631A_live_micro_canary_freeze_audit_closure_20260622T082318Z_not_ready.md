@@ -15,10 +15,10 @@ Consumes 30Z post live micro-canary risk review and seals the evidence pack with
 - `no_further_live_orders_verified`: `False`
 
 ## Evidence pack seal
-- `evidence_pack_id`: `LIVE_MICRO_CANARY_8114595899_CLOSURE`
-- `evidence_pack_manifest_sha256`: `5fa4dd61e70005051448c5f901dc63c33fa13c81bd5df44c8f3f6a1c142e99c1`
-- `evidence_pack_file_count`: `13`
-- `manifest_path`: `reports\production_hardening\4B436631A_live_micro_canary_freeze_audit_closure_20260622T073455Z_evidence_pack_manifest.json`
+- `evidence_pack_id`: `LIVE_MICRO_CANARY_8114595899_CLOSURE_H1`
+- `evidence_pack_manifest_sha256`: `61bddd8b33434a2dac25df3df1e8eea54b0c46e3a975013ca64ebd1f0323d762`
+- `evidence_pack_file_count`: `15`
+- `manifest_path`: `reports\production_hardening\4B436631A_live_micro_canary_freeze_audit_closure_20260622T082318Z_evidence_pack_manifest.json`
 
 ## Reason codes
 - `SOURCE_30Z_CONTRACT_VERSION_REQUIRED`

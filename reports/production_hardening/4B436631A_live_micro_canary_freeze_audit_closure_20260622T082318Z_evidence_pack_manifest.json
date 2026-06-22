@@ -1,7 +1,7 @@
 {
-  "evidence_pack_id": "LIVE_MICRO_CANARY_8114595899_CLOSURE",
-  "file_count": 13,
-  "manifest_sha256": "5fa4dd61e70005051448c5f901dc63c33fa13c81bd5df44c8f3f6a1c142e99c1",
+  "evidence_pack_id": "LIVE_MICRO_CANARY_8114595899_CLOSURE_H1",
+  "file_count": 15,
+  "manifest_sha256": "61bddd8b33434a2dac25df3df1e8eea54b0c46e3a975013ca64ebd1f0323d762",
   "missing_required_patterns": [],
   "ok": true,
   "reason_codes": [
@@ -78,7 +78,17 @@
       "relative_path": "4B436630Z_post_live_micro_canary_risk_review_20260622T063926Z_ready.md",
       "sha256": "f49833faf1ca23288e162f6e01680dd58b4854022f9c494bf25ecd124d935d8a",
       "size_bytes": 695
+    },
+    {
+      "relative_path": "4B436630Z_post_live_micro_canary_risk_review_20260622T081654Z_ready.json",
+      "sha256": "433ce34d04bb561e43a863600b3646816557cca6b73d41c1d45c09e4fa2553ad",
+      "size_bytes": 296350
+    },
+    {
+      "relative_path": "4B436630Z_post_live_micro_canary_risk_review_20260622T081654Z_ready.md",
+      "sha256": "f49833faf1ca23288e162f6e01680dd58b4854022f9c494bf25ecd124d935d8a",
+      "size_bytes": 695
     }
   ],
-  "total_size_bytes": 1702532
+  "total_size_bytes": 1999577
 }
