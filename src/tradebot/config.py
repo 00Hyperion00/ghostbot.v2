@@ -526,6 +526,15 @@ class Settings:
     live_real_micro_canary_reconciliation_min_notional_adjustment_requires_operator_reason: bool = True
     live_real_hard_block_required: bool = True
 
+    # 4B.4.3.6.6.31A live micro-canary freeze and audit closure controls
+    live_micro_canary_freeze_audit_closure_enabled: bool = True
+    live_micro_canary_freeze_consume_30z_required: bool = True
+    live_micro_canary_freeze_no_further_live_orders_required: bool = True
+    live_micro_canary_freeze_evidence_pack_seal_required: bool = True
+    live_micro_canary_freeze_operator_audit_required: bool = True
+    live_micro_canary_freeze_release_hygiene_required: bool = True
+    live_micro_canary_freeze_finalization_token: str = "FINALIZE_LIVE_MICRO_CANARY_AUDIT"
+
     @classmethod
     def from_yaml(cls, path: str | Path) -> "Settings":
         payload = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
