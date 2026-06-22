@@ -542,6 +542,13 @@ class Settings:
     release_hygiene_no_further_live_orders_required: bool = True
     release_hygiene_finalization_token: str = "FINALIZE_31B_RELEASE_HYGIENE_AUDIT"
 
+    # 4B.4.3.6.6.32A post-freeze release candidate review controls
+    post_freeze_release_candidate_review_enabled: bool = True
+    post_freeze_no_live_submit_required: bool = True
+    post_freeze_release_candidate_finalization_token: str = "FINALIZE_32A_RELEASE_CANDIDATE_REVIEW"
+    post_freeze_capital_cap_hard_limit_usdt: float = 50.0
+    post_freeze_second_micro_canary_hard_cap_usdt: float = 10.0
+
     @classmethod
     def from_yaml(cls, path: str | Path) -> "Settings":
         payload = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
