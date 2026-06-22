@@ -5,6 +5,7 @@ import argparse
 from tradebot.config import Settings
 from tradebot.live_micro_canary_freeze_audit_closure import (
     CONTRACT_VERSION,
+    build_from_explicit_30z_risk_review_report,
     build_from_latest_30z_risk_review_report,
     cleanup_bad_31a_not_ready_artifacts,
     write_report_bundle,
@@ -20,17 +21,31 @@ def main() -> int:
     parser.add_argument("--evidence-pack-id", default=None)
     parser.add_argument("--acknowledge-hyp006-report-separation", action="store_true")
     parser.add_argument("--cleanup-bad-31a-not-ready-artifacts", action="store_true")
+    parser.add_argument("--source-30z-report", default=None)
     args = parser.parse_args()
     removed = cleanup_bad_31a_not_ready_artifacts(args.reports_dir) if args.cleanup_bad_31a_not_ready_artifacts else []
-    payload = build_from_latest_30z_risk_review_report(
-        Settings(),
-        args.reports_dir,
+    
+    if args.source_30z_report:
+        payload = build_from_explicit_30z_risk_review_report(
+            Settings(),
+            args.reports_dir,
+            source_30z_report=args.source_30z_report,
         operator_id=args.operator_id,
         finalization_token=args.finalization_token,
         audit_comment=args.audit_comment,
         evidence_pack_id=args.evidence_pack_id,
         acknowledge_hyp006_report_separation=args.acknowledge_hyp006_report_separation,
-    )
+        )
+    else:
+        payload = build_from_latest_30z_risk_review_report(
+            Settings(),
+            args.reports_dir,
+            operator_id=args.operator_id,
+            finalization_token=args.finalization_token,
+            audit_comment=args.audit_comment,
+            evidence_pack_id=args.evidence_pack_id,
+            acknowledge_hyp006_report_separation=args.acknowledge_hyp006_report_separation,
+        )
     json_path, md_path = write_report_bundle(payload, args.reports_dir)
     print(f"{CONTRACT_VERSION} Live Micro-Canary Freeze & Audit Closure {payload.get('decision')}")
     for key in (

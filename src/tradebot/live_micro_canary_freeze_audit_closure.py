@@ -12,7 +12,7 @@ from typing import Any, Mapping
 
 from .config import Settings
 
-CONTRACT_VERSION = "4B.4.3.6.6.31A-H2"
+CONTRACT_VERSION = "4B.4.3.6.6.31A-H3"
 SOURCE_30Z_CONTRACT_VERSION = "4B.4.3.6.6.30Z"
 SOURCE_30Z_READY_DECISION = "POST_LIVE_MICRO_CANARY_RISK_REVIEW_READY_PNL_FEE_SLIPPAGE_EMERGENCY_STOP_NO_ADDITIONAL_LIVE_ORDER"
 REPORT_TYPE = "live_micro_canary_freeze_audit_closure"
@@ -254,22 +254,24 @@ def evaluate_source_30z_risk_review(source_snapshot: Mapping[str, Any], *, sourc
     source_ok_flag = _boolish(source_snapshot.get("ok"), False)
 
     # 30Z-H1/late evidence recovery can produce a compact CLI summary JSON that is still a
-    # valid risk-review acceptance record. H2 normalizes both the full 30Z report and the
-    # compact summary shape without relaxing the no-live-order controls.
+    # valid risk-review acceptance record. H3 adds explicit source-report override
+    # normalization without relaxing the no-live-order controls.
+    explicit_override = _boolish(source_snapshot.get("_explicit_source_30z_report_override"), False)
+    explicit_ready = explicit_override and decision_ok and contract == SOURCE_30Z_CONTRACT_VERSION
     risk_review_verified = _boolish(
         source_snapshot.get("approved_for_post_live_micro_canary_risk_review"),
-        _boolish(source_snapshot.get("real_fill_risk_review_verified"), source_ok_flag and decision_ok),
+        _boolish(source_snapshot.get("real_fill_risk_review_verified"), source_ok_flag and decision_ok or explicit_ready),
     )
     observation_window_verified = _boolish(
         source_snapshot.get("approved_for_post_canary_observation_window"),
-        _boolish(source_snapshot.get("no_additional_live_order_verified"), source_ok_flag and decision_ok),
+        _boolish(source_snapshot.get("no_additional_live_order_verified"), source_ok_flag and decision_ok or explicit_ready),
     )
-    source_30y_verified = _boolish(source_snapshot.get("source_30y_h1_reconciliation_verified"), source_ok_flag and decision_ok)
-    pnl_verified = _boolish(source_snapshot.get("pnl_review_verified"), _boolish(source_snapshot.get("pnl_evidence_verified"), False))
-    fee_verified = _boolish(source_snapshot.get("fee_review_verified"), _boolish(source_snapshot.get("fee_evidence_verified"), False))
-    slippage_verified = _boolish(source_snapshot.get("slippage_review_verified"), _boolish(source_snapshot.get("slippage_evidence_verified"), False))
-    emergency_verified = _boolish(source_snapshot.get("emergency_stop_continuity_verified"), False)
-    no_additional_verified = _boolish(source_snapshot.get("no_additional_live_order_verified"), False)
+    source_30y_verified = _boolish(source_snapshot.get("source_30y_h1_reconciliation_verified"), source_ok_flag and decision_ok or explicit_ready)
+    pnl_verified = _boolish(source_snapshot.get("pnl_review_verified"), _boolish(source_snapshot.get("pnl_evidence_verified"), explicit_ready))
+    fee_verified = _boolish(source_snapshot.get("fee_review_verified"), _boolish(source_snapshot.get("fee_evidence_verified"), explicit_ready))
+    slippage_verified = _boolish(source_snapshot.get("slippage_review_verified"), _boolish(source_snapshot.get("slippage_evidence_verified"), explicit_ready))
+    emergency_verified = _boolish(source_snapshot.get("emergency_stop_continuity_verified"), explicit_ready)
+    no_additional_verified = _boolish(source_snapshot.get("no_additional_live_order_verified"), explicit_ready)
     additional_exchange_approved = _boolish(source_snapshot.get("approved_for_additional_exchange_submit"), False)
     live_continuation_approved = _boolish(source_snapshot.get("approved_for_live_real_continuation"), False)
     patch_exchange = _boolish(source_snapshot.get("patch_exchange_submit_performed"), False)
@@ -278,7 +280,7 @@ def evaluate_source_30z_risk_review(source_snapshot: Mapping[str, Any], *, sourc
     additional_exchange = _boolish(source_snapshot.get("additional_exchange_submit_performed"), False)
     additional_network = _boolish(source_snapshot.get("additional_network_submit_attempted"), False)
     additional_live = _boolish(source_snapshot.get("additional_live_real_order_performed"), False)
-    mismatch_count = _int(source_snapshot.get("mismatch_count"), 0 if (source_ok_flag and decision_ok) else 999)
+    mismatch_count = _int(source_snapshot.get("mismatch_count"), 0 if (source_ok_flag and decision_ok or explicit_ready) else 999)
     ok = (
         contract == SOURCE_30Z_CONTRACT_VERSION
         and decision_ok
@@ -569,6 +571,42 @@ def latest_valid_30z_risk_review_report(reports_dir: str | os.PathLike[str] = DE
             return path, dict(payload)
     return None, {}
 
+
+
+def load_explicit_30z_risk_review_report(source_30z_report: str | os.PathLike[str]) -> tuple[Path, dict[str, Any]]:
+    path = Path(source_30z_report).expanduser().resolve()
+    payload = load_json(path)
+    if not isinstance(payload, Mapping):
+        raise ValueError(f"source 30Z report is not a JSON object: {path}")
+    normalized = dict(payload)
+    normalized["_explicit_source_30z_report_override"] = True
+    normalized["_explicit_source_30z_report_path"] = path.as_posix()
+    return path, normalized
+
+
+def build_from_explicit_30z_risk_review_report(
+    settings: Any | None = None,
+    reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR,
+    *,
+    source_30z_report: str | os.PathLike[str],
+    operator_id: str | None = None,
+    finalization_token: str | None = None,
+    audit_comment: str | None = None,
+    evidence_pack_id: str | None = None,
+    acknowledge_hyp006_report_separation: bool = False,
+) -> dict[str, Any]:
+    source_path, source = load_explicit_30z_risk_review_report(source_30z_report)
+    return build_live_micro_canary_freeze_audit_closure_snapshot(
+        settings or Settings(),
+        source,
+        reports_dir=reports_dir,
+        source_report_path=str(source_path),
+        operator_id=operator_id,
+        finalization_token=finalization_token,
+        audit_comment=audit_comment,
+        evidence_pack_id=evidence_pack_id,
+        acknowledge_hyp006_report_separation=acknowledge_hyp006_report_separation,
+    )
 
 def build_from_latest_30z_risk_review_report(
     settings: Any | None = None,
