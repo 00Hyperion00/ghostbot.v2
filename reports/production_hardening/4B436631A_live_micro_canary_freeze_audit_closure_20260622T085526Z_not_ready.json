@@ -8,16 +8,16 @@
   "approved_for_live_real_order": false,
   "approved_for_operator_audit_finalization": false,
   "approved_for_release_evidence_archive": false,
-  "contract_version": "4B.4.3.6.6.31A",
+  "contract_version": "4B.4.3.6.6.31A-H2",
   "decision": "LIVE_MICRO_CANARY_FREEZE_AUDIT_CLOSURE_30Z_READY_REQUIRED_NO_FURTHER_LIVE_ORDER",
   "emergency_stop_continuity_verified": false,
   "evidence_pack_file_count": 15,
-  "evidence_pack_id": "LIVE_MICRO_CANARY_8114595899_CLOSURE_H1",
-  "evidence_pack_manifest_sha256": "61bddd8b33434a2dac25df3df1e8eea54b0c46e3a975013ca64ebd1f0323d762",
+  "evidence_pack_id": "LIVE_MICRO_CANARY_8114595899_CLOSURE_H2",
+  "evidence_pack_manifest_sha256": "06a8c6876780ade8cc624957308968f8fee7919ca159f114db0928b24a9c744c",
   "evidence_pack_seal": {
-    "evidence_pack_id": "LIVE_MICRO_CANARY_8114595899_CLOSURE_H1",
+    "evidence_pack_id": "LIVE_MICRO_CANARY_8114595899_CLOSURE_H2",
     "file_count": 15,
-    "manifest_sha256": "61bddd8b33434a2dac25df3df1e8eea54b0c46e3a975013ca64ebd1f0323d762",
+    "manifest_sha256": "06a8c6876780ade8cc624957308968f8fee7919ca159f114db0928b24a9c744c",
     "missing_required_patterns": [],
     "ok": true,
     "reason_codes": [
@@ -122,13 +122,13 @@
       "EMERGENCY_STOP_CONTINUITY_REQUIRED"
     ]
   },
-  "generated_at_utc": "2026-06-22T08:23:18+00:00",
+  "generated_at_utc": "2026-06-22T08:55:26+00:00",
   "hyp006_strategy_threshold_mutation_performed": false,
   "live_micro_canary_freeze_audit_closure_only": true,
   "live_real_order_freeze_active": true,
   "no_further_live_orders_verified": false,
   "operator_audit": {
-    "audit_comment": "31A-H1 recovery: consume regenerated 30Z READY; freeze micro-canary chain; no additional live order approved.",
+    "audit_comment": "31A-H2: consume valid 30Z READY summary; freeze micro-canary chain; no additional live order approved.",
     "finalization_token_verified": true,
     "no_further_live_orders_confirmed": true,
     "ok": true,
@@ -145,8 +145,12 @@
   "reason_codes": [
     "SOURCE_30Z_CONTRACT_VERSION_REQUIRED",
     "SOURCE_30Z_READY_DECISION_REQUIRED",
+    "SOURCE_30Z_RISK_REVIEW_VERIFICATION_REQUIRED",
+    "SOURCE_30Y_H1_RECONCILIATION_REQUIRED",
+    "SOURCE_30Z_PNL_FEE_SLIPPAGE_REQUIRED",
     "SOURCE_30Z_MISMATCH_ZERO_REQUIRED",
     "SOURCE_30Z_EMERGENCY_STOP_CONTINUITY_REQUIRED",
+    "SOURCE_30Z_NO_ADDITIONAL_LIVE_ORDER_REQUIRED",
     "EMERGENCY_STOP_CONTINUITY_REQUIRED"
   ],
   "release_hygiene": {
@@ -390,8 +394,12 @@
     "reason_codes": [
       "SOURCE_30Z_CONTRACT_VERSION_REQUIRED",
       "SOURCE_30Z_READY_DECISION_REQUIRED",
+      "SOURCE_30Z_RISK_REVIEW_VERIFICATION_REQUIRED",
+      "SOURCE_30Y_H1_RECONCILIATION_REQUIRED",
+      "SOURCE_30Z_PNL_FEE_SLIPPAGE_REQUIRED",
       "SOURCE_30Z_MISMATCH_ZERO_REQUIRED",
-      "SOURCE_30Z_EMERGENCY_STOP_CONTINUITY_REQUIRED"
+      "SOURCE_30Z_EMERGENCY_STOP_CONTINUITY_REQUIRED",
+      "SOURCE_30Z_NO_ADDITIONAL_LIVE_ORDER_REQUIRED"
     ],
     "requested_notional_usd": 0.0,
     "slippage_bps": 0.0,

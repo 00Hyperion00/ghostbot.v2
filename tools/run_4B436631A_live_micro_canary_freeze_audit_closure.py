@@ -6,6 +6,7 @@ from tradebot.config import Settings
 from tradebot.live_micro_canary_freeze_audit_closure import (
     CONTRACT_VERSION,
     build_from_latest_30z_risk_review_report,
+    cleanup_bad_31a_not_ready_artifacts,
     write_report_bundle,
 )
 
@@ -18,7 +19,9 @@ def main() -> int:
     parser.add_argument("--audit-comment", default=None)
     parser.add_argument("--evidence-pack-id", default=None)
     parser.add_argument("--acknowledge-hyp006-report-separation", action="store_true")
+    parser.add_argument("--cleanup-bad-31a-not-ready-artifacts", action="store_true")
     args = parser.parse_args()
+    removed = cleanup_bad_31a_not_ready_artifacts(args.reports_dir) if args.cleanup_bad_31a_not_ready_artifacts else []
     payload = build_from_latest_30z_risk_review_report(
         Settings(),
         args.reports_dir,
@@ -49,6 +52,8 @@ def main() -> int:
         "additional_live_real_order_performed",
     ):
         print(f" - {key}: {payload.get(key)}")
+    if removed:
+        print(f" - cleanup_bad_31a_not_ready_artifacts_removed: {len(removed)}")
     print(f" - json_report: {json_path}")
     print(f" - markdown_report: {md_path}")
     return 0 if payload.get("source_30z_risk_review_verified") and payload.get("patch_network_submit_attempted") is False else 2

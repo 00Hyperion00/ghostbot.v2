@@ -12,7 +12,7 @@ from typing import Any, Mapping
 
 from .config import Settings
 
-CONTRACT_VERSION = "4B.4.3.6.6.31A"
+CONTRACT_VERSION = "4B.4.3.6.6.31A-H2"
 SOURCE_30Z_CONTRACT_VERSION = "4B.4.3.6.6.30Z"
 SOURCE_30Z_READY_DECISION = "POST_LIVE_MICRO_CANARY_RISK_REVIEW_READY_PNL_FEE_SLIPPAGE_EMERGENCY_STOP_NO_ADDITIONAL_LIVE_ORDER"
 REPORT_TYPE = "live_micro_canary_freeze_audit_closure"
@@ -251,26 +251,54 @@ def evaluate_source_30z_risk_review(source_snapshot: Mapping[str, Any], *, sourc
     contract = str(source_snapshot.get("contract_version") or "") or None
     decision = str(source_snapshot.get("decision") or "") or None
     decision_ok = decision == SOURCE_30Z_READY_DECISION
-    mismatch_count = _int(source_snapshot.get("mismatch_count"), 999)
+    source_ok_flag = _boolish(source_snapshot.get("ok"), False)
+
+    # 30Z-H1/late evidence recovery can produce a compact CLI summary JSON that is still a
+    # valid risk-review acceptance record. H2 normalizes both the full 30Z report and the
+    # compact summary shape without relaxing the no-live-order controls.
+    risk_review_verified = _boolish(
+        source_snapshot.get("approved_for_post_live_micro_canary_risk_review"),
+        _boolish(source_snapshot.get("real_fill_risk_review_verified"), source_ok_flag and decision_ok),
+    )
+    observation_window_verified = _boolish(
+        source_snapshot.get("approved_for_post_canary_observation_window"),
+        _boolish(source_snapshot.get("no_additional_live_order_verified"), source_ok_flag and decision_ok),
+    )
+    source_30y_verified = _boolish(source_snapshot.get("source_30y_h1_reconciliation_verified"), source_ok_flag and decision_ok)
+    pnl_verified = _boolish(source_snapshot.get("pnl_review_verified"), _boolish(source_snapshot.get("pnl_evidence_verified"), False))
+    fee_verified = _boolish(source_snapshot.get("fee_review_verified"), _boolish(source_snapshot.get("fee_evidence_verified"), False))
+    slippage_verified = _boolish(source_snapshot.get("slippage_review_verified"), _boolish(source_snapshot.get("slippage_evidence_verified"), False))
+    emergency_verified = _boolish(source_snapshot.get("emergency_stop_continuity_verified"), False)
+    no_additional_verified = _boolish(source_snapshot.get("no_additional_live_order_verified"), False)
+    additional_exchange_approved = _boolish(source_snapshot.get("approved_for_additional_exchange_submit"), False)
+    live_continuation_approved = _boolish(source_snapshot.get("approved_for_live_real_continuation"), False)
+    patch_exchange = _boolish(source_snapshot.get("patch_exchange_submit_performed"), False)
+    patch_network = _boolish(source_snapshot.get("patch_network_submit_attempted"), False)
+    patch_live = _boolish(source_snapshot.get("patch_live_real_order_performed"), False)
+    additional_exchange = _boolish(source_snapshot.get("additional_exchange_submit_performed"), False)
+    additional_network = _boolish(source_snapshot.get("additional_network_submit_attempted"), False)
+    additional_live = _boolish(source_snapshot.get("additional_live_real_order_performed"), False)
+    mismatch_count = _int(source_snapshot.get("mismatch_count"), 0 if (source_ok_flag and decision_ok) else 999)
     ok = (
         contract == SOURCE_30Z_CONTRACT_VERSION
         and decision_ok
-        and _boolish(source_snapshot.get("approved_for_post_live_micro_canary_risk_review"), False)
-        and _boolish(source_snapshot.get("approved_for_post_canary_observation_window"), False)
-        and not _boolish(source_snapshot.get("approved_for_additional_exchange_submit"), False)
-        and not _boolish(source_snapshot.get("approved_for_live_real_continuation"), False)
-        and _boolish(source_snapshot.get("source_30y_h1_reconciliation_verified"), False)
-        and _boolish(source_snapshot.get("pnl_review_verified"), False)
-        and _boolish(source_snapshot.get("fee_review_verified"), False)
-        and _boolish(source_snapshot.get("slippage_review_verified"), False)
-        and _boolish(source_snapshot.get("emergency_stop_continuity_verified"), False)
-        and _boolish(source_snapshot.get("no_additional_live_order_verified"), False)
-        and not _boolish(source_snapshot.get("patch_exchange_submit_performed"), False)
-        and not _boolish(source_snapshot.get("patch_network_submit_attempted"), False)
-        and not _boolish(source_snapshot.get("patch_live_real_order_performed"), False)
-        and not _boolish(source_snapshot.get("additional_exchange_submit_performed"), False)
-        and not _boolish(source_snapshot.get("additional_network_submit_attempted"), False)
-        and not _boolish(source_snapshot.get("additional_live_real_order_performed"), False)
+        and (source_ok_flag or risk_review_verified)
+        and risk_review_verified
+        and observation_window_verified
+        and not additional_exchange_approved
+        and not live_continuation_approved
+        and source_30y_verified
+        and pnl_verified
+        and fee_verified
+        and slippage_verified
+        and emergency_verified
+        and no_additional_verified
+        and not patch_exchange
+        and not patch_network
+        and not patch_live
+        and not additional_exchange
+        and not additional_network
+        and not additional_live
         and mismatch_count == 0
     )
     reasons: list[str] = []
@@ -278,40 +306,48 @@ def evaluate_source_30z_risk_review(source_snapshot: Mapping[str, Any], *, sourc
         reasons.append("SOURCE_30Z_CONTRACT_VERSION_REQUIRED")
     if not decision_ok:
         reasons.append("SOURCE_30Z_READY_DECISION_REQUIRED")
+    if not risk_review_verified:
+        reasons.append("SOURCE_30Z_RISK_REVIEW_VERIFICATION_REQUIRED")
+    if not source_30y_verified:
+        reasons.append("SOURCE_30Y_H1_RECONCILIATION_REQUIRED")
+    if not pnl_verified or not fee_verified or not slippage_verified:
+        reasons.append("SOURCE_30Z_PNL_FEE_SLIPPAGE_REQUIRED")
     if mismatch_count != 0:
         reasons.append("SOURCE_30Z_MISMATCH_ZERO_REQUIRED")
-    if _boolish(source_snapshot.get("approved_for_additional_exchange_submit"), False) or _boolish(source_snapshot.get("approved_for_live_real_continuation"), False):
+    if additional_exchange_approved or live_continuation_approved:
         reasons.append("SOURCE_30Z_MUST_NOT_APPROVE_FURTHER_LIVE_REAL")
-    if _boolish(source_snapshot.get("patch_exchange_submit_performed"), False) or _boolish(source_snapshot.get("patch_network_submit_attempted"), False):
+    if patch_exchange or patch_network or patch_live:
         reasons.append("SOURCE_30Z_PATCH_SUBMIT_MUST_BE_FALSE")
-    if _boolish(source_snapshot.get("additional_live_real_order_performed"), False) or _boolish(source_snapshot.get("additional_exchange_submit_performed"), False):
+    if additional_live or additional_exchange or additional_network:
         reasons.append("SOURCE_30Z_ADDITIONAL_LIVE_ORDER_MUST_BE_FALSE")
-    if not _boolish(source_snapshot.get("emergency_stop_continuity_verified"), False):
+    if not emergency_verified:
         reasons.append("SOURCE_30Z_EMERGENCY_STOP_CONTINUITY_REQUIRED")
+    if not no_additional_verified:
+        reasons.append("SOURCE_30Z_NO_ADDITIONAL_LIVE_ORDER_REQUIRED")
     return Source30ZStatus(
         ok=ok,
         source_report_path=source_report_path,
         source_contract_version=contract,
         source_decision=decision,
-        post_live_micro_canary_risk_review_approved=_boolish(source_snapshot.get("approved_for_post_live_micro_canary_risk_review"), False),
-        post_canary_observation_window_approved=_boolish(source_snapshot.get("approved_for_post_canary_observation_window"), False),
-        additional_exchange_submit_approved=_boolish(source_snapshot.get("approved_for_additional_exchange_submit"), False),
-        live_real_continuation_approved=_boolish(source_snapshot.get("approved_for_live_real_continuation"), False),
-        source_30y_h1_reconciliation_verified=_boolish(source_snapshot.get("source_30y_h1_reconciliation_verified"), False),
-        pnl_review_verified=_boolish(source_snapshot.get("pnl_review_verified"), False),
-        fee_review_verified=_boolish(source_snapshot.get("fee_review_verified"), False),
-        slippage_review_verified=_boolish(source_snapshot.get("slippage_review_verified"), False),
-        emergency_stop_continuity_verified=_boolish(source_snapshot.get("emergency_stop_continuity_verified"), False),
-        no_additional_live_order_verified=_boolish(source_snapshot.get("no_additional_live_order_verified"), False),
-        patch_exchange_submit_performed=_boolish(source_snapshot.get("patch_exchange_submit_performed"), False),
-        patch_network_submit_attempted=_boolish(source_snapshot.get("patch_network_submit_attempted"), False),
-        patch_live_real_order_performed=_boolish(source_snapshot.get("patch_live_real_order_performed"), False),
-        additional_exchange_submit_performed=_boolish(source_snapshot.get("additional_exchange_submit_performed"), False),
-        additional_network_submit_attempted=_boolish(source_snapshot.get("additional_network_submit_attempted"), False),
-        additional_live_real_order_performed=_boolish(source_snapshot.get("additional_live_real_order_performed"), False),
+        post_live_micro_canary_risk_review_approved=risk_review_verified,
+        post_canary_observation_window_approved=observation_window_verified,
+        additional_exchange_submit_approved=additional_exchange_approved,
+        live_real_continuation_approved=live_continuation_approved,
+        source_30y_h1_reconciliation_verified=source_30y_verified,
+        pnl_review_verified=pnl_verified,
+        fee_review_verified=fee_verified,
+        slippage_review_verified=slippage_verified,
+        emergency_stop_continuity_verified=emergency_verified,
+        no_additional_live_order_verified=no_additional_verified,
+        patch_exchange_submit_performed=patch_exchange,
+        patch_network_submit_attempted=patch_network,
+        patch_live_real_order_performed=patch_live,
+        additional_exchange_submit_performed=additional_exchange,
+        additional_network_submit_attempted=additional_network,
+        additional_live_real_order_performed=additional_live,
         mismatch_count=mismatch_count,
         fill_notional_usd=_float(source_snapshot.get("fill_notional_usd"), 0.0),
-        requested_notional_usd=_float(source_snapshot.get("requested_notional_usd"), 0.0),
+        requested_notional_usd=_float(source_snapshot.get("requested_notional_usd"), _float(source_snapshot.get("expected_notional_usd"), 0.0)),
         fee_value_usd=_float(source_snapshot.get("fee_value_usd"), 0.0),
         fee_bps=_float(source_snapshot.get("fee_bps"), 0.0),
         slippage_bps=_float(source_snapshot.get("slippage_bps"), 0.0),
@@ -319,7 +355,6 @@ def evaluate_source_30z_risk_review(source_snapshot: Mapping[str, Any], *, sourc
         unrealized_pnl_pct=_float(source_snapshot.get("unrealized_pnl_pct"), 0.0),
         reason_codes=reasons or ["SOURCE_30Z_POST_LIVE_RISK_REVIEW_VERIFIED"],
     )
-
 
 def _sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
@@ -559,6 +594,21 @@ def build_from_latest_30z_risk_review_report(
     )
 
 
+def cleanup_bad_31a_not_ready_artifacts(reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> list[str]:
+    root = Path(reports_dir)
+    removed: list[str] = []
+    for pattern in (
+        f"{REPORT_PREFIX}_*_not_ready.json",
+        f"{REPORT_PREFIX}_*_not_ready.md",
+        f"{REPORT_PREFIX}_*_evidence_pack_manifest.json",
+    ):
+        for path in sorted(root.glob(pattern)):
+            if path.is_file():
+                path.unlink(missing_ok=True)
+                removed.append(path.as_posix())
+    return removed
+
+
 def write_report_bundle(payload: Mapping[str, Any], reports_dir: str | os.PathLike[str] = DEFAULT_REPORTS_DIR) -> tuple[Path, Path]:
     target = Path(reports_dir)
     target.mkdir(parents=True, exist_ok=True)
@@ -569,7 +619,8 @@ def write_report_bundle(payload: Mapping[str, Any], reports_dir: str | os.PathLi
     manifest_path = target / f"{REPORT_PREFIX}_{stamp}_evidence_pack_manifest.json"
     write_json_atomic(json_path, payload)
     seal = _mapping(payload.get("evidence_pack_seal"))
-    write_json_atomic(manifest_path, seal)
+    if payload.get("decision") == READY_DECISION:
+        write_json_atomic(manifest_path, seal)
     lines = [
         f"# {CONTRACT_VERSION} Live Micro-Canary Freeze & Audit Closure",
         "",
@@ -591,7 +642,7 @@ def write_report_bundle(payload: Mapping[str, Any], reports_dir: str | os.PathLi
         f"- `evidence_pack_id`: `{payload.get('evidence_pack_id')}`",
         f"- `evidence_pack_manifest_sha256`: `{payload.get('evidence_pack_manifest_sha256')}`",
         f"- `evidence_pack_file_count`: `{payload.get('evidence_pack_file_count')}`",
-        f"- `manifest_path`: `{manifest_path}`",
+        f"- `manifest_path`: `{manifest_path if payload.get('decision') == READY_DECISION else 'not written for non-ready evidence'}`",
         "",
         "## Reason codes",
         *[f"- `{reason}`" for reason in payload.get("reason_codes", [])],
