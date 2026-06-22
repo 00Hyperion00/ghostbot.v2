@@ -535,6 +535,13 @@ class Settings:
     live_micro_canary_freeze_release_hygiene_required: bool = True
     live_micro_canary_freeze_finalization_token: str = "FINALIZE_LIVE_MICRO_CANARY_AUDIT"
 
+    # 4B.4.3.6.6.31B release hygiene / bad evidence cleanup controls
+    release_hygiene_bad_evidence_cleanup_enabled: bool = True
+    release_hygiene_bad_evidence_quarantine_required: bool = True
+    release_hygiene_final_audit_snapshot_required: bool = True
+    release_hygiene_no_further_live_orders_required: bool = True
+    release_hygiene_finalization_token: str = "FINALIZE_31B_RELEASE_HYGIENE_AUDIT"
+
     @classmethod
     def from_yaml(cls, path: str | Path) -> "Settings":
         payload = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
