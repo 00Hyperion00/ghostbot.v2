@@ -549,6 +549,14 @@ class Settings:
     post_freeze_capital_cap_hard_limit_usdt: float = 50.0
     post_freeze_second_micro_canary_hard_cap_usdt: float = 10.0
 
+    # 4B.4.3.6.6.32B second micro-canary submit gate; evidence-only, no exchange submit.
+    second_micro_canary_submit_gate_enabled: bool = True
+    second_micro_canary_submit_gate_no_live_submit_required: bool = True
+    second_micro_canary_submit_gate_finalization_token: str = "FINALIZE_32B_SECOND_MICRO_CANARY_SUBMIT_GATE"
+    second_micro_canary_submit_gate_default_min_notional_usdt: float = 4.95
+    second_micro_canary_submit_gate_default_quantity_step: str = "0.0001"
+    second_micro_canary_submit_gate_default_min_quantity: str = "0.0001"
+
     @classmethod
     def from_yaml(cls, path: str | Path) -> "Settings":
         payload = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
