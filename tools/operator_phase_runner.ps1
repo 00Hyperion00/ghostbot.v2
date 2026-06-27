@@ -18,13 +18,13 @@ function Write-Step {
 
 function Invoke-NativeChecked {
     param(
-        [string]$Exe,
-        [string[]]$Args,
-        [string]$StepName
+        [Parameter(Mandatory = $true)][string]$Exe,
+        [Parameter(Mandatory = $true)][string[]]$CommandArguments,
+        [Parameter(Mandatory = $true)][string]$StepName
     )
     Write-Step $StepName
-    Write-Host "> $Exe $($Args -join ' ')"
-    & $Exe @Args
+    Write-Host "> $Exe $($CommandArguments -join ' ')"
+    & $Exe @CommandArguments
     $code = $LASTEXITCODE
     if ($code -ne 0) {
         throw "$StepName failed with exit code $code"
@@ -33,12 +33,45 @@ function Invoke-NativeChecked {
 
 function Get-NativeOutput {
     param(
-        [string]$Exe,
-        [string[]]$Args
+        [Parameter(Mandatory = $true)][string]$Exe,
+        [Parameter(Mandatory = $true)][string[]]$CommandArguments
     )
-    $output = & $Exe @Args 2>&1
+    $output = & $Exe @CommandArguments 2>&1
     $code = $LASTEXITCODE
     return [PSCustomObject]@{ Code = $code; Output = $output }
+}
+
+function Resolve-PythonForVenv {
+    param([string]$VenvPython)
+
+    if (Test-Path $VenvPython) {
+        return $VenvPython
+    }
+
+    if ($SkipInstall.IsPresent) {
+        Write-Step "Virtualenv missing; using system python because -SkipInstall was supplied"
+        return "python"
+    }
+
+    $candidates = @(
+        @{ Exe = "py"; Args = @("-3.11", "-m", "venv", ".venv"); Name = "Create Python 3.11 virtualenv" },
+        @{ Exe = "py"; Args = @("-3", "-m", "venv", ".venv"); Name = "Create Python 3 virtualenv" },
+        @{ Exe = "python"; Args = @("-m", "venv", ".venv"); Name = "Create Python virtualenv" }
+    )
+
+    foreach ($candidate in $candidates) {
+        try {
+            Invoke-NativeChecked -Exe $candidate.Exe -CommandArguments $candidate.Args -StepName $candidate.Name
+            if (Test-Path $VenvPython) {
+                return $VenvPython
+            }
+        }
+        catch {
+            Write-Host "Virtualenv candidate failed: $($candidate.Name) :: $($_.Exception.Message)"
+        }
+    }
+
+    throw "Could not create .venv with py -3.11, py -3, or python. Install Python 3.11+ and retry."
 }
 
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -68,9 +101,9 @@ try {
     Write-Host "SkipInstall: $($SkipInstall.IsPresent)"
     Write-Host "SkipPytest : $($SkipPytest.IsPresent)"
 
-    Invoke-NativeChecked -Exe "git" -Args @("rev-parse", "--is-inside-work-tree") -StepName "Verify git repository"
+    Invoke-NativeChecked -Exe "git" -CommandArguments @("rev-parse", "--is-inside-work-tree") -StepName "Verify git repository"
 
-    $dirtyBefore = Get-NativeOutput -Exe "git" -Args @("status", "--short")
+    $dirtyBefore = Get-NativeOutput -Exe "git" -CommandArguments @("status", "--short")
     Write-Step "Initial git status"
     if ($dirtyBefore.Output) {
         $dirtyBefore.Output | ForEach-Object { Write-Host $_ }
@@ -82,45 +115,35 @@ try {
         if ($dirtyBefore.Output -and -not $AllowDirty.IsPresent) {
             throw "Working tree is dirty. Commit/stash changes or rerun with -AllowDirty. Branch switch/pull blocked."
         }
-        Invoke-NativeChecked -Exe "git" -Args @("fetch", "origin", $Branch) -StepName "Fetch target branch"
-        Invoke-NativeChecked -Exe "git" -Args @("checkout", $Branch) -StepName "Checkout target branch"
-        Invoke-NativeChecked -Exe "git" -Args @("pull", "--ff-only", "origin", $Branch) -StepName "Fast-forward target branch"
+        Invoke-NativeChecked -Exe "git" -CommandArguments @("fetch", "origin", $Branch) -StepName "Fetch target branch"
+        Invoke-NativeChecked -Exe "git" -CommandArguments @("checkout", $Branch) -StepName "Checkout target branch"
+        Invoke-NativeChecked -Exe "git" -CommandArguments @("pull", "--ff-only", "origin", $Branch) -StepName "Fast-forward target branch"
     } elseif ($NoGitPull.IsPresent) {
         Write-Step "Git pull skipped by -NoGitPull"
     } else {
         Write-Step "No target branch supplied; staying on current branch"
     }
 
-    $branchOut = Get-NativeOutput -Exe "git" -Args @("branch", "--show-current")
-    $commitOut = Get-NativeOutput -Exe "git" -Args @("rev-parse", "--short", "HEAD")
+    $branchOut = Get-NativeOutput -Exe "git" -CommandArguments @("branch", "--show-current")
+    $commitOut = Get-NativeOutput -Exe "git" -CommandArguments @("rev-parse", "--short", "HEAD")
     Write-Step "Resolved git ref"
     Write-Host "Branch: $($branchOut.Output)"
     Write-Host "Commit: $($commitOut.Output)"
 
     $venvPython = Join-Path $repoRoot ".venv\Scripts\python.exe"
-    if (-not (Test-Path $venvPython)) {
-        if ($SkipInstall.IsPresent) {
-            Write-Step "Virtualenv missing; using system python because -SkipInstall was supplied"
-            $pythonExe = "python"
-        } else {
-            Invoke-NativeChecked -Exe "py" -Args @("-3.11", "-m", "venv", ".venv") -StepName "Create Python 3.11 virtualenv"
-            $pythonExe = $venvPython
-        }
-    } else {
-        $pythonExe = $venvPython
-    }
+    $pythonExe = Resolve-PythonForVenv -VenvPython $venvPython
 
-    Invoke-NativeChecked -Exe $pythonExe -Args @("--version") -StepName "Verify Python"
+    Invoke-NativeChecked -Exe $pythonExe -CommandArguments @("--version") -StepName "Verify Python"
 
     if (-not $SkipInstall.IsPresent) {
-        Invoke-NativeChecked -Exe $pythonExe -Args @("-m", "pip", "install", "--upgrade", "pip") -StepName "Upgrade pip"
-        Invoke-NativeChecked -Exe $pythonExe -Args @("-m", "pip", "install", "-e", ".") -StepName "Install project editable"
+        Invoke-NativeChecked -Exe $pythonExe -CommandArguments @("-m", "pip", "install", "--upgrade", "pip") -StepName "Upgrade pip"
+        Invoke-NativeChecked -Exe $pythonExe -CommandArguments @("-m", "pip", "install", "-e", ".") -StepName "Install project editable"
     } else {
         Write-Step "Install skipped by -SkipInstall"
     }
 
     if (-not $SkipPytest.IsPresent) {
-        Invoke-NativeChecked -Exe $pythonExe -Args @("-m", "pytest") -StepName "Run pytest"
+        Invoke-NativeChecked -Exe $pythonExe -CommandArguments @("-m", "pytest") -StepName "Run pytest"
     } else {
         Write-Step "Pytest skipped by -SkipPytest"
     }
@@ -134,7 +157,7 @@ try {
     if ($phaseTools.ContainsKey($phaseKey)) {
         $toolPath = Join-Path $repoRoot $phaseTools[$phaseKey]
         if (Test-Path $toolPath) {
-            Invoke-NativeChecked -Exe $pythonExe -Args @($toolPath) -StepName "Run phase $phaseKey audit tool"
+            Invoke-NativeChecked -Exe $pythonExe -CommandArguments @($toolPath) -StepName "Run phase $phaseKey audit tool"
         } else {
             Write-Step "Phase $phaseKey audit tool not found yet"
             Write-Host "Expected: $toolPath"
@@ -144,7 +167,7 @@ try {
         Write-Step "No audit tool mapping for phase $phaseKey"
     }
 
-    $finalStatus = Get-NativeOutput -Exe "git" -Args @("status", "--short")
+    $finalStatus = Get-NativeOutput -Exe "git" -CommandArguments @("status", "--short")
     Write-Step "Final git status"
     if ($finalStatus.Output) {
         $finalStatus.Output | ForEach-Object { Write-Host $_ }
