@@ -3,6 +3,7 @@ param(
     [string]$Branch = "",
     [switch]$SkipInstall,
     [switch]$SkipPytest,
+    [switch]$StrictPytest,
     [switch]$AllowDirty,
     [switch]$NoGitPull
 )
@@ -91,6 +92,8 @@ $latestSummaryPath = Join-Path $runDir "phase_${phaseKey}_latest.json"
 $status = "FAIL"
 $startedAt = (Get-Date).ToString("o")
 $failure = ""
+$pytestPassed = $true
+$pytestFailure = ""
 
 Start-Transcript -Path $logPath -Force | Out-Null
 try {
@@ -100,6 +103,7 @@ try {
     Write-Host "Log path   : $logPath"
     Write-Host "SkipInstall: $($SkipInstall.IsPresent)"
     Write-Host "SkipPytest : $($SkipPytest.IsPresent)"
+    Write-Host "StrictPytest: $($StrictPytest.IsPresent)"
 
     Invoke-NativeChecked -Exe "git" -CommandArguments @("rev-parse", "--is-inside-work-tree") -StepName "Verify git repository"
 
@@ -143,7 +147,19 @@ try {
     }
 
     if (-not $SkipPytest.IsPresent) {
-        Invoke-NativeChecked -Exe $pythonExe -CommandArguments @("-m", "pytest") -StepName "Run pytest"
+        try {
+            Invoke-NativeChecked -Exe $pythonExe -CommandArguments @("-m", "pytest") -StepName "Run pytest"
+        }
+        catch {
+            $pytestPassed = $false
+            $pytestFailure = $_.Exception.Message
+            Write-Host ""
+            Write-Host "PYTEST_FAILURE_RECORDED: $pytestFailure"
+            if ($StrictPytest.IsPresent -or $phaseKey -ne "33A") {
+                throw
+            }
+            Write-Step "Continuing after pytest failure for 33A baseline audit"
+        }
     } else {
         Write-Step "Pytest skipped by -SkipPytest"
     }
@@ -175,7 +191,12 @@ try {
         Write-Host "clean"
     }
 
-    $status = "PASS"
+    if ($pytestPassed) {
+        $status = "PASS"
+    } else {
+        $status = "FAIL_WITH_FINDINGS"
+        $failure = $pytestFailure
+    }
 }
 catch {
     $failure = $_.Exception.Message
@@ -199,8 +220,11 @@ finally {
         commit = $commitFinal
         log_path = $logPath
         failure = $failure
+        pytest_passed = $pytestPassed
+        pytest_failure = $pytestFailure
         skip_install = $SkipInstall.IsPresent
         skip_pytest = $SkipPytest.IsPresent
+        strict_pytest = $StrictPytest.IsPresent
     }
     $summary | ConvertTo-Json -Depth 5 | Set-Content -Path $summaryPath -Encoding UTF8
     Copy-Item -Path $summaryPath -Destination $latestSummaryPath -Force
@@ -213,7 +237,10 @@ finally {
     Write-Host "Latest log           : $latestPath"
     Write-Host "Latest summary       : $latestSummaryPath"
 
-    if ($status -ne "PASS") {
+    if ($status -eq "FAIL") {
         exit 1
+    }
+    if ($status -eq "FAIL_WITH_FINDINGS") {
+        exit 2
     }
 }
