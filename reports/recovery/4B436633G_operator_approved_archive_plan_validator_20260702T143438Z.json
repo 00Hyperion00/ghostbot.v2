@@ -1,0 +1,9 @@
+{
+  "archive_execution_allowed": false,
+  "complete": true,
+  "operator_approval_file": "reports/recovery/4B436633G_operator_archive_plan_approval.json",
+  "operator_approval_present": false,
+  "operator_approval_status": "APPROVAL_NOT_PRESENT_DRY_RUN_ONLY",
+  "operator_approval_valid": true,
+  "validation_errors": []
+}
