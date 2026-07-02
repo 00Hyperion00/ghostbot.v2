@@ -48,6 +48,13 @@ def main() -> None:
     dashboard_p.add_argument('--host', default='127.0.0.1')
     dashboard_p.add_argument('--port', default=8787, type=int)
 
+    cockpit_p = sub.add_parser('cockpit')
+    cockpit_p.add_argument('--config', required=True)
+    cockpit_p.add_argument('--host', default='127.0.0.1')
+    cockpit_p.add_argument('--port', default=8787, type=int)
+    cockpit_p.add_argument('--auto-start-engine', action='store_true')
+    cockpit_p.add_argument('--no-open-browser', action='store_true')
+
     ai_p = sub.add_parser('ai-service')
     ai_p.add_argument('--model-path', required=True)
     ai_p.add_argument('--threshold', type=float, default=0.60)
@@ -71,6 +78,17 @@ def main() -> None:
     train_p.add_argument('--feature-lag', type=int, default=None)
 
     args = parser.parse_args()
+    if args.cmd == 'cockpit':
+        from .cockpit.app import run_cockpit
+
+        run_cockpit(
+            args.config,
+            host=args.host,
+            port=args.port,
+            auto_start_engine=bool(args.auto_start_engine),
+            open_browser=not bool(args.no_open_browser),
+        )
+        return
     if args.cmd == 'ai-service':
         provider = XGBoostSignalProvider(args.model_path, threshold=args.threshold, buy_threshold=args.buy_threshold, sell_threshold=args.sell_threshold, hold_band_low=args.hold_band_low, hold_band_high=args.hold_band_high, indecision_margin=args.indecision_margin, threshold_profile=args.threshold_profile)
         app = create_ai_service(provider)
