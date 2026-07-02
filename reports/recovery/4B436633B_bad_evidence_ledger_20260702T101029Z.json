@@ -1,0 +1,2386 @@
+{
+  "approval_required_count": 8,
+  "bad_evidence_count": 237,
+  "complete": true,
+  "execution_evidence_required_count": 1,
+  "malformed_json_count": 223,
+  "records": [
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436631B_release_hygiene_bad_evidence_ledger_cleanup_20260622T105018Z_ready.json",
+      "phase_key": "4B436631B_RELEASE_HYGIENE_BAD_EVIDENCE_LEDGER_CLEANUP_20260622T105018Z_READY",
+      "reasons": [
+        "filename_token"
+      ],
+      "status": "ready",
+      "status_source": "filename_suffix"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436631B_release_hygiene_bad_evidence_ledger_cleanup_20260622T105018Z_quarantine_manifest.json",
+      "phase_key": "4B436631B_RELEASE_HYGIENE_BAD_EVIDENCE_LEDGER_CLEANUP_20260622T105018Z_QUARANTINE_MANIFEST",
+      "reasons": [
+        "filename_token"
+      ],
+      "status": "manifest",
+      "status_source": "filename_token"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630Y_live_real_micro_canary_reconciliation_20260621T211024Z_execution_evidence_required.json",
+      "phase_key": "4B436630Y_LIVE_REAL_MICRO_CANARY_RECONCILIATION_20260621T211024Z_EXECUTION_EVIDENCE_REQUIRED",
+      "reasons": [
+        "filename_token",
+        "execution_evidence_required"
+      ],
+      "status": "execution_evidence_required",
+      "status_source": "filename_suffix"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630X_first_live_real_micro_canary_20260621T204957Z_approval_required.json",
+      "phase_key": "4B436630X_FIRST_LIVE_REAL_MICRO_CANARY_20260621T204957Z_APPROVAL_REQUIRED",
+      "reasons": [
+        "filename_token",
+        "approval_required"
+      ],
+      "status": "approval_required",
+      "status_source": "filename_suffix"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630W_live_real_final_operator_approval_20260621T202820Z_approval_required.json",
+      "phase_key": "4B436630W_LIVE_REAL_FINAL_OPERATOR_APPROVAL_20260621T202820Z_APPROVAL_REQUIRED",
+      "reasons": [
+        "filename_token",
+        "approval_required"
+      ],
+      "status": "approval_required",
+      "status_source": "filename_suffix"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630W_live_real_final_operator_approval_20260621T202806Z_approval_required.json",
+      "phase_key": "4B436630W_LIVE_REAL_FINAL_OPERATOR_APPROVAL_20260621T202806Z_APPROVAL_REQUIRED",
+      "reasons": [
+        "filename_token",
+        "approval_required"
+      ],
+      "status": "approval_required",
+      "status_source": "filename_suffix"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630Q_first_paper_sandbox_canary_submit_gate_20260621T160320Z_approval_required.json",
+      "phase_key": "4B436630Q_FIRST_PAPER_SANDBOX_CANARY_SUBMIT_GATE_20260621T160320Z_APPROVAL_REQUIRED",
+      "reasons": [
+        "filename_token",
+        "approval_required"
+      ],
+      "status": "approval_required",
+      "status_source": "filename_suffix"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630Q_first_paper_sandbox_canary_submit_gate_20260621T153022Z_approval_required.json",
+      "phase_key": "4B436630Q_FIRST_PAPER_SANDBOX_CANARY_SUBMIT_GATE_20260621T153022Z_APPROVAL_REQUIRED",
+      "reasons": [
+        "filename_token",
+        "approval_required"
+      ],
+      "status": "approval_required",
+      "status_source": "filename_suffix"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630P_paper_sandbox_submit_arm_preflight_20260621T125234Z_not_ready.json",
+      "phase_key": "4B436630P_PAPER_SANDBOX_SUBMIT_ARM_PREFLIGHT_20260621T125234Z_NOT_READY",
+      "reasons": [
+        "filename_payload_status_conflict"
+      ],
+      "status": "not_ready",
+      "status_source": "filename_suffix_over_payload_ready"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630P_paper_sandbox_submit_arm_preflight_20260621T122703Z_not_ready.json",
+      "phase_key": "4B436630P_PAPER_SANDBOX_SUBMIT_ARM_PREFLIGHT_20260621T122703Z_NOT_READY",
+      "reasons": [
+        "filename_payload_status_conflict"
+      ],
+      "status": "not_ready",
+      "status_source": "filename_suffix_over_payload_ready"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630P_paper_sandbox_submit_arm_preflight_20260621T113857Z_not_ready.json",
+      "phase_key": "4B436630P_PAPER_SANDBOX_SUBMIT_ARM_PREFLIGHT_20260621T113857Z_NOT_READY",
+      "reasons": [
+        "filename_payload_status_conflict"
+      ],
+      "status": "not_ready",
+      "status_source": "filename_suffix_over_payload_ready"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630K_paper_sandbox_operator_final_go_no_go_gate_20260620T153355Z_operator_required.json",
+      "phase_key": "4B436630K_PAPER_SANDBOX_OPERATOR_FINAL_GO_NO_GO_GATE_20260620T153355Z_OPERATOR_REQUIRED",
+      "reasons": [
+        "approval_required"
+      ],
+      "status": "approval_required",
+      "status_source": "json_payload"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630B_paper_transition_operator_approval_gate_decision_20260620T110515Z.json",
+      "phase_key": "4B436630B_PAPER_TRANSITION_OPERATOR_APPROVAL_GATE_DECISION_20260620T110515Z",
+      "reasons": [
+        "approval_required"
+      ],
+      "status": "approval_required",
+      "status_source": "json_payload"
+    },
+    {
+      "parse_error": null,
+      "path": "reports/production_hardening/4B436630A_paper_candidate_preflight_decision_20260619T214934Z.json",
+      "phase_key": "4B436630A_PAPER_CANDIDATE_PREFLIGHT_DECISION_20260619T214934Z",
+      "reasons": [
+        "approval_required"
+      ],
+      "status": "approval_required",
+      "status_source": "json_payload"
+    },
+    {
+      "parse_error": "JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)",
+      "path": "reports/hyp006_r1_canonical/latest_h3_runtime_scan_dump.json",
+      "phase_key": null,
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260616_090008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260616_090008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260616_050007Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260616_050007Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260616_010010Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260616_010010Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260615_210009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260615_210009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)",
+      "path": "reports/hyp006_r1_canonical/4B436628E_manual_task_probe.json",
+      "phase_key": "4B436628E_MANUAL_TASK_PROBE",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260615_170007Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260615_170007Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260615_130009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260615_130009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260615_090008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260615_090008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260615_050009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260615_050009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260615_010009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260615_010009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260614_210009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260614_210009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260614_170008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260614_170008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260614_130008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260614_130008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260614_090009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260614_090009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260614_050009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260614_050009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260614_010009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260614_010009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260613_210008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260613_210008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260613_170007Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260613_170007Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260613_143212Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260613_143212Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260613_130009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260613_130009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260613_090010Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260613_090010Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260613_050007Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260613_050007Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260613_010008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260613_010008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260612_210007Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260612_210007Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260612_170008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260612_170008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260612_130008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260612_130008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260612_090009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260612_090009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260612_050008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260612_050008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260612_010008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260612_010008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260611_210009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260611_210009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260611_170008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260611_170008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260611_130011Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260611_130011Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260611_090009Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260611_090009Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260611_050008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260611_050008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260611_010011Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260611_010011Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260610_210008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260610_210008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260610_170008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260610_170008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260610_130008Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260610_130008Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260610_125315Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260610_125315Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260610_124534Z.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260610_124534Z",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_canonical/4B436625V_hyp005_shadow_observation_ledger_20260610_095013.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260610_095013",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260610_080007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260610_080007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260610_040007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260610_040007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260610_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260610_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260609_200007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260609_200007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260609_160008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260609_160008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260609_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260609_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260609_080010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260609_080010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260609_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260609_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260609_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260609_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260608_200009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260608_200009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260608_160008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260608_160008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260608_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260608_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260608_080009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260608_080009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260608_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260608_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260608_000008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260608_000008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260607_200007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260607_200007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260607_160008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260607_160008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)",
+      "path": "reports/operator_cockpit_once_json_utf8_check.json",
+      "phase_key": null,
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260607_120008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260607_120008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260607_080007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260607_080007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260607_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260607_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260607_000008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260607_000008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260606_200007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260606_200007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260606_160009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260606_160009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260606_120010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260606_120010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260606_080007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260606_080007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260606_040008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260606_040008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260606_000011.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260606_000011",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260605_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260605_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260605_160010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260605_160010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260605_120008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260605_120008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260605_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260605_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260605_040008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260605_040008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260605_000007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260605_000007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260604_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260604_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260604_160010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260604_160010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260604_120010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260604_120010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260604_080007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260604_080007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260604_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260604_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260604_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260604_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260603_200007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260603_200007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260603_160009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260603_160009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260603_120008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260603_120008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260603_080009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260603_080009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260603_040010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260603_040010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260603_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260603_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260602_234231.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_234231",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260602_200009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_200009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260602_160011.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_160011",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260602_141241.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_141241",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260602_122955.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_122955",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1_isolated/4B436625V_hyp005_shadow_observation_ledger_20260602_121758.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_121758",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1/4B436625V_hyp005_shadow_observation_ledger_20260602_121254.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_121254",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/hyp005_r1/4B436625V_hyp005_shadow_observation_ledger_20260602_105848.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_105848",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260602_080009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_080009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260602_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260602_000012.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260602_000012",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260601_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260601_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260601_160010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260601_160010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260601_120010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260601_120010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260601_080009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260601_080009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260601_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260601_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260601_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260601_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260531_200011.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260531_200011",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260531_160009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260531_160009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260531_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260531_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260531_080009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260531_080009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260531_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260531_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260531_000010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260531_000010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260530_200010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260530_200010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260530_160010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260530_160010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260530_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260530_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260530_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260530_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260530_040010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260530_040010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260530_000008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260530_000008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260529_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260529_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260529_160010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260529_160010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260529_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260529_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260529_080009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260529_080009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260529_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260529_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260529_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260529_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260528_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260528_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260528_160011.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260528_160011",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260528_120008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260528_120008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260528_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260528_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260528_040008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260528_040008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260528_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260528_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260527_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260527_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260527_160009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260527_160009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260527_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260527_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260527_080009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260527_080009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260527_040010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260527_040010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260527_000008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260527_000008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260526_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260526_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260526_160010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260526_160010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260526_120008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260526_120008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260526_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260526_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260526_040008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260526_040008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260526_000008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260526_000008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260525_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260525_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260525_160009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260525_160009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260525_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260525_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260525_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260525_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260525_040008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260525_040008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260525_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260525_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260524_200009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260524_200009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260524_160009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260524_160009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260524_120008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260524_120008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260524_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260524_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260524_040008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260524_040008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260524_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260524_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260523_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260523_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260523_160011.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260523_160011",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260523_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260523_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260523_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260523_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260523_040010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260523_040010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260523_000015.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260523_000015",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260522_200009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260522_200009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260522_160010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260522_160010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260522_120008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260522_120008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260522_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260522_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260522_040008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260522_040008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260522_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260522_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260521_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260521_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260521_160008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260521_160008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260521_120007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260521_120007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260521_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260521_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260521_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260521_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260521_000008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260521_000008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260520_200009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260520_200009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260520_160010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260520_160010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260520_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260520_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260520_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260520_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260520_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260520_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260520_000013.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260520_000013",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260519_200009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260519_200009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260519_160010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260519_160010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260519_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260519_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260519_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260519_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260519_040010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260519_040010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260519_000010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260519_000010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260518_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260518_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260518_160008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260518_160008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260518_120010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260518_120010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260518_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260518_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260518_040008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260518_040008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260518_000010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260518_000010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260517_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260517_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260517_160008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260517_160008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260517_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260517_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260517_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260517_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260517_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260517_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260517_000009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260517_000009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260516_200008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260516_200008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260516_160008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260516_160008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260516_120007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260516_120007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260516_080007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260516_080007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260516_040009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260516_040009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260516_000008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260516_000008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260515_200009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260515_200009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260515_160009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260515_160009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260515_120009.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260515_120009",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260515_080008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260515_080008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260515_040008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260515_040008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260515_000008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260515_000008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260514_200010.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260514_200010",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260514_160008.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260514_160008",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260514_135205.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260514_135205",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260514_120007.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260514_120007",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260514_080006.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260514_080006",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260514_040006.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260514_040006",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260514_000006.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260514_000006",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260513_200006.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260513_200006",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260513_160006.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260513_160006",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260513_120005.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260513_120005",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260513_113349.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260513_113349",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260510_000004.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260510_000004",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260509_221233.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260509_221233",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260509_204600.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260509_204600",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260509_201003.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260509_201003",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    },
+    {
+      "parse_error": "JSON root is not an object",
+      "path": "reports/4B436625V_hyp005_shadow_observation_ledger_20260509_200954.json",
+      "phase_key": "4B436625V_HYP005_SHADOW_OBSERVATION_LEDGER_20260509_200954",
+      "reasons": [
+        "malformed_json"
+      ],
+      "status": "malformed_json",
+      "status_source": "json_parse_error"
+    }
+  ],
+  "status_conflict_count": 3
+}
