@@ -1,0 +1,1679 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_paper_transition": false,
+  "approved_for_runtime_overlay": false,
+  "central_submit_guard": {
+    "checked_false_fields": [
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "live_trading_armed",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "live_real_double_confirm",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "auto_trade_on_signal",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "live_real_micro_canary_perform_network_submit",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_transition_operator_approved",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_transition_runtime_envelope_frozen",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_candidate_unlock_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_dry_run_operator_lock_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_dry_run_execution_authorization_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_execution_preflight_authorization_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_operator_final_approval_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "first_paper_sandbox_canary_operator_approval_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      }
+    ],
+    "checked_true_fields": [
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "strict_config_validation",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "runtime_lock_enabled",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "promotion_gate_isolation_enabled",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "paper_kill_switch_enabled",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "paper_mode_runtime_guardrail_kill_switch_enabled",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "paper_soak_evidence_window_kill_switch_enabled",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "live_real_hard_block_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "live_real_preflight_hard_submit_block_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "live_real_final_hard_submit_block_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "live_real_micro_canary_kill_switch_armed",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "live_real_micro_canary_hard_caps_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "live_real_micro_canary_reconciliation_emergency_stop_armed",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "live_real_micro_canary_reconciliation_kill_switch_armed",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "second_micro_canary_submit_gate_no_live_submit_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      }
+    ],
+    "checked_zero_cap_fields": [
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "paper_mode_runtime_guardrail_exchange_submit_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "paper_mode_runtime_guardrail_network_submit_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "paper_mode_runtime_guardrail_order_action_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "paper_soak_evidence_window_exchange_submit_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "paper_soak_evidence_window_network_submit_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "paper_soak_evidence_window_order_action_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0.0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "paper_promotion_review_max_total_notional_usd",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": null,
+        "expected": "0_or_missing_fail_closed",
+        "field": "paper_promotion_review_order_action_cap",
+        "passed": true,
+        "present": false,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "live_real_preflight_exchange_submit_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "live_real_preflight_network_submit_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "live_real_preflight_order_action_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0.0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "live_real_preflight_max_total_notional_usd",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "live_real_final_exchange_submit_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "live_real_final_network_submit_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "live_real_final_order_action_cap",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0.0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "live_real_final_max_total_notional_usd",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": 0.0,
+        "expected": "0_or_missing_fail_closed",
+        "field": "live_real_final_max_total_notional_usd",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      }
+    ],
+    "exchange_submit_allowed": false,
+    "live_real_submit_allowed": false,
+    "network_submit_allowed": false,
+    "paper_submit_allowed": false,
+    "passed": true,
+    "violations": [],
+    "warnings": []
+  },
+  "config_import_error": null,
+  "decision": "RUNTIME_SAFETY_LOCKDOWN_READY_ALL_RUNTIME_SUBMIT_PATHS_BLOCKED",
+  "destructive_endpoint_audit": {
+    "complete": true,
+    "destructive_endpoint_count": 52,
+    "endpoint_count": 52,
+    "records": [
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/ai/reload')",
+        "guard_evidence": [
+          "lock",
+          "blocked"
+        ],
+        "guarded": true,
+        "line_number": 298,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "order",
+          "reload",
+          "train"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/ai/train')",
+        "guard_evidence": [
+          "lock",
+          "blocked"
+        ],
+        "guarded": true,
+        "line_number": 302,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "order",
+          "reload",
+          "train"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/start')",
+        "guard_evidence": [
+          "operator",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 398,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/stop')",
+        "guard_evidence": [
+          "operator",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 404,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/force-buy')",
+        "guard_evidence": [
+          "operator",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 410,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/force-sell')",
+        "guard_evidence": [
+          "operator",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 417,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/cancel-pending')",
+        "guard_evidence": [
+          "operator",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 424,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/balance-sync')",
+        "guard_evidence": [
+          "operator",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 431,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/risk-reset')",
+        "guard_evidence": [
+          "operator",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 438,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/safe-mode/toggle')",
+        "guard_evidence": [
+          "operator",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 445,
+        "method": "POST",
+        "path": "src/tradebot/api.py",
+        "risk_tokens": [
+          "trade",
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/update_config')",
+        "guard_evidence": [
+          "raise httpexception"
+        ],
+        "guarded": true,
+        "line_number": 66,
+        "method": "POST",
+        "path": "src/tradebot/ai/service.py",
+        "risk_tokens": [
+          "trade",
+          "reload"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post('/predict', response_model=TradeResponse)",
+        "guard_evidence": [
+          "raise httpexception"
+        ],
+        "guarded": true,
+        "line_number": 83,
+        "method": "POST",
+        "path": "src/tradebot/ai/service.py",
+        "risk_tokens": [
+          "trade"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/engine-position-recovery/create-plan\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 232,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/engine-position-recovery/confirm-plan\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 238,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/engine-position-recovery/verify-completion\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 244,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/engine-position-recovery/clear-plan\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 250,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/recovery-plan-apply/create-from-reviewed-candidate\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 268,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/recovery-plan-apply/confirm-manual-external-recovery\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 274,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/recovery-plan-apply/verify-no-mismatch\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 280,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/recovery-plan-apply/clear\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 286,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/external-recovery-evidence/capture\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 306,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/external-recovery-evidence/capture-post-recovery-snapshot\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 313,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/external-recovery-evidence/no-mismatch-preflight\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 319,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/external-recovery-evidence/verify-no-mismatch-safe-apply\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 325,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/external-recovery-evidence/clear\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 331,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/exchange-environment-source-gate/verify-consistency\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 342,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "live",
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/exchange-environment-source-gate/capture-fresh-balance\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 348,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "live",
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/exchange-environment-source-gate/clear\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "guard",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 354,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "live",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/demo-entry/dry-run\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 367,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "live",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/demo-entry/verify-filters\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 374,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "live",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/demo-entry/record-intent\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 381,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "live",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/demo-entry/authorize-demo-only-entry\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 388,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "live",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/demo-entry/verify-post-entry-protective-exit\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 396,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "live",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/demo-entry/clear\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "token",
+          "require"
+        ],
+        "guarded": true,
+        "line_number": 402,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "live",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/engine/start\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 419,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/engine/stop\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 423,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/engine/restart\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 427,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/trade/force-buy\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 431,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/trade/force-sell\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 440,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator",
+          "force"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/trade/cancel-pending\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 449,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "trade",
+          "reset",
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/risk/reset\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 458,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "reset",
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/risk/safe-mode/toggle\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 467,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/runtime-lock/clear-stale\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 491,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/risk-reconciliation/acknowledge\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 506,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/risk-reconciliation/clear-acknowledgement\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 512,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/risk-reconciliation/confirm-balance-snapshot\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 533,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/risk-reconciliation/resolve-dust-safe-base-balance\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 539,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/risk-reconciliation/adopt-position-candidate\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "guard",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 545,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/risk-reconciliation/apply-tracked-position-candidate-review\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 565,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/risk-reconciliation/apply-dust-safe-clear\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 571,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/risk-reconciliation/clear-manual-decision\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 577,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      },
+      {
+        "destructive": true,
+        "endpoint_signature": "@app.post(\"/api/cockpit/runtime-lock/resolve-owner-mismatch\")",
+        "guard_evidence": [
+          "operator",
+          "confirm",
+          "confirmation",
+          "auth",
+          "lock",
+          "require",
+          "runtime_lock"
+        ],
+        "guarded": true,
+        "line_number": 583,
+        "method": "POST",
+        "path": "src/tradebot/cockpit/app.py",
+        "risk_tokens": [
+          "operator"
+        ],
+        "severity": "info"
+      }
+    ],
+    "scanned_file_count": 166,
+    "unguarded_destructive_endpoint_count": 0,
+    "warnings": []
+  },
+  "generated_at_epoch_ms": 1782989820549,
+  "operator_action_guard": {
+    "checked_fields": [
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_transition_operator_approved",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_candidate_unlock_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_dry_run_operator_lock_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_dry_run_execution_authorization_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_execution_preflight_authorization_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_sandbox_operator_final_approval_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "first_paper_sandbox_canary_operator_approval_issued",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "live_real_double_confirm",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "live_trading_armed",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      }
+    ],
+    "operator_actions_blocked": true,
+    "passed": true,
+    "violations": [],
+    "warnings": []
+  },
+  "patch_id": "4B436633D",
+  "patch_name": "Runtime Safety Lockdown",
+  "patch_version": "4B.4.3.6.6.33D",
+  "recommended_next_phase": "4B.4.3.6.6.33E Status Conflict Resolver",
+  "runtime_overlay_guard": {
+    "checked_false_fields": [
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "live_trading_armed",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "live_real_micro_canary_perform_network_submit",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_transition_operator_approved",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      },
+      {
+        "actual": false,
+        "expected": "false_or_missing_fail_closed",
+        "field": "paper_transition_runtime_envelope_frozen",
+        "passed": true,
+        "present": true,
+        "severity": "critical"
+      }
+    ],
+    "checked_true_fields": [
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "promotion_gate_isolation_enabled",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "runtime_lock_enabled",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "paper_mode_runtime_guardrail_no_exchange_submit_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "paper_mode_runtime_guardrail_no_live_real_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "paper_soak_evidence_window_no_exchange_submit_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "paper_soak_evidence_window_no_live_real_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "live_real_hard_block_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      },
+      {
+        "actual": true,
+        "expected": "true_or_missing_fail_closed",
+        "field": "second_micro_canary_submit_gate_no_live_submit_required",
+        "passed": true,
+        "present": true,
+        "severity": "warning"
+      }
+    ],
+    "passed": true,
+    "runtime_overlay_allowed": false,
+    "violations": [],
+    "warnings": []
+  },
+  "runtime_safety_lockdown_complete": true,
+  "safety_snapshot": {
+    "destructive_cleanup_performed": false,
+    "exchange_submit_performed": false,
+    "reload_performed": false,
+    "runtime_overlay_activated": false,
+    "trading_action_performed": false,
+    "training_performed": false
+  },
+  "settings_field_count": 464,
+  "source_33c_resolution": {
+    "complete": true,
+    "parse_error": null,
+    "source_decision": "PHASE_CHAIN_VALIDATOR_READY_SUBMIT_CAPABILITY_BLOCKED",
+    "source_report": "reports/recovery/4B436633C_phase_chain_validator_20260702T102530Z_ready.json",
+    "source_status": "READY",
+    "warnings": []
+  },
+  "status": "READY",
+  "warnings": []
+}

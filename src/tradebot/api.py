@@ -192,6 +192,34 @@ def create_app(engine: TradeBotEngine) -> FastAPI:
     app = FastAPI(title="Trade Bot Python API", version="0.2.6")
     install_api_security(app, engine.settings, logger=getattr(engine, "logger", None))
 
+# 4B436633D-H1 Runtime Safety Lockdown: fail-closed legacy destructive endpoint guard.
+def _require_33d_h1_legacy_destructive_endpoint_guard(endpoint_path: str) -> None:
+    """Fail closed for legacy destructive API endpoints until guarded cockpit flow is used."""
+    from fastapi import HTTPException as _HTTPException
+
+    raise _HTTPException(
+        status_code=423,
+        detail={
+            "ok": False,
+            "blocked": True,
+            "guard": "4B436633D-H1 legacy destructive endpoint guard",
+            "endpoint": endpoint_path,
+            "reason": "Legacy destructive endpoint is blocked; use guarded cockpit endpoint with operator confirmation.",
+            "approved_for_live_real": False,
+            "approved_for_exchange_submit": False,
+            "approved_for_runtime_overlay": False,
+            "live_real_submit_allowed": False,
+            "paper_submit_allowed": False,
+            "network_submit_allowed": False,
+            "exchange_submit_allowed": False,
+            "runtime_overlay_allowed": False,
+            "exchange_submit_performed": False,
+            "trading_action_performed": False,
+            "runtime_overlay_activated": False,
+        },
+    )
+
+
     @app.get('/health')
     async def health() -> dict:
         return _build_health_payload(app, engine)
@@ -402,16 +430,22 @@ def create_app(engine: TradeBotEngine) -> FastAPI:
 
     @app.post('/balance-sync')
     async def balance_sync() -> dict:
+        # 4B436633D-H1: fail-closed operator/destructive endpoint guard.
+        _require_33d_h1_legacy_destructive_endpoint_guard("/balance-sync")
         await engine.sync_balances()
         return {'ok': True}
 
     @app.post('/risk-reset')
     async def risk_reset() -> dict:
+        # 4B436633D-H1: fail-closed operator/destructive endpoint guard.
+        _require_33d_h1_legacy_destructive_endpoint_guard("/risk-reset")
         await engine.risk_reset()
         return {'ok': True}
 
     @app.post('/safe-mode/toggle')
     async def toggle_safe_mode() -> dict:
+        # 4B436633D-H1: fail-closed operator/destructive endpoint guard.
+        _require_33d_h1_legacy_destructive_endpoint_guard("/safe-mode/toggle")
         await engine.toggle_safe_mode()
         return {'ok': True}
 
