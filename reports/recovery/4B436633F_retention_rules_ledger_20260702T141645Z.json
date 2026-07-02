@@ -1,0 +1,58 @@
+[
+  {
+    "action": "retain",
+    "destructive": false,
+    "rationale": "Latest READY evidence is promotion-chain proof and must remain immutable.",
+    "retention_class": "canonical_ready_evidence",
+    "rule_id": "REPORT_LATEST_READY_KEEP_IMMUTABLE",
+    "selector": "reports/recovery/*_ready.json latest per family"
+  },
+  {
+    "action": "retain",
+    "destructive": false,
+    "rationale": "Historical READY evidence supports audit traceability.",
+    "retention_class": "historical_ready_evidence",
+    "rule_id": "REPORT_HISTORICAL_READY_KEEP_AUDIT",
+    "selector": "reports/recovery/*_ready.json historical"
+  },
+  {
+    "action": "archive_candidate_only",
+    "destructive": false,
+    "rationale": "Failed attempts are retained for forensic review but can be moved to cold archive later.",
+    "retention_class": "failed_attempt_evidence",
+    "rule_id": "REPORT_NOT_READY_ARCHIVE_CANDIDATE",
+    "selector": "reports/recovery/*_not_ready.json"
+  },
+  {
+    "action": "retain",
+    "destructive": false,
+    "rationale": "Ledgers are derived audit indexes and should remain available until a formal archive pass.",
+    "retention_class": "derived_audit_ledger",
+    "rule_id": "LEDGER_KEEP_AUDIT",
+    "selector": "reports/recovery/*ledger*.json"
+  },
+  {
+    "action": "archive_manifest_only",
+    "destructive": false,
+    "rationale": "Backups are not deleted by this patch; manifest provides operator review before archival.",
+    "retention_class": "patch_backup_archive_candidate",
+    "rule_id": "PATCH_BACKUP_ARCHIVE_MANIFEST_ONLY",
+    "selector": "tools/_patch_backup_*"
+  },
+  {
+    "action": "archive_manifest_only",
+    "destructive": false,
+    "rationale": "Payload remnants are not deleted by this patch; manifest provides operator review before archival.",
+    "retention_class": "patch_payload_archive_candidate",
+    "rule_id": "PATCH_PAYLOAD_ARCHIVE_MANIFEST_ONLY",
+    "selector": "tools/_patch_payload_*"
+  },
+  {
+    "action": "cleanup_plan_only",
+    "destructive": false,
+    "rationale": "Runtime caches are removable operational noise, but this patch only reports candidates.",
+    "retention_class": "operational_cache_cleanup_candidate",
+    "rule_id": "CACHE_CLEANUP_PLAN_ONLY",
+    "selector": "**/__pycache__, **/.pytest_cache"
+  }
+]
