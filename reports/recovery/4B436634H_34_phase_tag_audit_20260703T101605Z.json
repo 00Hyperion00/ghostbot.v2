@@ -1,0 +1,26 @@
+{
+  "complete": true,
+  "digest": "efc0704067ed53b019f6b5e7d4f6d6024a3f68ae5c6d7ccaf0f443b6eb03dd64",
+  "git_available": true,
+  "git_branch": "main",
+  "git_head_short": "a1c9819",
+  "missing_tag_count": 1,
+  "missing_tags": [
+    "4B.4.3.6.6.34H"
+  ],
+  "present_tag_count": 7,
+  "present_tags": [
+    "4B.4.3.6.6.34A",
+    "4B.4.3.6.6.34B",
+    "4B.4.3.6.6.34C",
+    "4B.4.3.6.6.34D",
+    "4B.4.3.6.6.34E",
+    "4B.4.3.6.6.34F",
+    "4B.4.3.6.6.34G"
+  ],
+  "required_tag_count": 8,
+  "tag_audit_advisory_only": true,
+  "tag_audit_blocker_count": 0,
+  "tag_audit_note": "Tags are audited as advisory in 34H because 34H itself is normally tagged after this patch is committed.",
+  "tag_audit_status": "PHASE_34_TAG_AUDIT_READY_ADVISORY_ONLY"
+}
