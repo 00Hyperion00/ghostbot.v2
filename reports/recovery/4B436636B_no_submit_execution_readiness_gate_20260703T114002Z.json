@@ -1,0 +1,58 @@
+{
+  "evidence_collection_started": false,
+  "execution_readiness_check_count": 6,
+  "execution_readiness_checks": [
+    {
+      "check_id": "source_36a_ready",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "read_only_public_contract_locked",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "observation_artifact_schema_locked",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "order_submit_forbidden",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "execution_now": false,
+      "ready": true
+    }
+  ],
+  "execution_readiness_gate_relaxed": false,
+  "execution_readiness_ready_count": 6,
+  "gate_name": "no_submit_execution_readiness_gate",
+  "live_environment_enabled": false,
+  "no_submit_execution_readiness_gate_complete": true,
+  "no_submit_execution_readiness_gate_digest": "4f763bb2dc7eed990f5741d59488d25bfc92e9304c5af097041d9d60fc98bc08",
+  "no_submit_execution_readiness_gate_locked": true,
+  "no_submit_execution_readiness_gate_status": "NO_SUBMIT_EXECUTION_READINESS_GATE_LOCKED_PREFLIGHT_ONLY",
+  "paper_environment_enabled": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_unblocked": false,
+  "public_market_data_collection_performed": false,
+  "public_observation_execution_allowed_now": false,
+  "public_observation_execution_performed": false,
+  "public_observation_execution_preflight_ready": true,
+  "public_observation_preflight_executed": false,
+  "runtime_evidence_collection_performed": false,
+  "runtime_health_probe_performed": false,
+  "runtime_probe_performed": false,
+  "source_36a_paper_transition_blocker_reduction_plan_digest": "62e0be16bbe400d338f00a353fe989f5fc245be12375676802b7b9d02befd0d4"
+}
