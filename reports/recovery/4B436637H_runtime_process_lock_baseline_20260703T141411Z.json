@@ -1,0 +1,83 @@
+{
+  "baseline_name": "runtime_process_lock_baseline",
+  "concurrent_runtime_start_denied": true,
+  "runtime_lock_dir_policy": "runtime/locks",
+  "runtime_lock_file_created": false,
+  "runtime_lock_file_deleted": false,
+  "runtime_lock_file_mutation_performed": false,
+  "runtime_lock_file_name": "tradebot_runtime.lock",
+  "runtime_lock_owner_fields_required": [
+    "pid",
+    "started_at_utc",
+    "patch_version",
+    "command",
+    "host"
+  ],
+  "runtime_lock_owner_metadata_required": true,
+  "runtime_lock_owner_snapshot_example": {
+    "command": "STATIC_CONTRACT_NO_PROCESS_START",
+    "host": "MuhasebeOsman",
+    "patch_version": "4B.4.3.6.6.37H",
+    "pid": 0,
+    "started_at_utc": "1970-01-01T00:00:00Z"
+  },
+  "runtime_lock_path_policy": "runtime/locks/tradebot_runtime.lock",
+  "runtime_process_kill_allowed": false,
+  "runtime_process_kill_performed": false,
+  "runtime_process_lock_complete": true,
+  "runtime_process_lock_digest": "6010c64a398e001c028e60d9be2bdddaa035ff90c651557f04241dc508682f6a",
+  "runtime_process_lock_locked": true,
+  "runtime_process_lock_ready_count": 8,
+  "runtime_process_lock_rule_count": 8,
+  "runtime_process_lock_rules": [
+    {
+      "policy": "runtime process startup must be protected by a single-instance lock",
+      "ready": true,
+      "rule_id": "single_instance_lock_required"
+    },
+    {
+      "policy": "lock owner metadata must include pid, started_at_utc, patch_version, command and host",
+      "ready": true,
+      "rule_id": "lock_owner_metadata_required"
+    },
+    {
+      "policy": "active existing runtime lock denies concurrent runtime startup",
+      "ready": true,
+      "rule_id": "concurrent_runtime_denied"
+    },
+    {
+      "policy": "stale lock detection must classify non-live lock owners after the configured TTL",
+      "ready": true,
+      "rule_id": "stale_lock_detection_required"
+    },
+    {
+      "policy": "stale lock recovery requires explicit operator review and is never auto-deleted by patch automation",
+      "ready": true,
+      "rule_id": "stale_lock_operator_review_required"
+    },
+    {
+      "policy": "valid lock preconditions cannot start runtime during no-submit hardening",
+      "ready": true,
+      "rule_id": "no_submit_runtime_start_denied"
+    },
+    {
+      "policy": "37H does not perform runtime health probes or overlay activation",
+      "ready": true,
+      "rule_id": "runtime_health_probe_not_performed"
+    },
+    {
+      "policy": "37H does not start, kill or inspect live operating-system runtime processes",
+      "ready": true,
+      "rule_id": "process_kill_spawn_forbidden"
+    }
+  ],
+  "runtime_process_lock_status": "RUNTIME_PROCESS_LOCK_READY_NO_PROCESS_MUTATION",
+  "runtime_process_spawn_allowed": false,
+  "runtime_process_spawn_performed": false,
+  "runtime_start_denied_no_submit": true,
+  "single_instance_lock_required": true,
+  "stale_lock_auto_delete_allowed": false,
+  "stale_lock_detection_required": true,
+  "stale_lock_operator_review_required": true,
+  "stale_lock_ttl_seconds": 900
+}

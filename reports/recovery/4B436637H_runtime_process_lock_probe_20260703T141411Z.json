@@ -1,0 +1,86 @@
+{
+  "concurrent_runtime_start_denied": true,
+  "probe_name": "runtime_process_lock_probe",
+  "process_kill_performed": false,
+  "process_start_performed": false,
+  "runtime_health_probe_performed": false,
+  "runtime_lock_file_created": false,
+  "runtime_lock_file_deleted": false,
+  "runtime_lock_file_mutation_performed": false,
+  "runtime_lock_owner_metadata_probe_passed": true,
+  "runtime_process_kill_performed": false,
+  "runtime_process_lock_probe_complete": true,
+  "runtime_process_lock_probe_count": 8,
+  "runtime_process_lock_probe_digest": "4d12a5d705019f91f1cc9a132ebe8438cb0eaf4fa597b5d8cbb2238e93c65cc4",
+  "runtime_process_lock_probe_locked": true,
+  "runtime_process_lock_probe_mode": "STATIC_CONTRACT_NO_PROCESS_NO_LOCK_FILE_MUTATION",
+  "runtime_process_lock_probe_passed_count": 8,
+  "runtime_process_lock_probes": [
+    {
+      "expected": "LOCK_REQUIRED",
+      "passed": true,
+      "probe_id": "single_instance_lock_declared",
+      "result": "LOCK_REQUIRED"
+    },
+    {
+      "expected": [
+        "pid",
+        "started_at_utc",
+        "patch_version",
+        "command",
+        "host"
+      ],
+      "passed": true,
+      "probe_id": "owner_metadata_fields_declared",
+      "result": [
+        "pid",
+        "started_at_utc",
+        "patch_version",
+        "command",
+        "host"
+      ]
+    },
+    {
+      "expected": "DENY_CONCURRENT_RUNTIME_ACTIVE_LOCK",
+      "passed": true,
+      "probe_id": "active_lock_denies_concurrent_runtime",
+      "result": "DENY_CONCURRENT_RUNTIME_ACTIVE_LOCK"
+    },
+    {
+      "expected": "DENY_STALE_LOCK_OPERATOR_REVIEW_REQUIRED",
+      "passed": true,
+      "probe_id": "stale_lock_detected_without_auto_delete",
+      "result": "DENY_STALE_LOCK_OPERATOR_REVIEW_REQUIRED"
+    },
+    {
+      "expected": "LOCK_HELD_OWNER_UNKNOWN_DENY_UNTIL_STALE_THRESHOLD",
+      "passed": true,
+      "probe_id": "unknown_owner_before_ttl_denied",
+      "result": "LOCK_HELD_OWNER_UNKNOWN_DENY_UNTIL_STALE_THRESHOLD"
+    },
+    {
+      "expected": "DENY_RUNTIME_START_NO_SUBMIT",
+      "passed": true,
+      "probe_id": "no_lock_still_denies_runtime_start_no_submit",
+      "result": "DENY_RUNTIME_START_NO_SUBMIT"
+    },
+    {
+      "expected": "NO_RUNTIME_HEALTH_PROBE",
+      "passed": true,
+      "probe_id": "runtime_health_probe_not_performed",
+      "result": "NO_RUNTIME_HEALTH_PROBE"
+    },
+    {
+      "expected": "NO_PROCESS_SPAWN_OR_KILL",
+      "passed": true,
+      "probe_id": "process_spawn_kill_not_performed",
+      "result": "NO_PROCESS_SPAWN_OR_KILL"
+    }
+  ],
+  "runtime_process_spawn_performed": false,
+  "runtime_start_denied_no_submit": true,
+  "single_instance_lock_probe_passed": true,
+  "stale_lock_auto_delete_allowed": false,
+  "stale_lock_detection_probe_passed": true,
+  "stale_lock_operator_review_required": true
+}
