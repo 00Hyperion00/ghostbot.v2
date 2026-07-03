@@ -1,0 +1,64 @@
+{
+  "evidence_collection_started": false,
+  "guard_name": "no_submit_runtime_evidence_guard",
+  "live_environment_enabled": false,
+  "no_submit_runtime_evidence_guard_complete": true,
+  "no_submit_runtime_evidence_guard_digest": "c3bc9666bce740d644fb2fd5b508692f001013963b2d402d0b60ef1ff441c305",
+  "no_submit_runtime_evidence_guard_locked": true,
+  "no_submit_runtime_evidence_guard_relaxed": false,
+  "no_submit_runtime_evidence_guard_status": "NO_SUBMIT_RUNTIME_EVIDENCE_GUARD_LOCKED_DRY_RUN_COLLECTOR_ONLY",
+  "paper_environment_enabled": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_unblocked": false,
+  "public_market_data_collection_performed": false,
+  "public_observation_dry_run_collector_executable_now": false,
+  "public_observation_dry_run_collector_executed": false,
+  "public_observation_dry_run_collector_ready": true,
+  "public_observation_execution_allowed_now": false,
+  "public_observation_execution_performed": false,
+  "runtime_evidence_collection_performed": false,
+  "runtime_evidence_guard_check_count": 7,
+  "runtime_evidence_guard_checks": [
+    {
+      "check_id": "source_36b_ready",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "fetch_adapter_no_network",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "artifact_writer_not_writing",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "order_submit_forbidden",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "execution_now": false,
+      "ready": true
+    },
+    {
+      "check_id": "runtime_probe_separated",
+      "execution_now": false,
+      "ready": true
+    }
+  ],
+  "runtime_evidence_guard_ready_count": 7,
+  "runtime_health_probe_performed": false,
+  "runtime_probe_performed": false,
+  "source_36b_no_submit_execution_readiness_gate_digest": "4f763bb2dc7eed990f5741d59488d25bfc92e9304c5af097041d9d60fc98bc08"
+}

@@ -1,0 +1,44 @@
+{
+  "observation_artifact_candidate_count": 4,
+  "observation_artifact_candidates": [
+    {
+      "candidate_id": "public_exchange_info_snapshot_artifact",
+      "requires_schema_version": "1.0",
+      "source_scope_id": "public_exchange_info_snapshot",
+      "write_now": false
+    },
+    {
+      "candidate_id": "public_klines_observation_artifact",
+      "requires_schema_version": "1.0",
+      "source_scope_id": "public_klines_observation",
+      "write_now": false
+    },
+    {
+      "candidate_id": "public_mark_price_observation_artifact",
+      "requires_schema_version": "1.0",
+      "source_scope_id": "public_mark_price_observation",
+      "write_now": false
+    },
+    {
+      "candidate_id": "public_book_ticker_observation_artifact",
+      "requires_schema_version": "1.0",
+      "source_scope_id": "public_book_ticker_observation",
+      "write_now": false
+    }
+  ],
+  "observation_artifact_validation_performed": false,
+  "observation_artifact_write_allowed_now": false,
+  "observation_artifact_writer_complete": true,
+  "observation_artifact_writer_digest": "a5576b067f2c7c0604f68546b6c45b659ec67956de2b984c2d8a84789e5bf58f",
+  "observation_artifact_writer_locked": true,
+  "observation_artifact_writer_mode": "SCHEMA_BOUND_DRY_RUN_NO_PAYLOAD_CAPTURE",
+  "observation_artifact_writer_relaxed": false,
+  "observation_artifact_writer_schema_field_count": 9,
+  "observation_artifact_writer_schema_version": "1.0",
+  "observation_artifact_writer_status": "OBSERVATION_ARTIFACT_WRITER_READY_NOT_WRITING_BY_DEFAULT",
+  "observation_artifact_written": false,
+  "observation_payload_captured": false,
+  "runtime_evidence_artifact_written": false,
+  "source_36b_observation_artifact_schema_digest": "2422844aa8f1fda6f85336ede6966f961c7e8761da1ee3c64037f50904127297",
+  "writer_name": "observation_artifact_writer"
+}
