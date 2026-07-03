@@ -1,0 +1,13 @@
+{
+  "interim_seal_evidence_lock_complete": true,
+  "interim_seal_evidence_lock_digest": "960943ae827d0af706da733f03db3113e3c7b08ad831931dea9aaf006fd3a6e8",
+  "interim_seal_evidence_lock_status": "INTERIM_SEAL_EVIDENCE_LOCKED",
+  "interim_seal_evidence_locked": true,
+  "interim_seal_source_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436635H_runtime_readiness_planning_closure_20260703T111123Z_ready.json",
+  "lock_name": "interim_seal_evidence_lock",
+  "source_35h_no_submit_phase_35_interim_seal_digest": "f9499d56352e318f24c051af259c501f625dd3b758fda27ed88120e0b538c79e",
+  "source_35h_phase_35_tag_audit_digest": "0cec919334145a30863063957c17355206adf614efab0f16bffdc3363c8daa93",
+  "source_35h_planning_evidence_acceptance_digest": "702cf1170fc16cc587daaec17394a2e31f26d074460f7a0a90062ce30a834225",
+  "source_35h_safety_violation_count": 0,
+  "source_35h_safety_violations": []
+}
