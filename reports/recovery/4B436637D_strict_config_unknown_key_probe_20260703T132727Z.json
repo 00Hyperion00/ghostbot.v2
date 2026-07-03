@@ -1,0 +1,36 @@
+{
+  "probe_name": "strict_config_unknown_key_hard_error_probe",
+  "strict_config_unknown_key_hard_error_enabled": true,
+  "strict_config_unknown_key_probe_complete": true,
+  "strict_config_unknown_key_probe_count": 3,
+  "strict_config_unknown_key_probe_digest": "dd165440d64e165b2245471fb3826d1b80249110cc44f00b7af617411576d5b7",
+  "strict_config_unknown_key_probe_locked": true,
+  "strict_config_unknown_key_probe_passed_count": 3,
+  "strict_config_unknown_key_probe_status": "UNKNOWN_KEY_HARD_ERROR_PROBE_READY",
+  "strict_config_unknown_key_probes": [
+    {
+      "expected": "ACCEPT",
+      "passed": true,
+      "probe_id": "valid_minimal_config",
+      "result": "ACCEPTED"
+    },
+    {
+      "error_type": "ConfigSchemaError",
+      "expected": "REJECT",
+      "passed": true,
+      "probe_id": "unknown_root_key",
+      "result": "REJECTED"
+    },
+    {
+      "error_type": "ConfigSchemaError",
+      "expected": "REJECT",
+      "passed": true,
+      "probe_id": "unknown_nested_key",
+      "result": "REJECTED"
+    }
+  ],
+  "strict_config_unknown_nested_key_rejected": true,
+  "strict_config_unknown_root_key_rejected": true,
+  "strict_config_valid_config_accepted": true,
+  "yaml_unknown_key_hard_error_probe_passed": true
+}

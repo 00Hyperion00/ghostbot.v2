@@ -1,0 +1,77 @@
+{
+  "delta_name": "p0_gap_closure_delta_37d",
+  "p0_gap_closure_delta_complete": true,
+  "p0_gap_closure_delta_digest": "f3b6912b54becb05c3c2af883d37dc22ef682d5698783ed11fb6710ca95ce0de",
+  "p0_gap_closure_delta_locked": true,
+  "p0_gap_closure_delta_status": "P0_3_STRICT_CONFIG_GAP_CLOSED",
+  "p0_gap_closure_items": [
+    {
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37B-H1",
+      "domain": "install_contract",
+      "gap_id": "P0_INSTALL_CONTRACT_ALIGNMENT"
+    },
+    {
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37C",
+      "domain": "repo_hygiene",
+      "gap_id": "P0_REPO_HYGIENE_EVIDENCE_RETENTION"
+    },
+    {
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37D",
+      "domain": "strict_config",
+      "gap_id": "P0_STRICT_CONFIG_UNKNOWN_KEY_FAIL_CLOSED"
+    },
+    {
+      "closed": false,
+      "closed_by": null,
+      "domain": "api_security",
+      "gap_id": "P0_API_AUTH_DESTRUCTIVE_ENDPOINT_GUARD"
+    },
+    {
+      "closed": false,
+      "closed_by": null,
+      "domain": "operator_controls",
+      "gap_id": "P0_TYPED_CONFIRMATION_DESTRUCTIVE_ACTIONS"
+    },
+    {
+      "closed": false,
+      "closed_by": null,
+      "domain": "persistence",
+      "gap_id": "P0_SQLITE_AUDIT_BASELINE"
+    },
+    {
+      "closed": false,
+      "closed_by": null,
+      "domain": "runtime_safety",
+      "gap_id": "P0_RUNTIME_PROCESS_LOCK"
+    },
+    {
+      "closed": false,
+      "closed_by": null,
+      "domain": "execution_cost_model",
+      "gap_id": "P0_FEE_SLIPPAGE_BASELINE"
+    },
+    {
+      "closed": false,
+      "closed_by": null,
+      "domain": "evidence_governance",
+      "gap_id": "P0_REPORT_COMMIT_POLICY"
+    },
+    {
+      "closed": false,
+      "closed_by": null,
+      "domain": "promotion_governance",
+      "gap_id": "P0_PROMOTION_GATE_ISOLATION"
+    }
+  ],
+  "p0_hardening_auto_close_allowed": false,
+  "p0_hardening_closed_gap_count_after_37d": 3,
+  "p0_hardening_complete": false,
+  "p0_hardening_gap_count_after_37d": 10,
+  "p0_hardening_open_gap_count_after_37d": 7,
+  "p0_hardening_performed": false,
+  "p0_strict_config_unknown_key_fail_closed": true,
+  "p0_strict_config_unknown_key_fail_closed_by": "4B.4.3.6.6.37D"
+}

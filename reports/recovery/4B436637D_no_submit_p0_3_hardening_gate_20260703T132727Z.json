@@ -1,0 +1,71 @@
+{
+  "gate_name": "no_submit_p0_3_hardening_gate",
+  "no_submit_p0_3_hardening_gate_check_count": 12,
+  "no_submit_p0_3_hardening_gate_checks": [
+    {
+      "check_id": "source_37c_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_1_install_contract_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_2_repo_hygiene_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "strict_config_schema_guard_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "yaml_unknown_key_hard_error_probe_passed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_3_strict_config_closed_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_config_loader_not_mutated",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "no_submit_p0_3_hardening_gate_complete": true,
+  "no_submit_p0_3_hardening_gate_digest": "72983a3577355c5e8dbf59b227e2aafaf0cfd11c6377d38b93a6e5b44eb0a350",
+  "no_submit_p0_3_hardening_gate_locked": true,
+  "no_submit_p0_3_hardening_gate_ready_count": 12,
+  "no_submit_p0_3_hardening_gate_status": "NO_SUBMIT_P0_3_HARDENING_GATE_READY"
+}
