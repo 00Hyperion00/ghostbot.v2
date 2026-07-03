@@ -1,0 +1,63 @@
+{
+  "gate_name": "no_submit_p0_1_hardening_gate",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "no_submit_p0_1_hardening_gate_check_count": 9,
+  "no_submit_p0_1_hardening_gate_checks": [
+    {
+      "check_id": "source_37a_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "install_contract_aligned",
+      "ready": false,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "requirements_pyproject_aligned",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "readme_contract_marker_present_or_not_applicable",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "launcher_contract_aligned",
+      "ready": false,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_1_closed_only",
+      "ready": false,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "no_submit_p0_1_hardening_gate_complete": false,
+  "no_submit_p0_1_hardening_gate_digest": "a7d56a56a3c6802d5a1edcda493ef32f0e45179c2e041c291504bc0a23f6ba67",
+  "no_submit_p0_1_hardening_gate_locked": false,
+  "no_submit_p0_1_hardening_gate_ready_count": 6,
+  "no_submit_p0_1_hardening_gate_status": "NO_SUBMIT_P0_1_HARDENING_GATE_NOT_READY",
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_unblocked": false,
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false
+}

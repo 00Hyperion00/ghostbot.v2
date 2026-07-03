@@ -229,3 +229,19 @@ Safety: no automatic position mutation, no order path relaxation, no live-real e
 ## 4B.4.3.6.6.34 Demo Entry Execution Controlled Re-Enablement
 
 Adds demo-only controlled entry execution dry-run, filter verification, order intent audit, demo-only authorization, and post-entry protective-exit verification.
+
+<!-- 4B436637B_INSTALL_CONTRACT_START -->
+
+## Install Contract — 4B.4.3.6.6.37B
+
+Canonical dependency source is `pyproject.toml` `[project].dependencies`.
+`requirements.txt` is a generated compatibility file for Windows launcher and quick-start flows.
+
+```powershell
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+No paper/live/live-real, runtime overlay, training, reload, or order-submit permission is granted by this install contract.
+
+<!-- 4B436637B_INSTALL_CONTRACT_END -->
