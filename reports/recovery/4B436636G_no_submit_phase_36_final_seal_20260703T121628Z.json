@@ -1,0 +1,61 @@
+{
+  "http_request_performed": false,
+  "live_environment_enabled": false,
+  "network_request_performed": false,
+  "no_submit_phase_36_final_closed": true,
+  "no_submit_phase_36_final_closure_locked": true,
+  "no_submit_phase_36_final_seal_check_count": 8,
+  "no_submit_phase_36_final_seal_checks": [
+    {
+      "check_id": "source_36f_gate_ready",
+      "sealed": true
+    },
+    {
+      "check_id": "phase_36_interim_closure_present",
+      "sealed": true
+    },
+    {
+      "check_id": "phase_36_remote_tags_36a_36f_present",
+      "sealed": true
+    },
+    {
+      "check_id": "network_off_evidence_digest_lock_intact",
+      "sealed": true
+    },
+    {
+      "check_id": "network_and_http_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "submit_path_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "sealed": true
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "sealed": true
+    }
+  ],
+  "no_submit_phase_36_final_seal_complete": true,
+  "no_submit_phase_36_final_seal_digest": "6267989ff6ef83ce688b3d7927e400db907ed47c31c44c49808a245917f2db50",
+  "no_submit_phase_36_final_seal_locked": true,
+  "no_submit_phase_36_final_seal_locked_count": 8,
+  "no_submit_phase_36_final_seal_status": "NO_SUBMIT_PHASE_36_FINAL_SEAL_READY",
+  "order_submit_performed": false,
+  "paper_environment_enabled": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_unblocked": false,
+  "phase_36_final_closed": true,
+  "phase_36_final_closure_relaxed": false,
+  "phase_36_final_seal_relaxed": false,
+  "phase_36_interim_closed": true,
+  "public_market_data_collection_performed": false,
+  "runtime_evidence_collection_performed": false,
+  "seal_name": "no_submit_phase_36_final_seal",
+  "signed_request_performed": false
+}
