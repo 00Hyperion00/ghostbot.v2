@@ -1,0 +1,47 @@
+{
+  "boundary_name": "public_data_observation_boundary",
+  "private_account_read_performed": false,
+  "private_api_access_allowed": false,
+  "public_data_collection_allowed_now": false,
+  "public_data_observation_allowed_now": false,
+  "public_data_observation_boundary_complete": true,
+  "public_data_observation_boundary_digest": "bcca6007a5ad16c3e40f57de738737a4d4fe144c5c095d5b761ee62d676ddebb",
+  "public_data_observation_boundary_locked": true,
+  "public_data_observation_boundary_relaxed": false,
+  "public_data_observation_boundary_scope": [
+    {
+      "execution_now": false,
+      "private_api_required": false,
+      "scope_id": "public_exchange_info_snapshot",
+      "source": "public_exchange_metadata"
+    },
+    {
+      "execution_now": false,
+      "private_api_required": false,
+      "scope_id": "public_klines_observation",
+      "source": "public_klines"
+    },
+    {
+      "execution_now": false,
+      "private_api_required": false,
+      "scope_id": "public_mark_price_observation",
+      "source": "public_mark_price"
+    },
+    {
+      "execution_now": false,
+      "private_api_required": false,
+      "scope_id": "public_book_ticker_observation",
+      "source": "public_book_ticker"
+    },
+    {
+      "execution_now": false,
+      "private_api_required": false,
+      "scope_id": "local_runtime_report_observation",
+      "source": "local_reports_only"
+    }
+  ],
+  "public_data_observation_boundary_scope_count": 5,
+  "public_data_observation_boundary_status": "PUBLIC_DATA_OBSERVATION_BOUNDARY_LOCKED_POLICY_ONLY",
+  "public_market_data_collection_performed": false,
+  "source_35i_interim_seal_evidence_locked": true
+}
