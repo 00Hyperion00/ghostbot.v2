@@ -1,0 +1,83 @@
+{
+  "collection_runbook_count": 5,
+  "collection_runbook_executable_now": false,
+  "collection_runbook_executed": false,
+  "collection_runbook_matrix_complete": true,
+  "collection_runbook_matrix_digest": "d0ac3e6f43661da8cc8aca777f86cd3c2a8564064aae33804e8502884bbaf788",
+  "collection_runbook_status": "COLLECTION_RUNBOOK_MATRIX_READY_NOT_EXECUTED_NO_SUBMIT",
+  "collection_runbooks": [
+    {
+      "boundary": "NO_SUBMIT_COLLECTION_BOUNDARY",
+      "domain": "runtime_bootstrap",
+      "execution_status": "PLANNED_NOT_EXECUTED",
+      "mode": "future_no_submit_read_only",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_operator_review_before_execution": true,
+      "requires_private_api": false,
+      "runbook_id": "collect_runtime_health_status_snapshot",
+      "sequence": 1,
+      "source_id": "runtime_health_status_snapshot"
+    },
+    {
+      "boundary": "NO_SUBMIT_COLLECTION_BOUNDARY",
+      "domain": "operator_cockpit_contract",
+      "execution_status": "PLANNED_NOT_EXECUTED",
+      "mode": "future_no_submit_replay_only",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_operator_review_before_execution": true,
+      "requires_private_api": false,
+      "runbook_id": "collect_operator_cockpit_status_contract_replay",
+      "sequence": 2,
+      "source_id": "operator_cockpit_status_contract_replay"
+    },
+    {
+      "boundary": "NO_SUBMIT_COLLECTION_BOUNDARY",
+      "domain": "market_data_public_only",
+      "execution_status": "PLANNED_NOT_EXECUTED",
+      "mode": "future_public_read_only_observation",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_operator_review_before_execution": true,
+      "requires_private_api": false,
+      "runbook_id": "collect_public_market_data_observation",
+      "sequence": 3,
+      "source_id": "public_market_data_observation"
+    },
+    {
+      "boundary": "NO_SUBMIT_COLLECTION_BOUNDARY",
+      "domain": "risk_boundary_assertions",
+      "execution_status": "PLANNED_NOT_EXECUTED",
+      "mode": "future_no_submit_assertion_only",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_operator_review_before_execution": true,
+      "requires_private_api": false,
+      "runbook_id": "collect_runtime_risk_boundary_assertions",
+      "sequence": 4,
+      "source_id": "runtime_risk_boundary_assertions"
+    },
+    {
+      "boundary": "NO_SUBMIT_COLLECTION_BOUNDARY",
+      "domain": "paper_transition_governance",
+      "execution_status": "PLANNED_NOT_EXECUTED",
+      "mode": "future_governance_only",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_operator_review_before_execution": true,
+      "requires_private_api": false,
+      "runbook_id": "collect_operator_paper_transition_governance",
+      "sequence": 5,
+      "source_id": "operator_paper_transition_governance"
+    }
+  ],
+  "evidence_source_registry_digest": "280d6bacda6d6ec1b511832396c4193f8438e4f785b6b7b0be633977b5b343dc",
+  "matrix_name": "collection_runbook_matrix",
+  "paper_transition_blocked": true,
+  "patch_id": "4B436635C",
+  "patch_version": "4B.4.3.6.6.35C",
+  "public_market_data_collection_performed": false,
+  "runtime_evidence_collection_performed": false,
+  "source_35b_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436635B_runtime_readiness_evidence_expansion_20260703T103515Z_ready.json"
+}

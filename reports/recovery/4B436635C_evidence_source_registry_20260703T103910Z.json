@@ -1,0 +1,74 @@
+{
+  "evidence_collection_started": false,
+  "evidence_source_count": 5,
+  "evidence_source_registry_complete": true,
+  "evidence_source_registry_digest": "280d6bacda6d6ec1b511832396c4193f8438e4f785b6b7b0be633977b5b343dc",
+  "evidence_source_registry_status": "EVIDENCE_SOURCE_REGISTRY_READY_COLLECTION_NOT_STARTED",
+  "evidence_sources": [
+    {
+      "collection_mode": "future_no_submit_read_only",
+      "current_state": "registered_not_collected",
+      "domain": "runtime_bootstrap",
+      "linked_blocker": "RUNTIME_SERVICE_BOOTSTRAP_EVIDENCE_REQUIRED",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_private_api": false,
+      "source_id": "runtime_health_status_snapshot",
+      "source_type": "local_api_health_status"
+    },
+    {
+      "collection_mode": "future_no_submit_replay_only",
+      "current_state": "registered_not_collected",
+      "domain": "operator_cockpit_contract",
+      "linked_blocker": "OPERATOR_COCKPIT_STATUS_CONTRACT_EVIDENCE_REQUIRED",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_private_api": false,
+      "source_id": "operator_cockpit_status_contract_replay",
+      "source_type": "offline_status_contract_replay"
+    },
+    {
+      "collection_mode": "future_public_read_only_observation",
+      "current_state": "registered_not_collected",
+      "domain": "market_data_public_only",
+      "linked_blocker": "PUBLIC_MARKET_DATA_RUNTIME_EVIDENCE_REQUIRED",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_private_api": false,
+      "source_id": "public_market_data_observation",
+      "source_type": "public_market_data_snapshot"
+    },
+    {
+      "collection_mode": "future_no_submit_assertion_only",
+      "current_state": "registered_not_collected",
+      "domain": "risk_boundary_assertions",
+      "linked_blocker": "RISK_BOUNDARY_RUNTIME_ASSERTIONS_REQUIRED",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_private_api": false,
+      "source_id": "runtime_risk_boundary_assertions",
+      "source_type": "local_assertion_report"
+    },
+    {
+      "collection_mode": "future_governance_only",
+      "current_state": "registered_not_collected",
+      "domain": "paper_transition_governance",
+      "linked_blocker": "PAPER_TRANSITION_OPERATOR_GATE_REQUIRED",
+      "requires_exchange_submit": false,
+      "requires_network_submit": false,
+      "requires_private_api": false,
+      "source_id": "operator_paper_transition_governance",
+      "source_type": "operator_approval_ledger_future"
+    }
+  ],
+  "exchange_submit_allowed": false,
+  "network_submit_allowed": false,
+  "patch_id": "4B436635C",
+  "patch_version": "4B.4.3.6.6.35C",
+  "private_api_access_allowed": false,
+  "registry_name": "evidence_source_registry",
+  "runtime_evidence_collection_performed": false,
+  "source_35b_readiness_blocker_detail_count": 5,
+  "source_35b_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436635B_runtime_readiness_evidence_expansion_20260703T103515Z_ready.json",
+  "source_35b_runtime_evidence_pack_digest": "16bffcbef16d682afc84f474f02b656cf4f7ac5ff9e23d87e2d88c867576ebc8"
+}
