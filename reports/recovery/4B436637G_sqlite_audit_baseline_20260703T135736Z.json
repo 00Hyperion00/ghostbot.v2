@@ -1,0 +1,62 @@
+{
+  "baseline_name": "sqlite_audit_baseline",
+  "database_file_created": false,
+  "database_file_deleted": false,
+  "sqlite_audit_baseline_complete": true,
+  "sqlite_audit_baseline_digest": "96a9f9b98405476876a67ac55ea8b53427e85555baad9fcf3d924ff54017e4e9",
+  "sqlite_audit_baseline_locked": true,
+  "sqlite_audit_baseline_ready_count": 7,
+  "sqlite_audit_baseline_rule_count": 7,
+  "sqlite_audit_baseline_rules": [
+    {
+      "policy": "runtime SQLite connections must use WAL journal mode for file-backed operational databases",
+      "ready": true,
+      "rule_id": "wal_required_for_file_backed_runtime_db"
+    },
+    {
+      "policy": "runtime SQLite connections must set a non-zero busy_timeout before write-capable operation",
+      "ready": true,
+      "rule_id": "busy_timeout_required"
+    },
+    {
+      "policy": "schema/user_version must be recorded in evidence before runtime promotion",
+      "ready": true,
+      "rule_id": "schema_version_required"
+    },
+    {
+      "policy": "PRAGMA integrity_check must return ok before promotion gates can advance",
+      "ready": true,
+      "rule_id": "integrity_check_required"
+    },
+    {
+      "policy": "operator-approved backup hook must exist before destructive persistence changes",
+      "ready": true,
+      "rule_id": "backup_hook_required"
+    },
+    {
+      "policy": "37G declares and probes the audit baseline without opening or mutating production databases",
+      "ready": true,
+      "rule_id": "production_db_not_mutated_in_37g"
+    },
+    {
+      "policy": "schema migration is explicitly out of scope for this no-submit hardening phase",
+      "ready": true,
+      "rule_id": "migration_not_performed_in_37g"
+    }
+  ],
+  "sqlite_audit_baseline_status": "SQLITE_AUDIT_BASELINE_READY_NO_RUNTIME_DB_MUTATION",
+  "sqlite_backup_hook_api": "sqlite3.Connection.backup",
+  "sqlite_backup_hook_required": true,
+  "sqlite_backup_performed": false,
+  "sqlite_busy_timeout_required": true,
+  "sqlite_busy_timeout_required_ms": 5000,
+  "sqlite_integrity_check_expected_result": "ok",
+  "sqlite_integrity_check_required": true,
+  "sqlite_runtime_db_mutation_performed": false,
+  "sqlite_runtime_db_open_performed": false,
+  "sqlite_schema_migration_performed": false,
+  "sqlite_schema_version_required": true,
+  "sqlite_wal_mode_required": "WAL",
+  "sqlite_wal_required": true,
+  "sqlite_write_performed": false
+}
