@@ -1,0 +1,22 @@
+{
+  "audit_name": "token_presence_audit",
+  "operator_observation_authorization_unlocked": false,
+  "operator_observation_token_allowed_use": "audit_only_no_unlock",
+  "operator_observation_token_consumed": false,
+  "operator_observation_token_file": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\operator_observation_token_4B436636D.json",
+  "operator_observation_token_payload_digest": null,
+  "operator_observation_token_payload_keys": [],
+  "operator_observation_token_payload_parse_error": null,
+  "operator_observation_token_payload_parse_ok": false,
+  "operator_observation_token_payload_size_bytes": 0,
+  "operator_observation_token_present": false,
+  "operator_observation_token_present_actual": false,
+  "operator_observation_token_required": true,
+  "operator_observation_token_validated": false,
+  "source_36d_operator_observation_token_ledger_digest": "34eb5feac3cbabec0eb5ed02a3bffa322d3deccfe5962fe829d442d94bcdb82c",
+  "source_36d_operator_observation_token_template_digest": "74d4de9ce380cad54039dd95e1147c74e30ab7b1b2bbada2898cce87d612989a",
+  "token_presence_audit_complete": true,
+  "token_presence_audit_digest": "0a4564831206a242281539dd8db4ead7d60d0ac905dc32a9e505b12bd9bc5c08",
+  "token_presence_audit_locked": true,
+  "token_presence_audit_status": "TOKEN_ABSENT_AUDITED_NO_EXECUTION"
+}

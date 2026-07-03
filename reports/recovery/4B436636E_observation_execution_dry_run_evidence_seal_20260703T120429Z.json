@@ -1,0 +1,75 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_paper_transition": false,
+  "approved_for_runtime_overlay": false,
+  "evidence_collection_started": false,
+  "exchange_submit_allowed": false,
+  "http_request_performed": false,
+  "live_environment_enabled": false,
+  "live_real_submit_allowed": false,
+  "network_request_allowed_now": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "no_network_collector_simulation_digest": "4596e07d63be6bb01192375d76d455b86cd06738f463b3dfadaa0668e826c31f",
+  "observation_artifact_written": false,
+  "observation_dry_run_evidence_unsealed": false,
+  "observation_execution_dry_run_evidence_seal_check_count": 8,
+  "observation_execution_dry_run_evidence_seal_checks": [
+    {
+      "check_id": "source_36d_ready",
+      "sealed": true
+    },
+    {
+      "check_id": "token_presence_audited",
+      "sealed": true
+    },
+    {
+      "check_id": "token_not_consumed",
+      "sealed": true
+    },
+    {
+      "check_id": "collector_simulation_no_network",
+      "sealed": true
+    },
+    {
+      "check_id": "network_request_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "observation_artifact_not_written",
+      "sealed": true
+    },
+    {
+      "check_id": "submit_path_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "sealed": true
+    }
+  ],
+  "observation_execution_dry_run_evidence_seal_complete": true,
+  "observation_execution_dry_run_evidence_seal_digest": "71a5dd08394d05c1a2bc4565700be4709795ec0cab0c248bb4c39a563276814f",
+  "observation_execution_dry_run_evidence_seal_locked": true,
+  "observation_execution_dry_run_evidence_seal_locked_count": 8,
+  "observation_execution_dry_run_evidence_seal_status": "OBSERVATION_EXECUTION_DRY_RUN_EVIDENCE_SEALED_NO_NETWORK",
+  "paper_environment_enabled": false,
+  "paper_submit_allowed": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_unblocked": false,
+  "public_observation_execution_allowed_now": false,
+  "public_observation_execution_authorized_now": false,
+  "public_observation_execution_performed": false,
+  "public_observation_network_off_execution_package_executed": false,
+  "public_observation_network_off_execution_package_ready": true,
+  "runtime_evidence_artifact_written": false,
+  "runtime_evidence_collection_performed": false,
+  "runtime_overlay_allowed": false,
+  "seal_name": "observation_execution_dry_run_evidence_seal",
+  "signed_request_performed": false,
+  "source_36d_no_submit_execution_seal_digest": "54497c1fa5ec55f7cd83160d46cf87870fb74b82df2fbb65b5cbed6bc68fb722",
+  "token_presence_audit_digest": "0a4564831206a242281539dd8db4ead7d60d0ac905dc32a9e505b12bd9bc5c08"
+}
