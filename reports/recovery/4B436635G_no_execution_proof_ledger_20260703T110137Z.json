@@ -1,0 +1,85 @@
+{
+  "no_execution_confirmed": true,
+  "no_execution_proof_digest": "7b56d8f5f461cca966f73cefb99140c464a0c1f7ad7e5105a39e8e2b3b5dca7c",
+  "no_execution_proof_item_count": 14,
+  "no_execution_proof_items": [
+    {
+      "expected_value": false,
+      "field": "dry_run_collector_executed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "public_market_data_collection_performed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "runtime_evidence_collection_performed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "evidence_collection_started",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "runtime_probe_performed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "runtime_health_probe_performed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "private_api_access_allowed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "private_account_read_performed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "collection_preflight_executed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "collection_runbook_executed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "collection_authorization_unlocked",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "collector_guard_relaxed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "order_submit_performed",
+      "observed_value": false
+    },
+    {
+      "expected_value": false,
+      "field": "exchange_submit_performed",
+      "observed_value": false
+    }
+  ],
+  "no_execution_proof_ledger_complete": true,
+  "no_execution_proof_status": "NO_EXECUTION_PROOF_CONFIRMED",
+  "no_execution_violation_count": 0,
+  "no_execution_violations": [],
+  "patch_id": "4B436635G",
+  "patch_version": "4B.4.3.6.6.35G",
+  "source_35f_decision": "PUBLIC_DATA_COLLECTION_DRY_RUN_READY_NO_SUBMIT_COLLECTOR_GUARD_LOCKED",
+  "source_35f_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436635F_public_data_collection_dry_run_20260703T105711Z_ready.json"
+}

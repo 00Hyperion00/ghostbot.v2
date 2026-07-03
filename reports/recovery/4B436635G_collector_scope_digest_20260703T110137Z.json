@@ -1,0 +1,21 @@
+{
+  "collector_scope_digest": "614367c00d561b5a4bac91a84a8e25466544d0c7356191e7be8cba8e6d374c1f",
+  "collector_scope_digest_inputs": {
+    "source_35f_collection_token_template_digest": "1c2dcb57c40ebc977b51d0f5acb6f57a029325ae9fe74f82b6d2392c98d920b6",
+    "source_35f_no_submit_dry_run_collector_guard_digest": "4ca8bf21d6187a48fdfd0c3946b909388687463ba920e83f61a3a2737e5f011b",
+    "source_35f_public_data_collection_scope_ready": true,
+    "source_35f_public_market_data_scope_count": 5,
+    "source_35f_public_market_data_scope_freeze_digest": "1af2081aa5a222ef9c9e85ca1c4b41fd814d38162a1d7e936c7836a1dc81adb6",
+    "source_35f_public_market_data_scope_frozen": true
+  },
+  "collector_scope_digest_ledger_complete": true,
+  "collector_scope_digest_ledger_digest": "7494b53a3a21eb38da36d76be6f6118286f882ad3a017bed2cfadeb340c09f8a",
+  "collector_scope_digest_status": "COLLECTOR_SCOPE_DIGEST_READY_SCOPE_FROZEN",
+  "collector_scope_relaxed": false,
+  "patch_id": "4B436635G",
+  "patch_version": "4B.4.3.6.6.35G",
+  "public_market_data_scope_count": 5,
+  "public_market_data_scope_frozen": true,
+  "source_35f_decision": "PUBLIC_DATA_COLLECTION_DRY_RUN_READY_NO_SUBMIT_COLLECTOR_GUARD_LOCKED",
+  "source_35f_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436635F_public_data_collection_dry_run_20260703T105711Z_ready.json"
+}
