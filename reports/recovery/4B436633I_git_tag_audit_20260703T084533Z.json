@@ -1,0 +1,34 @@
+{
+  "audit_warnings": [],
+  "branch": "main",
+  "complete": true,
+  "dirty_worktree_count": 8,
+  "dirty_worktree_sample": [
+    "?? README_APPLY_4B436633I.txt",
+    "?? docs/RECOVERY_CLOSURE_REPORT_4B436633I.md",
+    "?? src/tradebot/recovery_closure_report.py",
+    "?? tests/test_recovery_closure_report_4B436633I.py",
+    "?? tools/apply_4B436633I_recovery_closure_report.py",
+    "?? tools/check_4B436633I_recovery_closure_report.py",
+    "?? tools/rollback_4B436633I_recovery_closure_report.py",
+    "?? tools/run_4B436633I_recovery_closure_report.py"
+  ],
+  "git_available": true,
+  "head_short": "ea18e0b",
+  "missing_tags": [
+    "4B.4.3.6.6.33C",
+    "4B.4.3.6.6.33I"
+  ],
+  "present_tag_count": 7,
+  "present_tags": [
+    "4B.4.3.6.6.33A",
+    "4B.4.3.6.6.33B",
+    "4B.4.3.6.6.33D",
+    "4B.4.3.6.6.33E",
+    "4B.4.3.6.6.33F",
+    "4B.4.3.6.6.33G",
+    "4B.4.3.6.6.33H"
+  ],
+  "repo_root": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2",
+  "required_tag_count": 9
+}

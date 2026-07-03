@@ -1,0 +1,46 @@
+{
+  "audit_warnings": [],
+  "branch": "main",
+  "complete": true,
+  "dirty_worktree_count": 20,
+  "dirty_worktree_sample": [
+    "?? README_APPLY_4B436633I.txt",
+    "?? README_APPLY_4B436633I_H1.txt",
+    "?? docs/RECOVERY_CLOSURE_REPORT_4B436633I.md",
+    "?? docs/RECOVERY_CLOSURE_REPORT_SOURCE_33H_GATE_HOTFIX_4B436633I_H1.md",
+    "?? reports/recovery/4B436633I_H1_source_33h_gate_hotfix_20260703T085208Z_ready.json",
+    "?? reports/recovery/4B436633I_final_phase_acceptance_matrix_20260703T084533Z.json",
+    "?? reports/recovery/4B436633I_git_tag_audit_20260703T084533Z.json",
+    "?? reports/recovery/4B436633I_next_phase_unlock_plan_20260703T084533Z.json",
+    "?? reports/recovery/4B436633I_recovery_closure_report_20260703T084533Z_not_ready.json",
+    "?? src/tradebot/recovery_closure_report.py",
+    "?? tests/test_recovery_closure_report_4B436633I.py",
+    "?? tests/test_recovery_closure_report_h1_4B436633I_H1.py",
+    "?? tools/apply_4B436633I_H1_source_33h_gate_hotfix.py",
+    "?? tools/apply_4B436633I_recovery_closure_report.py",
+    "?? tools/check_4B436633I_H1_source_33h_gate_hotfix.py",
+    "?? tools/check_4B436633I_recovery_closure_report.py",
+    "?? tools/rollback_4B436633I_H1_source_33h_gate_hotfix.py",
+    "?? tools/rollback_4B436633I_recovery_closure_report.py",
+    "?? tools/run_4B436633I_H1_source_33h_gate_hotfix.py",
+    "?? tools/run_4B436633I_recovery_closure_report.py"
+  ],
+  "git_available": true,
+  "head_short": "ea18e0b",
+  "missing_tags": [
+    "4B.4.3.6.6.33C",
+    "4B.4.3.6.6.33I"
+  ],
+  "present_tag_count": 7,
+  "present_tags": [
+    "4B.4.3.6.6.33A",
+    "4B.4.3.6.6.33B",
+    "4B.4.3.6.6.33D",
+    "4B.4.3.6.6.33E",
+    "4B.4.3.6.6.33F",
+    "4B.4.3.6.6.33G",
+    "4B.4.3.6.6.33H"
+  ],
+  "repo_root": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2",
+  "required_tag_count": 9
+}
