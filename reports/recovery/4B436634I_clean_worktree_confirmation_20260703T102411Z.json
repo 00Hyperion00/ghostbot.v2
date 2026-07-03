@@ -1,0 +1,28 @@
+{
+  "clean_worktree_confirmation_complete": true,
+  "clean_worktree_status": "WORKTREE_CLEAN_EXCEPT_34I_SELF_ARTIFACTS",
+  "dirty_worktree_advisory_only": true,
+  "dirty_worktree_blocker_count": 0,
+  "dirty_worktree_blockers": [],
+  "git_branch": "main",
+  "git_head_short": "5090491",
+  "ignored_34i_self_artifact_count": 12,
+  "ignored_34i_self_artifacts": [
+    "README_APPLY_4B436634I.txt",
+    "docs/POST_CLOSURE_TAG_AUDIT_4B436634I.md",
+    "reports/recovery/4B436634I_34h_tag_verification_20260703T102355Z.json",
+    "reports/recovery/4B436634I_clean_worktree_confirmation_20260703T102355Z.json",
+    "reports/recovery/4B436634I_no_submit_phase_34_final_seal_20260703T102355Z.json",
+    "reports/recovery/4B436634I_post_closure_tag_audit_20260703T102355Z_ready.json",
+    "src/tradebot/post_closure_tag_audit.py",
+    "tests/test_post_closure_tag_audit_4B436634I.py",
+    "tools/apply_4B436634I_post_closure_tag_audit.py",
+    "tools/check_4B436634I_post_closure_tag_audit.py",
+    "tools/rollback_4B436634I_post_closure_tag_audit.py",
+    "tools/run_4B436634I_post_closure_tag_audit.py"
+  ],
+  "normalized_dirty_worktree_count": 0,
+  "patch_id": "4B436634I",
+  "patch_version": "4B.4.3.6.6.34I",
+  "raw_dirty_worktree_count": 12
+}

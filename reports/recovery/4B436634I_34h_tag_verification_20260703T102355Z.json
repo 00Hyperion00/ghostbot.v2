@@ -1,0 +1,35 @@
+{
+  "git_branch": "main",
+  "git_head_short": "5090491",
+  "missing_tag_count": 0,
+  "missing_tags": [],
+  "patch_id": "4B436634I",
+  "patch_version": "4B.4.3.6.6.34I",
+  "phase_34_tag_verification_status": "PHASE_34H_TAG_VERIFIED",
+  "phase_34h_tag_commit": "5090491158dc75ae7b364626102bb94f421330a5",
+  "phase_34h_tag_present": true,
+  "phase_34h_tag_verification_complete": true,
+  "phase_34h_tag_verification_digest": "246ced569f61e21e4f4515824c433c62e0bec94def2ac3d6290ef794e38237ba",
+  "present_tag_count": 8,
+  "present_tags": [
+    "4B.4.3.6.6.34A",
+    "4B.4.3.6.6.34B",
+    "4B.4.3.6.6.34C",
+    "4B.4.3.6.6.34D",
+    "4B.4.3.6.6.34E",
+    "4B.4.3.6.6.34F",
+    "4B.4.3.6.6.34G",
+    "4B.4.3.6.6.34H"
+  ],
+  "required_tag_count": 8,
+  "required_tags": [
+    "4B.4.3.6.6.34A",
+    "4B.4.3.6.6.34B",
+    "4B.4.3.6.6.34C",
+    "4B.4.3.6.6.34D",
+    "4B.4.3.6.6.34E",
+    "4B.4.3.6.6.34F",
+    "4B.4.3.6.6.34G",
+    "4B.4.3.6.6.34H"
+  ]
+}
