@@ -1,0 +1,155 @@
+{
+  "api_auth_guard_complete": true,
+  "api_auth_guard_locked": true,
+  "api_auth_guard_status": "API_AUTH_GUARD_READY_LOCAL_TOKEN_REQUIRED",
+  "api_auth_mutation_performed": false,
+  "api_auth_runtime_loader_mutation_performed": false,
+  "api_auth_runtime_reload_performed": false,
+  "api_route_mutation_performed": false,
+  "destructive_endpoint_auth_probes": [
+    {
+      "destructive": false,
+      "expected": "ALLOW_READ_ONLY",
+      "method": "GET",
+      "passed": true,
+      "path": "/health",
+      "probe_id": "safe_health_read",
+      "result": "ALLOW_READ_ONLY",
+      "runtime_execution_allowed": false,
+      "token_present": false,
+      "token_valid": false
+    },
+    {
+      "destructive": true,
+      "expected": "DENY_LOCAL_TOKEN_REQUIRED",
+      "method": "POST",
+      "passed": true,
+      "path": "/api/force-trade",
+      "probe_id": "force_trade_missing_token",
+      "result": "DENY_LOCAL_TOKEN_REQUIRED",
+      "runtime_execution_allowed": false,
+      "token_present": false,
+      "token_valid": false
+    },
+    {
+      "destructive": true,
+      "expected": "DENY_LOCAL_TOKEN_INVALID",
+      "method": "POST",
+      "passed": true,
+      "path": "/api/reload-config",
+      "probe_id": "reload_invalid_token",
+      "result": "DENY_LOCAL_TOKEN_INVALID",
+      "runtime_execution_allowed": false,
+      "token_present": true,
+      "token_valid": false
+    },
+    {
+      "destructive": true,
+      "expected": "DENY_LOCAL_TOKEN_REQUIRED",
+      "method": "DELETE",
+      "passed": true,
+      "path": "/api/reports/delete/123",
+      "probe_id": "delete_report_missing_token",
+      "result": "DENY_LOCAL_TOKEN_REQUIRED",
+      "runtime_execution_allowed": false,
+      "token_present": false,
+      "token_valid": false
+    },
+    {
+      "destructive": true,
+      "expected": "AUTH_PASSED_EXECUTION_DENIED_NO_SUBMIT",
+      "method": "POST",
+      "passed": true,
+      "path": "/api/runtime-overlay/activate",
+      "probe_id": "valid_token_no_submit",
+      "result": "AUTH_PASSED_EXECUTION_DENIED_NO_SUBMIT",
+      "runtime_execution_allowed": false,
+      "token_present": true,
+      "token_valid": true
+    },
+    {
+      "destructive": true,
+      "expected": "DENY_LOCAL_TOKEN_REQUIRED",
+      "method": "POST",
+      "passed": true,
+      "path": "/api/new-dangerous-action",
+      "probe_id": "unknown_post_denied_by_default",
+      "result": "DENY_LOCAL_TOKEN_REQUIRED",
+      "runtime_execution_allowed": false,
+      "token_present": false,
+      "token_valid": false
+    }
+  ],
+  "destructive_endpoint_candidate_patterns": [
+    "/api/force-trade",
+    "/api/force_trade",
+    "/api/reload",
+    "/api/reload-config",
+    "/api/train",
+    "/api/reset",
+    "/api/reset-state",
+    "/api/runtime-overlay",
+    "/api/archive",
+    "/api/cleanup",
+    "/api/order",
+    "/api/submit",
+    "/api/paper/enable",
+    "/api/live/enable",
+    "/api/reports/delete"
+  ],
+  "destructive_endpoint_candidates_guarded_count": 5,
+  "destructive_endpoint_deny_by_default": true,
+  "destructive_endpoint_execution_performed": false,
+  "destructive_endpoint_guard_complete": true,
+  "destructive_endpoint_guard_digest": "82d4a31abf0ba115a2f35ccd88bf3631efec4ecf288c3174dbe34cb3ca530bf1",
+  "destructive_endpoint_guard_locked": true,
+  "destructive_endpoint_guard_ready_count": 7,
+  "destructive_endpoint_guard_rule_count": 7,
+  "destructive_endpoint_guard_rules": [
+    {
+      "policy": "destructive endpoints require a local operator token",
+      "ready": true,
+      "rule_id": "local_token_required_for_destructive_endpoints"
+    },
+    {
+      "policy": "missing local token denies destructive endpoint access",
+      "ready": true,
+      "rule_id": "missing_token_denied"
+    },
+    {
+      "policy": "invalid local token denies destructive endpoint access",
+      "ready": true,
+      "rule_id": "invalid_token_denied"
+    },
+    {
+      "policy": "unknown non-read endpoint is denied by default",
+      "ready": true,
+      "rule_id": "unknown_destructive_endpoint_denied_by_default"
+    },
+    {
+      "policy": "safe read-only health/status endpoints remain observable without token",
+      "ready": true,
+      "rule_id": "safe_read_only_endpoints_do_not_require_token"
+    },
+    {
+      "policy": "no token secret is generated or written by this hardening patch",
+      "ready": true,
+      "rule_id": "token_secret_not_materialized"
+    },
+    {
+      "policy": "existing API routes are not mutated in this no-submit hardening phase",
+      "ready": true,
+      "rule_id": "runtime_route_binding_not_performed"
+    }
+  ],
+  "destructive_endpoint_invalid_token_denied": true,
+  "destructive_endpoint_missing_token_denied": true,
+  "destructive_endpoint_probe_count": 6,
+  "destructive_endpoint_probe_passed_count": 6,
+  "destructive_endpoint_probe_status": "DESTRUCTIVE_ENDPOINT_AUTH_PROBES_READY_DENY_BY_DEFAULT",
+  "destructive_endpoint_runtime_binding_performed": false,
+  "destructive_endpoint_runtime_execution_allowed": false,
+  "destructive_endpoint_unknown_post_denied_by_default": true,
+  "destructive_endpoint_valid_token_execution_denied_no_submit": true,
+  "guard_name": "destructive_endpoint_guard"
+}
