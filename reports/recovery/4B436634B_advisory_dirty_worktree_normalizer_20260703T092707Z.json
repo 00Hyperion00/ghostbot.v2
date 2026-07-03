@@ -1,0 +1,75 @@
+{
+  "advisory_only": true,
+  "blocker_count": 0,
+  "categories": {
+    "documentation": 1,
+    "readme": 1,
+    "source_artifact": 1,
+    "test_artifact": 1,
+    "tooling": 4
+  },
+  "complete": true,
+  "current_dirty_worktree_count": 8,
+  "digest": "b02fc4e9ece80233dacb77e0298950fbeeb5daf18dbedab5781f72ed807b619f",
+  "error": null,
+  "git_available": true,
+  "normalized_dirty_worktree_count": 8,
+  "records": [
+    {
+      "advisory_only": true,
+      "category": "readme",
+      "current_phase_artifact": true,
+      "path": "README_APPLY_4B436634B.txt",
+      "raw_status": "??"
+    },
+    {
+      "advisory_only": true,
+      "category": "documentation",
+      "current_phase_artifact": true,
+      "path": "docs/EVIDENCE_INVENTORY_RECONCILIATION_4B436634B.md",
+      "raw_status": "??"
+    },
+    {
+      "advisory_only": true,
+      "category": "source_artifact",
+      "current_phase_artifact": false,
+      "path": "src/tradebot/evidence_inventory_reconciliation.py",
+      "raw_status": "??"
+    },
+    {
+      "advisory_only": true,
+      "category": "test_artifact",
+      "current_phase_artifact": true,
+      "path": "tests/test_evidence_inventory_reconciliation_4B436634B.py",
+      "raw_status": "??"
+    },
+    {
+      "advisory_only": true,
+      "category": "tooling",
+      "current_phase_artifact": true,
+      "path": "tools/apply_4B436634B_evidence_inventory_reconciliation.py",
+      "raw_status": "??"
+    },
+    {
+      "advisory_only": true,
+      "category": "tooling",
+      "current_phase_artifact": true,
+      "path": "tools/check_4B436634B_evidence_inventory_reconciliation.py",
+      "raw_status": "??"
+    },
+    {
+      "advisory_only": true,
+      "category": "tooling",
+      "current_phase_artifact": true,
+      "path": "tools/rollback_4B436634B_evidence_inventory_reconciliation.py",
+      "raw_status": "??"
+    },
+    {
+      "advisory_only": true,
+      "category": "tooling",
+      "current_phase_artifact": true,
+      "path": "tools/run_4B436634B_evidence_inventory_reconciliation.py",
+      "raw_status": "??"
+    }
+  ]
+}

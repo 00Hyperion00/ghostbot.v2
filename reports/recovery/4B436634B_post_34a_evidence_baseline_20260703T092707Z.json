@@ -1,0 +1,17 @@
+{
+  "baseline_status": "POST_34A_BASELINE_READY_NO_ACTIONS",
+  "complete": true,
+  "digest": "ef1d61bc24c197f5b912e9fbe8fdbeb21786a42274d3b1cf2ab678d8ec716e08",
+  "dirty_worktree_advisory_count": 8,
+  "duplicate_group_count": 27,
+  "duplicate_report_count": 31,
+  "next_phase": "4B.4.3.6.6.34C",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "no_submit_boundary_locked": true,
+  "not_ready_report_count": 0,
+  "ready_report_count": 25,
+  "source_34a_report": "reports/recovery/4B436634A_post_recovery_next_phase_planning_20260703T091913Z_ready.json",
+  "total_recovery_report_count": 70,
+  "unknown_report_count": 45
+}
