@@ -1,0 +1,58 @@
+{
+  "http_request_performed": false,
+  "ledger_name": "network_off_safety_override",
+  "network_off_safety_override_check_count": 7,
+  "network_off_safety_override_checks": [
+    {
+      "check_id": "source_36c_ready",
+      "network_allowed": false,
+      "ready": true
+    },
+    {
+      "check_id": "operator_token_template_only",
+      "network_allowed": false,
+      "ready": true
+    },
+    {
+      "check_id": "network_requests_forbidden",
+      "network_allowed": false,
+      "ready": true
+    },
+    {
+      "check_id": "http_requests_forbidden",
+      "network_allowed": false,
+      "ready": true
+    },
+    {
+      "check_id": "signed_requests_forbidden",
+      "network_allowed": false,
+      "ready": true
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "network_allowed": false,
+      "ready": true
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "network_allowed": false,
+      "ready": true
+    }
+  ],
+  "network_off_safety_override_consumed": false,
+  "network_off_safety_override_ledger_complete": true,
+  "network_off_safety_override_ledger_digest": "46fcc1e0c592e4a89372eda41ca085fe7a0e20afbf37ec70113a8a91d52fe4e0",
+  "network_off_safety_override_locked": true,
+  "network_off_safety_override_ready_count": 7,
+  "network_off_safety_override_relaxed": false,
+  "network_off_safety_override_status": "NETWORK_OFF_SAFETY_OVERRIDE_LOCKED_NO_NETWORK_EXECUTION",
+  "network_request_allowed_now": false,
+  "network_request_performed": false,
+  "private_account_read_performed": false,
+  "private_api_access_allowed": false,
+  "public_data_fetch_adapter_executed": false,
+  "public_market_data_collection_performed": false,
+  "public_observation_execution_performed": false,
+  "signed_request_performed": false,
+  "source_36c_runtime_readiness_status": "PUBLIC_OBSERVATION_DRY_RUN_COLLECTOR_READY_PLANNING_ONLY_NO_SUBMIT"
+}

@@ -1,0 +1,67 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_paper_transition": false,
+  "approved_for_runtime_overlay": false,
+  "evidence_collection_started": false,
+  "exchange_submit_allowed": false,
+  "live_environment_enabled": false,
+  "live_real_submit_allowed": false,
+  "network_submit_allowed": false,
+  "no_submit_execution_seal_check_count": 7,
+  "no_submit_execution_seal_checks": [
+    {
+      "check_id": "exchange_submit_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "network_submit_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "order_submit_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "paper_transition_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "runtime_overlay_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "training_reload_forbidden",
+      "sealed": true
+    },
+    {
+      "check_id": "destructive_file_actions_forbidden",
+      "sealed": true
+    }
+  ],
+  "no_submit_execution_seal_complete": true,
+  "no_submit_execution_seal_digest": "54497c1fa5ec55f7cd83160d46cf87870fb74b82df2fbb65b5cbed6bc68fb722",
+  "no_submit_execution_seal_locked": true,
+  "no_submit_execution_seal_locked_count": 7,
+  "no_submit_execution_seal_relaxed": false,
+  "no_submit_execution_seal_status": "NO_SUBMIT_EXECUTION_SEAL_LOCKED_AUTHORIZATION_ONLY",
+  "observation_artifact_written": false,
+  "paper_environment_enabled": false,
+  "paper_submit_allowed": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_unblocked": false,
+  "public_observation_dry_run_collector_executed": false,
+  "public_observation_execution_allowed_now": false,
+  "public_observation_execution_authorization_ready": true,
+  "public_observation_execution_authorized_now": false,
+  "public_observation_execution_performed": false,
+  "runtime_evidence_artifact_written": false,
+  "runtime_evidence_collection_performed": false,
+  "runtime_health_probe_performed": false,
+  "runtime_overlay_allowed": false,
+  "runtime_probe_performed": false,
+  "seal_name": "no_submit_execution_seal",
+  "source_36c_public_observation_dry_run_collector_ready": true
+}
