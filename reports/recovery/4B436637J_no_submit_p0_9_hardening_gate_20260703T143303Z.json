@@ -1,0 +1,115 @@
+{
+  "no_submit_p0_9_hardening_gate_check_count": 21,
+  "no_submit_p0_9_hardening_gate_checks": [
+    {
+      "check_id": "source_37i_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_1_install_contract_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_2_repo_hygiene_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_3_strict_config_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_4_api_auth_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_5_typed_confirmation_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_6_sqlite_audit_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_7_runtime_process_lock_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_8_fee_slippage_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "canonical_evidence_selection_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "commit_whitelist_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_provenance_guard_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_commit_policy_probes_passed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_9_report_commit_policy_closed_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "git_operations_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_mutation_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "no_submit_p0_9_hardening_gate_complete": true,
+  "no_submit_p0_9_hardening_gate_digest": "56dc3bc218ee22f1be4ddf2a5cb92245206d70e25efa3ed737b1687243dcac1e",
+  "no_submit_p0_9_hardening_gate_locked": true,
+  "no_submit_p0_9_hardening_gate_ready_count": 21,
+  "no_submit_p0_9_hardening_gate_status": "NO_SUBMIT_P0_9_HARDENING_GATE_READY"
+}

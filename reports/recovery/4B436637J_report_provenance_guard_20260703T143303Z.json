@@ -1,0 +1,92 @@
+{
+  "historical_report_mutation_performed": false,
+  "invalid_status_denied": true,
+  "missing_provenance_denied": true,
+  "report_digest_required": true,
+  "report_provenance_guard_complete": true,
+  "report_provenance_guard_digest": "25b7e51b80f437abffd5d925e54e7ca39e38685d8483d61e8a84dec9ed7ff63f",
+  "report_provenance_guard_locked": true,
+  "report_provenance_guard_status": "REPORT_PROVENANCE_GUARD_READY_FAIL_CLOSED",
+  "report_provenance_missing_fails_closed": true,
+  "report_provenance_probe_count": 5,
+  "report_provenance_probe_passed_count": 5,
+  "report_provenance_probes": [
+    {
+      "expected": true,
+      "passed": true,
+      "probe_id": "valid_provenance_accepted",
+      "result": true
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "missing_digest_denied",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "invalid_status_denied",
+      "result": false
+    },
+    {
+      "expected": true,
+      "passed": true,
+      "probe_id": "source_report_required",
+      "result": true
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "historical_report_mutation_not_performed",
+      "result": false
+    }
+  ],
+  "report_provenance_ready_count": 6,
+  "report_provenance_required_field_count": 8,
+  "report_provenance_required_fields": [
+    "patch_id",
+    "patch_version",
+    "patch_name",
+    "status",
+    "decision",
+    "source_report",
+    "generated_at_utc",
+    "report_digest"
+  ],
+  "report_provenance_rule_count": 6,
+  "report_provenance_rules": [
+    {
+      "policy": "canonical reports must include patch and source provenance fields",
+      "ready": true,
+      "rule_id": "provenance_fields_required"
+    },
+    {
+      "policy": "canonical reports must carry a stable digest field",
+      "ready": true,
+      "rule_id": "report_digest_required"
+    },
+    {
+      "policy": "phase reports must identify the source evidence report used by the gate",
+      "ready": true,
+      "rule_id": "source_report_required"
+    },
+    {
+      "policy": "canonical reports expose status as READY or NOT_READY",
+      "ready": true,
+      "rule_id": "ready_not_ready_status_required"
+    },
+    {
+      "policy": "reports missing provenance fields fail closed",
+      "ready": true,
+      "rule_id": "provenance_missing_fails_closed"
+    },
+    {
+      "policy": "37J does not mutate historical reports while adding provenance policy",
+      "ready": true,
+      "rule_id": "report_mutation_forbidden"
+    }
+  ],
+  "source_report_required": true,
+  "valid_provenance_accepted": true
+}

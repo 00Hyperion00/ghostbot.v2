@@ -1,0 +1,55 @@
+{
+  "canonical_evidence_auto_commit_allowed": false,
+  "canonical_evidence_auto_stage_allowed": false,
+  "canonical_evidence_operator_review_required": true,
+  "canonical_evidence_pattern_count": 8,
+  "canonical_evidence_patterns": [
+    "reports/recovery/4B*_ready.json",
+    "reports/recovery/4B*_not_ready.json",
+    "reports/recovery/4B*_p0_gap_closure_delta_*.json",
+    "reports/recovery/4B*_no_submit_p0_*_hardening_gate_*.json",
+    "reports/recovery/4B*_policy_*.json",
+    "reports/recovery/4B*_guard_*.json",
+    "reports/recovery/4B*_probe_*.json",
+    "reports/recovery/4B*_baseline_*.json"
+  ],
+  "canonical_evidence_ready_count": 6,
+  "canonical_evidence_root": "reports/recovery",
+  "canonical_evidence_rule_count": 6,
+  "canonical_evidence_rules": [
+    {
+      "policy": "canonical evidence lives under reports/recovery",
+      "ready": true,
+      "rule_id": "canonical_reports_root_required"
+    },
+    {
+      "policy": "terminal READY/NOT_READY reports are canonical evidence candidates",
+      "ready": true,
+      "rule_id": "ready_not_ready_terminal_reports_selected"
+    },
+    {
+      "policy": "P0 delta, gate, policy, guard, probe and baseline ledgers are selectable canonical evidence",
+      "ready": true,
+      "rule_id": "component_ledgers_selectable"
+    },
+    {
+      "policy": "operator review is required before evidence is committed",
+      "ready": true,
+      "rule_id": "operator_selection_required"
+    },
+    {
+      "policy": "temporary or ad-hoc evidence is excluded from commit candidates",
+      "ready": true,
+      "rule_id": "intermediate_tmp_reports_excluded"
+    },
+    {
+      "policy": "report policy never deletes, moves or deduplicates reports automatically",
+      "ready": true,
+      "rule_id": "no_auto_report_delete_move_dedup"
+    }
+  ],
+  "canonical_evidence_selection_complete": true,
+  "canonical_evidence_selection_digest": "1e7a8c8f3cc843a562442bde75126fc693e06c71f4666edf71f26c6155203414",
+  "canonical_evidence_selection_locked": true,
+  "canonical_evidence_selection_status": "CANONICAL_EVIDENCE_SELECTION_READY_OPERATOR_REVIEW_REQUIRED"
+}

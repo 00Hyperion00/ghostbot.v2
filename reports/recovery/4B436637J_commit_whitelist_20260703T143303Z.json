@@ -1,0 +1,106 @@
+{
+  "automatic_commit_allowed": false,
+  "commit_denylist_paths": [
+    "tools/_patch_backup_",
+    "legacy_patches/",
+    "runtime/locks/",
+    "data/",
+    ".env",
+    "config.local.yaml",
+    "reports/recovery/tmp_"
+  ],
+  "commit_whitelist_complete": true,
+  "commit_whitelist_digest": "a4a22953e0886ef60fbfc08c00f16af24823e7be7b89c2a2eb2dfbad9cb29efa",
+  "commit_whitelist_locked": true,
+  "commit_whitelist_paths": [
+    "README_APPLY_4B436637J.txt",
+    "docs/REPORT_COMMIT_POLICY_4B436637J.md",
+    "src/tradebot/report_commit_policy.py",
+    "tests/test_report_commit_policy_4B436637J.py",
+    "tools/apply_4B436637J_report_commit_policy.py",
+    "tools/check_4B436637J_report_commit_policy.py",
+    "tools/run_4B436637J_report_commit_policy.py",
+    "tools/rollback_4B436637J_report_commit_policy.py",
+    "reports/recovery/4B436637J_"
+  ],
+  "commit_whitelist_probe_count": 5,
+  "commit_whitelist_probe_passed_count": 5,
+  "commit_whitelist_probes": [
+    {
+      "expected": true,
+      "passed": true,
+      "path": "src/tradebot/report_commit_policy.py",
+      "result": true
+    },
+    {
+      "expected": true,
+      "passed": true,
+      "path": "reports/recovery/4B436637J_report_commit_policy_20260703T000000Z_ready.json",
+      "result": true
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "path": "tools/_patch_backup_4B436637I/file.py",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "path": "runtime/locks/tradebot_runtime.lock",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "path": "config.local.yaml",
+      "result": false
+    }
+  ],
+  "commit_whitelist_ready_count": 7,
+  "commit_whitelist_rule_count": 7,
+  "commit_whitelist_rules": [
+    {
+      "policy": "37J patch source, tool, test, doc and apply README paths are whitelisted",
+      "ready": true,
+      "rule_id": "patch_files_whitelisted"
+    },
+    {
+      "policy": "37J canonical reports under reports/recovery/4B436637J_* are whitelisted",
+      "ready": true,
+      "rule_id": "37j_reports_whitelisted"
+    },
+    {
+      "policy": "tools/_patch_backup_* is never auto-committed by policy",
+      "ready": true,
+      "rule_id": "patch_backup_excluded"
+    },
+    {
+      "policy": "runtime locks, data files and local env/config artifacts are excluded",
+      "ready": true,
+      "rule_id": "runtime_artifacts_excluded"
+    },
+    {
+      "policy": "patch tools do not run git add",
+      "ready": true,
+      "rule_id": "git_add_forbidden"
+    },
+    {
+      "policy": "patch tools do not run git commit or git tag",
+      "ready": true,
+      "rule_id": "git_commit_forbidden"
+    },
+    {
+      "policy": "operator reviews git status before manual commit/tag",
+      "ready": true,
+      "rule_id": "operator_final_review_required"
+    }
+  ],
+  "commit_whitelist_status": "COMMIT_WHITELIST_READY_MANUAL_OPERATOR_COMMIT_ONLY",
+  "git_add_allowed": false,
+  "git_add_performed": false,
+  "git_commit_allowed": false,
+  "git_commit_performed": false,
+  "git_tag_allowed": false,
+  "git_tag_performed": false
+}
