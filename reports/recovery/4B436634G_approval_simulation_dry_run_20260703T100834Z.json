@@ -1,0 +1,46 @@
+{
+  "accepted_simulation_criterion_count": 7,
+  "complete": true,
+  "criteria": [
+    {
+      "accepted": true,
+      "name": "source_34f_complete"
+    },
+    {
+      "accepted": true,
+      "name": "operator_signature_example_complete"
+    },
+    {
+      "accepted": true,
+      "name": "example_is_not_approval"
+    },
+    {
+      "accepted": true,
+      "name": "real_operator_signature_absent"
+    },
+    {
+      "accepted": true,
+      "name": "approval_not_performed"
+    },
+    {
+      "accepted": true,
+      "name": "transition_not_allowed"
+    },
+    {
+      "accepted": true,
+      "name": "next_phase_unlock_not_allowed"
+    }
+  ],
+  "digest": "ef492e987e4e43b7692dc2d707f238c9223da79eb5e20b3d1ca7caa6e95cf733",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "real_operator_signature_present": false,
+  "rejected_simulation_criterion_count": 0,
+  "simulated_approval_performed": false,
+  "simulated_digest_match": false,
+  "simulated_signature_schema_valid": true,
+  "simulation_dry_run_only": true,
+  "simulation_status": "APPROVAL_SIMULATION_DRY_RUN_HOLD_NO_REAL_SIGNATURE",
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false
+}
