@@ -1,0 +1,21 @@
+{
+  "collection_preflight_executable_now": false,
+  "collection_preflight_executed": false,
+  "collection_runbook_executed": false,
+  "collection_seal_relaxed": false,
+  "evidence_collection_started": false,
+  "exchange_submit_allowed": false,
+  "ledger_name": "no_submit_collection_seal",
+  "next_phase_unlock_allowed": false,
+  "no_submit_collection_seal_complete": true,
+  "no_submit_collection_seal_digest": "2b72d00ca71eb20c1dbdc150664a9e4a3c6ab3d9828407adea9da02bf87fa9d2",
+  "no_submit_collection_seal_locked": true,
+  "no_submit_collection_seal_status": "NO_SUBMIT_COLLECTION_SEAL_LOCKED_AUTHORIZATION_DRY_RUN_ONLY",
+  "no_submit_collection_sealed": true,
+  "order_submit_performed": false,
+  "paper_submit_allowed": false,
+  "patch_id": "4B436635E",
+  "patch_version": "4B.4.3.6.6.35E",
+  "runtime_evidence_collection_performed": false,
+  "source_no_submit_execution_guard_digest": "cbc360cc9016b3604baea0a86620ba657c9622892528eb7ebcff53e3078cb8e5"
+}

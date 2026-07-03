@@ -1,0 +1,18 @@
+{
+  "evidence_collection_started": false,
+  "ledger_name": "public_data_dry_run_authorization",
+  "next_phase_unlock_allowed": false,
+  "patch_id": "4B436635E",
+  "patch_version": "4B.4.3.6.6.35E",
+  "public_data_collection_allowed_now": false,
+  "public_data_dry_run_authorization_complete": true,
+  "public_data_dry_run_authorization_digest": "8109235be40c0d7505513d9e570766c8fd4840026455746769e1758db3e601b4",
+  "public_data_dry_run_authorization_status": "PUBLIC_DATA_DRY_RUN_AUTHORIZATION_READY_TOKEN_ABSENT_NO_EXECUTION",
+  "public_data_dry_run_authorized": false,
+  "public_data_permission_planned": true,
+  "public_market_data_collection_performed": false,
+  "runtime_probe_performed": false,
+  "source_public_data_permission_count": 3,
+  "source_public_data_permission_granted_for_execution": false,
+  "source_public_data_permission_planned": true
+}
