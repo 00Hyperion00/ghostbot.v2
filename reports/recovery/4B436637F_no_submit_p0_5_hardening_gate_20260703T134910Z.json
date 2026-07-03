@@ -1,0 +1,96 @@
+{
+  "gate_name": "no_submit_p0_5_hardening_gate",
+  "no_submit_p0_5_hardening_gate_check_count": 17,
+  "no_submit_p0_5_hardening_gate_checks": [
+    {
+      "check_id": "source_37e_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_1_install_contract_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_2_repo_hygiene_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_3_strict_config_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_4_api_auth_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_confirmation_requirement_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_confirmation_guard_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_confirmation_deny_by_default_probes_passed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "force_reload_train_reset_guarded",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_5_typed_confirmation_closed_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "api_routes_not_mutated",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_confirmation_runtime_binding_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "no_submit_p0_5_hardening_gate_complete": true,
+  "no_submit_p0_5_hardening_gate_digest": "580d4101a6398c2d616a2f71650696d5235a4745c1e0e7522ebe250deffc35ac",
+  "no_submit_p0_5_hardening_gate_locked": true,
+  "no_submit_p0_5_hardening_gate_ready_count": 17,
+  "no_submit_p0_5_hardening_gate_status": "NO_SUBMIT_P0_5_HARDENING_GATE_READY"
+}

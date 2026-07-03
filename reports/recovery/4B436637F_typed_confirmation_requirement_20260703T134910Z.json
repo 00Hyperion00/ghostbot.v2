@@ -1,0 +1,34 @@
+{
+  "requirement_name": "typed_confirmation_requirement",
+  "typed_confirmation_action_count": 4,
+  "typed_confirmation_actions": [
+    {
+      "action_id": "force_trade",
+      "method": "POST",
+      "path": "/api/force-trade",
+      "required_phrase": "CONFIRM FORCE TRADE"
+    },
+    {
+      "action_id": "reload_config",
+      "method": "POST",
+      "path": "/api/reload-config",
+      "required_phrase": "CONFIRM RELOAD CONFIG"
+    },
+    {
+      "action_id": "train_model",
+      "method": "POST",
+      "path": "/api/train",
+      "required_phrase": "CONFIRM TRAIN MODEL"
+    },
+    {
+      "action_id": "reset_state",
+      "method": "POST",
+      "path": "/api/reset-state",
+      "required_phrase": "CONFIRM RESET STATE"
+    }
+  ],
+  "typed_confirmation_requirement_complete": true,
+  "typed_confirmation_requirement_digest": "def3929436839523752a6e6f59b0379dad250e28cd6a05890c9fa1af03a5eee9",
+  "typed_confirmation_requirement_locked": true,
+  "typed_confirmation_requirement_status": "TYPED_CONFIRMATION_REQUIREMENT_READY_ACTION_SCOPED"
+}
