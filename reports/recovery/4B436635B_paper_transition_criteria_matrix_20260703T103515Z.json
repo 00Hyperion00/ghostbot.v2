@@ -1,0 +1,57 @@
+{
+  "matrix_name": "paper_transition_criteria_matrix",
+  "paper_environment_enabled": false,
+  "paper_submit_allowed": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_criteria": [
+    {
+      "criterion": "phase_34_final_seal_verified",
+      "evidence_source": "source_35a.phase_34_closed + source_35a.source_34i_complete",
+      "met": true,
+      "required": true
+    },
+    {
+      "criterion": "no_submit_boundary_carried_forward",
+      "evidence_source": "source_35a.safety_boundary_carry_forward_complete",
+      "met": true,
+      "required": true
+    },
+    {
+      "blocking_code": "RUNTIME_SERVICE_BOOTSTRAP_EVIDENCE_REQUIRED",
+      "criterion": "runtime_bootstrap_evidence_collected",
+      "met": false,
+      "required": true
+    },
+    {
+      "blocking_code": "OPERATOR_COCKPIT_STATUS_CONTRACT_EVIDENCE_REQUIRED",
+      "criterion": "operator_cockpit_contract_replayed",
+      "met": false,
+      "required": true
+    },
+    {
+      "blocking_code": "PUBLIC_MARKET_DATA_RUNTIME_EVIDENCE_REQUIRED",
+      "criterion": "public_market_data_runtime_observed",
+      "met": false,
+      "required": true
+    },
+    {
+      "blocking_code": "PAPER_TRANSITION_OPERATOR_GATE_REQUIRED",
+      "criterion": "operator_paper_transition_approval_present",
+      "met": false,
+      "required": true
+    }
+  ],
+  "paper_transition_criteria_count": 6,
+  "paper_transition_criteria_matrix_complete": true,
+  "paper_transition_criteria_matrix_digest": "dfd9afdf53acddde9c2c33fca61e3da06c522e9a6aa29bb6ae381f0ccb7e5c75",
+  "paper_transition_criteria_met": false,
+  "paper_transition_criteria_met_count": 2,
+  "paper_transition_criteria_open_count": 4,
+  "paper_transition_ready": false,
+  "paper_transition_status": "PAPER_TRANSITION_CRITERIA_NOT_MET_BLOCKED",
+  "patch_id": "4B436635B",
+  "patch_version": "4B.4.3.6.6.35B",
+  "source_35a_phase_34_final_seal_digest": "b0522514b26e10ac4b1240ef2a8448400792dd89f37951f86cd823357e3f05bf",
+  "source_35a_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436635A_post_governance_runtime_readiness_planning_20260703T102959Z_ready.json",
+  "source_35a_runtime_readiness_matrix_digest": "7361cafb27db6872c822b7dc5a5aec7546f79118016453e1e33d5e11c6475db2"
+}
