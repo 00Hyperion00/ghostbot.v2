@@ -1,0 +1,30 @@
+{
+  "accepted_signature_criterion_count": 4,
+  "complete": true,
+  "criteria": [
+    {
+      "accepted": true,
+      "name": "source_34c_ready"
+    },
+    {
+      "accepted": true,
+      "name": "operator_signature_required"
+    },
+    {
+      "accepted": true,
+      "name": "operator_signature_absent_no_unlock_only"
+    },
+    {
+      "accepted": true,
+      "name": "no_transition_without_signature"
+    }
+  ],
+  "digest": "bb7ea10882446ad242cd6c30850482c806a56119c387820e8a5e21650faa05a6",
+  "operator_decision_token_hash": null,
+  "operator_decision_token_present": false,
+  "rejected_signature_criterion_count": 0,
+  "signature_present": false,
+  "signature_required": true,
+  "signature_status": "HUMAN_REVIEW_SIGNATURE_NOT_PRESENT_NO_UNLOCK_ONLY",
+  "source_34c_report": "reports/recovery/4B436634C_operator_review_gate_20260703T093741Z_ready.json"
+}

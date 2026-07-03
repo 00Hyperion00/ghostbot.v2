@@ -1,0 +1,47 @@
+{
+  "accepted_eligibility_criterion_count": 7,
+  "complete": true,
+  "criteria": [
+    {
+      "accepted": true,
+      "name": "source_34c_complete"
+    },
+    {
+      "accepted": true,
+      "name": "evidence_baseline_review_complete"
+    },
+    {
+      "accepted": true,
+      "name": "no_submit_boundary_reconfirmed"
+    },
+    {
+      "accepted": true,
+      "name": "transition_decision_ledger_complete"
+    },
+    {
+      "accepted": true,
+      "name": "human_signature_absent_hold"
+    },
+    {
+      "accepted": true,
+      "name": "transition_allowed_false"
+    },
+    {
+      "accepted": true,
+      "name": "transition_performed_false"
+    }
+  ],
+  "digest": "5894214772e08b18469f457053c364cc54af1bd34a4358edb803cc8b66d546d2",
+  "dry_run_only": true,
+  "eligibility_status": "TRANSITION_ELIGIBILITY_DRY_RUN_HOLD_OPERATOR_SIGNATURE_REQUIRED",
+  "evidence_baseline_review_complete": true,
+  "hold_reason": "HUMAN_REVIEW_SIGNATURE_REQUIRED_NO_SUBMIT_UNLOCK_BOUNDARY_LOCKED",
+  "human_review_signature_present": false,
+  "next_phase": "4B.4.3.6.6.34E",
+  "no_submit_boundary_reconfirmation_complete": true,
+  "rejected_eligibility_criterion_count": 0,
+  "source_34c_complete": true,
+  "transition_decision_ledger_complete": true,
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false
+}
