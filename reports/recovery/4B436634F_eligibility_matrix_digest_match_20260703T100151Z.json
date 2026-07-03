@@ -1,0 +1,37 @@
+{
+  "accepted_digest_criterion_count": 5,
+  "complete": true,
+  "criteria": [
+    {
+      "accepted": true,
+      "name": "source_34e_complete"
+    },
+    {
+      "accepted": true,
+      "name": "expected_eligibility_digest_present"
+    },
+    {
+      "accepted": true,
+      "name": "expected_handoff_digest_present"
+    },
+    {
+      "accepted": true,
+      "name": "signature_absent_digest_match_not_evaluated"
+    },
+    {
+      "accepted": true,
+      "name": "digest_match_valid_when_signature_present"
+    }
+  ],
+  "digest": "2c8c97e7f9c2a7cf595bdcd06ce3cdca4d7626f442adbc43cf17a34c5b2ab654",
+  "digest_match_status": "ELIGIBILITY_MATRIX_DIGEST_FROZEN_NO_SIGNATURE_FILE",
+  "eligibility_matrix_digest_match": false,
+  "expected_eligibility_matrix_digest": "de2d4d168c9d1caf86c339441b16548934e69aac6e5a39c152791632d27484d9",
+  "expected_no_submit_handoff_digest": "d84a9d566afdee3398fe33e2ebe612efd8020698782fbe880887724c0ff44662",
+  "no_submit_handoff_digest_match": false,
+  "provided_eligibility_matrix_digest": null,
+  "provided_no_submit_handoff_digest": null,
+  "rejected_digest_criterion_count": 0,
+  "signature_file_present": false,
+  "signature_file_valid": false
+}
