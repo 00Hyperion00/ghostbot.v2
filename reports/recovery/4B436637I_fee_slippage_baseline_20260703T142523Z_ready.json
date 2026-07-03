@@ -1,0 +1,590 @@
+{
+  "accepted_for_fee_slippage_baseline": true,
+  "account_fee_tier_lookup_performed": false,
+  "api_auth_mutation_performed": false,
+  "api_route_mutation_performed": false,
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_paper_transition": false,
+  "approved_for_runtime_overlay": false,
+  "archive_move_performed": false,
+  "backtest_performed": false,
+  "baseline_name": "fee_slippage_baseline",
+  "book_depth_lookup_performed": false,
+  "break_even_cost_floor_bps": 20.0,
+  "break_even_cost_floor_complete": true,
+  "break_even_cost_floor_components": {
+    "entry_slippage_bps": 5.0,
+    "entry_taker_fee_bps": 5.0,
+    "exit_slippage_bps": 5.0,
+    "exit_taker_fee_bps": 5.0
+  },
+  "break_even_cost_floor_digest": "e840940d7eb1c8955dc269e3554077dedb905538f1971de85a24d387ff4dd859",
+  "break_even_cost_floor_formula": "entry_taker_fee_bps + exit_taker_fee_bps + entry_slippage_bps + exit_slippage_bps",
+  "break_even_cost_floor_locked": true,
+  "break_even_cost_floor_rules": [
+    {
+      "policy": "candidate expected edge must exceed all modeled execution costs",
+      "ready": true,
+      "rule_id": "break_even_floor_required"
+    },
+    {
+      "policy": "break-even floor includes entry and exit taker fee legs by default",
+      "ready": true,
+      "rule_id": "entry_exit_taker_costs_included"
+    },
+    {
+      "policy": "break-even floor includes entry and exit slippage legs",
+      "ready": true,
+      "rule_id": "entry_exit_slippage_costs_included"
+    },
+    {
+      "policy": "expected edge below the cost floor fails closed",
+      "ready": true,
+      "rule_id": "edge_below_floor_denied"
+    },
+    {
+      "policy": "passing the cost floor never enables order submit in no-submit hardening",
+      "ready": true,
+      "rule_id": "floor_does_not_enable_submit"
+    }
+  ],
+  "break_even_cost_floor_status": "BREAK_EVEN_COST_FLOOR_READY_EXPECTED_EDGE_MUST_EXCEED_COSTS",
+  "break_even_ready_count": 5,
+  "break_even_rule_count": 5,
+  "break_even_runtime_binding_performed": false,
+  "check_name": "fee_slippage_baseline",
+  "decision": "FEE_SLIPPAGE_BASELINE_READY_NO_SUBMIT_PRODUCTION_HARDENING_P0_8_LOCKED",
+  "deduplication_action_performed": false,
+  "delta_name": "p0_gap_closure_delta_37i",
+  "destructive_cleanup_performed": false,
+  "entry_fee_leg_required": true,
+  "errors": [],
+  "exchange_fee_lookup_performed": false,
+  "exchange_submit_allowed": false,
+  "exchange_submit_performed": false,
+  "exit_fee_leg_required": true,
+  "expected_edge_above_floor_execution_denied_no_submit": true,
+  "expected_edge_below_floor_denied": true,
+  "expected_edge_equal_floor_denied": true,
+  "expected_edge_missing_denied": true,
+  "expected_edge_must_exceed_cost_floor": true,
+  "fee_model_account_tier_lookup_performed": false,
+  "fee_model_complete": true,
+  "fee_model_digest": "8a679c5d10f51090f36f55f1c7bd5a4555d8436f7d463e77e132f715516a86ec",
+  "fee_model_exchange_api_lookup_performed": false,
+  "fee_model_locked": true,
+  "fee_model_ready_count": 5,
+  "fee_model_requires_operator_config": true,
+  "fee_model_rule_count": 5,
+  "fee_model_rules": [
+    {
+      "policy": "maker fee basis points must be represented explicitly in the execution cost model",
+      "ready": true,
+      "rule_id": "maker_fee_model_required"
+    },
+    {
+      "policy": "taker fee basis points must be represented explicitly in the execution cost model",
+      "ready": true,
+      "rule_id": "taker_fee_model_required"
+    },
+    {
+      "policy": "baseline fee rates are conservative defaults and must be operator-configurable before live submit",
+      "ready": true,
+      "rule_id": "fee_rates_are_operator_configurable"
+    },
+    {
+      "policy": "entry and exit fee legs must be included in break-even calculations",
+      "ready": true,
+      "rule_id": "entry_exit_costs_are_modeled"
+    },
+    {
+      "policy": "37I does not call exchange APIs or infer account-specific fee tiers",
+      "ready": true,
+      "rule_id": "no_exchange_fee_lookup_in_37i"
+    }
+  ],
+  "fee_model_runtime_binding_performed": false,
+  "fee_model_status": "FEE_MODEL_READY_MAKER_TAKER_BASELINE_NO_EXCHANGE_LOOKUP",
+  "fee_slippage_baseline_complete": true,
+  "fee_slippage_baseline_digest": "2c34cab99f53d6963695e33729a7da2d149b4a2d007cfc3701bdfecbed6210a0",
+  "fee_slippage_baseline_locked": true,
+  "fee_slippage_baseline_path": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436637I_fee_slippage_baseline_20260703T142523Z.json",
+  "fee_slippage_baseline_ready_count": 15,
+  "fee_slippage_baseline_rule_count": 15,
+  "fee_slippage_baseline_rules": [
+    {
+      "policy": "maker fee basis points must be represented explicitly in the execution cost model",
+      "ready": true,
+      "rule_id": "maker_fee_model_required"
+    },
+    {
+      "policy": "taker fee basis points must be represented explicitly in the execution cost model",
+      "ready": true,
+      "rule_id": "taker_fee_model_required"
+    },
+    {
+      "policy": "baseline fee rates are conservative defaults and must be operator-configurable before live submit",
+      "ready": true,
+      "rule_id": "fee_rates_are_operator_configurable"
+    },
+    {
+      "policy": "entry and exit fee legs must be included in break-even calculations",
+      "ready": true,
+      "rule_id": "entry_exit_costs_are_modeled"
+    },
+    {
+      "policy": "37I does not call exchange APIs or infer account-specific fee tiers",
+      "ready": true,
+      "rule_id": "no_exchange_fee_lookup_in_37i"
+    },
+    {
+      "policy": "every candidate execution decision must carry a slippage assumption",
+      "ready": true,
+      "rule_id": "slippage_assumption_required"
+    },
+    {
+      "policy": "missing slippage assumption fails closed",
+      "ready": true,
+      "rule_id": "missing_slippage_denied"
+    },
+    {
+      "policy": "slippage above the configured maximum denies candidate execution",
+      "ready": true,
+      "rule_id": "max_slippage_guard_required"
+    },
+    {
+      "policy": "future runtime binding must source slippage from book/depth or explicit operator model",
+      "ready": true,
+      "rule_id": "bid_ask_or_depth_guard_required_future"
+    },
+    {
+      "policy": "37I does not query market data or live order books",
+      "ready": true,
+      "rule_id": "no_runtime_market_data_probe_in_37i"
+    },
+    {
+      "policy": "candidate expected edge must exceed all modeled execution costs",
+      "ready": true,
+      "rule_id": "break_even_floor_required"
+    },
+    {
+      "policy": "break-even floor includes entry and exit taker fee legs by default",
+      "ready": true,
+      "rule_id": "entry_exit_taker_costs_included"
+    },
+    {
+      "policy": "break-even floor includes entry and exit slippage legs",
+      "ready": true,
+      "rule_id": "entry_exit_slippage_costs_included"
+    },
+    {
+      "policy": "expected edge below the cost floor fails closed",
+      "ready": true,
+      "rule_id": "edge_below_floor_denied"
+    },
+    {
+      "policy": "passing the cost floor never enables order submit in no-submit hardening",
+      "ready": true,
+      "rule_id": "floor_does_not_enable_submit"
+    }
+  ],
+  "fee_slippage_baseline_status": "FEE_SLIPPAGE_BASELINE_READY_NO_EXCHANGE_NO_ORDER",
+  "fee_slippage_config_mutation_performed": false,
+  "fee_slippage_probe_complete": true,
+  "fee_slippage_probe_count": 9,
+  "fee_slippage_probe_digest": "734171160f56dd98b4550527ba3685d2a0626a21e39914917e187ae5b8e997f2",
+  "fee_slippage_probe_locked": true,
+  "fee_slippage_probe_mode": "STATIC_CONTRACT_NO_EXCHANGE_NO_ORDER_NO_MARKET_DATA",
+  "fee_slippage_probe_passed_count": 9,
+  "fee_slippage_probe_path": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436637I_fee_slippage_probe_20260703T142523Z.json",
+  "fee_slippage_probe_status": "FEE_SLIPPAGE_PROBES_READY_NO_SUBMIT",
+  "fee_slippage_probes": [
+    {
+      "expected": "MAKER_FEE_BASELINE_DECLARED",
+      "passed": true,
+      "probe_id": "maker_fee_baseline_declared",
+      "result": 2.0,
+      "runtime_execution_allowed": false
+    },
+    {
+      "expected": "TAKER_FEE_BASELINE_DECLARED",
+      "passed": true,
+      "probe_id": "taker_fee_baseline_declared",
+      "result": 5.0,
+      "runtime_execution_allowed": false
+    },
+    {
+      "expected": "DENY_SLIPPAGE_MISSING",
+      "passed": true,
+      "probe_id": "slippage_missing_denied",
+      "result": "DENY_SLIPPAGE_MISSING",
+      "runtime_execution_allowed": false
+    },
+    {
+      "expected": "DENY_SLIPPAGE_OVER_MAX",
+      "passed": true,
+      "probe_id": "slippage_over_max_denied",
+      "result": "DENY_SLIPPAGE_OVER_MAX",
+      "runtime_execution_allowed": false
+    },
+    {
+      "expected": "DENY_EXPECTED_EDGE_MISSING",
+      "passed": true,
+      "probe_id": "expected_edge_missing_denied",
+      "result": "DENY_EXPECTED_EDGE_MISSING",
+      "runtime_execution_allowed": false
+    },
+    {
+      "expected": "DENY_EDGE_NOT_ABOVE_BREAK_EVEN_FLOOR",
+      "passed": true,
+      "probe_id": "edge_below_floor_denied",
+      "result": "DENY_EDGE_NOT_ABOVE_BREAK_EVEN_FLOOR",
+      "runtime_execution_allowed": false
+    },
+    {
+      "expected": "EDGE_PASSED_EXECUTION_DENIED_NO_SUBMIT",
+      "passed": true,
+      "probe_id": "edge_above_floor_no_submit_denied",
+      "result": "EDGE_PASSED_EXECUTION_DENIED_NO_SUBMIT",
+      "runtime_execution_allowed": false
+    },
+    {
+      "expected": "NO_EXCHANGE_FEE_LOOKUP",
+      "passed": true,
+      "probe_id": "exchange_fee_lookup_not_performed",
+      "result": "NO_EXCHANGE_FEE_LOOKUP",
+      "runtime_execution_allowed": false
+    },
+    {
+      "expected": "NO_ORDER_SUBMIT",
+      "passed": true,
+      "probe_id": "order_submit_not_performed",
+      "result": "NO_ORDER_SUBMIT",
+      "runtime_execution_allowed": false
+    }
+  ],
+  "fee_slippage_runtime_binding_performed": false,
+  "fee_slippage_runtime_loader_mutation_performed": false,
+  "fee_slippage_runtime_reload_performed": false,
+  "fee_slippage_source_mutation_performed": false,
+  "file_delete_performed": false,
+  "file_move_performed": false,
+  "final_safety_violation_count": 0,
+  "final_safety_violations": [],
+  "gate_name": "no_submit_p0_8_hardening_gate",
+  "http_request_performed": false,
+  "live_environment_enabled": false,
+  "live_real_submit_allowed": false,
+  "maker_fee_bps_baseline": 2.0,
+  "maker_fee_probe_passed": true,
+  "maker_taker_fee_model_locked": true,
+  "market_data_lookup_performed": false,
+  "network_request_allowed_now": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "next_phase": "4B.4.3.6.6.37J",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "no_submit_p0_8_hardening_gate_check_count": 20,
+  "no_submit_p0_8_hardening_gate_checks": [
+    {
+      "check_id": "source_37h_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_1_install_contract_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_2_repo_hygiene_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_3_strict_config_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_4_api_auth_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_5_typed_confirmation_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_6_sqlite_audit_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_7_runtime_process_lock_remains_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "fee_model_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "slippage_guard_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "break_even_cost_floor_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "fee_slippage_probes_passed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_8_fee_slippage_closed_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_fee_market_data_lookup_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "no_submit_p0_8_hardening_gate_complete": true,
+  "no_submit_p0_8_hardening_gate_digest": "e9afa029cacf13a31dad66a22069f54be5834f2c766199456babbebd8c35c218",
+  "no_submit_p0_8_hardening_gate_locked": true,
+  "no_submit_p0_8_hardening_gate_path": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436637I_no_submit_p0_8_hardening_gate_20260703T142523Z.json",
+  "no_submit_p0_8_hardening_gate_ready_count": 20,
+  "no_submit_p0_8_hardening_gate_status": "NO_SUBMIT_P0_8_HARDENING_GATE_READY",
+  "ok": true,
+  "order_submit_performed": false,
+  "p0_fee_slippage_baseline_closed": true,
+  "p0_fee_slippage_baseline_closed_by": "4B.4.3.6.6.37I",
+  "p0_gap_closure_delta_complete": true,
+  "p0_gap_closure_delta_digest": "8b4f9ed89cd40c1fd671768eece3c89221fae7fba94b955e10c9aa683b4b8e24",
+  "p0_gap_closure_delta_locked": true,
+  "p0_gap_closure_delta_path": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436637I_p0_gap_closure_delta_20260703T142523Z.json",
+  "p0_gap_closure_delta_status": "P0_8_FEE_SLIPPAGE_BASELINE_CLOSED",
+  "p0_gap_closure_items": [
+    {
+      "auto_close_allowed": false,
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37B-H1",
+      "domain": "install_contract",
+      "gap_id": "P0_INSTALL_CONTRACT_ALIGNMENT"
+    },
+    {
+      "auto_close_allowed": false,
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37C",
+      "domain": "repo_hygiene",
+      "gap_id": "P0_REPO_HYGIENE_EVIDENCE_RETENTION"
+    },
+    {
+      "auto_close_allowed": false,
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37D",
+      "domain": "strict_config",
+      "gap_id": "P0_STRICT_CONFIG_UNKNOWN_KEY_FAIL_CLOSED"
+    },
+    {
+      "auto_close_allowed": false,
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37E",
+      "domain": "api_security",
+      "gap_id": "P0_API_AUTH_DESTRUCTIVE_ENDPOINT_GUARD"
+    },
+    {
+      "auto_close_allowed": false,
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37F",
+      "domain": "operator_controls",
+      "gap_id": "P0_TYPED_CONFIRMATION_DESTRUCTIVE_ACTIONS"
+    },
+    {
+      "auto_close_allowed": false,
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37G",
+      "domain": "persistence",
+      "gap_id": "P0_SQLITE_AUDIT_BASELINE"
+    },
+    {
+      "auto_close_allowed": false,
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37H",
+      "domain": "runtime_safety",
+      "gap_id": "P0_RUNTIME_PROCESS_LOCK"
+    },
+    {
+      "auto_close_allowed": false,
+      "closed": true,
+      "closed_by": "4B.4.3.6.6.37I",
+      "domain": "execution_cost_model",
+      "gap_id": "P0_FEE_SLIPPAGE_BASELINE"
+    },
+    {
+      "auto_close_allowed": false,
+      "closed": false,
+      "closed_by": null,
+      "domain": "evidence_governance",
+      "gap_id": "P0_REPORT_COMMIT_POLICY"
+    },
+    {
+      "auto_close_allowed": false,
+      "closed": false,
+      "closed_by": null,
+      "domain": "promotion_governance",
+      "gap_id": "P0_PROMOTION_GATE_ISOLATION"
+    }
+  ],
+  "p0_hardening_auto_close_allowed": false,
+  "p0_hardening_closed_gap_count_after_37i": 8,
+  "p0_hardening_complete": false,
+  "p0_hardening_gap_count_after_37i": 10,
+  "p0_hardening_open_gap_count_after_37i": 2,
+  "p0_hardening_performed": false,
+  "paper_environment_enabled": false,
+  "paper_submit_allowed": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_status": "PAPER_TRANSITION_BLOCKED_37I_FEE_SLIPPAGE_BASELINE_NO_SUBMIT",
+  "paper_transition_unblocked": false,
+  "patch_id": "4B436637I",
+  "patch_name": "Fee / Slippage Baseline",
+  "patch_version": "4B.4.3.6.6.37I",
+  "phase_34_closed": true,
+  "phase_35_closed": true,
+  "phase_36_final_closed": true,
+  "phase_37_execution_started": false,
+  "phase_37_planning_only": true,
+  "phase_37_unlocked": false,
+  "phase_reopen_performed": false,
+  "private_account_read_performed": false,
+  "private_api_access_allowed": false,
+  "probe_name": "fee_slippage_probe",
+  "production_hardening_p0_8_ready": true,
+  "production_hardening_p0_8_scope": "fee_slippage_baseline_only",
+  "production_readiness_status": "P0_8_FEE_SLIPPAGE_BASELINE_READY_NO_SUBMIT",
+  "public_market_data_collection_performed": false,
+  "public_observation_execution_performed": false,
+  "reload_performed": false,
+  "repo_hygiene_cleanup_performed": false,
+  "report_delete_performed": false,
+  "report_move_performed": false,
+  "runtime_evidence_artifact_written": false,
+  "runtime_evidence_collection_performed": false,
+  "runtime_health_probe_performed": false,
+  "runtime_lock_runtime_binding_performed": false,
+  "runtime_overlay_activated": false,
+  "runtime_overlay_allowed": false,
+  "runtime_probe_performed": false,
+  "runtime_readiness_unlock_performed": false,
+  "runtime_start_performed": false,
+  "signed_request_performed": false,
+  "simulated_approval_performed": false,
+  "slippage_bps_baseline": 5.0,
+  "slippage_bps_max_allowed": 15.0,
+  "slippage_guard_complete": true,
+  "slippage_guard_digest": "565be2f5505a3d26a3c8c31ca6f7dd258c2dc615aaaeaa2a95968726f0c2c495",
+  "slippage_guard_locked": true,
+  "slippage_guard_ready_count": 5,
+  "slippage_guard_rule_count": 5,
+  "slippage_guard_rules": [
+    {
+      "policy": "every candidate execution decision must carry a slippage assumption",
+      "ready": true,
+      "rule_id": "slippage_assumption_required"
+    },
+    {
+      "policy": "missing slippage assumption fails closed",
+      "ready": true,
+      "rule_id": "missing_slippage_denied"
+    },
+    {
+      "policy": "slippage above the configured maximum denies candidate execution",
+      "ready": true,
+      "rule_id": "max_slippage_guard_required"
+    },
+    {
+      "policy": "future runtime binding must source slippage from book/depth or explicit operator model",
+      "ready": true,
+      "rule_id": "bid_ask_or_depth_guard_required_future"
+    },
+    {
+      "policy": "37I does not query market data or live order books",
+      "ready": true,
+      "rule_id": "no_runtime_market_data_probe_in_37i"
+    }
+  ],
+  "slippage_guard_status": "SLIPPAGE_GUARD_READY_FAIL_CLOSED_NO_MARKET_DATA_LOOKUP",
+  "slippage_missing_denied": true,
+  "slippage_missing_fails_closed": true,
+  "slippage_over_max_denied": true,
+  "slippage_runtime_binding_performed": false,
+  "slippage_runtime_market_data_lookup_performed": false,
+  "source_37h_complete": true,
+  "source_37h_decision": "RUNTIME_PROCESS_LOCK_READY_NO_SUBMIT_PRODUCTION_HARDENING_P0_7_LOCKED",
+  "source_37h_no_submit_gate_locked": true,
+  "source_37h_p0_7_closed": true,
+  "source_37h_p0_7_closed_by": "4B.4.3.6.6.37H",
+  "source_37h_p0_closed_gap_count": 7,
+  "source_37h_p0_open_gap_count": 3,
+  "source_37h_phase_37_planning_only": true,
+  "source_37h_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436637H_runtime_process_lock_20260703T141411Z_ready.json",
+  "source_37h_runtime_process_lock_locked": true,
+  "source_37h_safety_violation_count": 0,
+  "source_37h_safety_violations": [],
+  "source_37h_status": "SOURCE_37H_READY",
+  "sqlite_runtime_binding_performed": false,
+  "sqlite_runtime_db_open_performed": false,
+  "sqlite_write_performed": false,
+  "status": "READY",
+  "strict_config_runtime_loader_mutation_performed": false,
+  "taker_fee_bps_baseline": 5.0,
+  "taker_fee_probe_passed": true,
+  "trading_action_performed": false,
+  "training_performed": false,
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false,
+  "typed_confirmation_mutation_performed": false
+}
