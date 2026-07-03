@@ -1,0 +1,12 @@
+{
+  "complete": true,
+  "expected_plan_digest": "40355b92078833683bda9fa48b4058cb457cc118314897639018fa6a216a6f9f",
+  "expected_token_prefix": "ARCHIVE_APPROVAL_NOEXEC::4B436633G::40355b92078833683bda9fa48b4058cb457cc118314897639018fa6a216a6f9f::",
+  "failures": [],
+  "parsed_date": null,
+  "parsed_operator": null,
+  "token_digest_matches_plan": false,
+  "token_present": false,
+  "token_source": "TRADEBOT_ARCHIVE_APPROVAL_TOKEN",
+  "token_status": "APPROVAL_TOKEN_NOT_PRESENT_NO_EXECUTION_ONLY"
+}

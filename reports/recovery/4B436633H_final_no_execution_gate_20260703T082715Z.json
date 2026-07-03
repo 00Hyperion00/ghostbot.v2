@@ -1,0 +1,17 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_paper_transition": false,
+  "approved_for_runtime_overlay": false,
+  "archive_execution_allowed": false,
+  "archive_move_performed": false,
+  "complete": true,
+  "destructive_cleanup_performed": false,
+  "exchange_submit_performed": false,
+  "failures": [],
+  "file_delete_performed": false,
+  "reload_performed": false,
+  "runtime_overlay_activated": false,
+  "trading_action_performed": false,
+  "training_performed": false
+}
