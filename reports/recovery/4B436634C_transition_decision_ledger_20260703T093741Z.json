@@ -1,0 +1,44 @@
+{
+  "accepted_review_criterion_count": 7,
+  "complete": true,
+  "criteria": [
+    {
+      "accepted": true,
+      "name": "source_34b_ready"
+    },
+    {
+      "accepted": true,
+      "name": "evidence_baseline_review_complete"
+    },
+    {
+      "accepted": true,
+      "name": "dirty_worktree_advisory_only"
+    },
+    {
+      "accepted": true,
+      "name": "no_submit_boundary_reconfirmed"
+    },
+    {
+      "accepted": true,
+      "name": "deduplication_no_action"
+    },
+    {
+      "accepted": true,
+      "name": "operator_review_required_before_34d"
+    },
+    {
+      "accepted": true,
+      "name": "transition_not_performed"
+    }
+  ],
+  "digest": "5a7e623e0053474bf8595c2dbe9456ab0d4db4ef5767683d8d30126503e87792",
+  "hold_reason": "OPERATOR_REVIEW_REQUIRED_NO_SUBMIT_BOUNDARY_LOCKED",
+  "next_phase": "4B.4.3.6.6.34D",
+  "operator_decision_token": null,
+  "operator_review_present": false,
+  "operator_review_required": true,
+  "rejected_review_criterion_count": 0,
+  "transition_status": "34C_REVIEW_READY_OPERATOR_DECISION_PENDING_NO_SUBMIT",
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false
+}
