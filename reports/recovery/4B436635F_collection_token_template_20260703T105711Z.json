@@ -1,0 +1,35 @@
+{
+  "collection_token_present": false,
+  "collection_token_template": {
+    "execution_allowed_now": false,
+    "forbidden_effects": [
+      "exchange_submit",
+      "network_submit_private_api",
+      "paper_submit",
+      "live_real_submit",
+      "runtime_overlay_activation",
+      "file_delete",
+      "file_move"
+    ],
+    "required_fields": [
+      "patch_version",
+      "operator_id",
+      "authorized_scope_digest",
+      "no_submit_collection_seal_digest",
+      "created_at_utc",
+      "operator_attestation"
+    ],
+    "schema_version": "4B.4.3.6.6.35F",
+    "template_is_not_authorization": true,
+    "token_type": "PUBLIC_DATA_COLLECTION_DRY_RUN_TEMPLATE_ONLY"
+  },
+  "collection_token_template_complete": true,
+  "collection_token_template_digest": "1c2dcb57c40ebc977b51d0f5acb6f57a029325ae9fe74f82b6d2392c98d920b6",
+  "collection_token_template_is_not_authorization": true,
+  "collection_token_template_status": "COLLECTION_TOKEN_TEMPLATE_READY_NOT_A_TOKEN",
+  "collection_token_valid": false,
+  "patch_id": "4B436635F",
+  "patch_version": "4B.4.3.6.6.35F",
+  "source_35e_decision": "DRY_RUN_COLLECTION_AUTHORIZATION_READY_NO_SUBMIT_COLLECTION_SEAL_LOCKED",
+  "source_35e_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436635E_dry_run_collection_authorization_20260703T105058Z_ready.json"
+}

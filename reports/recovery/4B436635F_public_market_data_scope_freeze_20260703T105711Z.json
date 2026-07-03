@@ -1,0 +1,55 @@
+{
+  "patch_id": "4B436635F",
+  "patch_version": "4B.4.3.6.6.35F",
+  "public_data_collection_allowed_now": false,
+  "public_market_data_collection_performed": false,
+  "public_market_data_scope": [
+    {
+      "access_class": "public_read_only",
+      "allowed_in_future_collection": true,
+      "execution_allowed_now": false,
+      "scope_note": "OHLCV klines only; no order/account/private endpoints.",
+      "source_id": "public_klines",
+      "source_type": "public_market_data"
+    },
+    {
+      "access_class": "public_read_only",
+      "allowed_in_future_collection": true,
+      "execution_allowed_now": false,
+      "scope_note": "Ticker snapshot for diagnostics only; not executed by 35F.",
+      "source_id": "public_ticker_24h",
+      "source_type": "public_market_data"
+    },
+    {
+      "access_class": "public_read_only",
+      "allowed_in_future_collection": true,
+      "execution_allowed_now": false,
+      "scope_note": "Best bid/ask public endpoint planning only.",
+      "source_id": "public_book_ticker",
+      "source_type": "public_market_data"
+    },
+    {
+      "access_class": "local_read_only",
+      "allowed_in_future_collection": true,
+      "execution_allowed_now": false,
+      "scope_note": "Local health/status probe dry-run scope; not executed by 35F.",
+      "source_id": "runtime_health_readiness_probe",
+      "source_type": "local_runtime_probe"
+    },
+    {
+      "access_class": "local_read_only",
+      "allowed_in_future_collection": true,
+      "execution_allowed_now": false,
+      "scope_note": "Read-only report parsing only; no delete/move/dedup.",
+      "source_id": "recovery_report_ingestion",
+      "source_type": "local_evidence_file"
+    }
+  ],
+  "public_market_data_scope_count": 5,
+  "public_market_data_scope_freeze_complete": true,
+  "public_market_data_scope_freeze_digest": "1af2081aa5a222ef9c9e85ca1c4b41fd814d38162a1d7e936c7836a1dc81adb6",
+  "public_market_data_scope_frozen": true,
+  "public_market_data_scope_status": "PUBLIC_MARKET_DATA_SCOPE_FROZEN_DRY_RUN_ONLY",
+  "source_35e_decision": "DRY_RUN_COLLECTION_AUTHORIZATION_READY_NO_SUBMIT_COLLECTION_SEAL_LOCKED",
+  "source_35e_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436635E_dry_run_collection_authorization_20260703T105058Z_ready.json"
+}
