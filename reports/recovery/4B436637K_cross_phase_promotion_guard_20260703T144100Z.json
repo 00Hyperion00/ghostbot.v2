@@ -1,0 +1,55 @@
+{
+  "all_p0_closed_does_not_enable_live": true,
+  "all_p0_closed_does_not_enable_paper": true,
+  "all_p0_closed_does_not_enable_submit": true,
+  "cross_phase_promotion_denied": true,
+  "cross_phase_promotion_guard_complete": true,
+  "cross_phase_promotion_guard_digest": "c41338b554e7b97960c9fff3b9dca7178d545139db2e5cacbb99d72633fca52d",
+  "cross_phase_promotion_guard_locked": true,
+  "cross_phase_promotion_guard_ready_count": 6,
+  "cross_phase_promotion_guard_rule_count": 6,
+  "cross_phase_promotion_guard_rules": [
+    {
+      "policy": "shadow readiness cannot set paper transition ready",
+      "ready": true,
+      "rule_id": "shadow_ready_does_not_set_paper_ready"
+    },
+    {
+      "policy": "paper readiness cannot set live real approval ready",
+      "ready": true,
+      "rule_id": "paper_ready_does_not_set_live_ready"
+    },
+    {
+      "policy": "live readiness cannot set exchange submit allowed",
+      "ready": true,
+      "rule_id": "live_ready_does_not_set_submit_allowed"
+    },
+    {
+      "policy": "missing explicit promotion approval fails closed",
+      "ready": true,
+      "rule_id": "missing_approval_fails_closed"
+    },
+    {
+      "policy": "non-adjacent or unknown promotion paths are denied",
+      "ready": true,
+      "rule_id": "invalid_promotion_path_denied"
+    },
+    {
+      "policy": "valid approval evidence still cannot enable runtime transition in no-submit hardening",
+      "ready": true,
+      "rule_id": "no_submit_lock_overrides_valid_approval"
+    }
+  ],
+  "cross_phase_promotion_guard_status": "CROSS_PHASE_PROMOTION_GUARD_READY_FAIL_CLOSED",
+  "exchange_submit_allowed": false,
+  "generated_at_utc": "20260703T144100Z",
+  "guard_name": "cross_phase_promotion_guard",
+  "invalid_promotion_path_denied": true,
+  "live_transition_ready": false,
+  "missing_approval_fails_closed": true,
+  "paper_transition_ready": false,
+  "patch_id": "4B436637K",
+  "patch_version": "4B.4.3.6.6.37K",
+  "promotion_approval_runtime_binding_performed": false,
+  "promotion_state_mutation_performed": false
+}

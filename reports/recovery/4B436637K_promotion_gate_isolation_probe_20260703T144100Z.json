@@ -1,0 +1,145 @@
+{
+  "generated_at_utc": "20260703T144100Z",
+  "invalid_promotion_path_denied": true,
+  "live_to_submit_auto_promotion_denied": true,
+  "missing_approval_denied": true,
+  "paper_to_live_auto_promotion_denied": true,
+  "patch_id": "4B436637K",
+  "patch_version": "4B.4.3.6.6.37K",
+  "probe_name": "promotion_gate_isolation_probe",
+  "promotion_gate_isolation_probe_complete": true,
+  "promotion_gate_isolation_probe_count": 13,
+  "promotion_gate_isolation_probe_digest": "ebee8e563575d215e4f5392faa0e066ac827e22966ef9f733a6761b922a528a7",
+  "promotion_gate_isolation_probe_locked": true,
+  "promotion_gate_isolation_probe_mode": "STATIC_CONTRACT_NO_PROMOTION_NO_RUNTIME_MUTATION",
+  "promotion_gate_isolation_probe_passed_count": 13,
+  "promotion_gate_isolation_probe_status": "PROMOTION_GATE_ISOLATION_PROBES_READY_NO_AUTO_PROMOTION",
+  "promotion_gate_isolation_probes": [
+    {
+      "expected": "DENY_SHADOW_TO_PAPER_AUTO_PROMOTION",
+      "explicit_approval_present": false,
+      "from_gate": "shadow_observation",
+      "passed": true,
+      "probe_id": "shadow_ready_without_approval",
+      "promotion_allowed": false,
+      "result": "DENY_SHADOW_TO_PAPER_AUTO_PROMOTION",
+      "runtime_execution_allowed": false,
+      "to_gate": "paper_candidate"
+    },
+    {
+      "expected": "DENY_PAPER_TO_LIVE_AUTO_PROMOTION",
+      "explicit_approval_present": false,
+      "from_gate": "paper_candidate",
+      "passed": true,
+      "probe_id": "paper_ready_without_approval",
+      "promotion_allowed": false,
+      "result": "DENY_PAPER_TO_LIVE_AUTO_PROMOTION",
+      "runtime_execution_allowed": false,
+      "to_gate": "live_real_candidate"
+    },
+    {
+      "expected": "DENY_LIVE_TO_SUBMIT_AUTO_PROMOTION",
+      "explicit_approval_present": false,
+      "from_gate": "live_real_candidate",
+      "passed": true,
+      "probe_id": "live_ready_without_approval",
+      "promotion_allowed": false,
+      "result": "DENY_LIVE_TO_SUBMIT_AUTO_PROMOTION",
+      "runtime_execution_allowed": false,
+      "to_gate": "exchange_submit"
+    },
+    {
+      "expected": "DENY_CROSS_PHASE_AUTO_PROMOTION",
+      "explicit_approval_present": false,
+      "from_gate": "shadow_observation",
+      "passed": true,
+      "probe_id": "cross_phase_shadow_to_live_denied",
+      "promotion_allowed": false,
+      "result": "DENY_CROSS_PHASE_AUTO_PROMOTION",
+      "runtime_execution_allowed": false,
+      "to_gate": "live_real_candidate"
+    },
+    {
+      "expected": "DENY_CROSS_PHASE_AUTO_PROMOTION",
+      "explicit_approval_present": false,
+      "from_gate": "paper_candidate",
+      "passed": true,
+      "probe_id": "cross_phase_paper_to_submit_denied",
+      "promotion_allowed": false,
+      "result": "DENY_CROSS_PHASE_AUTO_PROMOTION",
+      "runtime_execution_allowed": false,
+      "to_gate": "exchange_submit"
+    },
+    {
+      "expected": "DENY_UNKNOWN_PROMOTION_GATE",
+      "explicit_approval_present": true,
+      "from_gate": "shadow_observation",
+      "passed": true,
+      "probe_id": "unknown_gate_denied",
+      "promotion_allowed": false,
+      "result": "DENY_UNKNOWN_PROMOTION_GATE",
+      "runtime_execution_allowed": false,
+      "to_gate": "unknown_gate"
+    },
+    {
+      "expected": "APPROVAL_PRESENT_PROMOTION_DENIED_NO_SUBMIT_HARDENING",
+      "explicit_approval_present": true,
+      "from_gate": "shadow_observation",
+      "passed": true,
+      "probe_id": "valid_paper_approval_denied_no_submit",
+      "promotion_allowed": false,
+      "result": "APPROVAL_PRESENT_PROMOTION_DENIED_NO_SUBMIT_HARDENING",
+      "runtime_execution_allowed": false,
+      "to_gate": "paper_candidate"
+    },
+    {
+      "expected": "APPROVAL_PRESENT_PROMOTION_DENIED_NO_SUBMIT_HARDENING",
+      "explicit_approval_present": true,
+      "from_gate": "paper_candidate",
+      "passed": true,
+      "probe_id": "valid_live_approval_denied_no_submit",
+      "promotion_allowed": false,
+      "result": "APPROVAL_PRESENT_PROMOTION_DENIED_NO_SUBMIT_HARDENING",
+      "runtime_execution_allowed": false,
+      "to_gate": "live_real_candidate"
+    },
+    {
+      "expected": "APPROVAL_PRESENT_PROMOTION_DENIED_NO_SUBMIT_HARDENING",
+      "explicit_approval_present": true,
+      "from_gate": "live_real_candidate",
+      "passed": true,
+      "probe_id": "valid_submit_approval_denied_no_submit",
+      "promotion_allowed": false,
+      "result": "APPROVAL_PRESENT_PROMOTION_DENIED_NO_SUBMIT_HARDENING",
+      "runtime_execution_allowed": false,
+      "to_gate": "exchange_submit"
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "all_p0_closed_does_not_enable_paper",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "all_p0_closed_does_not_enable_live",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "all_p0_closed_does_not_enable_submit",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "promotion_state_mutation_not_performed",
+      "result": false
+    }
+  ],
+  "shadow_to_paper_auto_promotion_denied": true,
+  "unknown_promotion_gate_denied": true,
+  "valid_approval_execution_denied_no_submit": true
+}

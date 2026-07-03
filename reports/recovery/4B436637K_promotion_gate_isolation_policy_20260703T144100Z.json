@@ -1,0 +1,151 @@
+{
+  "allowed_manual_transition_count": 3,
+  "allowed_manual_transitions": [
+    {
+      "from": "shadow_observation",
+      "requires": "explicit_paper_transition_approval",
+      "to": "paper_candidate"
+    },
+    {
+      "from": "paper_candidate",
+      "requires": "explicit_live_transition_approval",
+      "to": "live_real_candidate"
+    },
+    {
+      "from": "live_real_candidate",
+      "requires": "explicit_exchange_submit_approval",
+      "to": "exchange_submit"
+    }
+  ],
+  "cross_phase_auto_promotion_allowed": false,
+  "cross_phase_auto_promotion_performed": false,
+  "denied_auto_transition_count": 5,
+  "denied_auto_transitions": [
+    {
+      "from": "shadow_observation",
+      "result": "DENY_SHADOW_TO_PAPER_AUTO_PROMOTION",
+      "to": "paper_candidate"
+    },
+    {
+      "from": "paper_candidate",
+      "result": "DENY_PAPER_TO_LIVE_AUTO_PROMOTION",
+      "to": "live_real_candidate"
+    },
+    {
+      "from": "live_real_candidate",
+      "result": "DENY_LIVE_TO_SUBMIT_AUTO_PROMOTION",
+      "to": "exchange_submit"
+    },
+    {
+      "from": "shadow_observation",
+      "result": "DENY_CROSS_PHASE_AUTO_PROMOTION",
+      "to": "live_real_candidate"
+    },
+    {
+      "from": "paper_candidate",
+      "result": "DENY_CROSS_PHASE_AUTO_PROMOTION",
+      "to": "exchange_submit"
+    }
+  ],
+  "exchange_submit_gate_isolated": true,
+  "exchange_submit_requires_explicit_approval": true,
+  "generated_at_utc": "20260703T144100Z",
+  "live_gate_isolated": true,
+  "live_real_auto_promotion_allowed": false,
+  "live_transition_requires_explicit_approval": true,
+  "paper_gate_isolated": true,
+  "paper_to_live_auto_promotion_allowed": false,
+  "paper_transition_requires_explicit_approval": true,
+  "patch_id": "4B436637K",
+  "patch_version": "4B.4.3.6.6.37K",
+  "policy_name": "promotion_gate_isolation_policy",
+  "promotion_approval_required": true,
+  "promotion_gate_count": 4,
+  "promotion_gate_isolation_complete": true,
+  "promotion_gate_isolation_digest": "1e5b26fb93ab50fac2f716726c80e3b30871e9b847abb0a62e80b2a46231a37e",
+  "promotion_gate_isolation_locked": true,
+  "promotion_gate_isolation_ready_count": 8,
+  "promotion_gate_isolation_rule_count": 8,
+  "promotion_gate_isolation_rules": [
+    {
+      "policy": "shadow, paper, live and submit gates are modeled as separate states",
+      "ready": true,
+      "rule_id": "shadow_paper_live_gates_are_separate"
+    },
+    {
+      "policy": "no phase can auto-promote to another phase",
+      "ready": true,
+      "rule_id": "cross_phase_auto_promotion_forbidden"
+    },
+    {
+      "policy": "shadow to paper transition requires explicit operator approval",
+      "ready": true,
+      "rule_id": "paper_transition_requires_explicit_approval"
+    },
+    {
+      "policy": "paper to live transition requires explicit operator approval",
+      "ready": true,
+      "rule_id": "live_transition_requires_explicit_approval"
+    },
+    {
+      "policy": "live candidate to exchange submit requires explicit operator approval",
+      "ready": true,
+      "rule_id": "exchange_submit_requires_explicit_approval"
+    },
+    {
+      "policy": "closing P0 hardening does not unlock paper, live or submit",
+      "ready": true,
+      "rule_id": "all_p0_closed_does_not_unlock_paper_live_submit"
+    },
+    {
+      "policy": "37K declares the isolation contract without mutating runtime promotion state",
+      "ready": true,
+      "rule_id": "promotion_state_mutation_forbidden_in_37k"
+    },
+    {
+      "policy": "37K does not auto-open 37L or any promotion phase",
+      "ready": true,
+      "rule_id": "next_phase_not_auto_unlocked"
+    }
+  ],
+  "promotion_gate_isolation_status": "PROMOTION_GATE_ISOLATION_POLICY_READY_NO_AUTO_PROMOTION",
+  "promotion_gate_mutation_performed": false,
+  "promotion_gate_state_machine_locked": true,
+  "promotion_gates": [
+    {
+      "auto_promote_to": null,
+      "gate_id": "shadow_observation",
+      "phase": "shadow",
+      "requires_explicit_approval_to_exit": true,
+      "submit_allowed": false
+    },
+    {
+      "auto_promote_to": null,
+      "gate_id": "paper_candidate",
+      "phase": "paper",
+      "requires_explicit_approval_to_enter": true,
+      "requires_explicit_approval_to_exit": true,
+      "submit_allowed": false
+    },
+    {
+      "auto_promote_to": null,
+      "gate_id": "live_real_candidate",
+      "phase": "live_real",
+      "requires_explicit_approval_to_enter": true,
+      "requires_explicit_approval_to_exit": true,
+      "submit_allowed": false
+    },
+    {
+      "auto_promote_to": null,
+      "gate_id": "exchange_submit",
+      "phase": "submit",
+      "requires_explicit_approval_to_enter": true,
+      "submit_allowed": false
+    }
+  ],
+  "promotion_runtime_binding_performed": false,
+  "promotion_state_mutation_performed": false,
+  "shadow_gate_isolated": true,
+  "shadow_paper_live_gate_separation_locked": true,
+  "shadow_to_paper_auto_promotion_allowed": false
+}
