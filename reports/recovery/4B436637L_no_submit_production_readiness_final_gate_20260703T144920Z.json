@@ -1,0 +1,134 @@
+{
+  "gate_name": "no_submit_production_readiness_final_gate",
+  "no_submit_production_readiness_final_gate_check_count": 24,
+  "no_submit_production_readiness_final_gate_checks": [
+    {
+      "check_id": "source_37k_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_install_contract_alignment_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_repo_hygiene_evidence_retention_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_strict_config_unknown_key_fail_closed_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_api_auth_destructive_endpoint_guard_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_typed_confirmation_destructive_actions_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_sqlite_audit_baseline_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_runtime_process_lock_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_fee_slippage_baseline_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_report_commit_policy_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_promotion_gate_isolation_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_final_audit_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "remote_tag_audit_contract_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "production_readiness_seal_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "all_p0_closed_does_not_enable_paper_live_submit",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_remains_blocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_remains_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "git_mutating_operations_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_mutation_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "no_submit_production_readiness_final_gate_complete": true,
+  "no_submit_production_readiness_final_gate_digest": "26f5ad9b36b0a063ce35eb129dd0dcbe3b3b8dfc48d81c6f9a4e75063417e534",
+  "no_submit_production_readiness_final_gate_locked": true,
+  "no_submit_production_readiness_final_gate_ready_count": 24,
+  "no_submit_production_readiness_final_gate_status": "NO_SUBMIT_PRODUCTION_READINESS_FINAL_GATE_READY",
+  "patch_id": "4B436637L",
+  "patch_name": "Production Hardening Final Closure",
+  "patch_version": "4B.4.3.6.6.37L"
+}

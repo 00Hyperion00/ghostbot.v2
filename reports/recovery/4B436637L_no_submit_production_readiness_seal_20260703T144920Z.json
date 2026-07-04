@@ -1,0 +1,82 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_operator_audit": true,
+  "approved_for_paper_transition": false,
+  "exchange_submit_allowed": false,
+  "exchange_submit_performed": false,
+  "http_request_performed": false,
+  "live_real_submit_allowed": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "next_phase": "4B.4.3.6.6.38A",
+  "next_phase_name": "Paper Transition Readiness Review",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "no_submit_production_readiness_seal_complete": true,
+  "no_submit_production_readiness_seal_digest": "d0afae4537beffeb6bed7faa5de3dbbb11eba60741a65fed285963e070e591a5",
+  "no_submit_production_readiness_seal_locked": true,
+  "no_submit_production_readiness_sealed": true,
+  "order_submit_performed": false,
+  "paper_transition_auto_start_allowed": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_review_required": true,
+  "patch_id": "4B436637L",
+  "patch_name": "Production Hardening Final Closure",
+  "patch_version": "4B.4.3.6.6.37L",
+  "production_hardening_final_closure_complete": true,
+  "production_readiness_seal_ready_count": 8,
+  "production_readiness_seal_rule_count": 8,
+  "production_readiness_seal_rules": [
+    {
+      "policy": "P0 final audit must be ready",
+      "ready": true,
+      "rule_id": "p0_final_audit_ready"
+    },
+    {
+      "policy": "remote tag audit contract must be ready",
+      "ready": true,
+      "rule_id": "remote_tag_audit_contract_ready"
+    },
+    {
+      "policy": "P0 hardening is sealed complete",
+      "ready": true,
+      "rule_id": "p0_hardening_complete_sealed"
+    },
+    {
+      "policy": "seal is no-submit only",
+      "ready": true,
+      "rule_id": "no_submit_seal"
+    },
+    {
+      "policy": "seal does not approve paper transition",
+      "ready": true,
+      "rule_id": "paper_not_approved_by_seal"
+    },
+    {
+      "policy": "seal does not approve live-real",
+      "ready": true,
+      "rule_id": "live_not_approved_by_seal"
+    },
+    {
+      "policy": "seal does not approve exchange submit",
+      "ready": true,
+      "rule_id": "exchange_submit_not_approved_by_seal"
+    },
+    {
+      "policy": "next step requires explicit paper transition review",
+      "ready": true,
+      "rule_id": "paper_transition_review_required"
+    }
+  ],
+  "production_readiness_status": "NO_SUBMIT_PRODUCTION_READINESS_SEALED_P0_COMPLETE",
+  "reload_performed": false,
+  "runtime_overlay_activated": false,
+  "runtime_start_performed": false,
+  "seal_name": "no_submit_production_readiness_seal",
+  "signed_request_performed": false,
+  "training_performed": false,
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false
+}

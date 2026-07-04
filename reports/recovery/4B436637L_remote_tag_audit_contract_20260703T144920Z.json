@@ -1,0 +1,76 @@
+{
+  "audit_name": "remote_tag_audit_contract",
+  "git_add_performed": false,
+  "git_commit_performed": false,
+  "git_fetch_performed": false,
+  "git_ls_remote_performed": false,
+  "git_push_performed": false,
+  "git_tag_performed": false,
+  "http_request_performed": false,
+  "network_request_performed": false,
+  "patch_id": "4B436637L",
+  "patch_name": "Production Hardening Final Closure",
+  "patch_version": "4B.4.3.6.6.37L",
+  "remote_tag_audit_complete": true,
+  "remote_tag_audit_digest": "9c81c38a1e104a7b3b67a0694a023cc33264eb0b71fc4f5bdaeba0d93cf901d9",
+  "remote_tag_audit_locked": true,
+  "remote_tag_audit_mode": "STATIC_CONTRACT_NO_NETWORK_OPERATOR_REVIEW_REQUIRED",
+  "remote_tag_audit_operator_command_required": true,
+  "remote_tag_audit_operator_commands": [
+    "git fetch --tags --prune",
+    "git tag --list \"4B.4.3.6.6.37*\"",
+    "git ls-remote --tags origin \"4B.4.3.6.6.37*\""
+  ],
+  "remote_tag_audit_operator_review_required": true,
+  "remote_tag_audit_probe_count": 5,
+  "remote_tag_audit_probe_passed_count": 5,
+  "remote_tag_audit_probes": [
+    {
+      "expected": 11,
+      "passed": true,
+      "probe_id": "required_phase_37_tags_declared",
+      "result": 11
+    },
+    {
+      "expected": true,
+      "passed": true,
+      "probe_id": "operator_remote_tag_commands_declared",
+      "result": true
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "git_ls_remote_not_performed_by_patch",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "network_request_not_performed_by_patch",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "git_mutating_operations_not_performed",
+      "result": false
+    }
+  ],
+  "remote_tag_audit_required": true,
+  "remote_tag_audit_status": "REMOTE_TAG_AUDIT_CONTRACT_READY_OPERATOR_REVIEW_REQUIRED_NO_NETWORK",
+  "remote_tag_lookup_performed": false,
+  "required_phase_37_remote_tag_count": 11,
+  "required_phase_37_remote_tags": [
+    "4B.4.3.6.6.37A",
+    "4B.4.3.6.6.37B-H1",
+    "4B.4.3.6.6.37C",
+    "4B.4.3.6.6.37D",
+    "4B.4.3.6.6.37E",
+    "4B.4.3.6.6.37F",
+    "4B.4.3.6.6.37G",
+    "4B.4.3.6.6.37H",
+    "4B.4.3.6.6.37I",
+    "4B.4.3.6.6.37J",
+    "4B.4.3.6.6.37K"
+  ]
+}
