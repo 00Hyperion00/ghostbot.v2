@@ -1,0 +1,54 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "exchange_submit_allowed": false,
+  "exchange_submit_approval_performed": false,
+  "exchange_submit_performed": false,
+  "guard_name": "no_live_no_exchange_submit_guard",
+  "http_request_performed": false,
+  "live_real_submit_allowed": false,
+  "live_transition_approval_performed": false,
+  "live_transition_ready": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "no_live_no_exchange_submit_guard_complete": true,
+  "no_live_no_exchange_submit_guard_digest": "477889a7881ee002024b4f577b063f74d25e63e3c25e4f1559046b006e5e8677",
+  "no_live_no_exchange_submit_guard_locked": true,
+  "no_live_no_exchange_submit_guard_status": "NO_LIVE_NO_EXCHANGE_SUBMIT_GUARD_READY",
+  "no_live_no_exchange_submit_ready_count": 6,
+  "no_live_no_exchange_submit_rule_count": 6,
+  "no_live_no_exchange_submit_rules": [
+    {
+      "policy": "38A cannot approve live-real",
+      "ready": true,
+      "rule_id": "live_real_approval_false"
+    },
+    {
+      "policy": "38A cannot approve exchange submit",
+      "ready": true,
+      "rule_id": "exchange_submit_approval_false"
+    },
+    {
+      "policy": "network submit remains forbidden",
+      "ready": true,
+      "rule_id": "network_submit_forbidden"
+    },
+    {
+      "policy": "order submit remains forbidden",
+      "ready": true,
+      "rule_id": "order_submit_forbidden"
+    },
+    {
+      "policy": "signed requests remain forbidden",
+      "ready": true,
+      "rule_id": "signed_request_forbidden"
+    },
+    {
+      "policy": "runtime start is out of scope for 38A",
+      "ready": true,
+      "rule_id": "runtime_start_forbidden"
+    }
+  ],
+  "order_submit_performed": false,
+  "signed_request_performed": false
+}

@@ -1,0 +1,95 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_paper_transition": false,
+  "exchange_submit_approval_performed": false,
+  "explicit_paper_transition_approval_required": true,
+  "gate_name": "explicit_paper_transition_approval_gate",
+  "live_transition_approval_performed": false,
+  "paper_runtime_start_allowed": false,
+  "paper_runtime_start_performed": false,
+  "paper_transition_approval_gate_complete": true,
+  "paper_transition_approval_gate_digest": "b29611b13734e9daf039c146416b5daaefcccb9964240b53f1a5aefdca222f81",
+  "paper_transition_approval_gate_locked": true,
+  "paper_transition_approval_gate_status": "PAPER_APPROVAL_GATE_READY_FAIL_CLOSED_NO_RUNTIME_START",
+  "paper_transition_approval_invalid_denied": true,
+  "paper_transition_approval_missing_denied": true,
+  "paper_transition_approval_performed": false,
+  "paper_transition_approval_probe_count": 8,
+  "paper_transition_approval_probe_passed_count": 8,
+  "paper_transition_approval_probes": [
+    {
+      "approval_phrase_logged": false,
+      "approval_present": false,
+      "approval_valid": false,
+      "exchange_submit_allowed": false,
+      "expected": "DENY_PAPER_TRANSITION_APPROVAL_REQUIRED",
+      "live_transition_allowed": false,
+      "paper_transition_runtime_allowed": false,
+      "passed": true,
+      "probe_id": "missing_paper_approval_denied",
+      "result": "DENY_PAPER_TRANSITION_APPROVAL_REQUIRED"
+    },
+    {
+      "approval_phrase_logged": false,
+      "approval_present": true,
+      "approval_valid": false,
+      "exchange_submit_allowed": false,
+      "expected": "DENY_PAPER_TRANSITION_APPROVAL_MISMATCH",
+      "live_transition_allowed": false,
+      "paper_transition_runtime_allowed": false,
+      "passed": true,
+      "probe_id": "invalid_paper_approval_denied",
+      "result": "DENY_PAPER_TRANSITION_APPROVAL_MISMATCH"
+    },
+    {
+      "approval_phrase_logged": false,
+      "approval_present": true,
+      "approval_valid": true,
+      "exchange_submit_allowed": false,
+      "expected": "APPROVAL_PRESENT_PAPER_TRANSITION_RUNTIME_DENIED_NO_SUBMIT",
+      "live_transition_allowed": false,
+      "paper_transition_runtime_allowed": false,
+      "passed": true,
+      "probe_id": "valid_paper_approval_runtime_denied_no_submit",
+      "result": "APPROVAL_PRESENT_PAPER_TRANSITION_RUNTIME_DENIED_NO_SUBMIT"
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_runtime_start_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "live_approval_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "exchange_submit_approval_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "network_request_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "next_phase_not_auto_unlocked",
+      "result": false
+    }
+  ],
+  "paper_transition_approval_ready": false,
+  "paper_transition_approval_valid_runtime_denied_no_submit": true,
+  "paper_transition_auto_start_allowed": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_review_required": true,
+  "paper_transition_unblocked": false
+}

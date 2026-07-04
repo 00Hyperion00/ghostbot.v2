@@ -1,0 +1,111 @@
+{
+  "gate_name": "paper_transition_readiness_review_gate",
+  "paper_transition_readiness_review_gate_check_count": 20,
+  "paper_transition_readiness_review_gate_checks": [
+    {
+      "check_id": "source_37l_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "phase_37_final_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "p0_hardening_final_sealed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "no_submit_seal_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_review_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "explicit_paper_approval_gate_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_approval_missing_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_approval_invalid_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_approval_runtime_denied_no_submit",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "no_live_no_exchange_submit_guard_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_not_started",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_not_approved_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_remains_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_remains_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "git_mutating_operations_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_mutation_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "paper_transition_readiness_review_gate_complete": true,
+  "paper_transition_readiness_review_gate_digest": "c4454ef5e6374db1f4338809d5b752bbc4a3f651c7d53e3f3e1fbf28164f37fe",
+  "paper_transition_readiness_review_gate_locked": true,
+  "paper_transition_readiness_review_gate_ready_count": 20,
+  "paper_transition_readiness_review_gate_status": "PAPER_TRANSITION_READINESS_REVIEW_GATE_READY"
+}
