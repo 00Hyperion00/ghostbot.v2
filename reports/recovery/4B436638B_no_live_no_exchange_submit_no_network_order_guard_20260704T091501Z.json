@@ -1,0 +1,50 @@
+{
+  "digest": "477fc02bda956968d4d7c79fafa48500a1c2570af64bd248081f9f56a47aaf23",
+  "generated_at_utc": "20260704T091501Z",
+  "guard_name": "no_live_no_exchange_submit_no_network_order_guard",
+  "no_live_no_exchange_submit_no_network_order_guard_complete": true,
+  "no_live_no_exchange_submit_no_network_order_guard_digest": "de138b49b22743202a0620a8820651a6f69030550335aa5b3e5692e3337c0eee",
+  "no_live_no_exchange_submit_no_network_order_guard_locked": true,
+  "no_live_no_exchange_submit_no_network_order_guard_status": "NO_LIVE_NO_EXCHANGE_SUBMIT_NO_NETWORK_ORDER_GUARD_READY",
+  "no_live_no_network_order_ready_count": 7,
+  "no_live_no_network_order_rule_count": 7,
+  "no_live_no_network_order_rules": [
+    {
+      "policy": "38B cannot approve live-real",
+      "ready": true,
+      "rule_id": "live_real_approval_false"
+    },
+    {
+      "policy": "38B cannot approve exchange submit",
+      "ready": true,
+      "rule_id": "exchange_submit_approval_false"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "network_order_submit_forbidden"
+    },
+    {
+      "policy": "order submit remains forbidden",
+      "ready": true,
+      "rule_id": "order_submit_forbidden"
+    },
+    {
+      "policy": "signed requests remain forbidden",
+      "ready": true,
+      "rule_id": "signed_request_forbidden"
+    },
+    {
+      "policy": "private API access remains forbidden",
+      "ready": true,
+      "rule_id": "private_api_forbidden"
+    },
+    {
+      "policy": "runtime start is out of scope for 38B",
+      "ready": true,
+      "rule_id": "runtime_start_forbidden"
+    }
+  ],
+  "patch_id": "4B436638B",
+  "patch_version": "4B.4.3.6.6.38B"
+}

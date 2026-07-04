@@ -1,0 +1,95 @@
+{
+  "canonical_paper_only_config": {
+    "environment_mode": "paper",
+    "exchange_submit_allowed": false,
+    "live_environment_enabled": false,
+    "network_order_submit_allowed": false,
+    "paper_environment_enabled": true,
+    "private_api_access_allowed": false,
+    "reload_allowed": false,
+    "runtime_overlay_allowed": false,
+    "signed_request_allowed": false,
+    "training_allowed": false
+  },
+  "contract_name": "paper_only_runtime_config_contract",
+  "digest": "71301bc10b45f849a3340d9375ec1c87082c6433f0c0d741c04ec1046c7ef2e3",
+  "exchange_submit_disabled_required": true,
+  "generated_at_utc": "20260704T091501Z",
+  "live_environment_disabled_required": true,
+  "network_order_submit_disabled_required": true,
+  "paper_environment_enabled_required": true,
+  "paper_mode_required": true,
+  "paper_only_required_fields": {
+    "environment_mode": "paper",
+    "exchange_submit_allowed": false,
+    "live_environment_enabled": false,
+    "network_order_submit_allowed": false,
+    "paper_environment_enabled": true,
+    "private_api_access_allowed": false,
+    "reload_allowed": false,
+    "runtime_overlay_allowed": false,
+    "signed_request_allowed": false,
+    "training_allowed": false
+  },
+  "paper_only_runtime_config_contract_complete": true,
+  "paper_only_runtime_config_contract_digest": "a051d97456116ae52df3310b6ca3fdedabf33f862df3e3b6015421fb9037070a",
+  "paper_only_runtime_config_contract_locked": true,
+  "paper_only_runtime_config_contract_status": "PAPER_ONLY_RUNTIME_CONFIG_CONTRACT_READY_NO_RUNTIME_START",
+  "paper_only_runtime_config_ready_count": 9,
+  "paper_only_runtime_config_rule_count": 9,
+  "paper_only_runtime_config_rules": [
+    {
+      "policy": "paper sandbox runtime config must declare environment_mode=paper",
+      "ready": true,
+      "rule_id": "environment_mode_must_be_paper"
+    },
+    {
+      "policy": "paper environment must be explicitly enabled for preflight review",
+      "ready": true,
+      "rule_id": "paper_environment_enabled_required"
+    },
+    {
+      "policy": "live environment must remain disabled",
+      "ready": true,
+      "rule_id": "live_environment_disabled_required"
+    },
+    {
+      "policy": "exchange submit must remain disabled",
+      "ready": true,
+      "rule_id": "exchange_submit_disabled_required"
+    },
+    {
+      "policy": "network order submit must remain disabled",
+      "ready": true,
+      "rule_id": "network_order_submit_disabled_required"
+    },
+    {
+      "policy": "signed requests must remain disabled",
+      "ready": true,
+      "rule_id": "signed_requests_disabled_required"
+    },
+    {
+      "policy": "private API access must remain disabled",
+      "ready": true,
+      "rule_id": "private_api_disabled_required"
+    },
+    {
+      "policy": "runtime overlay, training and reload remain out of scope",
+      "ready": true,
+      "rule_id": "runtime_overlay_training_reload_disabled"
+    },
+    {
+      "policy": "valid paper-only config cannot start runtime in 38B",
+      "ready": true,
+      "rule_id": "valid_paper_config_does_not_start_runtime"
+    }
+  ],
+  "patch_id": "4B436638B",
+  "patch_version": "4B.4.3.6.6.38B",
+  "private_api_access_disabled_required": true,
+  "reload_disabled_required": true,
+  "runtime_overlay_disabled_required": true,
+  "signed_request_disabled_required": true,
+  "training_disabled_required": true,
+  "valid_paper_only_config_runtime_denied_no_submit": true
+}
