@@ -1,0 +1,91 @@
+{
+  "approval_evidence_schema": {
+    "approval_phrase_required": "APPROVE PAPER TRANSITION FINAL APPROVAL CLOSURE ONLY",
+    "approval_scope_required": "paper_transition_final_approval_closure_review_only",
+    "approved_at_utc_required": true,
+    "generated_at_utc": "20260705T134306Z",
+    "operator_id_required": true,
+    "operator_name_required": true,
+    "operator_role_required": true,
+    "reviewed_source_patch": "4B.4.3.6.6.38H",
+    "source_report": "reports\\recovery\\4B436638H_paper_sandbox_observation_metrics_gate_20260705T133559Z_ready.json",
+    "source_report_required": true
+  },
+  "contract_name": "paper_transition_final_approval_closure_contract",
+  "digest": "5bfb6546ff79137718bf030a3def1061b737777af4c2ca2755da955f8ad60932",
+  "explicit_operator_approval_required": true,
+  "final_approval_contract_mode": "EXPLICIT_OPERATOR_APPROVAL_REQUIRED_REVIEW_ONLY_NO_RUNTIME_NO_ORDER",
+  "operator_approval_timestamp_required": true,
+  "operator_id_required": true,
+  "operator_identity_required": true,
+  "operator_name_required": true,
+  "operator_role_required": true,
+  "paper_transition_final_approval_phrase_required": "APPROVE PAPER TRANSITION FINAL APPROVAL CLOSURE ONLY",
+  "paper_transition_final_approval_scope_required": "paper_transition_final_approval_closure_review_only",
+  "ready_count": 12,
+  "rule_count": 12,
+  "rules": [
+    {
+      "policy": "38H READY observation metrics gate evidence is required",
+      "ready": true,
+      "rule_id": "source_38h_ready_required"
+    },
+    {
+      "policy": "final paper transition closure requires explicit typed operator approval",
+      "ready": true,
+      "rule_id": "explicit_operator_approval_required"
+    },
+    {
+      "policy": "operator id, name and role must be recorded",
+      "ready": true,
+      "rule_id": "operator_identity_required"
+    },
+    {
+      "policy": "operator approval must carry immutable UTC timestamp",
+      "ready": true,
+      "rule_id": "operator_approval_timestamp_required"
+    },
+    {
+      "policy": "final approval evidence must reference the 38H READY source report",
+      "ready": true,
+      "rule_id": "source_report_required"
+    },
+    {
+      "policy": "approval phrase must match exact final closure phrase",
+      "ready": true,
+      "rule_id": "approval_phrase_exact_match_required"
+    },
+    {
+      "policy": "missing or mismatched final approval fails closed",
+      "ready": true,
+      "rule_id": "missing_or_invalid_approval_fails_closed"
+    },
+    {
+      "policy": "valid final approval evidence is accepted for review only in 38I",
+      "ready": true,
+      "rule_id": "valid_final_approval_review_only"
+    },
+    {
+      "policy": "38I approval review cannot start paper runtime process",
+      "ready": true,
+      "rule_id": "approval_does_not_start_runtime"
+    },
+    {
+      "policy": "38I approval review cannot enable network order submit",
+      "ready": true,
+      "rule_id": "approval_does_not_enable_network_order"
+    },
+    {
+      "policy": "live-real and exchange submit remain forbidden",
+      "ready": true,
+      "rule_id": "live_exchange_remain_forbidden"
+    },
+    {
+      "policy": "39A is not auto-unlocked by 38I",
+      "ready": true,
+      "rule_id": "39a_not_auto_unlocked"
+    }
+  ],
+  "source_38h_status": "SOURCE_38H_READY",
+  "source_report_required": true
+}

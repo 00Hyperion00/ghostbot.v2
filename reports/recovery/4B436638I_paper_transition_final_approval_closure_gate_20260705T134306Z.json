@@ -1,0 +1,187 @@
+{
+  "check_count": 36,
+  "checks": [
+    {
+      "check_id": "source_38h_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "phase_37_final_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_sandbox_observation_metrics_gate_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "explicit_operator_approval_contract_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "explicit_operator_approval_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_identity_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_id_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_name_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_role_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_approval_timestamp_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "source_report_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "missing_explicit_operator_approval_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "invalid_final_approval_phrase_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_identity_missing_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_final_approval_review_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_final_approval_runtime_denied_no_submit",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_final_approval_network_order_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_approval_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_not_approved_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_not_started",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_market_data_collection_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_remains_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_remains_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "signed_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_health_probe_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "git_mutating_operations_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_mutation_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "final_closure_probe_passed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "guard_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "gate_name": "paper_transition_final_approval_closure_gate",
+  "ready_count": 36
+}

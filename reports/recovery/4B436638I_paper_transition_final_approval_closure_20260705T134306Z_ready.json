@@ -1,0 +1,647 @@
+{
+  "approval_evidence_schema": {
+    "approval_phrase_required": "APPROVE PAPER TRANSITION FINAL APPROVAL CLOSURE ONLY",
+    "approval_scope_required": "paper_transition_final_approval_closure_review_only",
+    "approved_at_utc_required": true,
+    "generated_at_utc": "20260705T134306Z",
+    "operator_id_required": true,
+    "operator_name_required": true,
+    "operator_role_required": true,
+    "reviewed_source_patch": "4B.4.3.6.6.38H",
+    "source_report": "reports\\recovery\\4B436638H_paper_sandbox_observation_metrics_gate_20260705T133559Z_ready.json",
+    "source_report_required": true
+  },
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_operator_audit": true,
+  "approved_for_paper_sandbox_dry_run_harness": true,
+  "approved_for_paper_sandbox_local_runtime_activation_harness": true,
+  "approved_for_paper_sandbox_local_runtime_health_evidence": true,
+  "approved_for_paper_sandbox_observation_metrics_gate": true,
+  "approved_for_paper_sandbox_operator_approval_ledger": true,
+  "approved_for_paper_sandbox_runtime_activation_preflight": true,
+  "approved_for_paper_sandbox_runtime_preflight": true,
+  "approved_for_paper_transition": false,
+  "approved_for_paper_transition_candidate": false,
+  "approved_for_paper_transition_final_approval_closure": true,
+  "approved_for_paper_transition_final_approval_review": true,
+  "approved_for_paper_transition_review": true,
+  "automatic_commit_performed": false,
+  "decision": "PAPER_TRANSITION_FINAL_APPROVAL_CLOSURE_READY_EXPLICIT_OPERATOR_APPROVAL_REQUIRED_NO_RUNTIME_PROCESS_START_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "deduplication_action_performed": false,
+  "destructive_cleanup_performed": false,
+  "errors": [],
+  "exchange_submit_allowed": false,
+  "exchange_submit_approval_performed": false,
+  "exchange_submit_performed": false,
+  "explicit_operator_approval_contract_complete": true,
+  "explicit_operator_approval_contract_digest": "5bfb6546ff79137718bf030a3def1061b737777af4c2ca2755da955f8ad60932",
+  "explicit_operator_approval_contract_locked": true,
+  "explicit_operator_approval_contract_path": "reports\\recovery\\4B436638I_explicit_operator_approval_contract_20260705T134306Z.json",
+  "explicit_operator_approval_contract_ready": true,
+  "explicit_operator_approval_contract_ready_count": 12,
+  "explicit_operator_approval_contract_rule_count": 12,
+  "explicit_operator_approval_contract_rules": [
+    {
+      "policy": "38H READY observation metrics gate evidence is required",
+      "ready": true,
+      "rule_id": "source_38h_ready_required"
+    },
+    {
+      "policy": "final paper transition closure requires explicit typed operator approval",
+      "ready": true,
+      "rule_id": "explicit_operator_approval_required"
+    },
+    {
+      "policy": "operator id, name and role must be recorded",
+      "ready": true,
+      "rule_id": "operator_identity_required"
+    },
+    {
+      "policy": "operator approval must carry immutable UTC timestamp",
+      "ready": true,
+      "rule_id": "operator_approval_timestamp_required"
+    },
+    {
+      "policy": "final approval evidence must reference the 38H READY source report",
+      "ready": true,
+      "rule_id": "source_report_required"
+    },
+    {
+      "policy": "approval phrase must match exact final closure phrase",
+      "ready": true,
+      "rule_id": "approval_phrase_exact_match_required"
+    },
+    {
+      "policy": "missing or mismatched final approval fails closed",
+      "ready": true,
+      "rule_id": "missing_or_invalid_approval_fails_closed"
+    },
+    {
+      "policy": "valid final approval evidence is accepted for review only in 38I",
+      "ready": true,
+      "rule_id": "valid_final_approval_review_only"
+    },
+    {
+      "policy": "38I approval review cannot start paper runtime process",
+      "ready": true,
+      "rule_id": "approval_does_not_start_runtime"
+    },
+    {
+      "policy": "38I approval review cannot enable network order submit",
+      "ready": true,
+      "rule_id": "approval_does_not_enable_network_order"
+    },
+    {
+      "policy": "live-real and exchange submit remain forbidden",
+      "ready": true,
+      "rule_id": "live_exchange_remain_forbidden"
+    },
+    {
+      "policy": "39A is not auto-unlocked by 38I",
+      "ready": true,
+      "rule_id": "39a_not_auto_unlocked"
+    }
+  ],
+  "explicit_operator_approval_required": true,
+  "file_delete_performed": false,
+  "file_move_performed": false,
+  "final_operator_approval_sample_path": "reports\\recovery\\4B436638I_final_operator_approval_sample_20260705T134306Z.json",
+  "final_operator_approval_valid_evidence_sample": {
+    "accepted_for_review_only": true,
+    "approval_phrase": "APPROVE PAPER TRANSITION FINAL APPROVAL CLOSURE ONLY",
+    "approval_scope": "paper_transition_final_approval_closure_review_only",
+    "approved_at_utc": "20260705T134306Z",
+    "digest": "58cf87bb20d25093a64d61dbc47c42d24379c86f314a39326f0d3a13a03213cd",
+    "network_order_submit_allowed": false,
+    "operator_id": "operator.local.final.paper.review",
+    "operator_name": "Operator Final Paper Transition Review",
+    "operator_role": "paper_transition_final_reviewer",
+    "paper_transition_approval_performed": false,
+    "runtime_start_allowed": false,
+    "source_report": "reports\\recovery\\4B436638H_paper_sandbox_observation_metrics_gate_20260705T133559Z_ready.json"
+  },
+  "final_safety_violation_count": 0,
+  "final_safety_violations": [],
+  "generated_at_utc": "20260705T134306Z",
+  "git_add_performed": false,
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "git_tag_performed": false,
+  "historical_report_mutation_performed": false,
+  "http_request_performed": false,
+  "live_environment_enabled": false,
+  "live_real_submit_allowed": false,
+  "live_transition_allowed": false,
+  "live_transition_ready": false,
+  "network_market_data_collection_performed": false,
+  "network_order_submit_allowed": false,
+  "network_order_submit_performed": false,
+  "network_request_allowed_now": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "next_phase": "4B.4.3.6.6.39A",
+  "next_phase_name": "Paper Sandbox Runtime Start Approval Review",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_complete": true,
+  "no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_digest": "bcf10d654fd6f2289ee78c69831c256d4a90fdbbbe4595ac0bf648050055d8bd",
+  "no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_locked": true,
+  "no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_path": "reports\\recovery\\4B436638I_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_20260705T134306Z.json",
+  "no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_ready_count": 13,
+  "no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_rule_count": 13,
+  "no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_rules": [
+    {
+      "policy": "38I does not perform paper transition approval",
+      "ready": true,
+      "rule_id": "paper_transition_approval_requires_separate_explicit_action"
+    },
+    {
+      "policy": "38I cannot start paper runtime process",
+      "ready": true,
+      "rule_id": "paper_runtime_process_start_forbidden"
+    },
+    {
+      "policy": "38I cannot perform runtime health probes",
+      "ready": true,
+      "rule_id": "runtime_health_probe_forbidden"
+    },
+    {
+      "policy": "38I cannot submit paper orders",
+      "ready": true,
+      "rule_id": "paper_order_submit_forbidden"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "network_order_submit_forbidden"
+    },
+    {
+      "policy": "38I cannot collect network market data",
+      "ready": true,
+      "rule_id": "network_market_data_collection_forbidden"
+    },
+    {
+      "policy": "live-real approval remains false",
+      "ready": true,
+      "rule_id": "live_real_approval_false"
+    },
+    {
+      "policy": "exchange submit approval remains false",
+      "ready": true,
+      "rule_id": "exchange_submit_approval_false"
+    },
+    {
+      "policy": "signed requests remain forbidden",
+      "ready": true,
+      "rule_id": "signed_request_forbidden"
+    },
+    {
+      "policy": "private API access remains forbidden",
+      "ready": true,
+      "rule_id": "private_api_forbidden"
+    },
+    {
+      "policy": "network requests are not performed by 38I",
+      "ready": true,
+      "rule_id": "network_request_forbidden"
+    },
+    {
+      "policy": "runtime overlay, training and reload remain forbidden",
+      "ready": true,
+      "rule_id": "runtime_overlay_training_reload_forbidden"
+    },
+    {
+      "policy": "git mutating operations are not performed",
+      "ready": true,
+      "rule_id": "git_mutation_forbidden"
+    }
+  ],
+  "no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_status": "NO_RUNTIME_PROCESS_START_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_GUARD_READY",
+  "ok": true,
+  "operator_approval_timestamp_missing_denied": true,
+  "operator_approval_timestamp_required": true,
+  "operator_id_required": true,
+  "operator_identity_missing_denied": true,
+  "operator_identity_required": true,
+  "operator_name_required": true,
+  "operator_role_required": true,
+  "order_submit_performed": false,
+  "paper_environment_enabled": false,
+  "paper_order_submit_allowed": false,
+  "paper_order_submit_performed": false,
+  "paper_runtime_start_allowed": false,
+  "paper_runtime_start_performed": false,
+  "paper_submit_allowed": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_approval_phrase_required": "APPROVE PAPER TRANSITION FINAL APPROVAL CLOSURE ONLY",
+  "paper_transition_approval_ready": false,
+  "paper_transition_approval_required": true,
+  "paper_transition_blocked": true,
+  "paper_transition_explicit_operator_approval_required": true,
+  "paper_transition_final_approval_closure_complete": true,
+  "paper_transition_final_approval_closure_gate_check_count": 36,
+  "paper_transition_final_approval_closure_gate_checks": [
+    {
+      "check_id": "source_38h_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "phase_37_final_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_sandbox_observation_metrics_gate_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "explicit_operator_approval_contract_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "explicit_operator_approval_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_identity_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_id_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_name_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_role_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_approval_timestamp_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "source_report_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "missing_explicit_operator_approval_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "invalid_final_approval_phrase_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_identity_missing_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_final_approval_review_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_final_approval_runtime_denied_no_submit",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_final_approval_network_order_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_approval_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_not_approved_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_not_started",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_market_data_collection_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_remains_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_remains_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "signed_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_health_probe_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "git_mutating_operations_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_mutation_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "final_closure_probe_passed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "guard_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "paper_transition_final_approval_closure_gate_complete": true,
+  "paper_transition_final_approval_closure_gate_locked": true,
+  "paper_transition_final_approval_closure_gate_path": "reports\\recovery\\4B436638I_paper_transition_final_approval_closure_gate_20260705T134306Z.json",
+  "paper_transition_final_approval_closure_gate_ready_count": 36,
+  "paper_transition_final_approval_closure_gate_status": "PAPER_TRANSITION_FINAL_APPROVAL_CLOSURE_GATE_READY",
+  "paper_transition_final_approval_closure_locked": true,
+  "paper_transition_final_approval_closure_mode": "EXPLICIT_OPERATOR_APPROVAL_REQUIRED_REVIEW_ONLY_NO_RUNTIME_PROCESS_START_NO_NETWORK_ORDER",
+  "paper_transition_final_approval_closure_probe_complete": true,
+  "paper_transition_final_approval_closure_probe_count": 18,
+  "paper_transition_final_approval_closure_probe_digest": "fafa4af091df7e720b2f902c7a8103fdf5176e7f2ebf81dea2c3b5e95396a0e6",
+  "paper_transition_final_approval_closure_probe_locked": true,
+  "paper_transition_final_approval_closure_probe_mode": "STATIC_EXPLICIT_OPERATOR_APPROVAL_REVIEW_ONLY_NO_RUNTIME_NO_NETWORK_ORDER",
+  "paper_transition_final_approval_closure_probe_passed_count": 18,
+  "paper_transition_final_approval_closure_probe_path": "reports\\recovery\\4B436638I_final_approval_closure_probe_20260705T134306Z.json",
+  "paper_transition_final_approval_closure_probes": [
+    {
+      "accepted_for_final_review": false,
+      "expected": true,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "source_38h_ready",
+      "result": true,
+      "runtime_start_allowed": false
+    },
+    {
+      "accepted_for_final_review": false,
+      "expected": "DENY_EXPLICIT_OPERATOR_APPROVAL_REQUIRED",
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "missing_explicit_operator_approval_denied",
+      "result": "DENY_EXPLICIT_OPERATOR_APPROVAL_REQUIRED",
+      "runtime_start_allowed": false
+    },
+    {
+      "accepted_for_final_review": false,
+      "expected": "DENY_FINAL_APPROVAL_PHRASE_MISMATCH",
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "invalid_final_approval_phrase_denied",
+      "result": "DENY_FINAL_APPROVAL_PHRASE_MISMATCH",
+      "runtime_start_allowed": false
+    },
+    {
+      "accepted_for_final_review": false,
+      "expected": "DENY_OPERATOR_IDENTITY_REQUIRED",
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "missing_operator_identity_denied",
+      "result": "DENY_OPERATOR_IDENTITY_REQUIRED",
+      "runtime_start_allowed": false
+    },
+    {
+      "accepted_for_final_review": false,
+      "expected": "DENY_OPERATOR_APPROVAL_TIMESTAMP_REQUIRED",
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "missing_operator_timestamp_denied",
+      "result": "DENY_OPERATOR_APPROVAL_TIMESTAMP_REQUIRED",
+      "runtime_start_allowed": false
+    },
+    {
+      "accepted_for_final_review": false,
+      "expected": "DENY_SOURCE_REPORT_REQUIRED",
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "missing_source_report_denied",
+      "result": "DENY_SOURCE_REPORT_REQUIRED",
+      "runtime_start_allowed": false
+    },
+    {
+      "accepted_for_final_review": true,
+      "expected": "FINAL_APPROVAL_EVIDENCE_ACCEPTED_FOR_REVIEW_ONLY",
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "valid_final_approval_evidence_accepted_for_review_only",
+      "result": "FINAL_APPROVAL_EVIDENCE_ACCEPTED_FOR_REVIEW_ONLY",
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "valid_final_approval_runtime_start_denied",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "valid_final_approval_network_order_denied",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_transition_approval_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_runtime_start_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_order_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "network_order_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "network_request_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "runtime_health_probe_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "live_real_not_approved",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "exchange_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "next_phase_not_auto_unlocked",
+      "result": false
+    }
+  ],
+  "paper_transition_final_approval_closure_ready": true,
+  "paper_transition_final_approval_performed": false,
+  "paper_transition_final_approval_phrase_required": "APPROVE PAPER TRANSITION FINAL APPROVAL CLOSURE ONLY",
+  "paper_transition_final_approval_review_complete": true,
+  "paper_transition_final_approval_review_locked": true,
+  "paper_transition_final_approval_review_only": true,
+  "paper_transition_final_approval_review_ready": true,
+  "paper_transition_final_approval_scope_required": "paper_transition_final_approval_closure_review_only",
+  "paper_transition_final_closure_performed": false,
+  "paper_transition_final_closure_runtime_binding_performed": false,
+  "paper_transition_ready": false,
+  "paper_transition_status": "FINAL_APPROVAL_REVIEW_READY_EXPLICIT_OPERATOR_APPROVAL_REQUIRED_NO_RUNTIME_PROCESS_NO_ORDER",
+  "paper_transition_unblocked": false,
+  "patch_id": "4B436638I",
+  "patch_name": "Paper Transition Final Approval Closure",
+  "patch_version": "4B.4.3.6.6.38I",
+  "phase_37_final_closed": true,
+  "phase_38_execution_started": false,
+  "phase_38_final_closure_ready": true,
+  "phase_38_final_closure_review": true,
+  "phase_38_planning_only": true,
+  "phase_38_unlocked": false,
+  "private_account_read_performed": false,
+  "private_api_access_allowed": false,
+  "public_market_data_collection_performed": false,
+  "public_observation_execution_performed": false,
+  "reload_performed": false,
+  "report_archive_performed": false,
+  "report_dedup_performed": false,
+  "report_delete_performed": false,
+  "report_digest": "a1f744f13ca030183fa4da15d75f2421ddc1e5c2f4dfd87ad7d04128c61d361c",
+  "report_move_performed": false,
+  "report_path": "reports\\recovery\\4B436638I_paper_transition_final_approval_closure_20260705T134306Z_ready.json",
+  "runtime_health_endpoint_called": false,
+  "runtime_health_probe_allowed": false,
+  "runtime_health_probe_forbidden_in_38i": true,
+  "runtime_health_probe_performed": false,
+  "runtime_overlay_activated": false,
+  "runtime_overlay_allowed": false,
+  "runtime_probe_performed": false,
+  "runtime_process_pid": null,
+  "runtime_process_start_forbidden_in_38i": true,
+  "runtime_process_started": false,
+  "runtime_process_status": "NOT_STARTED_BY_38I",
+  "runtime_readiness_unlock_performed": false,
+  "runtime_start_performed": false,
+  "signed_request_performed": false,
+  "source_38h_approved_for_paper_transition": false,
+  "source_38h_complete": true,
+  "source_38h_decision": "PAPER_SANDBOX_OBSERVATION_METRICS_GATE_READY_STATIC_OBSERVATION_METRICS_CONTRACT_NO_RUNTIME_PROCESS_START_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "source_38h_errors": [],
+  "source_38h_network_order_submit_performed": false,
+  "source_38h_paper_sandbox_observation_metrics_gate_ready": true,
+  "source_38h_paper_transition_blocked": true,
+  "source_38h_report": "reports\\recovery\\4B436638H_paper_sandbox_observation_metrics_gate_20260705T133559Z_ready.json",
+  "source_38h_runtime_health_probe_performed": false,
+  "source_38h_runtime_process_started": false,
+  "source_38h_safety_violation_count": 0,
+  "source_38h_safety_violations": [],
+  "source_38h_status": "SOURCE_38H_READY",
+  "source_report": "reports\\recovery\\4B436638H_paper_sandbox_observation_metrics_gate_20260705T133559Z_ready.json",
+  "source_report_missing_denied": true,
+  "source_report_required": true,
+  "status": "READY",
+  "trading_action_performed": false,
+  "training_performed": false,
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false,
+  "typed_final_approval_invalid_denied": true,
+  "typed_final_approval_missing_denied": true,
+  "valid_final_approval_evidence_accepted_for_review": true,
+  "valid_final_approval_evidence_network_order_denied": true,
+  "valid_final_approval_evidence_runtime_denied_no_submit": true,
+  "valid_final_approval_evidence_transition_denied_without_separate_action": true
+}
