@@ -1,0 +1,47 @@
+{
+  "ledger_name": "paper_sandbox_local_activation_session_ledger",
+  "local_activation_session_created": true,
+  "local_activation_session_event_count": 6,
+  "local_activation_session_events": [
+    {
+      "event_id": "activation_evt_001",
+      "event_type": "preflight_source_verified",
+      "result": "SOURCE_38E_READY"
+    },
+    {
+      "event_id": "activation_evt_002",
+      "event_type": "paper_only_config_verified",
+      "result": "PAPER_ONLY_CONFIG_READY"
+    },
+    {
+      "event_id": "activation_evt_003",
+      "event_type": "runtime_process_lock_verified",
+      "result": "PROCESS_LOCK_REQUIRED"
+    },
+    {
+      "event_id": "activation_evt_004",
+      "event_type": "local_harness_activation_session_created",
+      "result": "LOCAL_LEDGER_ONLY"
+    },
+    {
+      "event_id": "activation_evt_005",
+      "event_type": "runtime_process_start_denied",
+      "result": "NO_RUNTIME_PROCESS_START_IN_38F"
+    },
+    {
+      "event_id": "activation_evt_006",
+      "event_type": "network_order_submit_denied",
+      "result": "NO_NETWORK_ORDER"
+    }
+  ],
+  "local_activation_session_id": "38F-20260705T124332Z",
+  "local_activation_session_ledger_complete": true,
+  "local_activation_session_ledger_locked": true,
+  "local_activation_session_ledger_mode": "LOCAL_LEDGER_ONLY_NO_RUNTIME_PROCESS_NO_ORDER",
+  "local_activation_session_ledger_ready": true,
+  "local_activation_session_network_isolated": true,
+  "local_activation_session_order_submit_denied": true,
+  "local_activation_session_process_started": false,
+  "local_activation_session_runtime_binding_performed": false,
+  "source_report": "reports\\recovery\\4B436638E_paper_sandbox_runtime_activation_preflight_20260705T123645Z_ready.json"
+}

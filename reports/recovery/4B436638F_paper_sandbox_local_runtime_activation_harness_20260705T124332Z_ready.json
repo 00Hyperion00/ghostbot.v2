@@ -1,0 +1,583 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_operator_audit": true,
+  "approved_for_paper_sandbox_dry_run_harness": true,
+  "approved_for_paper_sandbox_local_runtime_activation_harness": true,
+  "approved_for_paper_sandbox_operator_approval_ledger": true,
+  "approved_for_paper_sandbox_runtime_activation_preflight": true,
+  "approved_for_paper_sandbox_runtime_preflight": true,
+  "approved_for_paper_transition": false,
+  "approved_for_paper_transition_candidate": false,
+  "approved_for_paper_transition_review": true,
+  "automatic_commit_performed": false,
+  "decision": "PAPER_SANDBOX_LOCAL_RUNTIME_ACTIVATION_HARNESS_READY_PAPER_ONLY_LOCAL_HARNESS_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "deduplication_action_performed": false,
+  "destructive_cleanup_performed": false,
+  "errors": [],
+  "exchange_submit_allowed": false,
+  "exchange_submit_approval_performed": false,
+  "exchange_submit_performed": false,
+  "file_delete_performed": false,
+  "file_move_performed": false,
+  "final_safety_violation_count": 0,
+  "final_safety_violations": [],
+  "generated_at_utc": "20260705T124332Z",
+  "git_add_performed": false,
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "git_tag_performed": false,
+  "guard_name": "no_network_order_no_live_no_exchange_submit_guard",
+  "harness_ready_count": 12,
+  "harness_rule_count": 12,
+  "harness_rules": [
+    {
+      "policy": "38F defines a paper-only local activation harness contract",
+      "ready": true,
+      "rule_id": "paper_only_local_activation_harness"
+    },
+    {
+      "policy": "38E typed activation preflight READY evidence is required",
+      "ready": true,
+      "rule_id": "typed_activation_preflight_required"
+    },
+    {
+      "policy": "runtime process lock remains required before any future activation",
+      "ready": true,
+      "rule_id": "runtime_process_lock_required"
+    },
+    {
+      "policy": "future paper runtime must remain single-instance guarded",
+      "ready": true,
+      "rule_id": "single_instance_required"
+    },
+    {
+      "policy": "paper-only runtime config remains required",
+      "ready": true,
+      "rule_id": "paper_only_config_required"
+    },
+    {
+      "policy": "activation harness can create only local session ledger evidence",
+      "ready": true,
+      "rule_id": "local_harness_session_ledger_only"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "network_order_forbidden"
+    },
+    {
+      "policy": "live-real remains forbidden",
+      "ready": true,
+      "rule_id": "live_real_forbidden"
+    },
+    {
+      "policy": "exchange submit remains forbidden",
+      "ready": true,
+      "rule_id": "exchange_submit_forbidden"
+    },
+    {
+      "policy": "signed request and private API access remain forbidden",
+      "ready": true,
+      "rule_id": "signed_private_api_forbidden"
+    },
+    {
+      "policy": "38F does not start the runtime process",
+      "ready": true,
+      "rule_id": "runtime_process_start_forbidden"
+    },
+    {
+      "policy": "38G is not auto-unlocked by 38F",
+      "ready": true,
+      "rule_id": "38g_not_auto_unlocked"
+    }
+  ],
+  "historical_report_mutation_performed": false,
+  "host": "MUHASEBEOSMAN",
+  "http_request_performed": false,
+  "ledger_name": "paper_sandbox_local_activation_session_ledger",
+  "live_environment_enabled": false,
+  "live_real_submit_allowed": false,
+  "live_transition_allowed": false,
+  "live_transition_ready": false,
+  "local_activation_session_created": true,
+  "local_activation_session_event_count": 6,
+  "local_activation_session_events": [
+    {
+      "event_id": "activation_evt_001",
+      "event_type": "preflight_source_verified",
+      "result": "SOURCE_38E_READY"
+    },
+    {
+      "event_id": "activation_evt_002",
+      "event_type": "paper_only_config_verified",
+      "result": "PAPER_ONLY_CONFIG_READY"
+    },
+    {
+      "event_id": "activation_evt_003",
+      "event_type": "runtime_process_lock_verified",
+      "result": "PROCESS_LOCK_REQUIRED"
+    },
+    {
+      "event_id": "activation_evt_004",
+      "event_type": "local_harness_activation_session_created",
+      "result": "LOCAL_LEDGER_ONLY"
+    },
+    {
+      "event_id": "activation_evt_005",
+      "event_type": "runtime_process_start_denied",
+      "result": "NO_RUNTIME_PROCESS_START_IN_38F"
+    },
+    {
+      "event_id": "activation_evt_006",
+      "event_type": "network_order_submit_denied",
+      "result": "NO_NETWORK_ORDER"
+    }
+  ],
+  "local_activation_session_id": "38F-20260705T124332Z",
+  "local_activation_session_ledger_complete": true,
+  "local_activation_session_ledger_digest": "97ccffda4595b9310fd522e9307c0cce52c40a29ade89500f722bb62895df1e6",
+  "local_activation_session_ledger_locked": true,
+  "local_activation_session_ledger_mode": "LOCAL_LEDGER_ONLY_NO_RUNTIME_PROCESS_NO_ORDER",
+  "local_activation_session_ledger_path": "reports\\recovery\\4B436638F_local_activation_session_ledger_20260705T124332Z.json",
+  "local_activation_session_ledger_ready": true,
+  "local_activation_session_network_isolated": true,
+  "local_activation_session_order_submit_denied": true,
+  "local_activation_session_process_started": false,
+  "local_activation_session_runtime_binding_performed": false,
+  "local_harness_session_ledger_required": true,
+  "local_runtime_activation_harness_available_for_review": true,
+  "local_runtime_activation_harness_execution_performed": false,
+  "local_runtime_activation_harness_probe_complete": true,
+  "local_runtime_activation_harness_probe_count": 16,
+  "local_runtime_activation_harness_probe_digest": "9667fd1bd3ce8e4a6cd597414a8f637325603a462bfa1b673c57c1cbe18df24b",
+  "local_runtime_activation_harness_probe_locked": true,
+  "local_runtime_activation_harness_probe_mode": "LOCAL_PAPER_ONLY_HARNESS_NO_RUNTIME_PROCESS_NO_NETWORK_ORDER",
+  "local_runtime_activation_harness_probe_passed_count": 16,
+  "local_runtime_activation_harness_probe_path": "reports\\recovery\\4B436638F_local_runtime_activation_harness_probe_20260705T124332Z.json",
+  "local_runtime_activation_harness_probe_status": "LOCAL_RUNTIME_ACTIVATION_HARNESS_PROBES_READY_NO_RUNTIME_NO_ORDER",
+  "local_runtime_activation_harness_probes": [
+    {
+      "expected": true,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "source_38e_ready",
+      "result": true,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": true,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "paper_only_activation_harness_declared",
+      "result": true,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": "LOCAL_LEDGER_ONLY",
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "local_activation_session_ledger_created",
+      "result": "LOCAL_LEDGER_ONLY",
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": true,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "runtime_process_lock_required",
+      "result": true,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": true,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "single_instance_runtime_required",
+      "result": true,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": true,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "paper_only_config_validated",
+      "result": true,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": true,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "runtime_start_template_declared",
+      "result": true,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "runtime_process_start_not_performed",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "paper_runtime_start_not_performed",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "paper_order_submit_not_performed",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "network_order_submit_not_performed",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "live_real_not_approved",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "exchange_submit_not_performed",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "signed_request_not_performed",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "private_api_access_not_allowed",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "next_phase_not_auto_unlocked",
+      "result": false,
+      "runtime_start_allowed": false
+    }
+  ],
+  "local_runtime_activation_harness_runtime_binding_performed": false,
+  "network_order_submit_allowed": false,
+  "network_order_submit_performed": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "next_phase": "4B.4.3.6.6.38G",
+  "next_phase_name": "Paper Sandbox Local Runtime Health Evidence",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "no_network_order_guard_ready_count": 10,
+  "no_network_order_guard_rule_count": 10,
+  "no_network_order_guard_rules": [
+    {
+      "policy": "38F cannot start paper runtime process",
+      "ready": true,
+      "rule_id": "paper_runtime_start_forbidden"
+    },
+    {
+      "policy": "38F cannot submit paper orders",
+      "ready": true,
+      "rule_id": "paper_order_submit_forbidden"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "network_order_submit_forbidden"
+    },
+    {
+      "policy": "live-real approval remains false",
+      "ready": true,
+      "rule_id": "live_real_approval_false"
+    },
+    {
+      "policy": "exchange submit approval remains false",
+      "ready": true,
+      "rule_id": "exchange_submit_approval_false"
+    },
+    {
+      "policy": "signed requests remain forbidden",
+      "ready": true,
+      "rule_id": "signed_request_forbidden"
+    },
+    {
+      "policy": "private API access remains forbidden",
+      "ready": true,
+      "rule_id": "private_api_forbidden"
+    },
+    {
+      "policy": "network requests are not performed by 38F",
+      "ready": true,
+      "rule_id": "network_request_forbidden"
+    },
+    {
+      "policy": "runtime overlay, training and reload remain forbidden",
+      "ready": true,
+      "rule_id": "runtime_overlay_training_reload_forbidden"
+    },
+    {
+      "policy": "git mutating operations are not performed",
+      "ready": true,
+      "rule_id": "git_mutation_forbidden"
+    }
+  ],
+  "no_network_order_no_live_no_exchange_submit_guard_complete": true,
+  "no_network_order_no_live_no_exchange_submit_guard_digest": "94115397cd164ac0397afe2dea0b95c13278945ea492db3eed2a09bd5f7cd2fe",
+  "no_network_order_no_live_no_exchange_submit_guard_locked": true,
+  "no_network_order_no_live_no_exchange_submit_guard_path": "reports\\recovery\\4B436638F_no_network_order_no_live_no_exchange_submit_guard_20260705T124332Z.json",
+  "no_network_order_no_live_no_exchange_submit_guard_status": "NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_GUARD_READY",
+  "ok": true,
+  "order_submit_performed": false,
+  "paper_environment_enabled": false,
+  "paper_only_config_required": true,
+  "paper_only_config_validated_for_local_activation_harness": true,
+  "paper_only_local_runtime_activation_harness_complete": true,
+  "paper_only_local_runtime_activation_harness_digest": "44cac297c9adcb122d29110bce413a4962479e876583e11e0365adc9e596ccd4",
+  "paper_only_local_runtime_activation_harness_locked": true,
+  "paper_only_local_runtime_activation_harness_mode": "LOCAL_PAPER_ONLY_HARNESS_NO_RUNTIME_PROCESS_NO_NETWORK_ORDER",
+  "paper_only_local_runtime_activation_harness_policy_path": "reports\\recovery\\4B436638F_paper_only_local_runtime_activation_harness_policy_20260705T124332Z.json",
+  "paper_only_local_runtime_activation_harness_ready": true,
+  "paper_order_submit_allowed": false,
+  "paper_order_submit_performed": false,
+  "paper_runtime_start_allowed": false,
+  "paper_runtime_start_performed": false,
+  "paper_sandbox_local_runtime_activation_harness_complete": true,
+  "paper_sandbox_local_runtime_activation_harness_gate_check_count": 28,
+  "paper_sandbox_local_runtime_activation_harness_gate_checks": [
+    {
+      "check_id": "source_38e_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "phase_37_final_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_sandbox_runtime_activation_preflight_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_operator_activation_preflight_verified",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "local_runtime_activation_harness_policy_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_only_local_activation_harness_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "local_activation_session_ledger_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_process_lock_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "single_instance_runtime_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_only_config_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_template_declared",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_not_executed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "local_activation_session_runtime_binding_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "local_activation_probe_passed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_not_approved_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_not_started",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_remains_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_remains_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "signed_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "git_mutating_operations_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_mutation_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "paper_sandbox_local_runtime_activation_harness_gate_complete": true,
+  "paper_sandbox_local_runtime_activation_harness_gate_digest": "c00d2d72a4a498a3e8175283eba38a2b74c6d7eb6ec8a4d854f93da33dee6a6c",
+  "paper_sandbox_local_runtime_activation_harness_gate_locked": true,
+  "paper_sandbox_local_runtime_activation_harness_gate_path": "reports\\recovery\\4B436638F_paper_sandbox_local_runtime_activation_harness_gate_20260705T124332Z.json",
+  "paper_sandbox_local_runtime_activation_harness_gate_ready_count": 28,
+  "paper_sandbox_local_runtime_activation_harness_gate_status": "PAPER_SANDBOX_LOCAL_RUNTIME_ACTIVATION_HARNESS_GATE_READY",
+  "paper_sandbox_local_runtime_activation_harness_locked": true,
+  "paper_sandbox_local_runtime_activation_harness_mode": "LOCAL_PAPER_ONLY_ACTIVATION_HARNESS_NO_RUNTIME_PROCESS_NO_NETWORK_ORDER",
+  "paper_sandbox_local_runtime_activation_harness_ready": true,
+  "paper_sandbox_local_runtime_activation_harness_status": "PAPER_SANDBOX_LOCAL_RUNTIME_ACTIVATION_HARNESS_READY_NO_RUNTIME_START_NO_ORDER",
+  "paper_submit_allowed": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_approval_ready": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_status": "PAPER_SANDBOX_LOCAL_RUNTIME_ACTIVATION_HARNESS_READY_NO_RUNTIME_START_NO_ORDER",
+  "paper_transition_unblocked": false,
+  "patch_id": "4B436638F",
+  "patch_name": "Paper Sandbox Local Runtime Activation Harness",
+  "patch_version": "4B.4.3.6.6.38F",
+  "phase_37_final_closed": true,
+  "phase_38_execution_started": false,
+  "phase_38_planning_only": true,
+  "phase_38_unlocked": false,
+  "policy_name": "paper_sandbox_local_runtime_activation_harness_policy",
+  "private_account_read_performed": false,
+  "private_api_access_allowed": false,
+  "probe_name": "paper_sandbox_local_runtime_activation_harness_probe",
+  "public_market_data_collection_performed": false,
+  "public_observation_execution_performed": false,
+  "reload_performed": false,
+  "report_archive_performed": false,
+  "report_dedup_performed": false,
+  "report_delete_performed": false,
+  "report_digest": "a6c8805e45b4a5833b95c8a1e589c69365075a9abed220647a482aade4c0ce23",
+  "report_move_performed": false,
+  "report_path": "reports\\recovery\\4B436638F_paper_sandbox_local_runtime_activation_harness_20260705T124332Z_ready.json",
+  "runtime_health_probe_performed": false,
+  "runtime_overlay_activated": false,
+  "runtime_overlay_allowed": false,
+  "runtime_probe_performed": false,
+  "runtime_process_lock_required": true,
+  "runtime_process_start_forbidden_in_38f": true,
+  "runtime_readiness_unlock_performed": false,
+  "runtime_start_command_executed": false,
+  "runtime_start_command_template_declared": true,
+  "runtime_start_performed": false,
+  "runtime_start_preflight_mode": "LOCAL_HARNESS_READY_NO_RUNTIME_START_NO_NETWORK_ORDER",
+  "signed_request_performed": false,
+  "single_instance_runtime_required": true,
+  "source_38e_approved_for_paper_transition": false,
+  "source_38e_complete": true,
+  "source_38e_decision": "PAPER_SANDBOX_RUNTIME_ACTIVATION_PREFLIGHT_READY_TYPED_OPERATOR_APPROVAL_VERIFIED_LOCAL_START_PREFLIGHT_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "source_38e_paper_sandbox_runtime_activation_preflight_ready": true,
+  "source_38e_paper_transition_blocked": true,
+  "source_38e_report": "reports\\recovery\\4B436638E_paper_sandbox_runtime_activation_preflight_20260705T123645Z_ready.json",
+  "source_38e_safety_violation_count": 0,
+  "source_38e_safety_violations": [],
+  "source_38e_status": "SOURCE_38E_READY",
+  "source_38e_typed_operator_approval_verified_for_preflight_review": true,
+  "source_report": "reports\\recovery\\4B436638E_paper_sandbox_runtime_activation_preflight_20260705T123645Z_ready.json",
+  "status": "READY",
+  "trading_action_performed": false,
+  "training_performed": false,
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false,
+  "typed_activation_preflight_required": true
+}
