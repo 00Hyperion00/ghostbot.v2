@@ -1,0 +1,198 @@
+{
+  "decision": "PAPER_SANDBOX_RUNTIME_ACTIVATION_PREFLIGHT_READY_TYPED_OPERATOR_APPROVAL_VERIFIED_LOCAL_START_PREFLIGHT_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "generated_at_utc": "20260705T123645Z",
+  "paper_sandbox_runtime_activation_preflight_gate_check_count": 36,
+  "paper_sandbox_runtime_activation_preflight_gate_checks": [
+    {
+      "check_id": "source_38d_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "phase_37_final_closed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_sandbox_operator_approval_ledger_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_operator_approval_verification_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_runtime_activation_approval_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_identity_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_id_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_name_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_role_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_approval_timestamp_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "source_report_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_activation_approval_missing_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_activation_approval_invalid_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_identity_missing_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_activation_preflight_review_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_activation_preflight_runtime_denied_no_submit",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_activation_preflight_network_order_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "local_runtime_start_preflight_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_process_lock_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "single_instance_runtime_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_only_config_validated",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_not_executed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_not_approved_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_not_started",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_remains_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_remains_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "signed_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "git_mutating_operations_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_mutation_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "paper_sandbox_runtime_activation_preflight_gate_complete": true,
+  "paper_sandbox_runtime_activation_preflight_gate_digest": "b11103ad8fc34c9525a516513f95ba96bc85c1ac76c0bce1d662ae7fca724754",
+  "paper_sandbox_runtime_activation_preflight_gate_locked": true,
+  "paper_sandbox_runtime_activation_preflight_gate_path": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436638E_paper_sandbox_runtime_activation_preflight_gate_20260705T123645Z.json",
+  "paper_sandbox_runtime_activation_preflight_gate_ready_count": 36,
+  "paper_sandbox_runtime_activation_preflight_gate_status": "PAPER_SANDBOX_RUNTIME_ACTIVATION_PREFLIGHT_GATE_READY",
+  "patch_id": "4B436638E",
+  "patch_name": "Paper Sandbox Runtime Activation Preflight",
+  "patch_version": "4B.4.3.6.6.38E",
+  "source_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436638D_paper_sandbox_operator_approval_ledger_20260705T123038Z_ready.json",
+  "status": "READY"
+}

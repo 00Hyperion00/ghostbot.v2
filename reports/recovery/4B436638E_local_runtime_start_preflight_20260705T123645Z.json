@@ -1,0 +1,91 @@
+{
+  "exchange_submit_disabled_required": true,
+  "generated_at_utc": "20260705T123645Z",
+  "live_environment_disabled_required": true,
+  "local_runtime_start_preflight_complete": true,
+  "local_runtime_start_preflight_digest": "4fc3c10202169f464f3e453a6a9283c992f4bc25d592d33c31937739936e8dc4",
+  "local_runtime_start_preflight_locked": true,
+  "local_runtime_start_preflight_path": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436638E_local_runtime_start_preflight_20260705T123645Z.json",
+  "local_runtime_start_preflight_ready": true,
+  "local_runtime_start_preflight_ready_count": 10,
+  "local_runtime_start_preflight_rule_count": 10,
+  "local_runtime_start_preflight_rules": [
+    {
+      "policy": "38E declares a local runtime-start preflight only",
+      "ready": true,
+      "rule_id": "local_runtime_start_preflight_only"
+    },
+    {
+      "policy": "runtime-start preflight requires paper-only config contract",
+      "ready": true,
+      "rule_id": "paper_only_config_required"
+    },
+    {
+      "policy": "runtime process lock evidence is required before any future start",
+      "ready": true,
+      "rule_id": "runtime_process_lock_required"
+    },
+    {
+      "policy": "future paper runtime start must be single-instance guarded",
+      "ready": true,
+      "rule_id": "single_instance_required"
+    },
+    {
+      "policy": "network order submit must remain disabled",
+      "ready": true,
+      "rule_id": "network_order_disabled_required"
+    },
+    {
+      "policy": "live-real environment must remain disabled",
+      "ready": true,
+      "rule_id": "live_environment_disabled_required"
+    },
+    {
+      "policy": "exchange submit must remain disabled",
+      "ready": true,
+      "rule_id": "exchange_submit_disabled_required"
+    },
+    {
+      "policy": "signed requests and private API access remain disabled",
+      "ready": true,
+      "rule_id": "signed_private_api_disabled_required"
+    },
+    {
+      "policy": "runtime health probe and process start are out of scope for 38E",
+      "ready": true,
+      "rule_id": "health_probe_start_forbidden"
+    },
+    {
+      "policy": "38F is not auto-unlocked by runtime-start preflight",
+      "ready": true,
+      "rule_id": "38f_not_auto_unlocked"
+    }
+  ],
+  "local_runtime_start_preflight_status": "LOCAL_RUNTIME_START_PREFLIGHT_READY_NO_RUNTIME_START_NO_ORDER",
+  "network_order_submit_disabled_required": true,
+  "operator_approval_scope_required": "paper_sandbox_runtime_activation_preflight_review_only",
+  "operator_approval_timestamp_required": true,
+  "operator_id_required": true,
+  "operator_identity_required": true,
+  "operator_name_required": true,
+  "operator_role_required": true,
+  "paper_only_config_required": true,
+  "patch_id": "4B436638E",
+  "patch_name": "Paper Sandbox Runtime Activation Preflight",
+  "patch_version": "4B.4.3.6.6.38E",
+  "private_api_access_disabled_required": true,
+  "reload_disabled_required": true,
+  "runtime_overlay_disabled_required": true,
+  "runtime_process_lock_required": true,
+  "runtime_start_command_executed": false,
+  "runtime_start_command_template_declared": true,
+  "runtime_start_performed": false,
+  "runtime_start_preflight_mode": "LOCAL_PREFLIGHT_NO_RUNTIME_START_NO_NETWORK_ORDER",
+  "signed_request_disabled_required": true,
+  "single_instance_runtime_required": true,
+  "source_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436638D_paper_sandbox_operator_approval_ledger_20260705T123038Z_ready.json",
+  "source_report_required": true,
+  "training_disabled_required": true,
+  "typed_operator_approval_phrase_required": "APPROVE PAPER SANDBOX RUNTIME ACTIVATION PREFLIGHT ONLY",
+  "typed_runtime_activation_approval_required": true
+}

@@ -1,0 +1,94 @@
+{
+  "generated_at_utc": "20260705T123645Z",
+  "operator_activation_approval_evidence_schema": {
+    "approval_phrase_required": "APPROVE PAPER SANDBOX RUNTIME ACTIVATION PREFLIGHT ONLY",
+    "approval_scope": "paper_sandbox_runtime_activation_preflight_review_only",
+    "approved_at_utc_required": true,
+    "generated_at_utc": "20260705T123645Z",
+    "operator_id_required": true,
+    "operator_name_required": true,
+    "operator_role_required": true,
+    "reviewed_source_patch": "4B.4.3.6.6.38D",
+    "source_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436638D_paper_sandbox_operator_approval_ledger_20260705T123038Z_ready.json",
+    "source_report_required": true
+  },
+  "operator_activation_preflight_valid_evidence_sample": {
+    "approval_phrase": "APPROVE PAPER SANDBOX RUNTIME ACTIVATION PREFLIGHT ONLY",
+    "approval_scope": "paper_sandbox_runtime_activation_preflight_review_only",
+    "approved_at_utc": "20260705T123645Z",
+    "operator_id": "operator.local.activation.preflight",
+    "operator_name": "Operator Runtime Preflight Review",
+    "operator_role": "paper_sandbox_runtime_reviewer",
+    "source_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436638D_paper_sandbox_operator_approval_ledger_20260705T123038Z_ready.json"
+  },
+  "operator_approval_scope_required": "paper_sandbox_runtime_activation_preflight_review_only",
+  "operator_approval_timestamp_required": true,
+  "operator_approval_verification_digest": "bbda0e323b5e59577546836a9033e221d7793ee69f4bb944c7835bdcf138cf43",
+  "operator_approval_verification_ready_count": 9,
+  "operator_approval_verification_rule_count": 9,
+  "operator_approval_verification_rules": [
+    {
+      "policy": "paper sandbox runtime activation preflight requires exact typed operator approval evidence",
+      "ready": true,
+      "rule_id": "typed_runtime_activation_approval_required"
+    },
+    {
+      "policy": "operator id, name and role must be present",
+      "ready": true,
+      "rule_id": "operator_identity_required"
+    },
+    {
+      "policy": "operator approval must carry an immutable UTC timestamp",
+      "ready": true,
+      "rule_id": "operator_approval_timestamp_required"
+    },
+    {
+      "policy": "activation preflight approval must reference the 38D READY source report",
+      "ready": true,
+      "rule_id": "source_report_required"
+    },
+    {
+      "policy": "missing or mismatched activation approval fails closed",
+      "ready": true,
+      "rule_id": "missing_or_invalid_approval_fails_closed"
+    },
+    {
+      "policy": "valid activation approval is accepted for preflight review only",
+      "ready": true,
+      "rule_id": "valid_approval_is_preflight_review_only"
+    },
+    {
+      "policy": "valid approval cannot start paper runtime in 38E",
+      "ready": true,
+      "rule_id": "approval_does_not_start_runtime"
+    },
+    {
+      "policy": "valid approval cannot enable network order submit",
+      "ready": true,
+      "rule_id": "approval_does_not_enable_network_order"
+    },
+    {
+      "policy": "38F is not auto-unlocked by 38E",
+      "ready": true,
+      "rule_id": "38f_not_auto_unlocked"
+    }
+  ],
+  "operator_approval_verification_status": "TYPED_OPERATOR_APPROVAL_VERIFICATION_READY_PREFLIGHT_REVIEW_ONLY",
+  "operator_id_required": true,
+  "operator_identity_missing_denied": true,
+  "operator_identity_required": true,
+  "operator_name_required": true,
+  "operator_role_required": true,
+  "patch_id": "4B436638E",
+  "patch_name": "Paper Sandbox Runtime Activation Preflight",
+  "patch_version": "4B.4.3.6.6.38E",
+  "source_report": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436638D_paper_sandbox_operator_approval_ledger_20260705T123038Z_ready.json",
+  "typed_activation_approval_invalid_denied": true,
+  "typed_activation_approval_missing_denied": true,
+  "typed_operator_approval_phrase_required": "APPROVE PAPER SANDBOX RUNTIME ACTIVATION PREFLIGHT ONLY",
+  "typed_operator_approval_verification_complete": true,
+  "typed_operator_approval_verification_locked": true,
+  "typed_operator_approval_verification_path": "C:\\Users\\muhas\\OneDrive\\Masaüstü\\trade_botV2\\reports\\recovery\\4B436638E_typed_operator_approval_verification_20260705T123645Z.json",
+  "typed_operator_approval_verified_for_preflight_review": true,
+  "typed_runtime_activation_approval_required": true
+}
