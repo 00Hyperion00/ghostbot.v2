@@ -1,0 +1,67 @@
+{
+  "digest": "61c7597c7cd2006443f0578a4e0ef171ef4d439dbbccfeae3f2c0bdc9fd67101",
+  "evidence_item_count": 8,
+  "evidence_items": [
+    {
+      "item_id": "source_38f_ready",
+      "ready": true,
+      "value": "SOURCE_38F_READY"
+    },
+    {
+      "item_id": "paper_only_local_harness_ready",
+      "ready": true,
+      "value": true
+    },
+    {
+      "item_id": "local_activation_session_ledger_required",
+      "ready": true,
+      "value": true
+    },
+    {
+      "item_id": "runtime_process_not_started",
+      "ready": true,
+      "value": false
+    },
+    {
+      "item_id": "runtime_health_probe_not_performed",
+      "ready": true,
+      "value": false
+    },
+    {
+      "item_id": "network_order_submit_not_performed",
+      "ready": true,
+      "value": false
+    },
+    {
+      "item_id": "live_real_not_approved",
+      "ready": true,
+      "value": false
+    },
+    {
+      "item_id": "exchange_submit_not_performed",
+      "ready": true,
+      "value": false
+    }
+  ],
+  "evidence_ready_count": 8,
+  "exchange_submit_performed": false,
+  "generated_at_utc": "20260705T125039Z",
+  "health_evidence_snapshot_created": true,
+  "health_evidence_snapshot_locked": true,
+  "health_evidence_snapshot_ready": true,
+  "live_environment_enabled": false,
+  "local_activation_session_reference_required": true,
+  "network_order_submit_performed": false,
+  "network_request_performed": false,
+  "paper_environment_enabled": false,
+  "paper_order_submit_performed": false,
+  "runtime_health_endpoint_called": false,
+  "runtime_health_probe_performed": false,
+  "runtime_process_pid": null,
+  "runtime_process_started": false,
+  "runtime_process_status": "NOT_STARTED_BY_38G",
+  "snapshot_mode": "STATIC_LEDGER_HEALTH_EVIDENCE_NO_PROCESS_START",
+  "snapshot_name": "paper_sandbox_local_runtime_health_snapshot",
+  "source_38f_status": "SOURCE_38F_READY",
+  "source_report": "reports\\recovery\\4B436638F_paper_sandbox_local_runtime_activation_harness_20260705T124332Z_ready.json"
+}
