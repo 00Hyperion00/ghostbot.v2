@@ -1,0 +1,62 @@
+{
+  "dry_run_runtime_harness_mode": "LOCAL_SIMULATION_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT",
+  "generated_at_utc": "20260705T122325Z",
+  "harness_ready_count": 9,
+  "harness_rule_count": 9,
+  "harness_rules": [
+    {
+      "policy": "38C defines a local dry-run harness only",
+      "ready": true,
+      "rule_id": "local_dry_run_harness_only"
+    },
+    {
+      "policy": "dry-run ticks are synthetic fixtures, not market-data network calls",
+      "ready": true,
+      "rule_id": "synthetic_tick_source_only"
+    },
+    {
+      "policy": "order intents are simulation ledgers and never executable orders",
+      "ready": true,
+      "rule_id": "simulated_order_intent_only"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "network_order_forbidden"
+    },
+    {
+      "policy": "live-real environment remains forbidden",
+      "ready": true,
+      "rule_id": "live_real_forbidden"
+    },
+    {
+      "policy": "exchange submit remains forbidden",
+      "ready": true,
+      "rule_id": "exchange_submit_forbidden"
+    },
+    {
+      "policy": "private API and signed requests remain forbidden",
+      "ready": true,
+      "rule_id": "private_api_forbidden"
+    },
+    {
+      "policy": "production/paper runtime start is out of scope for 38C",
+      "ready": true,
+      "rule_id": "runtime_start_forbidden"
+    },
+    {
+      "policy": "38D is not auto-unlocked",
+      "ready": true,
+      "rule_id": "next_phase_not_auto_unlocked"
+    }
+  ],
+  "local_dry_run_runtime_harness_complete": true,
+  "local_dry_run_runtime_harness_digest": "ddd75da3c203b2b14559ad1d0f6423c28251c3a320c7f6e9e5a24086c41e7d9e",
+  "local_dry_run_runtime_harness_locked": true,
+  "network_market_data_disabled": true,
+  "patch_id": "4B436638C",
+  "patch_version": "4B.4.3.6.6.38C",
+  "policy_name": "local_dry_run_runtime_harness_policy",
+  "simulated_order_intent_only": true,
+  "synthetic_tick_source_only": true
+}
