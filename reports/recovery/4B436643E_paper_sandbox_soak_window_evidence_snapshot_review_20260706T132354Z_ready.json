@@ -1,0 +1,376 @@
+{
+  "actual_evidence_collection_performed_by_patch": false,
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_operator_audit": true,
+  "approved_for_paper_runtime_start": false,
+  "approved_for_paper_sandbox_phase43_bundle": true,
+  "approved_for_paper_sandbox_soak_window_evidence_snapshot_review": true,
+  "approved_for_paper_transition": false,
+  "approved_for_paper_transition_candidate": false,
+  "automatic_commit_performed": false,
+  "decision": "PAPER_SANDBOX_SOAK_WINDOW_EVIDENCE_SNAPSHOT_REVIEW_READY_WINDOW_SNAPSHOT_REVIEW_ONLY_NO_SOAK_ACCEPTANCE_BY_PATCH_NO_PAPER_ORDER_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "deduplication_action_performed": false,
+  "destructive_cleanup_performed": false,
+  "errors": [],
+  "evidence_collection_performed_by_patch": false,
+  "exchange_submit_allowed": false,
+  "exchange_submit_approval_performed": false,
+  "exchange_submit_performed": false,
+  "file_delete_performed": false,
+  "file_move_performed": false,
+  "final_safety_violation_count": 0,
+  "final_safety_violations": [],
+  "generated_at_utc": "20260706T132354Z",
+  "git_add_performed": false,
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "git_tag_performed": false,
+  "health_evidence_collected_by_patch": false,
+  "historical_report_mutation_performed": false,
+  "http_request_performed": false,
+  "incident_budget_enforcement_performed_by_patch": false,
+  "live_environment_enabled": false,
+  "live_real_submit_allowed": false,
+  "live_transition_allowed": false,
+  "live_transition_ready": false,
+  "metrics_evidence_collected_by_patch": false,
+  "minimum_heartbeat_count_required_later": true,
+  "minimum_soak_window_required_later": true,
+  "network_market_data_collection_performed": false,
+  "network_order_submit_allowed": false,
+  "network_order_submit_performed": false,
+  "network_request_allowed_now": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "next_phase": "4B.4.3.6.6.43F",
+  "next_phase_name": "Paper Sandbox Incident Budget Evidence Review",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "no_order_soak_scope_required": true,
+  "observation_runtime_metrics_collection_deferred": true,
+  "observation_runtime_metrics_collection_performed": false,
+  "ok": true,
+  "order_path_opened_by_patch": false,
+  "order_submit_performed": false,
+  "paper_environment_enabled": false,
+  "paper_only_runtime_scope_required": true,
+  "paper_order_submit_allowed": false,
+  "paper_order_submit_performed": false,
+  "paper_runtime_start_allowed": false,
+  "paper_runtime_start_approval_performed": false,
+  "paper_runtime_start_approval_ready": false,
+  "paper_runtime_start_authorization_performed": false,
+  "paper_runtime_start_authorization_ready": false,
+  "paper_runtime_start_performed": false,
+  "paper_sandbox_soak_window_evidence_snapshot_review_check_complete": true,
+  "paper_sandbox_soak_window_evidence_snapshot_review_check_count": 18,
+  "paper_sandbox_soak_window_evidence_snapshot_review_check_locked": true,
+  "paper_sandbox_soak_window_evidence_snapshot_review_checks": [
+    {
+      "check_id": "source_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "contract_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "evidence_collection_not_performed_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_process_not_started_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "health_endpoint_not_called_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_metrics_not_collected_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_start_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "signed_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "paper_sandbox_soak_window_evidence_snapshot_review_complete": true,
+  "paper_sandbox_soak_window_evidence_snapshot_review_locked": true,
+  "paper_sandbox_soak_window_evidence_snapshot_review_mode": "SOAK_WINDOW_EVIDENCE_SNAPSHOT_REVIEW_ONLY_NO_ACCEPTANCE_BY_PATCH",
+  "paper_sandbox_soak_window_evidence_snapshot_review_probe_complete": true,
+  "paper_sandbox_soak_window_evidence_snapshot_review_probe_count": 11,
+  "paper_sandbox_soak_window_evidence_snapshot_review_probe_locked": true,
+  "paper_sandbox_soak_window_evidence_snapshot_review_probe_mode": "SOAK_WINDOW_EVIDENCE_SNAPSHOT_REVIEW_ONLY_NO_ACCEPTANCE_BY_PATCH",
+  "paper_sandbox_soak_window_evidence_snapshot_review_probe_passed_count": 11,
+  "paper_sandbox_soak_window_evidence_snapshot_review_probes": [
+    {
+      "expected": true,
+      "passed": true,
+      "probe_id": "source_ready",
+      "result": true
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "evidence_collection_not_performed_by_patch",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "runtime_start_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "runtime_process_not_started",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "health_endpoint_not_called_by_patch",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "runtime_metrics_not_collected_by_patch",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_order_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "network_order_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "live_real_not_approved",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "exchange_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "next_phase_not_auto_unlocked",
+      "result": false
+    }
+  ],
+  "paper_sandbox_soak_window_evidence_snapshot_review_ready": true,
+  "paper_sandbox_soak_window_evidence_snapshot_review_status": "PAPER_SANDBOX_SOAK_WINDOW_EVIDENCE_SNAPSHOT_REVIEW_READY",
+  "paper_submit_allowed": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_approval_ready": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_required": false,
+  "paper_transition_unblocked": false,
+  "patch_id": "4B436643E",
+  "patch_name": "Paper Sandbox Soak Window Evidence Snapshot Review",
+  "patch_version": "4B.4.3.6.6.43E",
+  "phase_43_evidence_collection_review_only": true,
+  "phase_43_unlocked": false,
+  "private_account_read_performed": false,
+  "private_api_access_allowed": false,
+  "public_market_data_collection_allowed": false,
+  "public_market_data_collection_performed": false,
+  "public_observation_execution_performed": false,
+  "reload_performed": false,
+  "report_archive_performed": false,
+  "report_dedup_performed": false,
+  "report_delete_performed": false,
+  "report_digest": "f0295276cd3d028be9c378eff02bce12bb2a190eb599de4947ab8787157ea78b",
+  "report_move_performed": false,
+  "report_path": "reports\\recovery\\4B436643E_paper_sandbox_soak_window_evidence_snapshot_review_20260706T132354Z_ready.json",
+  "runtime_health_endpoint_called": false,
+  "runtime_health_endpoint_called_by_patch": false,
+  "runtime_health_probe_allowed": false,
+  "runtime_health_probe_deferred_to_future_runtime": true,
+  "runtime_health_probe_evidence_collected_by_patch": false,
+  "runtime_health_probe_forbidden_by_patch": true,
+  "runtime_health_probe_performed": false,
+  "runtime_metrics_collection_allowed": false,
+  "runtime_metrics_collection_deferred": true,
+  "runtime_metrics_collection_performed": false,
+  "runtime_metrics_collection_performed_by_patch": false,
+  "runtime_overlay_activated": false,
+  "runtime_overlay_allowed": false,
+  "runtime_presence_evidence_collected_by_patch": false,
+  "runtime_presence_evidence_collection_deferred": true,
+  "runtime_probe_performed": false,
+  "runtime_process_lock_required": true,
+  "runtime_process_pid": null,
+  "runtime_process_start_performed": false,
+  "runtime_process_started": false,
+  "runtime_process_status": "NOT_STARTED_BY_43E",
+  "runtime_start_command_allowed": false,
+  "runtime_start_command_declared_only": true,
+  "runtime_start_command_executed": false,
+  "runtime_start_command_execution_allowed": false,
+  "runtime_start_command_execution_performed": false,
+  "runtime_start_command_review_only": true,
+  "runtime_start_command_template": "python -m tradebot.paper_runtime_entry --mode paper-sandbox --config config/paper_sandbox.runtime.json --runtime-lock runtime/paper_sandbox_runtime.lock --no-network-order --no-live --no-exchange-submit",
+  "runtime_start_command_template_declared": true,
+  "runtime_start_command_template_preserved": true,
+  "runtime_start_performed": false,
+  "runtime_started_by_patch": false,
+  "runtime_still_not_started_by_patch": true,
+  "runtime_stop_command_template": "CTRL+C in the dedicated paper-sandbox runtime terminal or approved local stop script only",
+  "signed_request_performed": false,
+  "single_instance_runtime_required": true,
+  "soak_evidence_accepted_by_patch": false,
+  "soak_execution_accepted_by_patch": false,
+  "soak_execution_collection_deferred": true,
+  "soak_execution_performed_by_patch": false,
+  "soak_start_command_executed_by_patch": false,
+  "soak_window_evidence_snapshot_review_complete": true,
+  "soak_window_evidence_snapshot_review_contract_complete": true,
+  "soak_window_evidence_snapshot_review_contract_digest": "c5f47600a70030e14b1a75a66ded8d0c34376284f4e4092245738921bf707109",
+  "soak_window_evidence_snapshot_review_contract_locked": true,
+  "soak_window_evidence_snapshot_review_contract_only": true,
+  "soak_window_evidence_snapshot_review_contract_path": null,
+  "soak_window_evidence_snapshot_review_contract_ready": true,
+  "soak_window_evidence_snapshot_review_contract_ready_count": 9,
+  "soak_window_evidence_snapshot_review_contract_rule_count": 9,
+  "soak_window_evidence_snapshot_review_contract_rules": [
+    {
+      "policy": "43D READY metrics evidence review is required",
+      "ready": true,
+      "rule_id": "rule_01"
+    },
+    {
+      "policy": "soak window evidence snapshot review must be declared",
+      "ready": true,
+      "rule_id": "rule_02"
+    },
+    {
+      "policy": "future evidence must include soak window duration",
+      "ready": true,
+      "rule_id": "rule_03"
+    },
+    {
+      "policy": "future evidence must include heartbeat/tick count",
+      "ready": true,
+      "rule_id": "rule_04"
+    },
+    {
+      "policy": "patch cannot collect soak window evidence",
+      "ready": true,
+      "rule_id": "rule_05"
+    },
+    {
+      "policy": "patch cannot accept soak execution",
+      "ready": true,
+      "rule_id": "rule_06"
+    },
+    {
+      "policy": "paper order submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_07"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_08"
+    },
+    {
+      "policy": "43F is not auto-unlocked by 43E",
+      "ready": true,
+      "rule_id": "rule_09"
+    }
+  ],
+  "soak_window_evidence_snapshot_review_locked": true,
+  "soak_window_evidence_snapshot_review_ready": true,
+  "soak_window_snapshot_collected_by_patch": false,
+  "source_43d_complete": true,
+  "source_43d_decision": "PAPER_SANDBOX_NO_ORDER_METRICS_EVIDENCE_COLLECTION_REVIEW_READY_METRICS_REVIEW_ONLY_METRICS_NOT_COLLECTED_BY_PATCH_NO_PAPER_ORDER_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "source_43d_report": null,
+  "source_43d_runtime_process_started": false,
+  "source_43d_runtime_start_command_executed": false,
+  "source_43d_safety_violation_count": 0,
+  "source_43d_status": "SOURCE_43D_READY",
+  "source_report": null,
+  "status": "READY",
+  "trading_action_performed": false,
+  "training_performed": false,
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false
+}
