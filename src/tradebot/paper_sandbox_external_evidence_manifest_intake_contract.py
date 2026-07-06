@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from .paper_sandbox_phase45_49_common import evaluate_phase, main_for_patch
 
-PATCH_ID = "4B436646H"
-PATCH_VERSION = "4B.4.3.6.6.46H"
-PATCH_NAME = "Paper Sandbox No-Order Soak Acceptance Decision Gate"
+PATCH_ID = "4B436645B"
+PATCH_VERSION = "4B.4.3.6.6.45B"
+PATCH_NAME = "Paper Sandbox External Evidence Manifest Intake Contract"
 
 
 def evaluate(reports_dir: str = "reports/recovery", write_reports: bool = False) -> dict[str, object]:
