@@ -1,0 +1,69 @@
+{
+  "contract_name": "runtime_start_pre_execution_gate_contract",
+  "exchange_submit_allowed": false,
+  "live_real_submit_allowed": false,
+  "network_order_submit_allowed": false,
+  "paper_order_submit_allowed": false,
+  "paper_runtime_start_allowed": false,
+  "patch_id": "4B436640C",
+  "patch_version": "4B.4.3.6.6.40C",
+  "private_api_access_allowed": false,
+  "rules": [
+    {
+      "policy": "40B READY typed operator approval contract is required",
+      "ready": true,
+      "rule_id": "01_40b_ready_typed_operator_approval_contract_is_required"
+    },
+    {
+      "policy": "pre-execution gate is contract-only",
+      "ready": true,
+      "rule_id": "02_pre_execution_gate_is_contract_only"
+    },
+    {
+      "policy": "paper-only config must be validated",
+      "ready": true,
+      "rule_id": "03_paper_only_config_must_be_validated"
+    },
+    {
+      "policy": "runtime command template must retain no-network-order/no-live/no-exchange-submit flags",
+      "ready": true,
+      "rule_id": "04_runtime_command_template_must_retain_no_network_order/no_live/no_exchange_submit"
+    },
+    {
+      "policy": "runtime start command remains unexecuted",
+      "ready": true,
+      "rule_id": "05_runtime_start_command_remains_unexecuted"
+    },
+    {
+      "policy": "paper runtime process remains not started",
+      "ready": true,
+      "rule_id": "06_paper_runtime_process_remains_not_started"
+    },
+    {
+      "policy": "paper order submit remains forbidden",
+      "ready": true,
+      "rule_id": "07_paper_order_submit_remains_forbidden"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "08_network_order_submit_remains_forbidden"
+    },
+    {
+      "policy": "live-real remains forbidden",
+      "ready": true,
+      "rule_id": "09_live_real_remains_forbidden"
+    },
+    {
+      "policy": "40D is not auto-unlocked by 40C",
+      "ready": true,
+      "rule_id": "10_40d_is_not_auto_unlocked_by_40c"
+    }
+  ],
+  "runtime_start_allowed": false,
+  "runtime_start_command_execution_allowed": false,
+  "source_patch_id": "4B436640B",
+  "source_patch_version": "4B.4.3.6.6.40B",
+  "source_ready": true,
+  "source_ready_required": true
+}

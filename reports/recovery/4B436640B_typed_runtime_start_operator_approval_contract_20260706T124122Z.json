@@ -1,0 +1,69 @@
+{
+  "contract_name": "typed_runtime_start_operator_approval_contract",
+  "exchange_submit_allowed": false,
+  "live_real_submit_allowed": false,
+  "network_order_submit_allowed": false,
+  "paper_order_submit_allowed": false,
+  "paper_runtime_start_allowed": false,
+  "patch_id": "4B436640B",
+  "patch_version": "4B.4.3.6.6.40B",
+  "private_api_access_allowed": false,
+  "rules": [
+    {
+      "policy": "40A READY execution authorization review evidence is required",
+      "ready": true,
+      "rule_id": "01_40a_ready_execution_authorization_review_evidence_is_required"
+    },
+    {
+      "policy": "typed operator approval schema must be declared",
+      "ready": true,
+      "rule_id": "02_typed_operator_approval_schema_must_be_declared"
+    },
+    {
+      "policy": "exact approval phrase must be declared",
+      "ready": true,
+      "rule_id": "03_exact_approval_phrase_must_be_declared"
+    },
+    {
+      "policy": "operator id and timestamp evidence are required for future execution",
+      "ready": true,
+      "rule_id": "04_operator_id_and_timestamp_evidence_are_required_for_future_execution"
+    },
+    {
+      "policy": "40B cannot perform the typed approval itself",
+      "ready": true,
+      "rule_id": "05_40b_cannot_perform_the_typed_approval_itself"
+    },
+    {
+      "policy": "runtime start command remains unexecuted",
+      "ready": true,
+      "rule_id": "06_runtime_start_command_remains_unexecuted"
+    },
+    {
+      "policy": "paper runtime process remains not started",
+      "ready": true,
+      "rule_id": "07_paper_runtime_process_remains_not_started"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "08_network_order_submit_remains_forbidden"
+    },
+    {
+      "policy": "live-real remains forbidden",
+      "ready": true,
+      "rule_id": "09_live_real_remains_forbidden"
+    },
+    {
+      "policy": "40C is not auto-unlocked by 40B",
+      "ready": true,
+      "rule_id": "10_40c_is_not_auto_unlocked_by_40b"
+    }
+  ],
+  "runtime_start_allowed": false,
+  "runtime_start_command_execution_allowed": false,
+  "source_patch_id": "4B436640A",
+  "source_patch_version": "4B.4.3.6.6.40A",
+  "source_ready": true,
+  "source_ready_required": true
+}

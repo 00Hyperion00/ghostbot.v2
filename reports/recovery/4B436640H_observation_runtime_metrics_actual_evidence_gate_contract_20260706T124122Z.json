@@ -1,0 +1,69 @@
+{
+  "contract_name": "observation_runtime_metrics_actual_evidence_gate_contract",
+  "exchange_submit_allowed": false,
+  "live_real_submit_allowed": false,
+  "network_order_submit_allowed": false,
+  "paper_order_submit_allowed": false,
+  "paper_runtime_start_allowed": false,
+  "patch_id": "4B436640H",
+  "patch_version": "4B.4.3.6.6.40H",
+  "private_api_access_allowed": false,
+  "rules": [
+    {
+      "policy": "40G READY actual health probe evidence gate is required",
+      "ready": true,
+      "rule_id": "01_40g_ready_actual_health_probe_evidence_gate_is_required"
+    },
+    {
+      "policy": "actual observation runtime metrics gate must be declared",
+      "ready": true,
+      "rule_id": "02_actual_observation_runtime_metrics_gate_must_be_declared"
+    },
+    {
+      "policy": "actual metrics require previously authorized runtime and health probe",
+      "ready": true,
+      "rule_id": "03_actual_metrics_require_previously_authorized_runtime_and_health_probe"
+    },
+    {
+      "policy": "patch cannot collect observation runtime metrics",
+      "ready": true,
+      "rule_id": "04_patch_cannot_collect_observation_runtime_metrics"
+    },
+    {
+      "policy": "paper order count must remain zero",
+      "ready": true,
+      "rule_id": "05_paper_order_count_must_remain_zero"
+    },
+    {
+      "policy": "network order count must remain zero",
+      "ready": true,
+      "rule_id": "06_network_order_count_must_remain_zero"
+    },
+    {
+      "policy": "exchange submit count must remain zero",
+      "ready": true,
+      "rule_id": "07_exchange_submit_count_must_remain_zero"
+    },
+    {
+      "policy": "live-real remains forbidden",
+      "ready": true,
+      "rule_id": "08_live_real_remains_forbidden"
+    },
+    {
+      "policy": "runtime start remains unperformed by patch",
+      "ready": true,
+      "rule_id": "09_runtime_start_remains_unperformed_by_patch"
+    },
+    {
+      "policy": "40I is not auto-unlocked by 40H",
+      "ready": true,
+      "rule_id": "10_40i_is_not_auto_unlocked_by_40h"
+    }
+  ],
+  "runtime_start_allowed": false,
+  "runtime_start_command_execution_allowed": false,
+  "source_patch_id": "4B436640G",
+  "source_patch_version": "4B.4.3.6.6.40G",
+  "source_ready": true,
+  "source_ready_required": true
+}
