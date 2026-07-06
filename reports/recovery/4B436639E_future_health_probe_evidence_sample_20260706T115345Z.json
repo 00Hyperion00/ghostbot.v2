@@ -1,0 +1,22 @@
+{
+  "accepted_as_future_evidence_shape_only": true,
+  "bootstrap_error": null,
+  "bootstrap_ok": true,
+  "checked_at_utc": "20260706T115345Z",
+  "collected_by_39e": false,
+  "digest": "eb28d86f0b2955edb14203b5763a8042aa631ce203958391564ad2a50de74225",
+  "exchange_submit_performed": false,
+  "health_endpoint_called_by_39e": false,
+  "health_probe_endpoint": "http://127.0.0.1:8000/health",
+  "live_environment_enabled": false,
+  "network_order_submit_performed": false,
+  "ok": true,
+  "order_submit_performed": false,
+  "running": true,
+  "runtime_process_pid": 12345,
+  "runtime_started_by_39e": false,
+  "sample_name": "future_local_runtime_health_probe_evidence_sample",
+  "scope": "paper_sandbox_local_runtime_health_probe_evidence_contract_review_only",
+  "source_report": "reports\\recovery\\4B436639D_paper_sandbox_local_runtime_process_start_gate_20260706T100216Z_ready.json",
+  "symbol": "ETHUSDT"
+}

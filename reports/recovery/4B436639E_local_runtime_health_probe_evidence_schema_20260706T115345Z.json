@@ -1,0 +1,38 @@
+{
+  "acceptance_rules": {
+    "bootstrap_error_must_be_null_or_empty": true,
+    "bootstrap_ok_must_be_true": true,
+    "no_exchange_submit_required": true,
+    "no_live_real_required": true,
+    "no_network_order_submit_required": true,
+    "ok_must_be_true": true,
+    "running_must_be_true_when_future_runtime_started": true,
+    "runtime_process_pid_required_when_running": true,
+    "source_report_must_reference_39d_ready": true
+  },
+  "digest": "ea16a2ec56ed3e6ccef8c87b51f878c14a58d2909f68d56e2a36e34cbcd92221",
+  "exchange_submit_allowed": false,
+  "expected_runtime_mode": "paper-sandbox-local",
+  "generated_at_utc": "20260706T115345Z",
+  "health_probe_collection_deferred": true,
+  "health_probe_endpoint_called_by_39e": false,
+  "health_probe_endpoint_template": "http://127.0.0.1:8000/health",
+  "live_environment_enabled": false,
+  "network_order_submit_allowed": false,
+  "required_fields": [
+    "ok",
+    "running",
+    "symbol",
+    "bootstrap_ok",
+    "bootstrap_error",
+    "runtime_process_pid",
+    "checked_at_utc",
+    "source_report"
+  ],
+  "reviewed_source_patch": "4B.4.3.6.6.39D",
+  "runtime_must_be_started_by_previous_authorized_step": true,
+  "runtime_process_started_by_39e": false,
+  "schema_name": "paper_sandbox_local_runtime_health_probe_evidence_schema",
+  "scope": "paper_sandbox_local_runtime_health_probe_evidence_contract_review_only",
+  "source_report": "reports\\recovery\\4B436639D_paper_sandbox_local_runtime_process_start_gate_20260706T100216Z_ready.json"
+}
