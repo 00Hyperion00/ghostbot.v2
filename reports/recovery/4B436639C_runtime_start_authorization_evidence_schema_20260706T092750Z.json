@@ -1,0 +1,12 @@
+{
+  "approval_phrase_required": "APPROVE PAPER SANDBOX RUNTIME START AUTHORIZATION LEDGER ONLY",
+  "approval_scope_required": "paper_sandbox_runtime_start_authorization_ledger_review_only",
+  "approved_at_utc_required": true,
+  "generated_at_utc": "20260706T092750Z",
+  "operator_id_required": true,
+  "operator_name_required": true,
+  "operator_role_required": true,
+  "reviewed_source_patch": "4B.4.3.6.6.39B",
+  "source_report": "reports\\recovery\\4B436639B_paper_sandbox_runtime_start_command_contract_20260706T092131Z_ready.json",
+  "source_report_required": true
+}

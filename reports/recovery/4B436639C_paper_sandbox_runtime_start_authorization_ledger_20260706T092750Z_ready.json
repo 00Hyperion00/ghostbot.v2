@@ -1,0 +1,714 @@
+{
+  "approval_evidence_schema": {
+    "approval_phrase_required": "APPROVE PAPER SANDBOX RUNTIME START AUTHORIZATION LEDGER ONLY",
+    "approval_scope_required": "paper_sandbox_runtime_start_authorization_ledger_review_only",
+    "approved_at_utc_required": true,
+    "generated_at_utc": "20260706T092750Z",
+    "operator_id_required": true,
+    "operator_name_required": true,
+    "operator_role_required": true,
+    "reviewed_source_patch": "4B.4.3.6.6.39B",
+    "source_report": "reports\\recovery\\4B436639B_paper_sandbox_runtime_start_command_contract_20260706T092131Z_ready.json",
+    "source_report_required": true
+  },
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_operator_audit": true,
+  "approved_for_paper_runtime_start": false,
+  "approved_for_paper_runtime_start_authorization_ledger": true,
+  "approved_for_paper_runtime_start_command_contract": true,
+  "approved_for_paper_sandbox_runtime_start_authorization_ledger": true,
+  "approved_for_paper_transition": false,
+  "approved_for_paper_transition_candidate": false,
+  "authorization_evidence_schema_path": "reports\\recovery\\4B436639C_runtime_start_authorization_evidence_schema_20260706T092750Z.json",
+  "automatic_commit_performed": false,
+  "decision": "PAPER_SANDBOX_RUNTIME_START_AUTHORIZATION_LEDGER_READY_EXPLICIT_TYPED_OPERATOR_APPROVAL_LEDGER_NO_COMMAND_EXECUTION_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "deduplication_action_performed": false,
+  "destructive_cleanup_performed": false,
+  "errors": [],
+  "exchange_submit_allowed": false,
+  "exchange_submit_approval_performed": false,
+  "exchange_submit_performed": false,
+  "explicit_runtime_start_authorization_ledger_complete": true,
+  "explicit_runtime_start_authorization_ledger_digest": "f931f3b2a5790199c98af6489a00470e5b5116bc20bab5ba1a4f92ce0ba07e40",
+  "explicit_runtime_start_authorization_ledger_locked": true,
+  "explicit_runtime_start_authorization_ledger_path": "reports\\recovery\\4B436639C_runtime_start_authorization_ledger_20260706T092750Z.json",
+  "explicit_runtime_start_authorization_ledger_ready": true,
+  "explicit_runtime_start_authorization_ledger_ready_count": 13,
+  "explicit_runtime_start_authorization_ledger_rule_count": 13,
+  "explicit_runtime_start_authorization_ledger_rules": [
+    {
+      "policy": "39B READY runtime-start command contract evidence is required",
+      "ready": true,
+      "rule_id": "source_39b_ready_required"
+    },
+    {
+      "policy": "runtime start authorization ledger requires exact typed operator approval",
+      "ready": true,
+      "rule_id": "explicit_runtime_start_authorization_required"
+    },
+    {
+      "policy": "operator id, name and role must be recorded",
+      "ready": true,
+      "rule_id": "operator_identity_required"
+    },
+    {
+      "policy": "runtime-start authorization must carry immutable UTC timestamp",
+      "ready": true,
+      "rule_id": "operator_approval_timestamp_required"
+    },
+    {
+      "policy": "runtime-start authorization evidence must reference the 39B READY source report",
+      "ready": true,
+      "rule_id": "source_report_required"
+    },
+    {
+      "policy": "runtime-start authorization phrase must match the exact 39C phrase",
+      "ready": true,
+      "rule_id": "approval_phrase_exact_match_required"
+    },
+    {
+      "policy": "missing or mismatched runtime-start authorization fails closed",
+      "ready": true,
+      "rule_id": "missing_or_invalid_authorization_fails_closed"
+    },
+    {
+      "policy": "valid runtime-start authorization evidence is accepted for ledger review only in 39C",
+      "ready": true,
+      "rule_id": "valid_authorization_is_ledger_review_only"
+    },
+    {
+      "policy": "39C cannot execute the runtime start command",
+      "ready": true,
+      "rule_id": "39c_does_not_execute_runtime_start_command"
+    },
+    {
+      "policy": "39C cannot start paper runtime process",
+      "ready": true,
+      "rule_id": "39c_does_not_start_runtime"
+    },
+    {
+      "policy": "39C cannot enable network order submit",
+      "ready": true,
+      "rule_id": "39c_does_not_enable_network_order"
+    },
+    {
+      "policy": "live-real and exchange submit remain forbidden",
+      "ready": true,
+      "rule_id": "live_exchange_remain_forbidden"
+    },
+    {
+      "policy": "39D is not auto-unlocked by 39C",
+      "ready": true,
+      "rule_id": "39d_not_auto_unlocked"
+    }
+  ],
+  "explicit_runtime_start_authorization_required": true,
+  "file_delete_performed": false,
+  "file_move_performed": false,
+  "final_safety_violation_count": 0,
+  "final_safety_violations": [],
+  "generated_at_utc": "20260706T092750Z",
+  "git_add_performed": false,
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "git_tag_performed": false,
+  "historical_report_mutation_performed": false,
+  "http_request_performed": false,
+  "live_environment_enabled": false,
+  "live_real_submit_allowed": false,
+  "live_transition_allowed": false,
+  "live_transition_ready": false,
+  "network_market_data_collection_performed": false,
+  "network_order_submit_allowed": false,
+  "network_order_submit_performed": false,
+  "network_request_allowed_now": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "next_phase": "4B.4.3.6.6.39D",
+  "next_phase_name": "Paper Sandbox Local Runtime Process Start Gate",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_complete": true,
+  "no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_digest": "39c66fc19f1511031a5d5dca748e9c8437cf4647db6bcdf458014b30b0fc0b52",
+  "no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_locked": true,
+  "no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_path": "reports\\recovery\\4B436639C_no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_20260706T092750Z.json",
+  "no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_ready_count": 15,
+  "no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_rule_count": 15,
+  "no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_rules": [
+    {
+      "policy": "39C does not perform runtime start authorization",
+      "ready": true,
+      "rule_id": "runtime_start_authorization_performed_false"
+    },
+    {
+      "policy": "39C cannot execute the runtime start command",
+      "ready": true,
+      "rule_id": "runtime_start_command_execution_forbidden"
+    },
+    {
+      "policy": "39C cannot start paper runtime process",
+      "ready": true,
+      "rule_id": "paper_runtime_process_start_forbidden"
+    },
+    {
+      "policy": "39C cannot perform runtime health probes",
+      "ready": true,
+      "rule_id": "runtime_health_probe_forbidden"
+    },
+    {
+      "policy": "39C does not perform paper transition approval",
+      "ready": true,
+      "rule_id": "paper_transition_approval_not_performed"
+    },
+    {
+      "policy": "39C cannot submit paper orders",
+      "ready": true,
+      "rule_id": "paper_order_submit_forbidden"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "network_order_submit_forbidden"
+    },
+    {
+      "policy": "39C cannot collect network market data",
+      "ready": true,
+      "rule_id": "network_market_data_collection_forbidden"
+    },
+    {
+      "policy": "live-real approval remains false",
+      "ready": true,
+      "rule_id": "live_real_approval_false"
+    },
+    {
+      "policy": "exchange submit approval remains false",
+      "ready": true,
+      "rule_id": "exchange_submit_approval_false"
+    },
+    {
+      "policy": "signed requests remain forbidden",
+      "ready": true,
+      "rule_id": "signed_request_forbidden"
+    },
+    {
+      "policy": "private API access remains forbidden",
+      "ready": true,
+      "rule_id": "private_api_forbidden"
+    },
+    {
+      "policy": "network requests are not performed by 39C",
+      "ready": true,
+      "rule_id": "network_request_forbidden"
+    },
+    {
+      "policy": "runtime overlay, training and reload remain forbidden",
+      "ready": true,
+      "rule_id": "runtime_overlay_training_reload_forbidden"
+    },
+    {
+      "policy": "git mutating operations are not performed",
+      "ready": true,
+      "rule_id": "git_mutation_forbidden"
+    }
+  ],
+  "no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard_status": "NO_COMMAND_EXECUTION_NO_RUNTIME_PROCESS_START_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_GUARD_READY",
+  "ok": true,
+  "operator_approval_timestamp_missing_denied": true,
+  "operator_approval_timestamp_required": true,
+  "operator_id_required": true,
+  "operator_identity_missing_denied": true,
+  "operator_identity_required": true,
+  "operator_name_required": true,
+  "operator_role_required": true,
+  "order_submit_performed": false,
+  "paper_environment_enabled": false,
+  "paper_only_config_required": true,
+  "paper_only_config_validated_for_authorization_ledger": true,
+  "paper_order_submit_allowed": false,
+  "paper_order_submit_performed": false,
+  "paper_runtime_start_allowed": false,
+  "paper_runtime_start_approval_performed": false,
+  "paper_runtime_start_approval_ready": false,
+  "paper_runtime_start_authorization_performed": false,
+  "paper_runtime_start_authorization_ready": false,
+  "paper_runtime_start_performed": false,
+  "paper_sandbox_runtime_start_authorization_ledger_complete": true,
+  "paper_sandbox_runtime_start_authorization_ledger_gate_check_count": 39,
+  "paper_sandbox_runtime_start_authorization_ledger_gate_checks": [
+    {
+      "check_id": "source_39b_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "phase_39_command_contract_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_contract_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "explicit_runtime_start_authorization_ledger_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "typed_runtime_start_operator_approval_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_identity_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_id_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_name_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_role_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_approval_timestamp_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "source_report_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "missing_runtime_start_authorization_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "invalid_runtime_start_authorization_phrase_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "operator_identity_missing_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_runtime_start_authorization_ledger_review_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_runtime_start_authorization_command_execution_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_runtime_start_authorization_runtime_denied_no_submit",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "valid_runtime_start_authorization_network_order_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_not_executed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_execution_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_start_authorization_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_not_started",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_process_not_started",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_market_data_collection_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_remains_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_remains_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "signed_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_health_probe_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "git_mutating_operations_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_mutation_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "authorization_ledger_probe_passed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "guard_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "paper_sandbox_runtime_start_authorization_ledger_gate_complete": true,
+  "paper_sandbox_runtime_start_authorization_ledger_gate_locked": true,
+  "paper_sandbox_runtime_start_authorization_ledger_gate_path": "reports\\recovery\\4B436639C_paper_sandbox_runtime_start_authorization_ledger_gate_20260706T092750Z.json",
+  "paper_sandbox_runtime_start_authorization_ledger_gate_ready_count": 39,
+  "paper_sandbox_runtime_start_authorization_ledger_gate_status": "PAPER_SANDBOX_RUNTIME_START_AUTHORIZATION_LEDGER_GATE_READY",
+  "paper_sandbox_runtime_start_authorization_ledger_locked": true,
+  "paper_sandbox_runtime_start_authorization_ledger_mode": "EXPLICIT_TYPED_OPERATOR_AUTHORIZATION_LEDGER_REVIEW_ONLY_NO_COMMAND_EXECUTION_NO_NETWORK_ORDER",
+  "paper_sandbox_runtime_start_authorization_ledger_probe_complete": true,
+  "paper_sandbox_runtime_start_authorization_ledger_probe_count": 23,
+  "paper_sandbox_runtime_start_authorization_ledger_probe_digest": "55432943cd6da660d74b912b439719d82c2fbd10252f29968870ab1ccdd8c728",
+  "paper_sandbox_runtime_start_authorization_ledger_probe_locked": true,
+  "paper_sandbox_runtime_start_authorization_ledger_probe_mode": "STATIC_TYPED_OPERATOR_AUTHORIZATION_LEDGER_REVIEW_ONLY_NO_COMMAND_EXECUTION_NO_NETWORK_ORDER",
+  "paper_sandbox_runtime_start_authorization_ledger_probe_passed_count": 23,
+  "paper_sandbox_runtime_start_authorization_ledger_probe_path": "reports\\recovery\\4B436639C_runtime_start_authorization_ledger_probe_20260706T092750Z.json",
+  "paper_sandbox_runtime_start_authorization_ledger_probes": [
+    {
+      "expected": true,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "source_39b_ready",
+      "result": true,
+      "runtime_start_allowed": false
+    },
+    {
+      "command_execution_allowed": false,
+      "expected": "DENY_RUNTIME_START_AUTHORIZATION_REQUIRED",
+      "passed": true,
+      "probe_id": "missing_runtime_start_authorization_denied",
+      "result": "DENY_RUNTIME_START_AUTHORIZATION_REQUIRED",
+      "runtime_start_allowed": false
+    },
+    {
+      "command_execution_allowed": false,
+      "expected": "DENY_RUNTIME_START_AUTHORIZATION_PHRASE_MISMATCH",
+      "passed": true,
+      "probe_id": "invalid_runtime_start_authorization_phrase_denied",
+      "result": "DENY_RUNTIME_START_AUTHORIZATION_PHRASE_MISMATCH",
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": "DENY_OPERATOR_IDENTITY_REQUIRED",
+      "passed": true,
+      "probe_id": "missing_operator_identity_denied",
+      "result": "DENY_OPERATOR_IDENTITY_REQUIRED",
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": "DENY_OPERATOR_APPROVAL_TIMESTAMP_REQUIRED",
+      "passed": true,
+      "probe_id": "missing_operator_timestamp_denied",
+      "result": "DENY_OPERATOR_APPROVAL_TIMESTAMP_REQUIRED",
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": "DENY_SOURCE_REPORT_REQUIRED",
+      "passed": true,
+      "probe_id": "missing_source_report_denied",
+      "result": "DENY_SOURCE_REPORT_REQUIRED",
+      "runtime_start_allowed": false
+    },
+    {
+      "accepted_for_authorization_ledger_review": true,
+      "command_execution_allowed": false,
+      "expected": "RUNTIME_START_AUTHORIZATION_EVIDENCE_ACCEPTED_FOR_LEDGER_REVIEW_ONLY",
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "valid_runtime_start_authorization_evidence_accepted_for_ledger_review_only",
+      "result": "RUNTIME_START_AUTHORIZATION_EVIDENCE_ACCEPTED_FOR_LEDGER_REVIEW_ONLY",
+      "runtime_start_allowed": false
+    },
+    {
+      "command_execution_allowed": false,
+      "expected": false,
+      "passed": true,
+      "probe_id": "valid_runtime_start_authorization_command_execution_denied",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "valid_runtime_start_authorization_runtime_start_denied",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "valid_runtime_start_authorization_network_order_denied",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "runtime_start_command_not_executed",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "runtime_process_start_not_performed",
+      "result": false,
+      "runtime_start_allowed": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_runtime_start_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_runtime_start_authorization_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_transition_approval_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_order_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "network_order_submit_allowed": false,
+      "passed": true,
+      "probe_id": "network_order_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "network_request_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "network_market_data_collection_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "runtime_health_probe_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "live_real_not_approved",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "exchange_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "next_phase_not_auto_unlocked",
+      "result": false
+    }
+  ],
+  "paper_sandbox_runtime_start_authorization_ledger_ready": true,
+  "paper_submit_allowed": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_approval_ready": false,
+  "paper_transition_approval_required": true,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_status": "AUTHORIZATION_LEDGER_READY_NO_COMMAND_EXECUTION_NO_RUNTIME_PROCESS_NO_ORDER",
+  "paper_transition_unblocked": false,
+  "patch_id": "4B436639C",
+  "patch_name": "Paper Sandbox Runtime Start Authorization Ledger",
+  "patch_version": "4B.4.3.6.6.39C",
+  "phase_39_authorization_ledger_review": true,
+  "phase_39_command_contract_ready": true,
+  "phase_39_execution_started": false,
+  "phase_39_planning_only": true,
+  "phase_39_unlocked": false,
+  "private_account_read_performed": false,
+  "private_api_access_allowed": false,
+  "public_market_data_collection_performed": false,
+  "public_observation_execution_performed": false,
+  "reload_performed": false,
+  "report_archive_performed": false,
+  "report_dedup_performed": false,
+  "report_delete_performed": false,
+  "report_digest": "7aaea18cb46c318ca583948fb827edb27062e6c4602a27457e23d8d537734406",
+  "report_move_performed": false,
+  "report_path": "reports\\recovery\\4B436639C_paper_sandbox_runtime_start_authorization_ledger_20260706T092750Z_ready.json",
+  "runtime_health_endpoint_called": false,
+  "runtime_health_probe_allowed": false,
+  "runtime_health_probe_forbidden_in_39c": true,
+  "runtime_health_probe_performed": false,
+  "runtime_overlay_activated": false,
+  "runtime_overlay_allowed": false,
+  "runtime_probe_performed": false,
+  "runtime_process_lock_required": true,
+  "runtime_process_pid": null,
+  "runtime_process_start_forbidden_in_39c": true,
+  "runtime_process_started": false,
+  "runtime_process_status": "NOT_STARTED_BY_39C",
+  "runtime_readiness_unlock_performed": false,
+  "runtime_start_authorization_ledger_required": true,
+  "runtime_start_authorization_phrase_required": "APPROVE PAPER SANDBOX RUNTIME START AUTHORIZATION LEDGER ONLY",
+  "runtime_start_authorization_scope_required": "paper_sandbox_runtime_start_authorization_ledger_review_only",
+  "runtime_start_command_allowed": false,
+  "runtime_start_command_declared_only": true,
+  "runtime_start_command_executed": false,
+  "runtime_start_command_execution_allowed": false,
+  "runtime_start_command_execution_performed": false,
+  "runtime_start_command_review_only": true,
+  "runtime_start_command_template": "python -m tradebot.paper_runtime_entry --mode paper-sandbox --config config/paper_sandbox.runtime.json --runtime-lock runtime/paper_sandbox_runtime.lock --no-network-order --no-live --no-exchange-submit",
+  "runtime_start_command_template_declared": true,
+  "runtime_start_command_template_preserved": true,
+  "runtime_start_operator_authorization_sample_path": "reports\\recovery\\4B436639C_runtime_start_operator_authorization_sample_20260706T092750Z.json",
+  "runtime_start_operator_authorization_valid_evidence_sample": {
+    "accepted_for_review_only": true,
+    "approval_phrase": "APPROVE PAPER SANDBOX RUNTIME START AUTHORIZATION LEDGER ONLY",
+    "approval_scope": "paper_sandbox_runtime_start_authorization_ledger_review_only",
+    "approved_at_utc": "20260706T092750Z",
+    "command_execution_allowed": false,
+    "digest": "078e0a320e1477bacf8f61c82b104874a7c044fd725023893ed2eab2ec4fa3b3",
+    "network_order_submit_allowed": false,
+    "operator_id": "operator.local.runtime.start.authorization",
+    "operator_name": "Operator Paper Runtime Start Authorization",
+    "operator_role": "paper_sandbox_runtime_start_authorizer",
+    "paper_runtime_start_authorization_performed": false,
+    "runtime_start_allowed": false,
+    "runtime_start_command_executed": false,
+    "runtime_start_performed": false,
+    "source_report": "reports\\recovery\\4B436639B_paper_sandbox_runtime_start_command_contract_20260706T092131Z_ready.json"
+  },
+  "runtime_start_performed": false,
+  "signed_request_performed": false,
+  "single_instance_runtime_required": true,
+  "source_39b_approved_for_paper_runtime_start": false,
+  "source_39b_approved_for_paper_transition": false,
+  "source_39b_complete": true,
+  "source_39b_decision": "PAPER_SANDBOX_RUNTIME_START_COMMAND_CONTRACT_READY_COMMAND_DECLARED_ONLY_NO_EXECUTION_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "source_39b_errors": [],
+  "source_39b_network_order_submit_performed": false,
+  "source_39b_paper_runtime_start_performed": false,
+  "source_39b_paper_sandbox_runtime_start_command_contract_ready": true,
+  "source_39b_paper_transition_blocked": true,
+  "source_39b_report": "reports\\recovery\\4B436639B_paper_sandbox_runtime_start_command_contract_20260706T092131Z_ready.json",
+  "source_39b_runtime_process_started": false,
+  "source_39b_runtime_start_command_executed": false,
+  "source_39b_runtime_start_command_template_declared": true,
+  "source_39b_safety_violation_count": 0,
+  "source_39b_safety_violations": [],
+  "source_39b_status": "SOURCE_39B_READY",
+  "source_report": "reports\\recovery\\4B436639B_paper_sandbox_runtime_start_command_contract_20260706T092131Z_ready.json",
+  "source_report_missing_denied": true,
+  "source_report_required": true,
+  "status": "READY",
+  "trading_action_performed": false,
+  "training_performed": false,
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false,
+  "typed_runtime_start_authorization_invalid_denied": true,
+  "typed_runtime_start_authorization_missing_denied": true,
+  "typed_runtime_start_operator_approval_required": true,
+  "valid_runtime_start_authorization_evidence_accepted_for_review": true,
+  "valid_runtime_start_authorization_evidence_command_execution_denied": true,
+  "valid_runtime_start_authorization_evidence_network_order_denied": true,
+  "valid_runtime_start_authorization_evidence_runtime_denied_no_submit": true,
+  "valid_runtime_start_authorization_evidence_start_denied_without_separate_action": true
+}
