@@ -1,0 +1,17 @@
+{
+  "authorization_phrase_valid": true,
+  "authorization_review_only_lock_valid": true,
+  "authorization_schema_phrase_valid": true,
+  "authorization_source_reference_present": true,
+  "command_execution_allowed_by_authorization_evidence": false,
+  "digest": "63ae4a331d2dd6f8800f10e363e3807876c24b9ee63761469b02f6e0e49f59f8",
+  "network_order_submit_allowed_by_authorization_evidence": false,
+  "operator_approval_timestamp_present": true,
+  "operator_identity_present": true,
+  "ready": true,
+  "runtime_start_allowed_by_authorization_evidence": false,
+  "sample_present": true,
+  "schema_present": true,
+  "source_39c_status": "SOURCE_39C_READY",
+  "validation_name": "explicit_runtime_start_authorization_evidence_validation"
+}

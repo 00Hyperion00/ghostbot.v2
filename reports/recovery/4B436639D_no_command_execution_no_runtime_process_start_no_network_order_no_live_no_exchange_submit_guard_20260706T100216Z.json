@@ -1,0 +1,84 @@
+{
+  "digest": "895448577e56a4991e8f60ab5b0c2c5061dc1901bed024e8d509a56ccbf3e919",
+  "guard_name": "no_command_execution_no_runtime_process_start_no_network_order_no_live_no_exchange_submit_guard",
+  "ready_count": 15,
+  "rule_count": 15,
+  "rules": [
+    {
+      "policy": "39D cannot execute the runtime start command",
+      "ready": true,
+      "rule_id": "local_runtime_gate_does_not_execute_command"
+    },
+    {
+      "policy": "39D cannot start paper runtime process",
+      "ready": true,
+      "rule_id": "local_runtime_gate_does_not_start_process"
+    },
+    {
+      "policy": "39D cannot perform runtime health probes",
+      "ready": true,
+      "rule_id": "runtime_health_probe_forbidden"
+    },
+    {
+      "policy": "39D does not perform runtime start authorization",
+      "ready": true,
+      "rule_id": "paper_runtime_start_authorization_not_performed"
+    },
+    {
+      "policy": "39D does not perform paper transition approval",
+      "ready": true,
+      "rule_id": "paper_transition_approval_not_performed"
+    },
+    {
+      "policy": "39D cannot submit paper orders",
+      "ready": true,
+      "rule_id": "paper_order_submit_forbidden"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "network_order_submit_forbidden"
+    },
+    {
+      "policy": "39D cannot collect network market data",
+      "ready": true,
+      "rule_id": "network_market_data_collection_forbidden"
+    },
+    {
+      "policy": "live-real approval remains false",
+      "ready": true,
+      "rule_id": "live_real_approval_false"
+    },
+    {
+      "policy": "exchange submit approval remains false",
+      "ready": true,
+      "rule_id": "exchange_submit_approval_false"
+    },
+    {
+      "policy": "signed requests remain forbidden",
+      "ready": true,
+      "rule_id": "signed_request_forbidden"
+    },
+    {
+      "policy": "private API access remains forbidden",
+      "ready": true,
+      "rule_id": "private_api_forbidden"
+    },
+    {
+      "policy": "network requests are not performed by 39D",
+      "ready": true,
+      "rule_id": "network_request_forbidden"
+    },
+    {
+      "policy": "runtime overlay, training and reload remain forbidden",
+      "ready": true,
+      "rule_id": "runtime_overlay_training_reload_forbidden"
+    },
+    {
+      "policy": "git mutating operations are not performed",
+      "ready": true,
+      "rule_id": "git_mutation_forbidden"
+    }
+  ],
+  "status": "NO_COMMAND_EXECUTION_NO_RUNTIME_PROCESS_START_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_GUARD_READY"
+}
