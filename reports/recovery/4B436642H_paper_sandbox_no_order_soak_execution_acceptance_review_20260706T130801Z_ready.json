@@ -1,0 +1,348 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "approved_for_operator_audit": true,
+  "approved_for_paper_runtime_start": false,
+  "approved_for_paper_sandbox_no_order_soak_execution_acceptance_review": true,
+  "approved_for_paper_sandbox_phase42_bundle": true,
+  "approved_for_paper_transition": false,
+  "approved_for_paper_transition_candidate": false,
+  "automatic_commit_performed": false,
+  "decision": "PAPER_SANDBOX_NO_ORDER_SOAK_EXECUTION_ACCEPTANCE_REVIEW_READY_ACCEPTANCE_REVIEW_ONLY_SOAK_NOT_ACCEPTED_BY_PATCH_NO_PAPER_ORDER_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "deduplication_action_performed": false,
+  "destructive_cleanup_performed": false,
+  "errors": [],
+  "exchange_submit_allowed": false,
+  "exchange_submit_approval_performed": false,
+  "exchange_submit_performed": false,
+  "file_delete_performed": false,
+  "file_move_performed": false,
+  "final_safety_violation_count": 0,
+  "final_safety_violations": [],
+  "generated_at_utc": "20260706T130801Z",
+  "git_add_performed": false,
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "git_tag_performed": false,
+  "historical_report_mutation_performed": false,
+  "http_request_performed": false,
+  "live_environment_enabled": false,
+  "live_real_submit_allowed": false,
+  "live_transition_allowed": false,
+  "live_transition_ready": false,
+  "network_market_data_collection_performed": false,
+  "network_order_submit_allowed": false,
+  "network_order_submit_performed": false,
+  "network_request_allowed_now": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "next_phase": "4B.4.3.6.6.42I",
+  "next_phase_name": "Paper Sandbox No-Order Soak Execution Closure",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "no_order_soak_execution_acceptance_review_complete": true,
+  "no_order_soak_execution_acceptance_review_contract_complete": true,
+  "no_order_soak_execution_acceptance_review_contract_digest": "f54c1c5fb4a0696059b9a4be369cedefc3783f0a31fb38760e08a5a0749723be",
+  "no_order_soak_execution_acceptance_review_contract_locked": true,
+  "no_order_soak_execution_acceptance_review_contract_only": true,
+  "no_order_soak_execution_acceptance_review_contract_path": null,
+  "no_order_soak_execution_acceptance_review_contract_ready": true,
+  "no_order_soak_execution_acceptance_review_contract_ready_count": 9,
+  "no_order_soak_execution_acceptance_review_contract_rule_count": 9,
+  "no_order_soak_execution_acceptance_review_contract_rules": [
+    {
+      "policy": "42G READY incident budget review is required",
+      "ready": true,
+      "rule_id": "rule_01"
+    },
+    {
+      "policy": "soak execution acceptance review must be declared",
+      "ready": true,
+      "rule_id": "rule_02"
+    },
+    {
+      "policy": "acceptance requires runtime presence evidence",
+      "ready": true,
+      "rule_id": "rule_03"
+    },
+    {
+      "policy": "acceptance requires health evidence",
+      "ready": true,
+      "rule_id": "rule_04"
+    },
+    {
+      "policy": "acceptance requires no-order metrics evidence",
+      "ready": true,
+      "rule_id": "rule_05"
+    },
+    {
+      "policy": "patch cannot accept actual soak without future evidence",
+      "ready": true,
+      "rule_id": "rule_06"
+    },
+    {
+      "policy": "paper order path remains blocked",
+      "ready": true,
+      "rule_id": "rule_07"
+    },
+    {
+      "policy": "live-real remains forbidden",
+      "ready": true,
+      "rule_id": "rule_08"
+    },
+    {
+      "policy": "42I is not auto-unlocked by 42H",
+      "ready": true,
+      "rule_id": "rule_09"
+    }
+  ],
+  "no_order_soak_execution_acceptance_review_locked": true,
+  "no_order_soak_execution_acceptance_review_ready": true,
+  "no_order_soak_scope_required": true,
+  "observation_runtime_metrics_collection_deferred": true,
+  "observation_runtime_metrics_collection_performed": false,
+  "ok": true,
+  "order_submit_performed": false,
+  "paper_environment_enabled": false,
+  "paper_only_runtime_scope_required": true,
+  "paper_order_path_remains_blocked": true,
+  "paper_order_submit_allowed": false,
+  "paper_order_submit_performed": false,
+  "paper_runtime_start_allowed": false,
+  "paper_runtime_start_approval_performed": false,
+  "paper_runtime_start_approval_ready": false,
+  "paper_runtime_start_authorization_performed": false,
+  "paper_runtime_start_authorization_ready": false,
+  "paper_runtime_start_performed": false,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_check_complete": true,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_check_count": 16,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_check_locked": true,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_checks": [
+    {
+      "check_id": "source_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "contract_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "soak_execution_not_performed_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_process_not_started_by_patch",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_start_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "signed_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "paper_sandbox_no_order_soak_execution_acceptance_review_complete": true,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_locked": true,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_mode": "NO_ORDER_SOAK_EXECUTION_ACCEPTANCE_REVIEW_ONLY_SOAK_NOT_ACCEPTED_BY_PATCH",
+  "paper_sandbox_no_order_soak_execution_acceptance_review_probe_complete": true,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_probe_count": 9,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_probe_locked": true,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_probe_mode": "NO_ORDER_SOAK_EXECUTION_ACCEPTANCE_REVIEW_ONLY_SOAK_NOT_ACCEPTED_BY_PATCH",
+  "paper_sandbox_no_order_soak_execution_acceptance_review_probe_passed_count": 9,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_probes": [
+    {
+      "expected": true,
+      "passed": true,
+      "probe_id": "source_ready",
+      "result": true
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "soak_execution_not_performed_by_patch",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "runtime_start_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "runtime_process_not_started",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "paper_order_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "network_order_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "live_real_not_approved",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "exchange_submit_not_performed",
+      "result": false
+    },
+    {
+      "expected": false,
+      "passed": true,
+      "probe_id": "next_phase_not_auto_unlocked",
+      "result": false
+    }
+  ],
+  "paper_sandbox_no_order_soak_execution_acceptance_review_ready": true,
+  "paper_sandbox_no_order_soak_execution_acceptance_review_status": "PAPER_SANDBOX_NO_ORDER_SOAK_EXECUTION_ACCEPTANCE_REVIEW_READY",
+  "paper_submit_allowed": false,
+  "paper_transition_approval_performed": false,
+  "paper_transition_approval_ready": false,
+  "paper_transition_blocked": true,
+  "paper_transition_ready": false,
+  "paper_transition_required": false,
+  "paper_transition_unblocked": false,
+  "patch_id": "4B436642H",
+  "patch_name": "Paper Sandbox No-Order Soak Execution Acceptance Review",
+  "patch_version": "4B.4.3.6.6.42H",
+  "phase_42_authorization_review_only": true,
+  "phase_42_unlocked": false,
+  "private_account_read_performed": false,
+  "private_api_access_allowed": false,
+  "public_market_data_collection_allowed": false,
+  "public_market_data_collection_performed": false,
+  "public_observation_execution_performed": false,
+  "reload_performed": false,
+  "report_archive_performed": false,
+  "report_dedup_performed": false,
+  "report_delete_performed": false,
+  "report_digest": "7e6682526fb2ad1afe2aec4d2a2e7aa270b16d3e4593bcdb78e5a3dd3b7e16a3",
+  "report_move_performed": false,
+  "report_path": "reports\\recovery\\4B436642H_paper_sandbox_no_order_soak_execution_acceptance_review_20260706T130801Z_ready.json",
+  "runtime_health_endpoint_called": false,
+  "runtime_health_endpoint_called_by_patch": false,
+  "runtime_health_probe_allowed": false,
+  "runtime_health_probe_deferred_to_future_runtime": true,
+  "runtime_health_probe_evidence_collected_by_patch": false,
+  "runtime_health_probe_forbidden_by_patch": true,
+  "runtime_health_probe_performed": false,
+  "runtime_metrics_collection_allowed": false,
+  "runtime_metrics_collection_deferred": true,
+  "runtime_metrics_collection_performed": false,
+  "runtime_metrics_collection_performed_by_patch": false,
+  "runtime_overlay_activated": false,
+  "runtime_overlay_allowed": false,
+  "runtime_presence_evidence_collected_by_patch": false,
+  "runtime_presence_evidence_collection_deferred": true,
+  "runtime_probe_performed": false,
+  "runtime_process_lock_required": true,
+  "runtime_process_pid": null,
+  "runtime_process_start_performed": false,
+  "runtime_process_started": false,
+  "runtime_process_status": "NOT_STARTED_BY_42H",
+  "runtime_start_command_allowed": false,
+  "runtime_start_command_declared_only": true,
+  "runtime_start_command_executed": false,
+  "runtime_start_command_execution_allowed": false,
+  "runtime_start_command_execution_performed": false,
+  "runtime_start_command_review_only": true,
+  "runtime_start_command_template": "python -m tradebot.paper_runtime_entry --mode paper-sandbox --config config/paper_sandbox.runtime.json --runtime-lock runtime/paper_sandbox_runtime.lock --no-network-order --no-live --no-exchange-submit",
+  "runtime_start_command_template_declared": true,
+  "runtime_start_command_template_preserved": true,
+  "runtime_start_performed": false,
+  "runtime_started_by_patch": false,
+  "runtime_still_not_started_by_patch": true,
+  "runtime_stop_command_template": "CTRL+C in the dedicated paper-sandbox runtime terminal or approved local stop script only",
+  "signed_request_performed": false,
+  "single_instance_runtime_required": true,
+  "soak_execution_acceptance_requires_health_evidence": true,
+  "soak_execution_acceptance_requires_metrics_evidence": true,
+  "soak_execution_acceptance_requires_runtime_presence_evidence": true,
+  "soak_execution_accepted_by_patch": false,
+  "soak_execution_collection_deferred": true,
+  "soak_execution_performed_by_patch": false,
+  "soak_start_command_executed_by_patch": false,
+  "source_42g_complete": true,
+  "source_42g_decision": "PAPER_SANDBOX_SOAK_INCIDENT_BUDGET_ENFORCEMENT_REVIEW_READY_INCIDENT_BUDGET_REVIEW_ONLY_RUNTIME_NOT_STARTED_BY_PATCH_NO_PAPER_ORDER_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "source_42g_report": null,
+  "source_42g_runtime_process_started": false,
+  "source_42g_runtime_start_command_executed": false,
+  "source_42g_safety_violation_count": 0,
+  "source_42g_status": "SOURCE_42G_READY",
+  "source_report": null,
+  "status": "READY",
+  "trading_action_performed": false,
+  "training_performed": false,
+  "transition_to_next_phase_allowed": false,
+  "transition_to_next_phase_performed": false
+}
