@@ -1,0 +1,23 @@
+4B.4.3.6.6.44I — Paper Sandbox No-Order Soak Evidence Acceptance Closure
+
+Apply:
+  python tools/apply_4B436644I_paper_sandbox_no_order_soak_evidence_acceptance_closure.py
+
+Check:
+  set PYTHONPATH=src
+  python tools/check_4B436644I_paper_sandbox_no_order_soak_evidence_acceptance_closure.py --once-json
+
+Run:
+  set PYTHONPATH=src
+  python tools/run_4B436644I_paper_sandbox_no_order_soak_evidence_acceptance_closure.py --reports-dir .\reports\recovery --once-json
+
+Safety:
+  Evidence acceptance: not performed by patch
+  Runtime start: not performed by patch
+  Runtime command execution: not performed
+  Runtime health endpoint: not called
+  Runtime metrics collection: not performed
+  Paper order submit: not performed
+  Network order submit: not performed
+  Live-real: not approved
+  Exchange submit: not performed
