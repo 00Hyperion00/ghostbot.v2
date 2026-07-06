@@ -1,0 +1,62 @@
+{
+  "contract_name": "external_runtime_start_handoff_contract",
+  "exchange_submit_allowed": false,
+  "live_real_submit_allowed": false,
+  "mode": "EXTERNAL_RUNTIME_START_HANDOFF_ONLY_RUNTIME_NOT_STARTED_BY_PATCH",
+  "network_order_submit_allowed": false,
+  "paper_order_submit_allowed": false,
+  "patch_id": "4B436641B",
+  "patch_version": "4B.4.3.6.6.41B",
+  "rules": [
+    {
+      "policy": "41A READY soak planning evidence is required",
+      "ready": true,
+      "rule_id": "rule_01"
+    },
+    {
+      "policy": "external runtime start handoff contract must be declared",
+      "ready": true,
+      "rule_id": "rule_02"
+    },
+    {
+      "policy": "patch cannot execute handoff command",
+      "ready": true,
+      "rule_id": "rule_03"
+    },
+    {
+      "policy": "runtime stop handoff must be declared",
+      "ready": true,
+      "rule_id": "rule_04"
+    },
+    {
+      "policy": "runtime lock path must be stable",
+      "ready": true,
+      "rule_id": "rule_05"
+    },
+    {
+      "policy": "paper order submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_06"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_07"
+    },
+    {
+      "policy": "live-real remains forbidden",
+      "ready": true,
+      "rule_id": "rule_08"
+    },
+    {
+      "policy": "41C is not auto-unlocked by 41B",
+      "ready": true,
+      "rule_id": "rule_09"
+    }
+  ],
+  "runtime_process_started": false,
+  "runtime_start_performed": false,
+  "source_patch_id": "4B436641A",
+  "source_ready": true,
+  "source_version": "4B.4.3.6.6.41A"
+}

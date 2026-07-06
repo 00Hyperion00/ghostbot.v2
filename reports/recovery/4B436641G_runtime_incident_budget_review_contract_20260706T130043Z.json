@@ -1,0 +1,62 @@
+{
+  "contract_name": "runtime_incident_budget_review_contract",
+  "exchange_submit_allowed": false,
+  "live_real_submit_allowed": false,
+  "mode": "RUNTIME_INCIDENT_BUDGET_REVIEW_ONLY_RUNTIME_NOT_STARTED_BY_PATCH",
+  "network_order_submit_allowed": false,
+  "paper_order_submit_allowed": false,
+  "patch_id": "4B436641G",
+  "patch_version": "4B.4.3.6.6.41G",
+  "rules": [
+    {
+      "policy": "41F READY soak window contract is required",
+      "ready": true,
+      "rule_id": "rule_01"
+    },
+    {
+      "policy": "incident budget review contract must be declared",
+      "ready": true,
+      "rule_id": "rule_02"
+    },
+    {
+      "policy": "runtime errors fail closed",
+      "ready": true,
+      "rule_id": "rule_03"
+    },
+    {
+      "policy": "consecutive health failures fail closed",
+      "ready": true,
+      "rule_id": "rule_04"
+    },
+    {
+      "policy": "patch cannot perform live incident review without runtime evidence",
+      "ready": true,
+      "rule_id": "rule_05"
+    },
+    {
+      "policy": "paper order submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_06"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_07"
+    },
+    {
+      "policy": "exchange submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_08"
+    },
+    {
+      "policy": "41H is not auto-unlocked by 41G",
+      "ready": true,
+      "rule_id": "rule_09"
+    }
+  ],
+  "runtime_process_started": false,
+  "runtime_start_performed": false,
+  "source_patch_id": "4B436641F",
+  "source_ready": true,
+  "source_version": "4B.4.3.6.6.41F"
+}

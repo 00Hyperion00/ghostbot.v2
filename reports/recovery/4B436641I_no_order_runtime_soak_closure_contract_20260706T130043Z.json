@@ -1,0 +1,67 @@
+{
+  "contract_name": "no_order_runtime_soak_closure_contract",
+  "exchange_submit_allowed": false,
+  "live_real_submit_allowed": false,
+  "mode": "PHASE41_NO_ORDER_RUNTIME_SOAK_CLOSURE_NO_RUNTIME_START_BY_PATCH_NO_NETWORK_ORDER",
+  "network_order_submit_allowed": false,
+  "paper_order_submit_allowed": false,
+  "patch_id": "4B436641I",
+  "patch_version": "4B.4.3.6.6.41I",
+  "rules": [
+    {
+      "policy": "41H READY soak acceptance gate is required",
+      "ready": true,
+      "rule_id": "rule_01"
+    },
+    {
+      "policy": "41I closes Phase 41 no-order runtime soak planning only",
+      "ready": true,
+      "rule_id": "rule_02"
+    },
+    {
+      "policy": "runtime start remains not executed by Phase 41 patches",
+      "ready": true,
+      "rule_id": "rule_03"
+    },
+    {
+      "policy": "runtime presence evidence remains deferred",
+      "ready": true,
+      "rule_id": "rule_04"
+    },
+    {
+      "policy": "health probe remains not collected by Phase 41 patches",
+      "ready": true,
+      "rule_id": "rule_05"
+    },
+    {
+      "policy": "runtime metrics remain not collected by Phase 41 patches",
+      "ready": true,
+      "rule_id": "rule_06"
+    },
+    {
+      "policy": "paper order submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_07"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_08"
+    },
+    {
+      "policy": "live-real remains forbidden",
+      "ready": true,
+      "rule_id": "rule_09"
+    },
+    {
+      "policy": "42A is not auto-unlocked by 41I",
+      "ready": true,
+      "rule_id": "rule_10"
+    }
+  ],
+  "runtime_process_started": false,
+  "runtime_start_performed": false,
+  "source_patch_id": "4B436641H",
+  "source_ready": true,
+  "source_version": "4B.4.3.6.6.41H"
+}

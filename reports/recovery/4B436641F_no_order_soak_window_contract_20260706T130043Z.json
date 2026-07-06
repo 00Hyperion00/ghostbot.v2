@@ -1,0 +1,62 @@
+{
+  "contract_name": "no_order_soak_window_contract",
+  "exchange_submit_allowed": false,
+  "live_real_submit_allowed": false,
+  "mode": "NO_ORDER_SOAK_WINDOW_CONTRACT_ONLY_RUNTIME_NOT_STARTED_BY_PATCH",
+  "network_order_submit_allowed": false,
+  "paper_order_submit_allowed": false,
+  "patch_id": "4B436641F",
+  "patch_version": "4B.4.3.6.6.41F",
+  "rules": [
+    {
+      "policy": "41E READY metrics evidence gate is required",
+      "ready": true,
+      "rule_id": "rule_01"
+    },
+    {
+      "policy": "soak window contract must be declared",
+      "ready": true,
+      "rule_id": "rule_02"
+    },
+    {
+      "policy": "minimum heartbeat count must be declared",
+      "ready": true,
+      "rule_id": "rule_03"
+    },
+    {
+      "policy": "max error budget must be zero for acceptance",
+      "ready": true,
+      "rule_id": "rule_04"
+    },
+    {
+      "policy": "warning budget must be bounded",
+      "ready": true,
+      "rule_id": "rule_05"
+    },
+    {
+      "policy": "zero order is required throughout soak window",
+      "ready": true,
+      "rule_id": "rule_06"
+    },
+    {
+      "policy": "patch cannot start runtime or collect soak data",
+      "ready": true,
+      "rule_id": "rule_07"
+    },
+    {
+      "policy": "network order submit remains forbidden",
+      "ready": true,
+      "rule_id": "rule_08"
+    },
+    {
+      "policy": "41G is not auto-unlocked by 41F",
+      "ready": true,
+      "rule_id": "rule_09"
+    }
+  ],
+  "runtime_process_started": false,
+  "runtime_start_performed": false,
+  "source_patch_id": "4B436641E",
+  "source_ready": true,
+  "source_version": "4B.4.3.6.6.41E"
+}
