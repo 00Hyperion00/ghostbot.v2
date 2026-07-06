@@ -1,0 +1,887 @@
+{
+  "actual_evidence_accepted_by_patch": false,
+  "actual_evidence_ingested_by_patch": false,
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "decision": "PHASE50_TO_PHASE60_REMAINING_GOVERNANCE_BUNDLE_READY_REVIEW_AND_CONTRACT_ONLY_NO_PAPER_SUBMIT_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "dry_run_execution_performed_by_patch": false,
+  "evidence_collection_performed_by_patch": false,
+  "exchange_submit_allowed": false,
+  "exchange_submit_enabled_by_patch": false,
+  "exchange_submit_performed": false,
+  "final_phase_decision": "PRE_LIVE_GOVERNANCE_CLOSURE_READY_PHASE60_CLOSED_REMAINING_REVIEW_ROADMAP_CLOSED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED_NO_AUTO_NEXT_PHASE",
+  "final_phase_status": "READY",
+  "final_safety_violation_count": 0,
+  "final_safety_violations": [],
+  "generated_at_utc": "20260706T140631Z",
+  "live_real_approved_by_patch": false,
+  "live_real_submit_allowed": false,
+  "manual_governance_required_for_any_live_action": true,
+  "network_order_submit_allowed": false,
+  "network_order_submit_performed": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "next_phase": "NO_AUTO_NEXT_PHASE",
+  "next_phase_name": "No automatic next phase; manual operator governance review required",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "ok": true,
+  "order_path_opened_by_patch": false,
+  "paper_order_path_opened_by_patch": false,
+  "paper_order_submit_allowed": false,
+  "paper_order_submit_performed": false,
+  "paper_runtime_start_performed": false,
+  "paper_submit_allowed": false,
+  "paper_submit_enabled_by_patch": false,
+  "paper_submit_performed": false,
+  "paper_submit_performed_by_patch": false,
+  "paper_trading_evidence_collected_by_patch": false,
+  "paper_trading_soak_accepted_by_patch": false,
+  "paper_trading_soak_started_by_patch": false,
+  "patch_id": "4B436650_60",
+  "patch_name": "Phase 50-60 Remaining Governance Bundle",
+  "patch_version": "4B.4.3.6.6.50-60",
+  "phase_50_closed": true,
+  "phase_50_to_60_closed": true,
+  "phase_51_closed": true,
+  "phase_52_closed": true,
+  "phase_53_closed": true,
+  "phase_54_closed": true,
+  "phase_55_closed": true,
+  "phase_56_closed": true,
+  "phase_57_closed": true,
+  "phase_58_closed": true,
+  "phase_59_closed": true,
+  "phase_60_closed": true,
+  "phase_count": 99,
+  "phase_ready_count": 99,
+  "phase_ready_counts": {
+    "50": 9,
+    "51": 9,
+    "52": 9,
+    "53": 9,
+    "54": 9,
+    "55": 9,
+    "56": 9,
+    "57": 9,
+    "58": 9,
+    "59": 9,
+    "60": 9
+  },
+  "phase_reports": [
+    "reports\\recovery\\4B436650A_paper_sandbox_controlled_paper_trading_soak_authorization_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436650B_paper_sandbox_typed_controlled_paper_trading_soak_approval_ledger_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436650C_paper_sandbox_paper_endpoint_readiness_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436650D_paper_sandbox_paper_credential_permission_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436650E_paper_sandbox_trading_limits_envelope_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436650F_paper_sandbox_kill_switch_mandatory_preflight_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436650G_paper_sandbox_reconciliation_mandatory_preflight_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436650H_paper_sandbox_controlled_paper_trading_soak_authorization_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436650I_paper_sandbox_controlled_paper_trading_soak_authorization_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436651A_paper_sandbox_controlled_paper_submit_final_preflight_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436651B_paper_sandbox_paper_submit_typed_operator_approval_contract_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436651C_paper_sandbox_paper_endpoint_hard_separation_check_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436651D_paper_sandbox_paper_credentials_non_live_permission_check_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436651E_paper_sandbox_max_notional_quantity_trade_count_caps_check_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436651F_paper_sandbox_daily_loss_circuit_breaker_check_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436651G_paper_sandbox_duplicate_order_idempotency_lock_check_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436651H_paper_sandbox_controlled_paper_submit_final_preflight_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436651I_paper_sandbox_controlled_paper_submit_final_preflight_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436652A_paper_sandbox_controlled_paper_runtime_enablement_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436652B_paper_sandbox_external_runtime_start_handoff_for_paper_soak_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436652C_paper_sandbox_runtime_lock_and_single_instance_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436652D_paper_sandbox_health_probe_readiness_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436652E_paper_sandbox_metrics_collection_readiness_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436652F_paper_sandbox_paper_submit_adapter_arming_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436652G_paper_sandbox_reconciliation_and_audit_arming_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436652H_paper_sandbox_controlled_paper_runtime_enablement_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436652I_paper_sandbox_controlled_paper_runtime_enablement_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436653A_paper_sandbox_controlled_paper_trading_soak_evidence_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436653B_paper_sandbox_paper_order_audit_evidence_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436653C_paper_sandbox_paper_fill_reconciliation_evidence_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436653D_paper_sandbox_risk_cap_enforcement_evidence_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436653E_paper_sandbox_kill_switch_evidence_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436653F_paper_sandbox_duplicate_order_prevention_evidence_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436653G_paper_sandbox_runtime_stability_evidence_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436653H_paper_sandbox_controlled_paper_trading_soak_evidence_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436653I_paper_sandbox_controlled_paper_trading_soak_evidence_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436654A_paper_sandbox_controlled_paper_trading_soak_acceptance_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436654B_paper_sandbox_paper_pnl_and_drawdown_acceptance_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436654C_paper_sandbox_paper_order_rejection_budget_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436654D_paper_sandbox_paper_reconciliation_consistency_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436654E_paper_sandbox_paper_risk_limit_breach_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436654F_paper_sandbox_runtime_reliability_acceptance_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436654G_paper_sandbox_operator_runbook_acceptance_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436654H_paper_sandbox_controlled_paper_trading_soak_acceptance_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436654I_paper_sandbox_controlled_paper_trading_soak_acceptance_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436655A_paper_sandbox_paper_to_live_readiness_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436655B_paper_sandbox_paper_evidence_completeness_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436655C_paper_sandbox_model_stability_and_drift_review_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436655D_paper_sandbox_market_regime_robustness_review_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436655E_paper_sandbox_operational_runbook_readiness_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436655F_paper_sandbox_monitoring_and_alerting_readiness_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436655G_paper_sandbox_rollback_and_disaster_recovery_readiness_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436655H_paper_sandbox_paper_to_live_readiness_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436655I_paper_sandbox_paper_to_live_readiness_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436656A_paper_sandbox_p0_production_hardening_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436656B_paper_sandbox_secret_isolation_hardening_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436656C_paper_sandbox_live_testnet_endpoint_separation_hardening_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436656D_paper_sandbox_order_idempotency_hardening_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436656E_paper_sandbox_circuit_breaker_hardening_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436656F_paper_sandbox_reconciliation_engine_hardening_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436656G_paper_sandbox_monitoring_alerting_hardening_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436656H_paper_sandbox_p0_production_hardening_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436656I_paper_sandbox_p0_production_hardening_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436657A_paper_sandbox_live_credential_isolation_audit_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436657B_paper_sandbox_live_key_permission_audit_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436657C_paper_sandbox_withdrawal_permission_denial_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436657D_paper_sandbox_ip_allowlist_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436657E_paper_sandbox_secret_rotation_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436657F_paper_sandbox_key_storage_boundary_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436657G_paper_sandbox_private_api_access_gate_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436657H_paper_sandbox_live_credential_isolation_audit_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436657I_paper_sandbox_live_credential_isolation_audit_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436658A_paper_sandbox_live_risk_limit_circuit_breaker_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436658B_paper_sandbox_max_live_notional_hard_cap_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436658C_paper_sandbox_max_live_daily_loss_hard_cap_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436658D_paper_sandbox_max_live_position_count_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436658E_paper_sandbox_max_live_trade_count_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436658F_paper_sandbox_exchange_reject_spike_circuit_breaker_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436658G_paper_sandbox_emergency_kill_switch_drill_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436658H_paper_sandbox_live_risk_limit_circuit_breaker_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436658I_paper_sandbox_live_risk_limit_circuit_breaker_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436659A_paper_sandbox_live_real_readiness_final_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436659B_paper_sandbox_independent_risk_manager_signoff_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436659C_paper_sandbox_operator_typed_live_approval_contract_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436659D_paper_sandbox_two_person_review_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436659E_paper_sandbox_final_rollback_runbook_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436659F_paper_sandbox_final_monitoring_war_room_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436659G_paper_sandbox_final_capital_allocation_gate_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436659H_paper_sandbox_live_real_readiness_final_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436659I_paper_sandbox_live_real_readiness_final_closure_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436660A_paper_sandbox_pre_live_governance_closure_review_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436660B_paper_sandbox_roadmap_completion_ledger_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436660C_paper_sandbox_open_risk_register_review_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436660D_paper_sandbox_manual_live_decision_separation_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436660E_paper_sandbox_exchange_submit_lock_preservation_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436660F_paper_sandbox_production_change_control_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436660G_paper_sandbox_post_closure_operator_audit_criteria_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436660H_paper_sandbox_pre_live_governance_final_decision_gate_20260706T140631Z_ready.json",
+    "reports\\recovery\\4B436660I_paper_sandbox_pre_live_governance_closure_20260706T140631Z_ready.json"
+  ],
+  "phase_statuses": [
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_REVIEW_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436650A",
+      "patch_version": "4B.4.3.6.6.50A",
+      "phase": 50,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_TYPED_CONTROLLED_PAPER_TRADING_SOAK_APPROVAL_LEDGER_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436650B",
+      "patch_version": "4B.4.3.6.6.50B",
+      "phase": 50,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_PAPER_ENDPOINT_READINESS_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436650C",
+      "patch_version": "4B.4.3.6.6.50C",
+      "phase": 50,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_PAPER_CREDENTIAL_PERMISSION_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436650D",
+      "patch_version": "4B.4.3.6.6.50D",
+      "phase": 50,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_TRADING_LIMITS_ENVELOPE_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436650E",
+      "patch_version": "4B.4.3.6.6.50E",
+      "phase": 50,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_KILL_SWITCH_MANDATORY_PREFLIGHT_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436650F",
+      "patch_version": "4B.4.3.6.6.50F",
+      "phase": 50,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_RECONCILIATION_MANDATORY_PREFLIGHT_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436650G",
+      "patch_version": "4B.4.3.6.6.50G",
+      "phase": 50,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_DECISION_GATE_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436650H",
+      "patch_version": "4B.4.3.6.6.50H",
+      "phase": 50,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_AUTHORIZATION_CLOSURE_READY_PHASE50_CLOSED_PAPER_TRADING_SOAK_NOT_STARTED_BY_PATCH_NO_PAPER_SUBMIT_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436650I",
+      "patch_version": "4B.4.3.6.6.50I",
+      "phase": 50,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_REVIEW_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436651A",
+      "patch_version": "4B.4.3.6.6.51A",
+      "phase": 51,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_PAPER_SUBMIT_TYPED_OPERATOR_APPROVAL_CONTRACT_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436651B",
+      "patch_version": "4B.4.3.6.6.51B",
+      "phase": 51,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_PAPER_ENDPOINT_HARD_SEPARATION_CHECK_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436651C",
+      "patch_version": "4B.4.3.6.6.51C",
+      "phase": 51,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_PAPER_CREDENTIALS_NON_LIVE_PERMISSION_CHECK_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436651D",
+      "patch_version": "4B.4.3.6.6.51D",
+      "phase": 51,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_MAX_NOTIONAL_QUANTITY_TRADE_COUNT_CAPS_CHECK_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436651E",
+      "patch_version": "4B.4.3.6.6.51E",
+      "phase": 51,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_DAILY_LOSS_CIRCUIT_BREAKER_CHECK_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436651F",
+      "patch_version": "4B.4.3.6.6.51F",
+      "phase": 51,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_DUPLICATE_ORDER_IDEMPOTENCY_LOCK_CHECK_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436651G",
+      "patch_version": "4B.4.3.6.6.51G",
+      "phase": 51,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_DECISION_GATE_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436651H",
+      "patch_version": "4B.4.3.6.6.51H",
+      "phase": 51,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_SUBMIT_FINAL_PREFLIGHT_CLOSURE_READY_PHASE51_CLOSED_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436651I",
+      "patch_version": "4B.4.3.6.6.51I",
+      "phase": 51,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_REVIEW_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436652A",
+      "patch_version": "4B.4.3.6.6.52A",
+      "phase": 52,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_EXTERNAL_RUNTIME_START_HANDOFF_FOR_PAPER_SOAK_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436652B",
+      "patch_version": "4B.4.3.6.6.52B",
+      "phase": 52,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_RUNTIME_LOCK_AND_SINGLE_INSTANCE_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436652C",
+      "patch_version": "4B.4.3.6.6.52C",
+      "phase": 52,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_HEALTH_PROBE_READINESS_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436652D",
+      "patch_version": "4B.4.3.6.6.52D",
+      "phase": 52,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_METRICS_COLLECTION_READINESS_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436652E",
+      "patch_version": "4B.4.3.6.6.52E",
+      "phase": 52,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_PAPER_SUBMIT_ADAPTER_ARMING_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436652F",
+      "patch_version": "4B.4.3.6.6.52F",
+      "phase": 52,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_RECONCILIATION_AND_AUDIT_ARMING_CRITERIA_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436652G",
+      "patch_version": "4B.4.3.6.6.52G",
+      "phase": 52,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_DECISION_GATE_READY_REVIEW_AND_CONTRACT_ONLY_PAPER_SUBMIT_NOT_ENABLED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436652H",
+      "patch_version": "4B.4.3.6.6.52H",
+      "phase": 52,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_RUNTIME_ENABLEMENT_CLOSURE_READY_PHASE52_CLOSED_RUNTIME_ENABLEMENT_NOT_PERFORMED_BY_PATCH_NO_PAPER_SUBMIT_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436652I",
+      "patch_version": "4B.4.3.6.6.52I",
+      "phase": 52,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_REVIEW_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436653A",
+      "patch_version": "4B.4.3.6.6.53A",
+      "phase": 53,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_PAPER_ORDER_AUDIT_EVIDENCE_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436653B",
+      "patch_version": "4B.4.3.6.6.53B",
+      "phase": 53,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_PAPER_FILL_RECONCILIATION_EVIDENCE_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436653C",
+      "patch_version": "4B.4.3.6.6.53C",
+      "phase": 53,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_RISK_CAP_ENFORCEMENT_EVIDENCE_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436653D",
+      "patch_version": "4B.4.3.6.6.53D",
+      "phase": 53,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_KILL_SWITCH_EVIDENCE_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436653E",
+      "patch_version": "4B.4.3.6.6.53E",
+      "phase": 53,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_DUPLICATE_ORDER_PREVENTION_EVIDENCE_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436653F",
+      "patch_version": "4B.4.3.6.6.53F",
+      "phase": 53,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_RUNTIME_STABILITY_EVIDENCE_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436653G",
+      "patch_version": "4B.4.3.6.6.53G",
+      "phase": 53,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_DECISION_GATE_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436653H",
+      "patch_version": "4B.4.3.6.6.53H",
+      "phase": 53,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_EVIDENCE_CLOSURE_READY_PHASE53_CLOSED_PAPER_TRADING_EVIDENCE_NOT_COLLECTED_BY_PATCH_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436653I",
+      "patch_version": "4B.4.3.6.6.53I",
+      "phase": 53,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_REVIEW_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436654A",
+      "patch_version": "4B.4.3.6.6.54A",
+      "phase": 54,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_PAPER_PNL_AND_DRAWDOWN_ACCEPTANCE_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436654B",
+      "patch_version": "4B.4.3.6.6.54B",
+      "phase": 54,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_PAPER_ORDER_REJECTION_BUDGET_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436654C",
+      "patch_version": "4B.4.3.6.6.54C",
+      "phase": 54,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_PAPER_RECONCILIATION_CONSISTENCY_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436654D",
+      "patch_version": "4B.4.3.6.6.54D",
+      "phase": 54,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_PAPER_RISK_LIMIT_BREACH_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436654E",
+      "patch_version": "4B.4.3.6.6.54E",
+      "phase": 54,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_RUNTIME_RELIABILITY_ACCEPTANCE_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436654F",
+      "patch_version": "4B.4.3.6.6.54F",
+      "phase": 54,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_OPERATOR_RUNBOOK_ACCEPTANCE_CRITERIA_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436654G",
+      "patch_version": "4B.4.3.6.6.54G",
+      "phase": 54,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_DECISION_GATE_READY_EVIDENCE_AND_ACCEPTANCE_REVIEW_ONLY_PAPER_TRADING_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436654H",
+      "patch_version": "4B.4.3.6.6.54H",
+      "phase": 54,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_SANDBOX_CONTROLLED_PAPER_TRADING_SOAK_ACCEPTANCE_CLOSURE_READY_PHASE54_CLOSED_PAPER_TRADING_SOAK_NOT_ACCEPTED_BY_PATCH_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436654I",
+      "patch_version": "4B.4.3.6.6.54I",
+      "phase": 54,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_TO_LIVE_READINESS_PAPER_TO_LIVE_READINESS_REVIEW_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436655A",
+      "patch_version": "4B.4.3.6.6.55A",
+      "phase": 55,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_TO_LIVE_READINESS_PAPER_EVIDENCE_COMPLETENESS_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436655B",
+      "patch_version": "4B.4.3.6.6.55B",
+      "phase": 55,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_TO_LIVE_READINESS_MODEL_STABILITY_AND_DRIFT_REVIEW_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436655C",
+      "patch_version": "4B.4.3.6.6.55C",
+      "phase": 55,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_TO_LIVE_READINESS_MARKET_REGIME_ROBUSTNESS_REVIEW_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436655D",
+      "patch_version": "4B.4.3.6.6.55D",
+      "phase": 55,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_TO_LIVE_READINESS_OPERATIONAL_RUNBOOK_READINESS_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436655E",
+      "patch_version": "4B.4.3.6.6.55E",
+      "phase": 55,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_TO_LIVE_READINESS_MONITORING_AND_ALERTING_READINESS_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436655F",
+      "patch_version": "4B.4.3.6.6.55F",
+      "phase": 55,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_TO_LIVE_READINESS_ROLLBACK_AND_DISASTER_RECOVERY_READINESS_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436655G",
+      "patch_version": "4B.4.3.6.6.55G",
+      "phase": 55,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_TO_LIVE_READINESS_PAPER_TO_LIVE_READINESS_DECISION_GATE_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436655H",
+      "patch_version": "4B.4.3.6.6.55H",
+      "phase": 55,
+      "status": "READY"
+    },
+    {
+      "decision": "PAPER_TO_LIVE_READINESS_CLOSURE_READY_PHASE55_CLOSED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436655I",
+      "patch_version": "4B.4.3.6.6.55I",
+      "phase": 55,
+      "status": "READY"
+    },
+    {
+      "decision": "P0_PRODUCTION_HARDENING_P0_PRODUCTION_HARDENING_REVIEW_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436656A",
+      "patch_version": "4B.4.3.6.6.56A",
+      "phase": 56,
+      "status": "READY"
+    },
+    {
+      "decision": "P0_PRODUCTION_HARDENING_SECRET_ISOLATION_HARDENING_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436656B",
+      "patch_version": "4B.4.3.6.6.56B",
+      "phase": 56,
+      "status": "READY"
+    },
+    {
+      "decision": "P0_PRODUCTION_HARDENING_LIVE_TESTNET_ENDPOINT_SEPARATION_HARDENING_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436656C",
+      "patch_version": "4B.4.3.6.6.56C",
+      "phase": 56,
+      "status": "READY"
+    },
+    {
+      "decision": "P0_PRODUCTION_HARDENING_ORDER_IDEMPOTENCY_HARDENING_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436656D",
+      "patch_version": "4B.4.3.6.6.56D",
+      "phase": 56,
+      "status": "READY"
+    },
+    {
+      "decision": "P0_PRODUCTION_HARDENING_CIRCUIT_BREAKER_HARDENING_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436656E",
+      "patch_version": "4B.4.3.6.6.56E",
+      "phase": 56,
+      "status": "READY"
+    },
+    {
+      "decision": "P0_PRODUCTION_HARDENING_RECONCILIATION_ENGINE_HARDENING_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436656F",
+      "patch_version": "4B.4.3.6.6.56F",
+      "phase": 56,
+      "status": "READY"
+    },
+    {
+      "decision": "P0_PRODUCTION_HARDENING_MONITORING_ALERTING_HARDENING_CRITERIA_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436656G",
+      "patch_version": "4B.4.3.6.6.56G",
+      "phase": 56,
+      "status": "READY"
+    },
+    {
+      "decision": "P0_PRODUCTION_HARDENING_P0_PRODUCTION_HARDENING_DECISION_GATE_READY_READINESS_AND_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436656H",
+      "patch_version": "4B.4.3.6.6.56H",
+      "phase": 56,
+      "status": "READY"
+    },
+    {
+      "decision": "P0_PRODUCTION_HARDENING_CLOSURE_READY_PHASE56_CLOSED_PRODUCTION_HARDENING_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436656I",
+      "patch_version": "4B.4.3.6.6.56I",
+      "phase": 56,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_CREDENTIAL_ISOLATION_AUDIT_LIVE_CREDENTIAL_ISOLATION_AUDIT_REVIEW_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436657A",
+      "patch_version": "4B.4.3.6.6.57A",
+      "phase": 57,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_CREDENTIAL_ISOLATION_AUDIT_LIVE_KEY_PERMISSION_AUDIT_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436657B",
+      "patch_version": "4B.4.3.6.6.57B",
+      "phase": 57,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_CREDENTIAL_ISOLATION_AUDIT_WITHDRAWAL_PERMISSION_DENIAL_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436657C",
+      "patch_version": "4B.4.3.6.6.57C",
+      "phase": 57,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_CREDENTIAL_ISOLATION_AUDIT_IP_ALLOWLIST_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436657D",
+      "patch_version": "4B.4.3.6.6.57D",
+      "phase": 57,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_CREDENTIAL_ISOLATION_AUDIT_SECRET_ROTATION_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436657E",
+      "patch_version": "4B.4.3.6.6.57E",
+      "phase": 57,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_CREDENTIAL_ISOLATION_AUDIT_KEY_STORAGE_BOUNDARY_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436657F",
+      "patch_version": "4B.4.3.6.6.57F",
+      "phase": 57,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_CREDENTIAL_ISOLATION_AUDIT_PRIVATE_API_ACCESS_GATE_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436657G",
+      "patch_version": "4B.4.3.6.6.57G",
+      "phase": 57,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_CREDENTIAL_ISOLATION_AUDIT_LIVE_CREDENTIAL_ISOLATION_AUDIT_DECISION_GATE_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436657H",
+      "patch_version": "4B.4.3.6.6.57H",
+      "phase": 57,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_CREDENTIAL_ISOLATION_AUDIT_CLOSURE_READY_PHASE57_CLOSED_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436657I",
+      "patch_version": "4B.4.3.6.6.57I",
+      "phase": 57,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_RISK_LIMIT_CIRCUIT_BREAKER_LIVE_RISK_LIMIT_CIRCUIT_BREAKER_REVIEW_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436658A",
+      "patch_version": "4B.4.3.6.6.58A",
+      "phase": 58,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_RISK_LIMIT_CIRCUIT_BREAKER_MAX_LIVE_NOTIONAL_HARD_CAP_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436658B",
+      "patch_version": "4B.4.3.6.6.58B",
+      "phase": 58,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_RISK_LIMIT_CIRCUIT_BREAKER_MAX_LIVE_DAILY_LOSS_HARD_CAP_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436658C",
+      "patch_version": "4B.4.3.6.6.58C",
+      "phase": 58,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_RISK_LIMIT_CIRCUIT_BREAKER_MAX_LIVE_POSITION_COUNT_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436658D",
+      "patch_version": "4B.4.3.6.6.58D",
+      "phase": 58,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_RISK_LIMIT_CIRCUIT_BREAKER_MAX_LIVE_TRADE_COUNT_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436658E",
+      "patch_version": "4B.4.3.6.6.58E",
+      "phase": 58,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_RISK_LIMIT_CIRCUIT_BREAKER_EXCHANGE_REJECT_SPIKE_CIRCUIT_BREAKER_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436658F",
+      "patch_version": "4B.4.3.6.6.58F",
+      "phase": 58,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_RISK_LIMIT_CIRCUIT_BREAKER_EMERGENCY_KILL_SWITCH_DRILL_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436658G",
+      "patch_version": "4B.4.3.6.6.58G",
+      "phase": 58,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_RISK_LIMIT_CIRCUIT_BREAKER_LIVE_RISK_LIMIT_CIRCUIT_BREAKER_DECISION_GATE_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436658H",
+      "patch_version": "4B.4.3.6.6.58H",
+      "phase": 58,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_RISK_LIMIT_CIRCUIT_BREAKER_CLOSURE_READY_PHASE58_CLOSED_LIVE_RISK_LIMIT_REVIEW_ONLY_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436658I",
+      "patch_version": "4B.4.3.6.6.58I",
+      "phase": 58,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_REAL_READINESS_FINAL_LIVE_REAL_READINESS_FINAL_REVIEW_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436659A",
+      "patch_version": "4B.4.3.6.6.59A",
+      "phase": 59,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_REAL_READINESS_FINAL_INDEPENDENT_RISK_MANAGER_SIGNOFF_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436659B",
+      "patch_version": "4B.4.3.6.6.59B",
+      "phase": 59,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_REAL_READINESS_FINAL_OPERATOR_TYPED_LIVE_APPROVAL_CONTRACT_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436659C",
+      "patch_version": "4B.4.3.6.6.59C",
+      "phase": 59,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_REAL_READINESS_FINAL_TWO_PERSON_REVIEW_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436659D",
+      "patch_version": "4B.4.3.6.6.59D",
+      "phase": 59,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_REAL_READINESS_FINAL_FINAL_ROLLBACK_RUNBOOK_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436659E",
+      "patch_version": "4B.4.3.6.6.59E",
+      "phase": 59,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_REAL_READINESS_FINAL_FINAL_MONITORING_WAR_ROOM_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436659F",
+      "patch_version": "4B.4.3.6.6.59F",
+      "phase": 59,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_REAL_READINESS_FINAL_FINAL_CAPITAL_ALLOCATION_GATE_CRITERIA_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436659G",
+      "patch_version": "4B.4.3.6.6.59G",
+      "phase": 59,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_REAL_READINESS_FINAL_LIVE_REAL_READINESS_FINAL_DECISION_GATE_READY_LIVE_READINESS_REVIEW_ONLY_PRIVATE_API_ACCESS_NOT_ALLOWED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436659H",
+      "patch_version": "4B.4.3.6.6.59H",
+      "phase": 59,
+      "status": "READY"
+    },
+    {
+      "decision": "LIVE_REAL_READINESS_FINAL_CLOSURE_READY_PHASE59_CLOSED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED_OPERATOR_MANUAL_APPROVAL_REQUIRED",
+      "patch_id": "4B436659I",
+      "patch_version": "4B.4.3.6.6.59I",
+      "phase": 59,
+      "status": "READY"
+    },
+    {
+      "decision": "PRE_LIVE_GOVERNANCE_PRE_LIVE_GOVERNANCE_CLOSURE_REVIEW_READY_GOVERNANCE_CLOSURE_ONLY_NO_AUTO_NEXT_PHASE_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436660A",
+      "patch_version": "4B.4.3.6.6.60A",
+      "phase": 60,
+      "status": "READY"
+    },
+    {
+      "decision": "PRE_LIVE_GOVERNANCE_ROADMAP_COMPLETION_LEDGER_CRITERIA_READY_GOVERNANCE_CLOSURE_ONLY_NO_AUTO_NEXT_PHASE_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436660B",
+      "patch_version": "4B.4.3.6.6.60B",
+      "phase": 60,
+      "status": "READY"
+    },
+    {
+      "decision": "PRE_LIVE_GOVERNANCE_OPEN_RISK_REGISTER_REVIEW_CRITERIA_READY_GOVERNANCE_CLOSURE_ONLY_NO_AUTO_NEXT_PHASE_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436660C",
+      "patch_version": "4B.4.3.6.6.60C",
+      "phase": 60,
+      "status": "READY"
+    },
+    {
+      "decision": "PRE_LIVE_GOVERNANCE_MANUAL_LIVE_DECISION_SEPARATION_CRITERIA_READY_GOVERNANCE_CLOSURE_ONLY_NO_AUTO_NEXT_PHASE_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436660D",
+      "patch_version": "4B.4.3.6.6.60D",
+      "phase": 60,
+      "status": "READY"
+    },
+    {
+      "decision": "PRE_LIVE_GOVERNANCE_EXCHANGE_SUBMIT_LOCK_PRESERVATION_CRITERIA_READY_GOVERNANCE_CLOSURE_ONLY_NO_AUTO_NEXT_PHASE_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436660E",
+      "patch_version": "4B.4.3.6.6.60E",
+      "phase": 60,
+      "status": "READY"
+    },
+    {
+      "decision": "PRE_LIVE_GOVERNANCE_PRODUCTION_CHANGE_CONTROL_CRITERIA_READY_GOVERNANCE_CLOSURE_ONLY_NO_AUTO_NEXT_PHASE_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436660F",
+      "patch_version": "4B.4.3.6.6.60F",
+      "phase": 60,
+      "status": "READY"
+    },
+    {
+      "decision": "PRE_LIVE_GOVERNANCE_POST_CLOSURE_OPERATOR_AUDIT_CRITERIA_READY_GOVERNANCE_CLOSURE_ONLY_NO_AUTO_NEXT_PHASE_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436660G",
+      "patch_version": "4B.4.3.6.6.60G",
+      "phase": 60,
+      "status": "READY"
+    },
+    {
+      "decision": "PRE_LIVE_GOVERNANCE_PRE_LIVE_GOVERNANCE_FINAL_DECISION_GATE_READY_GOVERNANCE_CLOSURE_ONLY_NO_AUTO_NEXT_PHASE_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED",
+      "patch_id": "4B436660H",
+      "patch_version": "4B.4.3.6.6.60H",
+      "phase": 60,
+      "status": "READY"
+    },
+    {
+      "decision": "PRE_LIVE_GOVERNANCE_CLOSURE_READY_PHASE60_CLOSED_REMAINING_REVIEW_ROADMAP_CLOSED_LIVE_REAL_NOT_APPROVED_EXCHANGE_SUBMIT_LOCKED_NO_AUTO_NEXT_PHASE",
+      "patch_id": "4B436660I",
+      "patch_version": "4B.4.3.6.6.60I",
+      "phase": 60,
+      "status": "READY"
+    }
+  ],
+  "private_api_access_allowed": false,
+  "private_api_access_performed": false,
+  "reload_performed": false,
+  "remaining_governance_review_only": true,
+  "report_digest": "76342c4006ba5c2c7fb5f59c93f59a5b546bcb14869537207266b5b858263ed7",
+  "report_path": "reports\\recovery\\4B436650_60_phase50_to_phase60_remaining_governance_bundle_20260706T140631Z_ready.json",
+  "runtime_health_endpoint_called": false,
+  "runtime_health_probe_performed": false,
+  "runtime_metrics_collection_performed": false,
+  "runtime_overlay_activated": false,
+  "runtime_process_started": false,
+  "runtime_start_command_executed": false,
+  "runtime_start_command_execution_performed": false,
+  "runtime_start_performed": false,
+  "runtime_started_by_patch": false,
+  "signed_request_performed": false,
+  "status": "READY",
+  "subphase_count_per_phase": 9,
+  "training_performed": false,
+  "transition_to_next_phase_performed": false
+}
