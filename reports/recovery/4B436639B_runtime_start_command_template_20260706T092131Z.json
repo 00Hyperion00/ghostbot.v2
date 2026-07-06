@@ -1,0 +1,29 @@
+{
+  "command_declared_only": true,
+  "command_executed": false,
+  "command_name": "paper_sandbox_runtime_start_command_template",
+  "command_scope": "paper_sandbox_runtime_start_command_contract_review_only",
+  "command_template": "python -m tradebot.paper_runtime_entry --mode paper-sandbox --config config/paper_sandbox.runtime.json --runtime-lock runtime/paper_sandbox_runtime.lock --no-network-order --no-live --no-exchange-submit",
+  "digest": "42ee7088c39595cfb9b018768a66b098a6d22a315cbbabed6b9488d10d55d225",
+  "exchange_submit_allowed": false,
+  "generated_at_utc": "20260706T092131Z",
+  "live_environment_enabled": false,
+  "network_order_submit_allowed": false,
+  "required_env": {
+    "TRADEBOT_EXCHANGE_SUBMIT": "0",
+    "TRADEBOT_LIVE_REAL": "0",
+    "TRADEBOT_MODE": "paper-sandbox",
+    "TRADEBOT_NETWORK_ORDER_SUBMIT": "0",
+    "TRADEBOT_RUNTIME_PROFILE": "paper_only_no_submit"
+  },
+  "required_preconditions": [
+    "39A runtime-start approval review READY",
+    "separate explicit operator authorization ledger required in 39C",
+    "single-instance runtime lock must be available before any future start",
+    "paper-only config must be validated before any future start"
+  ],
+  "reviewed_source_patch": "4B.4.3.6.6.39A",
+  "runtime_process_started": false,
+  "runtime_start_allowed": false,
+  "source_report": "reports\\recovery\\4B436639A_paper_sandbox_runtime_start_approval_review_20260705T135636Z_ready.json"
+}

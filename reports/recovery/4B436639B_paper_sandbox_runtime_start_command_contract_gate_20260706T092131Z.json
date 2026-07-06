@@ -1,0 +1,172 @@
+{
+  "check_count": 33,
+  "checks": [
+    {
+      "check_id": "source_39a_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "phase_39_runtime_start_review_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_approval_review_ready",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_contract_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_contract_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_template_declared",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_declared_only",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_execution_denied",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_command_not_executed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_start_authorization_ledger_required_next",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_only_config_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_process_lock_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "single_instance_runtime_required",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_transition_approval_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_start_approval_not_performed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_runtime_not_started",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_process_not_started",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "paper_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_order_submit_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_market_data_collection_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "network_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "live_real_remains_not_approved",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "exchange_submit_remains_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "signed_request_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "private_api_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_health_probe_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "runtime_overlay_training_reload_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "git_mutating_operations_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "report_mutation_forbidden",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "next_phase_not_auto_unlocked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "command_contract_probe_passed",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "guard_locked",
+      "ready": true,
+      "unlock_allowed": false
+    },
+    {
+      "check_id": "safety_flags_clean",
+      "ready": true,
+      "unlock_allowed": false
+    }
+  ],
+  "gate_name": "paper_sandbox_runtime_start_command_contract_gate",
+  "ready_count": 33
+}
