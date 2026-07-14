@@ -1,0 +1,55 @@
+from __future__ import annotations
+import json, os, tempfile
+from pathlib import Path
+from typing import Any
+
+def _repair_once(text: str) -> str:
+    candidates = [text]
+    for enc in ('latin-1', 'cp1252'):
+        try:
+            candidates.append(text.encode(enc, errors='strict').decode('utf-8', errors='strict'))
+        except Exception:
+            pass
+    return min(candidates, key=lambda s: (s.count('Ã') + s.count('Ä') + s.count('�'), len(s)))
+
+def _existing(p: Path, expect_directory: bool) -> bool:
+    return p.exists() and (p.is_dir() if expect_directory else p.is_file())
+
+def resolve_existing_evidence_path(value: str | os.PathLike[str], *, field: str = 'path', expect_directory: bool = False, required: bool = True) -> Path | None:
+    raw = os.fspath(value)
+    for cand in dict.fromkeys([raw, _repair_once(raw)]):
+        p = Path(cand)
+        if _existing(p, expect_directory):
+            return p.resolve()
+    if required:
+        raise ValueError(f'HYP005_EVIDENCE_PATH_UNRESOLVED:{field}:{raw}')
+    return None
+
+def resolve_evidence_output_directory(value: str | os.PathLike[str] | None = None, *, field: str = 'out_dir') -> Path:
+    p = Path(_repair_once(os.fspath(value or 'reports/hyp005_r1_isolated')))
+    p.mkdir(parents=True, exist_ok=True)
+    return p.resolve()
+
+def normalize_logger_report_evidence_paths(payload: dict[str, Any], *, require_exists: bool = False) -> dict[str, Any]:
+    out = dict(payload)
+    for key in ('ledger_json', 'ledger_jsonl', 'logger_json'):
+        if out.get(key):
+            r = resolve_existing_evidence_path(out[key], field=key, expect_directory=False, required=require_exists)
+            out[key] = str(r) if r is not None else _repair_once(str(out[key]))
+    if out.get('source_reports'):
+        vals = []
+        for item in out.get('source_reports') or []:
+            r = resolve_existing_evidence_path(item, field='source_reports', expect_directory=False, required=require_exists)
+            vals.append(str(r) if r is not None else _repair_once(str(item)))
+        out['source_reports'] = vals
+    return out
+
+def write_json_ascii_atomic(path: str | os.PathLike[str], payload: Any) -> Path:
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(prefix=target.name, suffix='.tmp', dir=str(target.parent))
+    with os.fdopen(fd, 'w', encoding='utf-8', newline='\n') as fh:
+        json.dump(payload, fh, ensure_ascii=True, sort_keys=True, indent=2)
+        fh.write('\n')
+    Path(tmp).replace(target)
+    return target

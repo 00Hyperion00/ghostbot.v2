@@ -1,0 +1,43 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "contract_count": 3,
+  "contract_ready_count": 3,
+  "contracts": [
+    {
+      "detail": "",
+      "name": "operator_public_constants_are_strings",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "name": "hyp005_utf8_contract_version_export",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "name": "h7_runtime_lock_handle_object_ok",
+      "ok": true
+    }
+  ],
+  "decision": "PHASE61_REGRESSION_RESTORE_HYP005_COLLECTION_UNBLOCK_READY_NO_PAPER_SUBMIT_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "exchange_submit_performed": false,
+  "final_safety_violation_count": 0,
+  "final_safety_violations": [],
+  "live_real_approved_by_patch": false,
+  "network_order_submit_performed": false,
+  "network_request_performed": false,
+  "ok": true,
+  "order_actions_performed": false,
+  "paper_order_submit_performed": false,
+  "paper_submit_enabled_by_patch": false,
+  "paper_submit_performed": false,
+  "patch_id": "4B436662F-H1",
+  "patch_version": "4B.4.3.6.6.62F-H1",
+  "private_api_access_allowed": false,
+  "reload_performed": false,
+  "runtime_start_performed": false,
+  "status": "READY",
+  "trading_action_performed": false,
+  "training_performed": false
+}

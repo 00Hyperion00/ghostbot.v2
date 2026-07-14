@@ -1,0 +1,30 @@
+{
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "contract_count": 2,
+  "contract_ready_count": 2,
+  "contracts": [
+    {
+      "name": "dual_telemetry_version",
+      "ok": true
+    }
+  ],
+  "decision": "PHASE61_RUNTIME_API_HYP005_30O_RESIDUAL_CONTRACT_READY_NO_PAPER_SUBMIT_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "exchange_submit_performed": false,
+  "live_real_approved_by_patch": false,
+  "network_order_submit_performed": false,
+  "network_request_performed": false,
+  "ok": true,
+  "order_actions_performed": false,
+  "paper_order_submit_performed": false,
+  "paper_submit_enabled_by_patch": false,
+  "paper_submit_performed": false,
+  "patch_id": "4B436662F-H2",
+  "patch_version": "4B.4.3.6.6.62F-H2",
+  "private_api_access_allowed": false,
+  "reload_performed": false,
+  "runtime_start_performed": false,
+  "status": "READY",
+  "trading_action_performed": false,
+  "training_performed": false
+}

@@ -754,3 +754,16 @@ def run_headless_smoke(
             }
         finally:
             running.stop()
+
+# --- 4B436662A native export HTTP error compatibility overlay ---
+def _native_export_http_error_message(error):
+    try: return f'NATIVE_DESKTOP_EXPORT_HTTP_ERROR: {int(error.code)}'
+    except Exception: return 'NATIVE_DESKTOP_EXPORT_HTTP_ERROR'
+# --- end 4B436662A native export HTTP error compatibility overlay ---
+
+# --- 4B436662B desktop wrapper residual compatibility overlay ---
+def _native_export_http_error_message(error):
+    code=getattr(error,'code',None)
+    if code==412: return 'NATIVE_DESKTOP_EXPORT_PRECONDITION_FAILED_REFRESH_SNAPSHOT_OR_RESTART_COCKPIT'
+    return f'NATIVE_DESKTOP_EXPORT_HTTP_ERROR: {code}'
+# --- end 4B436662B desktop wrapper residual compatibility overlay ---

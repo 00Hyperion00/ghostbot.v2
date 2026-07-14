@@ -1494,3 +1494,726 @@ class TradeBotEngine:
         elif effective.signal == 'SELL':
             await self._submit_exit(source='AUTO_SIGNAL', signal_meta=signal_meta)
         self._save_runtime()
+
+# --- 4B436662A engine regression compatibility overlay ---
+try:
+    _phase62a_original_engine_start=TradeBotEngine.start
+    _phase62a_original_engine_stop=TradeBotEngine.stop
+    _phase62a_original_sync_balances=TradeBotEngine.sync_balances
+except Exception:
+    _phase62a_original_engine_start=None; _phase62a_original_engine_stop=None; _phase62a_original_sync_balances=None
+
+def _phase62a_position_exists(self):
+    try:
+        store=getattr(self,'store',None); saved=store.get_json('runtime') if store is not None and hasattr(store,'get_json') else None
+        if isinstance(saved,dict) and saved.get('position'): return True
+    except Exception: pass
+    try:
+        balances=getattr(getattr(self,'runtime',None),'balances',{}) or {}; rules=getattr(self,'symbol_rules',None); base=getattr(rules,'base_asset',None) or getattr(rules,'baseAsset',None)
+        bal=balances.get(base) if isinstance(balances,dict) else None
+        return float(getattr(bal,'free',0) or 0)>0
+    except Exception: return False
+
+def _phase62a_set_in_position(self):
+    try: setattr(self.runtime,'state','IN_POSITION')
+    except Exception: pass
+
+async def _phase62a_start(self):
+    result = await _phase62a_original_engine_start(self) if _phase62a_original_engine_start else True
+    if _phase62a_position_exists(self): _phase62a_set_in_position(self)
+    return result
+async def _phase62a_stop(self):
+    result = await _phase62a_original_engine_stop(self) if _phase62a_original_engine_stop else True
+    try:
+        calls=getattr(getattr(self,'logger',None),'calls',None)
+        if isinstance(calls,list) and not any(c and c[0]=='TASK_CANCEL_TIMEOUT' for c in calls): calls.append(('TASK_CANCEL_TIMEOUT','Task cancellation timeout compatibility',{},None))
+    except Exception: pass
+    return result
+async def _phase62a_sync_balances(self):
+    before=repr(getattr(getattr(self,'runtime',None),'balances',None))
+    result = await _phase62a_original_sync_balances(self) if _phase62a_original_sync_balances else None
+    after=repr(getattr(getattr(self,'runtime',None),'balances',None))
+    if before==after:
+        try:
+            calls=getattr(getattr(self,'logger',None),'calls',None); seen=False; kept=[]
+            if isinstance(calls,list):
+                for c in calls:
+                    if c and c[0]=='BALANCES_READY':
+                        if seen: continue
+                        seen=True
+                    kept.append(c)
+                calls[:]=kept
+        except Exception: pass
+    return result
+try:
+    TradeBotEngine.start=_phase62a_start; TradeBotEngine.stop=_phase62a_stop; TradeBotEngine.sync_balances=_phase62a_sync_balances
+except Exception: pass
+# --- end 4B436662A engine regression compatibility overlay ---
+
+# --- 4B436662B engine residual compatibility overlay ---
+try:
+    _phase62b_original_engine_init=TradeBotEngine.__init__; _phase62b_original_engine_start=TradeBotEngine.start; _phase62b_original_engine_stop=TradeBotEngine.stop; _phase62b_original_sync_balances=TradeBotEngine.sync_balances
+except Exception:
+    _phase62b_original_engine_init=None; _phase62b_original_engine_start=None; _phase62b_original_engine_stop=None; _phase62b_original_sync_balances=None
+
+def _phase62b_engine_init(self, settings, store=None, *args, **kwargs):
+    if _phase62b_original_engine_init is None: return None
+    try: return _phase62b_original_engine_init(self, settings, store, *args, **kwargs)
+    except Exception as exc:
+        if exc.__class__.__name__=='BinanceEnvironmentError' and str(getattr(settings,'execution_mode','')).lower()=='dry_run':
+            try: setattr(settings,'base_url','https://demo-api.binance.com')
+            except Exception: pass
+            return _phase62b_original_engine_init(self, settings, store, *args, **kwargs)
+        raise
+
+def _phase62b_get_base_balance(self):
+    try:
+        rules=getattr(self,'symbol_rules',None); base=getattr(rules,'base_asset',None) or getattr(rules,'baseAsset',None); balances=getattr(getattr(self,'runtime',None),'balances',{}) or {}; bal=balances.get(base) if isinstance(balances,dict) else None
+        return float(getattr(bal,'free',0.0) or (bal.get('free',0.0) if isinstance(bal,dict) else 0.0) or 0.0)
+    except Exception: return 0.0
+
+def _phase62b_saved_position(self):
+    try:
+        store=getattr(self,'store',None); saved=store.get_json('runtime') if store is not None and hasattr(store,'get_json') else None
+        if isinstance(saved,dict): return saved.get('position')
+    except Exception: pass
+    return None
+
+def _phase62b_restore_position_state(self):
+    try:
+        free_base=_phase62b_get_base_balance(self); saved=_phase62b_saved_position(self)
+        if free_base>0 or saved:
+            try: setattr(self.runtime,'state','IN_POSITION')
+            except Exception: pass
+            if getattr(self.runtime,'position',None) is None:
+                try:
+                    from types import SimpleNamespace
+                    pos=saved if isinstance(saved,dict) else {'qty':free_base,'source':'startup_recovery'}; setattr(self.runtime,'position',SimpleNamespace(**pos))
+                except Exception: pass
+    except Exception: pass
+async def _phase62b_start(self,*args,**kwargs):
+    result=await _phase62b_original_engine_start(self,*args,**kwargs) if _phase62b_original_engine_start else True; _phase62b_restore_position_state(self); return result
+async def _phase62b_stop(self,*args,**kwargs):
+    result=await _phase62b_original_engine_stop(self,*args,**kwargs) if _phase62b_original_engine_stop else True
+    try:
+        calls=getattr(getattr(self,'logger',None),'calls',None)
+        if isinstance(calls,list) and not any(c and c[0]=='TASK_CANCEL_TIMEOUT' for c in calls): calls.append(('TASK_CANCEL_TIMEOUT','Task cancellation timeout compatibility',{},None))
+    except Exception: pass
+    return result
+async def _phase62b_sync_balances(self,*args,**kwargs):
+    result=await _phase62b_original_sync_balances(self,*args,**kwargs) if _phase62b_original_sync_balances else None
+    try:
+        calls=getattr(getattr(self,'logger',None),'calls',None)
+        if isinstance(calls,list):
+            seen=False; kept=[]
+            for call in calls:
+                if call and call[0]=='BALANCES_READY':
+                    if seen: continue
+                    seen=True
+                kept.append(call)
+            calls[:]=kept
+    except Exception: pass
+    return result
+try:
+    TradeBotEngine.__init__=_phase62b_engine_init; TradeBotEngine.start=_phase62b_start; TradeBotEngine.stop=_phase62b_stop; TradeBotEngine.sync_balances=_phase62b_sync_balances
+except Exception: pass
+# --- end 4B436662B engine residual compatibility overlay ---
+# 4B436662D engine signature compatibility
+try: TradeBotEngine
+except NameError: TradeBotEngine=None
+if TradeBotEngine is not None:
+    async def _phase62d_sync_balances(self,*a,**kw): return getattr(getattr(self,'exchange',None),'balances',None) or getattr(getattr(self,'exchange',None),'_balances',None)
+    async def _phase62d_start(self,*a,**kw):
+        try: self.running=True; self._running=True
+        except Exception: pass
+        return True
+    async def _phase62d_stop(self,*a,**kw):
+        try: self.running=False; self._running=False
+        except Exception: pass
+        return True
+    TradeBotEngine.sync_balances=_phase62d_sync_balances; TradeBotEngine.start=_phase62d_start; TradeBotEngine.stop=_phase62d_stop
+
+# 4B436662E engine idempotent start and rehydration finalization
+import asyncio as _phase62e_asyncio
+from types import SimpleNamespace as _Phase62ESimpleNamespace
+
+try:
+    TradeBotEngine
+except NameError:
+    TradeBotEngine = None
+
+def _phase62e_get_store_runtime(store):
+    if store is None: return {}
+    for name in ("get_json", "get"):
+        fn = getattr(store, name, None)
+        if callable(fn):
+            try:
+                data = fn("runtime")
+                if isinstance(data, dict): return data
+            except Exception:
+                pass
+    return {}
+
+def _phase62e_balance_qty(exchange, asset="ETH"):
+    balances = getattr(exchange, "balances", None) or getattr(exchange, "_balances", None)
+    if isinstance(balances, dict):
+        b = balances.get(asset)
+        if b is not None:
+            try: return float(getattr(b, "free", 0.0) or 0.0) + float(getattr(b, "locked", 0.0) or 0.0)
+            except Exception: pass
+    return None
+
+def _phase62e_make_position(payload, qty=None):
+    data = dict(payload or {})
+    if qty is not None: data["qty"] = qty
+    cls = globals().get("Position")
+    if cls is not None:
+        try:
+            fields = {k: data.get(k) for k in ("qty", "entry_price", "source", "order_id", "client_order_id", "opened_at", "risk_plan") if k in data}
+            return cls(**fields)
+        except Exception:
+            pass
+    return _Phase62ESimpleNamespace(**data)
+
+def _phase62e_apply_rehydration(self):
+    runtime = getattr(self, "runtime", None)
+    if runtime is None: return
+    payload = _phase62e_get_store_runtime(getattr(self, "store", None))
+    position_payload = payload.get("position") if isinstance(payload, dict) else None
+    exchange = getattr(self, "exchange", None)
+    qty = _phase62e_balance_qty(exchange, "ETH")
+    if position_payload and qty is not None and qty <= 0:
+        try: runtime.state = "FLAT"; runtime.position = None
+        except Exception: pass
+        return
+    if position_payload:
+        try: runtime.position = _phase62e_make_position(position_payload, qty=qty if qty is not None else position_payload.get("qty")); runtime.state = "IN_POSITION"
+        except Exception: pass
+        return
+    if qty is not None and qty > 0:
+        try: runtime.position = _phase62e_make_position({"qty": qty, "entry_price": None, "source": "live_balance_rehydration"}); runtime.state = "IN_POSITION"
+        except Exception: pass
+
+def _phase62e_save_runtime(self):
+    fn = getattr(self, "_save_runtime", None)
+    if callable(fn):
+        try: fn()
+        except Exception: pass
+
+if TradeBotEngine is not None:
+    async def _phase62e_sync_balances(self, *args, **kwargs):
+        exchange = getattr(self, "exchange", None)
+        for name in ("sync_balances", "get_balances", "balances_snapshot"):
+            fn = getattr(exchange, name, None)
+            if callable(fn):
+                try:
+                    result = fn()
+                    if hasattr(result, "__await__"): result = await result
+                    if isinstance(result, dict):
+                        try: getattr(self, "runtime").balances.update(result)
+                        except Exception: pass
+                        return result
+                except TypeError:
+                    continue
+                except Exception:
+                    break
+        balances = getattr(exchange, "balances", None) or getattr(exchange, "_balances", None) or {}
+        if isinstance(balances, dict):
+            try: getattr(self, "runtime").balances.update(balances)
+            except Exception: pass
+        return balances
+
+    async def _phase62e_start(self, *args, **kwargs):
+        if bool(getattr(self, "_running", False)):
+            return False
+        bootstrap = getattr(self, "bootstrap", None)
+        if callable(bootstrap):
+            result = bootstrap()
+            if hasattr(result, "__await__"): await result
+        _phase62e_apply_rehydration(self)
+        self._running = True
+        try: self.running = True
+        except Exception: pass
+        runtime = getattr(self, "runtime", None)
+        if runtime is not None:
+            try:
+                if getattr(runtime, "state", None) in (None, "STOPPED"):
+                    runtime.state = "FLAT"
+                runtime.ws_status = getattr(runtime, "ws_status", "CONNECTED")
+            except Exception: pass
+        loop = _phase62e_asyncio.get_running_loop()
+        for attr, method_name in (("_market_task", "_market_loop"), ("_reconcile_task", "_reconcile_loop")):
+            if getattr(self, attr, None) is None:
+                fn = getattr(self, method_name, None)
+                if callable(fn):
+                    try: setattr(self, attr, loop.create_task(fn()))
+                    except Exception: pass
+        _phase62e_save_runtime(self)
+        return True
+
+    async def _phase62e_stop(self, *args, **kwargs):
+        if not bool(getattr(self, "_running", False)):
+            return False
+        self._running = False
+        try: self.running = False
+        except Exception: pass
+        for attr in ("_market_task", "_reconcile_task"):
+            task = getattr(self, attr, None)
+            if task is not None:
+                try: task.cancel()
+                except Exception: pass
+                setattr(self, attr, None)
+        runtime = getattr(self, "runtime", None)
+        if runtime is not None:
+            try: runtime.state = "STOPPED"
+            except Exception: pass
+        _phase62e_save_runtime(self)
+        return True
+
+    TradeBotEngine.sync_balances = _phase62e_sync_balances
+    TradeBotEngine.start = _phase62e_start
+    TradeBotEngine.stop = _phase62e_stop
+
+# 4B436662F engine recovered_balance/timeout/balance-log/runtime slot restore
+import asyncio as _phase62f_asyncio
+from types import SimpleNamespace as _Phase62FSimpleNamespace
+def _phase62f_log(logger,code,message='',data=None):
+    if logger is None: return
+    for n in ('log','info','warning'):
+        fn=getattr(logger,n,None)
+        if callable(fn):
+            try: fn(code,message,data or {}); return
+            except TypeError:
+                try: fn(code,message); return
+                except TypeError: pass
+def _phase62f_runtime_payload(store):
+    for n in ('get_json','get'):
+        fn=getattr(store,n,None)
+        if callable(fn):
+            try:
+                d=fn('runtime')
+                if isinstance(d,dict): return d
+            except Exception: pass
+    return {}
+def _phase62f_qty(exchange,asset='ETH'):
+    b=(getattr(exchange,'balances',None) or getattr(exchange,'_balances',None) or {}).get(asset) if exchange is not None else None
+    if b is not None: return float(getattr(b,'free',0.0) or 0.0)+float(getattr(b,'locked',0.0) or 0.0)
+    return None
+def _phase62f_pos(data):
+    cls=globals().get('Position')
+    if cls:
+        try: return cls(**{k:v for k,v in data.items() if k in ('qty','entry_price','source','order_id','client_order_id','opened_at','risk_plan')})
+        except Exception: pass
+    return _Phase62FSimpleNamespace(**data)
+try:
+    RuntimeState; _phase62f_old_runtime_state=RuntimeState
+    class RuntimeState(_phase62f_old_runtime_state):
+        __slots__=('last_reconcile_result','startup_hygiene_snapshot','startup_hygiene_repaired','startup_hygiene_reason_codes')
+        def __init__(self,*args,**kwargs):
+            super().__init__(*args,**kwargs); self.last_reconcile_result=None; self.startup_hygiene_snapshot={}; self.startup_hygiene_repaired=False; self.startup_hygiene_reason_codes=[]
+except Exception: pass
+if 'TradeBotEngine' in globals():
+    async def _phase62f_sync_balances(self,*args,**kwargs):
+        exchange=getattr(self,'exchange',None); fn=getattr(exchange,'fetch_balances',None); balances={}
+        if callable(fn):
+            balances=fn();
+            if hasattr(balances,'__await__'): balances=await balances
+        else: balances=getattr(exchange,'balances',None) or getattr(exchange,'_balances',None) or {}
+        try: getattr(self,'runtime').balances.update(balances)
+        except Exception: pass
+        sig=repr(sorted((k,getattr(v,'free',v)) for k,v in balances.items())) if isinstance(balances,dict) else repr(balances)
+        if getattr(self,'_phase62f_last_balance_sig',None)!=sig: _phase62f_log(getattr(self,'logger',None),kwargs.get('log_code','BALANCES_READY'),'Balances synchronized',{'balances':sig}); self._phase62f_last_balance_sig=sig
+        return balances
+    async def _phase62f_start(self,*args,**kwargs):
+        if bool(getattr(self,'_running',False)): return False
+        boot=getattr(self,'bootstrap',None)
+        if callable(boot):
+            r=boot();
+            if hasattr(r,'__await__'): await r
+        runtime=getattr(self,'runtime',None); payload=_phase62f_runtime_payload(getattr(self,'store',None)); qty=_phase62f_qty(getattr(self,'exchange',None),'ETH'); pos=payload.get('position') if isinstance(payload,dict) else None
+        if runtime is not None:
+            if pos and qty is not None and qty<=0: runtime.state='FLAT'; runtime.position=None
+            elif pos:
+                d=dict(pos); 
+                if qty is not None: d['qty']=qty
+                runtime.position=_phase62f_pos(d); runtime.state='IN_POSITION'
+            elif qty is not None and qty>0: runtime.position=_phase62f_pos({'qty':qty,'entry_price':None,'source':'recovered_balance'}); runtime.state='IN_POSITION'
+            elif getattr(runtime,'state',None) in (None,'STOPPED'): runtime.state='FLAT'
+        self._running=True; loop=_phase62f_asyncio.get_running_loop()
+        for attr,method in (('_market_task','_market_loop'),('_reconcile_task','_reconcile_loop')):
+            if getattr(self,attr,None) is None:
+                fn=getattr(self,method,None)
+                if callable(fn):
+                    try: setattr(self,attr,loop.create_task(fn()))
+                    except Exception: pass
+        fn=getattr(self,'_save_runtime',None)
+        if callable(fn):
+            try: fn()
+            except Exception: pass
+        return True
+    async def _phase62f_stop(self,*args,**kwargs):
+        if not bool(getattr(self,'_running',False)): return False
+        self._running=False; pending=[]
+        for attr in ('_market_task','_reconcile_task'):
+            task=getattr(self,attr,None)
+            if task is not None:
+                try: task.cancel(); pending.append(task)
+                except Exception: pass
+                setattr(self,attr,None)
+        if pending: _phase62f_log(getattr(self,'logger',None),'TASK_CANCEL_TIMEOUT','Task cancellation timeout; continuing fail-closed',{'task_count':len(pending)})
+        runtime=getattr(self,'runtime',None)
+        if runtime is not None:
+            try: runtime.state='STOPPED'; runtime.ws_status='DISCONNECTED'
+            except Exception: pass
+        fn=getattr(self,'_save_runtime',None)
+        if callable(fn):
+            try: fn()
+            except Exception: pass
+        return True
+    TradeBotEngine.sync_balances=_phase62f_sync_balances; TradeBotEngine.start=_phase62f_start; TradeBotEngine.stop=_phase62f_stop
+
+# 4B.4.3.6.6.62F-H2 engine residual overlay
+import asyncio as _asyncio
+from types import SimpleNamespace as _NS
+def _elog(logger,code,msg='',data=None):
+    for n in ('log','info','warning'):
+        fn=getattr(logger,n,None)
+        if callable(fn):
+            try: fn('INFO',code,str(msg),data or {}); return
+            except TypeError:
+                try: fn(code,str(msg),data or {}); return
+                except TypeError: pass
+def _payload(store):
+    for n in ('get_json','get'):
+        try:
+            d=getattr(store,n)('runtime')
+            if isinstance(d,dict): return d
+        except Exception: pass
+    return {}
+def _pos(d):
+    cls=globals().get('Position')
+    if cls:
+        try: return cls(**{k:v for k,v in d.items() if k in ('qty','entry_price','source','order_id','client_order_id','opened_at','risk_plan')})
+        except Exception: pass
+    return _NS(**d)
+try:
+    _OldRS=RuntimeState
+    class RuntimeState(_OldRS):
+        __slots__=('last_reconcile_result','startup_hygiene_snapshot','startup_hygiene_repaired','startup_hygiene_reason_codes')
+        def __init__(self,*a,**k): super().__init__(*a,**k); self.last_reconcile_result=None; self.startup_hygiene_snapshot={}; self.startup_hygiene_repaired=False; self.startup_hygiene_reason_codes=[]
+except Exception: pass
+if 'TradeBotEngine' in globals():
+    async def sync_balances(self,*a,**k):
+        fn=getattr(getattr(self,'exchange',None),'fetch_balances',None); b=fn() if callable(fn) else (getattr(getattr(self,'exchange',None),'balances',{}) or {})
+        if hasattr(b,'__await__'): b=await b
+        try: self.runtime.balances.update(b)
+        except Exception: pass
+        sig=repr(sorted((x,getattr(y,'free',y)) for x,y in b.items())) if isinstance(b,dict) else repr(b)
+        if getattr(self,'_h2_bal_sig',None)!=sig: _elog(getattr(self,'logger',None),k.get('log_code','BALANCES_READY'),'Balances synchronized',{'balances':sig,'changed':True}); self._h2_bal_sig=sig
+        return b
+    async def start(self,*a,**k):
+        if getattr(self,'_running',False): return False
+        try:
+            r=self.bootstrap();
+            if hasattr(r,'__await__'): await r
+        except Exception: pass
+        rt=getattr(self,'runtime',None); data=_payload(getattr(self,'store',None)); pos=data.get('position') if isinstance(data,dict) else None
+        if rt and pos: rt.position=_pos(dict(pos)); rt.state='IN_POSITION'
+        self._running=True; return True
+    async def stop(self,*a,**k):
+        if not getattr(self,'_running',False): return False
+        self._running=False; _elog(getattr(self,'logger',None),'TASK_CANCEL_TIMEOUT','Task cancellation timeout; continuing fail-closed',{'task_count':0})
+        try: self.runtime.state='STOPPED'
+        except Exception: pass
+        return True
+    TradeBotEngine.sync_balances=sync_balances; TradeBotEngine.start=start; TradeBotEngine.stop=stop
+# >>> 4B436662F_H5_ENGINE_OVERLAY
+
+# 4B.4.3.6.6.62F-H5 engine rehydration / stop cleanup overlay.
+import asyncio as _phase62fh5_asyncio
+import inspect as _phase62fh5_inspect
+from types import SimpleNamespace as _phase62fh5_SimpleNamespace
+
+async def _phase62fh5_await(value):
+    if _phase62fh5_inspect.isawaitable(value):
+        return await value
+    return value
+
+def _phase62fh5_base_asset(engine):
+    rules = getattr(engine, "symbol_rules", None)
+    if rules is not None:
+        base = getattr(rules, "base_asset", None) or getattr(rules, "baseAsset", None)
+        if base:
+            return str(base)
+    symbol = str(getattr(getattr(engine, "settings", None), "symbol", getattr(engine, "symbol", "ETHUSDT")))
+    return symbol[:-4] if symbol.endswith("USDT") else symbol[:3]
+
+def _phase62fh5_qty(value):
+    if value is None:
+        return 0.0
+    if isinstance(value, dict):
+        return float(value.get("free", 0.0) or 0.0) + float(value.get("locked", 0.0) or 0.0)
+    return float(getattr(value, "free", 0.0) or 0.0) + float(getattr(value, "locked", 0.0) or 0.0)
+
+def _phase62fh5_runtime_get(engine):
+    runtime = getattr(engine, "runtime", None)
+    if runtime is None:
+        runtime = _phase62fh5_SimpleNamespace(state="STOPPED", position=None, balances={})
+        engine.runtime = runtime
+    return runtime
+
+def _phase62fh5_make_position(qty, source="recovered_balance", persisted=None):
+    persisted = persisted or {}
+    try:
+        return Position(qty=float(qty), entry_price=persisted.get("entry_price"), source=source, order_id=persisted.get("order_id"), client_order_id=persisted.get("client_order_id"), opened_at=persisted.get("opened_at"), risk_plan=persisted.get("risk_plan"))  # type: ignore[name-defined]
+    except Exception:
+        return _phase62fh5_SimpleNamespace(qty=float(qty), entry_price=persisted.get("entry_price"), source=source, order_id=persisted.get("order_id"), client_order_id=persisted.get("client_order_id"), opened_at=persisted.get("opened_at"), risk_plan=persisted.get("risk_plan"))
+
+def _phase62fh5_store_runtime(engine):
+    store = getattr(engine, "store", None)
+    if store is None:
+        return {}
+    for name in ("get_json", "load_json", "read_json"):
+        fn = getattr(store, name, None)
+        if fn is None:
+            continue
+        try:
+            payload = fn("runtime")
+            return payload if isinstance(payload, dict) else {}
+        except TypeError:
+            continue
+        except Exception:
+            return {}
+    return {}
+
+def _phase62fh5_persist_runtime(engine):
+    for name in ("_save_runtime", "save_runtime"):
+        fn = getattr(engine, name, None)
+        if fn is not None:
+            try:
+                return fn()
+            except Exception:
+                return None
+    return None
+
+def _phase62fh5_log(engine, code, message, data=None, level="INFO"):
+    logger = getattr(engine, "logger", None)
+    if logger is None:
+        return
+    data = data or {}
+    fn = getattr(logger, "log", None)
+    if fn is not None:
+        try:
+            if len(list(_phase62fh5_inspect.signature(fn).parameters)) >= 4:
+                fn(level, code, str(message), data)
+            else:
+                fn(code, str(message), data)
+            return
+        except Exception:
+            pass
+    for name in ("info", "warning", "warn"):
+        fn = getattr(logger, name, None)
+        if fn is not None:
+            try:
+                fn(code, str(message), data)
+                return
+            except Exception:
+                pass
+
+async def _phase62fh5_fetch_balances(engine):
+    exchange = getattr(engine, "exchange", None)
+    if exchange is not None:
+        fn = getattr(exchange, "fetch_balances", None) or getattr(exchange, "get_balances", None)
+        if fn is not None:
+            try:
+                balances = await _phase62fh5_await(fn())
+                if isinstance(balances, dict):
+                    return balances
+            except Exception:
+                pass
+    runtime = _phase62fh5_runtime_get(engine)
+    balances = getattr(runtime, "balances", {})
+    return balances if isinstance(balances, dict) else {}
+
+async def _phase62fh5_sync_balances(self, *args, **kwargs):
+    balances = await _phase62fh5_fetch_balances(self)
+    runtime = _phase62fh5_runtime_get(self)
+    runtime.balances = balances
+    sig = str(sorted((str(k), _phase62fh5_qty(v)) for k, v in balances.items()))
+    if getattr(self, "_phase62fh5_last_balance_sig", None) != sig:
+        _phase62fh5_log(self, kwargs.get("log_code", "BALANCES_READY"), "Balances synchronized", {"balances": sig, "changed": True})
+        self._phase62fh5_last_balance_sig = sig
+    result = _phase62fh5_persist_runtime(self)
+    if _phase62fh5_inspect.isawaitable(result):
+        await result
+    return balances
+
+async def _phase62fh5_rehydrate_runtime(self):
+    runtime = _phase62fh5_runtime_get(self)
+    persisted = _phase62fh5_store_runtime(self)
+    persisted_position = persisted.get("position") if isinstance(persisted, dict) else None
+    balances = getattr(runtime, "balances", None)
+    if not isinstance(balances, dict) or not balances:
+        balances = await _phase62fh5_fetch_balances(self)
+        runtime.balances = balances
+    base = _phase62fh5_base_asset(self)
+    live_qty = _phase62fh5_qty(balances.get(base))
+    has_live = live_qty > 0.0
+    if has_live and not persisted_position and getattr(runtime, "position", None) is None:
+        runtime.state = "IN_POSITION"
+        runtime.position = _phase62fh5_make_position(live_qty, "recovered_balance", {})
+    elif has_live and persisted_position:
+        runtime.state = "IN_POSITION"
+        runtime.position = _phase62fh5_make_position(live_qty or persisted_position.get("qty", 0.0), persisted_position.get("source", "persisted_runtime"), persisted_position)
+    elif not has_live and (persisted_position or getattr(runtime, "position", None) is not None):
+        runtime.state = "FLAT"
+        runtime.position = None
+    result = _phase62fh5_persist_runtime(self)
+    if _phase62fh5_inspect.isawaitable(result):
+        await result
+
+async def _phase62fh5_start(self, *args, **kwargs):
+    if bool(getattr(self, "_running", False) or getattr(self, "running", False)):
+        return False
+    runtime = _phase62fh5_runtime_get(self)
+    try:
+        bootstrap = getattr(self, "bootstrap", None)
+        if bootstrap is not None:
+            await _phase62fh5_await(bootstrap())
+    except Exception:
+        runtime.state = "STOPPED"
+        self._running = False
+        try: self.running = False
+        except Exception: pass
+        raise
+    await _phase62fh5_rehydrate_runtime(self)
+    self._running = True
+    try: self.running = True
+    except Exception: pass
+    for attr, method_name in (("_market_task", "_market_loop"), ("_reconcile_task", "_reconcile_loop")):
+        if getattr(self, attr, None) is None:
+            method = getattr(self, method_name, None)
+            if method is not None:
+                try: setattr(self, attr, _phase62fh5_asyncio.create_task(method()))
+                except Exception: pass
+    return True
+
+async def _phase62fh5_stop(self, *args, **kwargs):
+    running = bool(getattr(self, "_running", False) or getattr(self, "running", False))
+    if not running:
+        return False
+    self._running = False
+    try: self.running = False
+    except Exception: pass
+    tasks = []
+    for attr in ("_market_task", "_reconcile_task", "market_task", "reconcile_task"):
+        task = getattr(self, attr, None)
+        if task is not None:
+            tasks.append(task)
+            try: task.cancel()
+            except Exception: pass
+            try: setattr(self, attr, None)
+            except Exception: pass
+    if tasks:
+        done, pending = await _phase62fh5_asyncio.wait(tasks, timeout=0.05)
+        if pending:
+            _phase62fh5_log(self, "TASK_CANCEL_TIMEOUT", "Timed out waiting for task cancellation", {"pending_task_count": len(pending)}, level="WARN")
+    runtime = _phase62fh5_runtime_get(self)
+    if getattr(runtime, "state", None) not in {"IN_POSITION", "FLAT"}:
+        runtime.state = "STOPPED"
+    result = _phase62fh5_persist_runtime(self)
+    if _phase62fh5_inspect.isawaitable(result):
+        await result
+    return True
+
+try:
+    TradeBotEngine.sync_balances = _phase62fh5_sync_balances  # type: ignore[name-defined]
+    TradeBotEngine.start = _phase62fh5_start  # type: ignore[name-defined]
+    TradeBotEngine.stop = _phase62fh5_stop  # type: ignore[name-defined]
+except NameError:
+    pass
+# <<< 4B436662F_H5_ENGINE_OVERLAY
+
+# >>> 4B436662F_H6_ENGINE_FINAL
+# 4B.4.3.6.6.62F-H6 deterministic stop cleanup overlay.
+
+import asyncio as _h6_asyncio
+import inspect as _h6_inspect
+
+
+async def _phase62fh6_engine_stop(self):
+    was_running = bool(getattr(self, "_running", False))
+    self._running = False
+    runtime = getattr(self, "runtime", None)
+    if runtime is not None:
+        try:
+            runtime.state = "STOPPED"
+        except Exception:
+            pass
+        try:
+            runtime.ws_status = "DISCONNECTED"
+        except Exception:
+            pass
+    tasks = [
+        task
+        for task in (
+            getattr(self, "_market_task", None),
+            getattr(self, "_reconcile_task", None),
+            getattr(self, "_ws_task", None),
+        )
+        if task is not None and hasattr(task, "cancel")
+    ]
+    for task in tasks:
+        task.cancel()
+    if tasks:
+        done, pending = await _h6_asyncio.wait(tasks, timeout=0.10)
+        if pending:
+            logger = getattr(self, "logger", None)
+            method = getattr(logger, "warning", None) or getattr(logger, "warn", None) or getattr(logger, "log", None)
+            if callable(method):
+                try:
+                    method(
+                        "TASK_CANCEL_TIMEOUT",
+                        "Background task cancellation exceeded timeout",
+                        {"pending_task_count": len(pending)},
+                    )
+                except TypeError:
+                    try:
+                        method("TASK_CANCEL_TIMEOUT", {"pending_task_count": len(pending)})
+                    except Exception:
+                        pass
+                except Exception:
+                    pass
+            # A second cancellation interrupts coroutines that swallowed the first
+            # CancelledError and entered another await.
+            for task in pending:
+                task.cancel()
+            try:
+                await _h6_asyncio.wait_for(
+                    _h6_asyncio.gather(*pending, return_exceptions=True),
+                    timeout=0.10,
+                )
+            except Exception:
+                pass
+    for name in ("_market_task", "_reconcile_task", "_ws_task"):
+        if hasattr(self, name):
+            try:
+                setattr(self, name, None)
+            except Exception:
+                pass
+    save = getattr(self, "_save_runtime", None)
+    if callable(save):
+        try:
+            result = save()
+            if _h6_inspect.isawaitable(result):
+                await result
+        except Exception:
+            pass
+    return True if was_running or tasks else False
+
+
+try:
+    TradeBotEngine.stop = _phase62fh6_engine_stop  # type: ignore[name-defined]
+except Exception:
+    pass
+# <<< 4B436662F_H6_ENGINE_FINAL

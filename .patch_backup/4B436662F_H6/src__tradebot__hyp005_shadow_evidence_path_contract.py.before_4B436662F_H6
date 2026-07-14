@@ -1,0 +1,34 @@
+from __future__ import annotations
+import json, os, tempfile
+from pathlib import Path
+HYP005_SHADOW_EVIDENCE_PATH_UTF8_CONTRACT_VERSION='4B.4.3.6.6.27G-H2'
+def repair_reversible_mojibake(v):
+    s=str(v); c=[s]
+    for e in ('latin-1','cp1252'):
+        try: c.append(s.encode(e).decode('utf-8'))
+        except Exception: pass
+    return min(dict.fromkeys(c), key=lambda x:(x.count('Ã')+x.count('Ä')+x.count('Å')+x.count('Â')+x.count('�'),len(x)))
+def resolve_existing_evidence_path(value,*,field='path',expect_directory=False,required=True):
+    raw=os.fspath(value)
+    for x in dict.fromkeys([raw,repair_reversible_mojibake(raw)]):
+        p=Path(x)
+        if p.exists() and (p.is_dir() if expect_directory else p.is_file()): return p.resolve()
+    if required: raise ValueError(f'HYP005_EVIDENCE_PATH_UNRESOLVED:{field}:{raw}')
+    return None
+def resolve_evidence_output_directory(value=None,*,field='out_dir',create=True,required=True):
+    if value is None:
+        if required: raise ValueError(f'HYP005_EVIDENCE_OUTPUT_DIRECTORY_MISSING:{field}')
+        return None
+    p=Path(repair_reversible_mojibake(os.fspath(value))); p.mkdir(parents=True,exist_ok=True) if create else None; return p.resolve()
+def normalize_logger_report_evidence_paths(payload,*,require_exists=False):
+    out=dict(payload)
+    for k in ('ledger_json','ledger_jsonl','logger_json','candidate_spec_json'):
+        if out.get(k):
+            p=resolve_existing_evidence_path(out[k],field=k,required=require_exists); out[k]=str(p if p else Path(repair_reversible_mojibake(os.fspath(out[k]))))
+    if out.get('source_reports'): out['source_reports']=[str(resolve_existing_evidence_path(x,field='source_reports',required=require_exists) or Path(repair_reversible_mojibake(os.fspath(x)))) for x in out['source_reports']]
+    out['evidence_paths_resolved']=True; out['evidence_path_utf8_normalized']=True; return out
+def write_json_ascii_atomic(path,payload):
+    p=Path(path); p.parent.mkdir(parents=True,exist_ok=True); fd,tmp=tempfile.mkstemp(dir=str(p.parent),prefix=p.name,suffix='.tmp')
+    with os.fdopen(fd,'w',encoding='utf-8') as f: json.dump(payload,f,ensure_ascii=True,sort_keys=True)
+    os.replace(tmp,p)
+def resolve_active_reports_dir(project_root='.'): p=Path(project_root)/'reports'; p.mkdir(parents=True,exist_ok=True); return p.resolve()

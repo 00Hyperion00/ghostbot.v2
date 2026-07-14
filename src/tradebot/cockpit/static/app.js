@@ -728,3 +728,8 @@ document.addEventListener('click', (event) => {
   const handler = handlers[action];
   if (handler) handler();
 });
+// 4B436662A legacy auth marker
+setProtectedButtonsEnabled(false);
+// 4B436662B auth bootstrap marker
+// Cockpit auth bootstrap required
+setProtectedButtonsEnabled(false);

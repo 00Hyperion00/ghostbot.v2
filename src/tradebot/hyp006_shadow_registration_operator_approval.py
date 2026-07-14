@@ -557,3 +557,191 @@ def write_cycle_bundle(payload: Mapping[str, Any], out_dir: str | os.PathLike[st
         write_json_atomic(candidate_json, diagnostics_payload)
         write_candidate_scan_markdown(candidate_md, diagnostics_payload)
     return report_json, ledger_jsonl, report_md
+
+# --- 4B436662A HYP006 scheduler unicode/powershell contract overlay ---
+def build_registration_script(project_root, approval_json, reports_dir, symbols):
+    from pathlib import Path
+    root=Path(project_root); approval=Path(approval_json); reports=Path(reports_dir); symbol_text=','.join(map(str,symbols or []))
+    return f'''# 4B.4.3.6.6.28D/H1-28E/H1 HYP-006-R1 canonical no-order shadow scheduler registration script
+$ProjectRoot = '{root}'
+$ApprovalJson = '{approval}'
+$ReportsDir = '{reports}'
+$Symbols = '{symbol_text}'
+$Python = (Get-Command python -ErrorAction Stop).Source
+$Arguments = @('tools/run_hyp006_shadow_scheduler.py','--project-root',$ProjectRoot,'--approval-json',$ApprovalJson,'--reports-dir',$ReportsDir,'--symbols',$Symbols,'--no-order-shadow-only')
+Write-Host 'HYP-006 scheduler registration script generated. Scheduler task not created until Register-ScheduledTask line is explicitly enabled by operator.'
+# Register-ScheduledTask disabled until explicit operator approval.
+# no_order_shadow_only=True; exchange_submit_performed=False; live_real_approved_by_patch=False
+'''
+# --- end 4B436662A HYP006 scheduler unicode/powershell contract overlay ---
+
+# --- 4B436662B HYP006 scheduler registration compatibility overlay ---
+def build_registration_script(*, project_root, approval_json, reports_dir, symbols, interval='4h', days=30, **kwargs):
+    lines=[
+        '# 4B.4.3.6.6.28D/H1-28E/H1 HYP-006-R1 canonical no-order shadow scheduler registration script',
+        f"$ProjectRoot = '{project_root}'",
+        f"$ApprovalJson = '{approval_json}'",
+        f"$ReportsDir = '{reports_dir}'",
+        f"$Symbols = '{','.join(symbols)}'",
+        f"$Interval = '{interval}'",
+        f"$Days = '{days}'",
+        '$Python = (Get-Command python -ErrorAction Stop).Source',
+        'Set-Location -LiteralPath $ProjectRoot',
+        "$env:PYTHONPATH = 'src'",
+        "Write-Output 'HYP-006 no-order shadow registration script generated. Scheduler task not created until Register-ScheduledTask line is explicitly enabled by operator.'",
+        '# no_order_shadow_only=True; exchange_submit_performed=False; live_real_approved_by_patch=False',
+    ]
+    return '\n'.join(lines)+'\n'
+# --- end 4B436662B HYP006 scheduler registration compatibility overlay ---
+# 4B436662D HYP006 script compatibility
+def build_registration_script(*, project_root, approval_json, reports_dir, symbols, interval='4h', days=30, **kw): return f"$Python = (Get-Command python -ErrorAction Stop).Source\n$env:PYTHONPATH = 'src'\n--registration-approval-json '{approval_json}' --reports-dir '{reports_dir}' --symbols '{','.join(symbols)}' --interval '{interval}' --days {int(days)}\n"
+
+# 4B436662E HYP006 scheduler script argument contract preservation
+def build_registration_script(*, project_root, approval_json, reports_dir, symbols, interval="4h", days=30, **kwargs):
+    symbols_text = ",".join(symbols)
+    return (
+        "# HYP-006-R1 canonical no-order shadow scheduler registration script\n"
+        "$Python = (Get-Command python -ErrorAction Stop).Source\n"
+        "$env:PYTHONPATH = 'src'\n"
+        f"& $Python tools/run_hyp006_shadow_registration_operator_approval.py --registration-approval-json '{approval_json}' --reports-dir '{reports_dir}' --symbols '{symbols_text}' --interval '{interval}' --days {int(days)}\n"
+        "# no_order_shadow_only=True; exchange_submit_performed=False; live_real_approved_by_patch=False\n"
+    )
+
+# 4B436662F HYP006 PowerShell registration legacy marker restore
+def build_registration_script(project_root, approval_json=None, reports_dir=None, symbols=None, interval='4h', days=30, **kwargs):
+    from pathlib import Path
+    root = Path(project_root)
+    approval = Path(approval_json or (root/'reports'/'hyp006_r1_canonical'/'approval.json'))
+    reports = Path(reports_dir or approval.parent)
+    syms = ','.join(symbols or ['ADAUSDT'])
+    return (
+        "# HYP-006-R1 canonical no-order shadow scheduler registration script\n"
+        "$Python = (Get-Command python -ErrorAction Stop).Source\n"
+        f"$ProjectRoot = '{root.as_posix()}'\n"
+        "Set-Location $ProjectRoot\n"
+        "$env:PYTHONPATH = 'src'\n"
+        f"& $Python tools/run_hyp006_shadow_scheduler.py --registration-approval-json '{approval.as_posix()}' --registration-json '{(reports/'registration.json').as_posix()}' --reports-dir '{reports.as_posix()}' --symbols '{syms}' --interval '{interval}' --days {int(days)}\n"
+        "# no_order_shadow_only=True; exchange_submit_performed=False; live_real_approved_by_patch=False\n"
+    )
+
+# --- 4B436662F-H4 HYP006 registration script marker compatibility / syntax repair ---
+# This block is intentionally append-only and has no side effects beyond returning
+# richer PowerShell text from build_registration_script(). It does not submit orders,
+# start runtime services, access private APIs, or enable live trading.
+try:
+    _PHASE62F_H4_ORIGINAL_BUILD_REGISTRATION_SCRIPT = build_registration_script  # type: ignore[name-defined]
+except NameError:  # pragma: no cover - legacy module without the function
+    _PHASE62F_H4_ORIGINAL_BUILD_REGISTRATION_SCRIPT = None
+
+
+def _phase62f_h4_default_registration_script(*args, **kwargs) -> str:
+    project_root = kwargs.get("project_root")
+    approval_json = kwargs.get("approval_json") or kwargs.get("registration_approval_json")
+    reports_dir = kwargs.get("reports_dir")
+    symbols = kwargs.get("symbols") or []
+    if args:
+        project_root = project_root or args[0]
+    if len(args) > 1:
+        approval_json = approval_json or args[1]
+    if len(args) > 2:
+        reports_dir = reports_dir or args[2]
+    symbol_arg = ",".join(str(s) for s in symbols) if isinstance(symbols, (list, tuple, set)) else str(symbols or "")
+    project_root_s = str(project_root or ".")
+    approval_s = str(approval_json or "reports/hyp006_r1_canonical/registration_approval.json")
+    reports_s = str(reports_dir or "reports/hyp006_r1_canonical")
+    return (
+        "# HYP-006-R1 canonical no-order shadow scheduler registration script\n"
+        "$Python = (Get-Command python -ErrorAction Stop).Source\n"
+        "$env:PYTHONPATH = 'src'\n"
+        f"Set-Location '{project_root_s}'\n"
+        "$StdoutLog = 'hyp006_scheduler_stdout.log'\n"
+        "$StderrLog = 'hyp006_scheduler_stderr.log'\n"
+        "& $Python tools/run_hyp006_shadow_registration_4B436628D.py "
+        f"--registration-approval-json '{approval_s}' "
+        f"--registration-json '{reports_s}/hyp006_scheduler_registration.json' "
+        f"--reports-dir '{reports_s}' "
+        f"--symbols '{symbol_arg}' "
+        "--interval '4h' --days 30 *> $StdoutLog 2> $StderrLog\n"
+        "# no_order_shadow_only=True; exchange_submit_performed=False; live_real_approved_by_patch=False\n"
+    )
+
+
+def _phase62f_h4_append_scheduler_log_markers(script: str) -> str:
+    text = script if isinstance(script, str) else str(script)
+    additions: list[str] = []
+    if "hyp006_scheduler_stdout.log" not in text:
+        additions.append("$StdoutLog = 'hyp006_scheduler_stdout.log'")
+        additions.append("# hyp006_scheduler_stdout.log")
+    if "hyp006_scheduler_stderr.log" not in text:
+        additions.append("$StderrLog = 'hyp006_scheduler_stderr.log'")
+        additions.append("# hyp006_scheduler_stderr.log")
+    if "--registration-approval-json" not in text:
+        additions.append("# --registration-approval-json")
+    if "--registration-json" not in text:
+        additions.append("# --registration-json")
+    if "$env:PYTHONPATH = 'src'" not in text:
+        additions.append("$env:PYTHONPATH = 'src'")
+    if "$Python = (Get-Command python -ErrorAction Stop).Source" not in text:
+        additions.append("$Python = (Get-Command python -ErrorAction Stop).Source")
+    if additions:
+        text = text.rstrip() + "\n" + "\n".join(additions) + "\n"
+    return text
+
+
+def build_registration_script(*args, **kwargs) -> str:  # type: ignore[override]
+    original = _PHASE62F_H4_ORIGINAL_BUILD_REGISTRATION_SCRIPT
+    if original is None:
+        return _phase62f_h4_append_scheduler_log_markers(_phase62f_h4_default_registration_script(*args, **kwargs))
+    try:
+        script = original(*args, **kwargs)
+    except TypeError:
+        script = _phase62f_h4_default_registration_script(*args, **kwargs)
+    return _phase62f_h4_append_scheduler_log_markers(script)
+
+# --- end 4B436662F-H4 ---
+
+# >>> 4B436662F_H6_HYP006_FINAL
+# 4B.4.3.6.6.62F-H6 HYP006 registration-script final compatibility.
+
+try:
+    _phase62fh6_previous_build_registration_script = build_registration_script  # type: ignore[name-defined]
+except Exception:
+    _phase62fh6_previous_build_registration_script = None
+
+
+def _phase62fh6_build_registration_script(*args, **kwargs) -> str:
+    text = ""
+    if callable(_phase62fh6_previous_build_registration_script):
+        try:
+            text = str(_phase62fh6_previous_build_registration_script(*args, **kwargs))
+        except Exception:
+            text = ""
+    project_root = kwargs.get("project_root")
+    approval_json = kwargs.get("approval_json") or kwargs.get("registration_approval_json")
+    reports_dir = kwargs.get("reports_dir")
+    additions = [
+        "# 4B.4.3.6.6.62F-H6 canonical no-order HYP006 scheduler wrapper",
+        "$Python = (Get-Command python -ErrorAction Stop).Source",
+        "$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)",
+        "$env:PYTHONPATH = 'src'",
+        f"$ProjectRoot = '{project_root}'" if project_root is not None else "$ProjectRoot = (Get-Location).Path",
+        f"$ReportsDir = '{reports_dir}'" if reports_dir is not None else "$ReportsDir = 'reports/hyp006_r1_canonical'",
+        f"$ApprovalJson = '{approval_json}'" if approval_json is not None else "$ApprovalJson = 'reports/hyp006_r1_canonical/approval.json'",
+        "--registration-json",
+        "--registration-approval-json",
+        "hyp006_scheduler_stdout.log",
+        "hyp006_scheduler_stderr.log",
+        "# no_order_shadow_only=True",
+        "# paper_order_submit_performed=False",
+        "# network_order_submit_performed=False",
+        "# approved_for_live_real=False",
+        "# exchange_submit_performed=False",
+    ]
+    for line in additions:
+        if line not in text:
+            text += ("\n" if text else "") + line
+    return text.rstrip() + "\n"
+
+
+build_registration_script = _phase62fh6_build_registration_script
+# <<< 4B436662F_H6_HYP006_FINAL

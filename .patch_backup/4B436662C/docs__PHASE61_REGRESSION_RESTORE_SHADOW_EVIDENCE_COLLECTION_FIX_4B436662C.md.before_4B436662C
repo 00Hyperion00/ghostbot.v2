@@ -1,0 +1,5 @@
+# 4B.4.3.6.6.62C Phase61 Regression Restore / Shadow Evidence Collection Fix
+
+Restores 61-H1..H7 compatibility after 62B residual sweep broke prior contracts and fixes HYP005 shadow evidence path collection export.
+
+Safety remains fail-closed: no paper submit, no network order, no live-real, no exchange submit, no runtime start, no reload, no training.

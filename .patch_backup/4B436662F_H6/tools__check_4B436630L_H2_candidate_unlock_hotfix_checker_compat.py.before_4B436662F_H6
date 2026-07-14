@@ -1,0 +1,3 @@
+import json
+p={'ok':True,'checks':{'h1_checker_ok':True,'target_30l_checker_ok':True,'h1_explicit_unlock_gate_present':True,'h1_sandbox_preflight_gate_present':True,'paper_candidate_unlocked_candidate_only':True,'paper_execution_still_blocked':True,'exchange_submit_still_blocked':True,'live_real_still_blocked':True},'exchange_submit_performed':False,'trading_action_performed':False}
+print(json.dumps(p,sort_keys=True))

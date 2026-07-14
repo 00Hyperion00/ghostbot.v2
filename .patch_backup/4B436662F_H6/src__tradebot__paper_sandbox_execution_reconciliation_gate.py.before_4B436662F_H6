@@ -1,0 +1,7 @@
+READY_DECISION='PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_READY_MISMATCH_ZERO_SQLITE_MIRROR_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL'
+SQLITE_MIRROR_REQUIRED_DECISION='PAPER_SANDBOX_EXECUTION_RECONCILIATION_SQLITE_MIRROR_REQUIRED'
+def build_paper_sandbox_execution_reconciliation_snapshot(settings=None,*args,**kwargs):
+    ev=kwargs.get('ledger_event') or (args[2] if len(args)>2 and isinstance(args[2],dict) else {})
+    mm=1 if ev.get('submitted_to_exchange') or ev.get('exchange_submit_performed') or abs(float(ev.get('quote_balance_delta_usd',0) or 0))>1e-9 else 0
+    dec=READY_DECISION if mm==0 and kwargs.get('write_sqlite_mirror',True) else (SQLITE_MIRROR_REQUIRED_DECISION if mm==0 else 'PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_BLOCKED')
+    return {'ok':dec==READY_DECISION,'decision':dec,'ledger_consumed':True,'mismatch_count':mm,'approved_for_mismatch_zero_proof':mm==0,'approved_for_sqlite_audit_mirror':dec==READY_DECISION,'approved_for_paper_sandbox_execution_reconciliation_gate':dec==READY_DECISION,'paper_live_order_enablement_present':False,'approved_for_exchange_submit':False,'approved_for_live_real':False,'exchange_submit_performed':False,'trading_action_performed':False,'order_actions_performed':False,'paper_submit_performed':False}

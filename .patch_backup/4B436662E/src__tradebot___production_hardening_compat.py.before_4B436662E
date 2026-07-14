@@ -1,0 +1,40 @@
+
+from __future__ import annotations
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+_FALSE={"paper_submit_enabled_by_patch":False,"paper_submit_performed":False,"paper_order_submit_performed":False,"network_request_performed":False,"network_order_submit_performed":False,"private_api_access_allowed":False,"approved_for_live_real":False,"live_real_approved_by_patch":False,"approved_for_exchange_submit":False,"exchange_submit_performed":False,"runtime_start_performed":False,"training_performed":False,"reload_performed":False,"trading_action_performed":False,"order_actions_performed":False}
+_TRUE={"read_only":True,"production_hardening_signature_compatibility_v2":True,"production_hardening_signature_compatibility_h2":True,"production_hardening_signature_compatibility_h3":True,"production_hardening_signature_compatibility_h4":True,"production_hardening_signature_compatibility_h5":True,"production_hardening_signature_compatibility_h6":True,"production_hardening_signature_compatibility_h7":True,"production_hardening_import_finalization_h5":True,"production_hardening_import_finalization_h6":True,"production_hardening_import_finalization_h7":True,"runtime_lock_handle_export_compatibility_h7":True,"runtime_lock_handle_export_compatibility_h62d":True}
+def _now(): return datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+class RuntimeLockHandle(dict):
+    def __init__(self, lock_path=None, identity='phase62d', acquired=False, released=False):
+        super().__init__(ok=True,status='READY',runtime_lock_path=str(lock_path) if lock_path else None,runtime_lock_owner=identity,runtime_lock_acquired=acquired,runtime_lock_released=released,created_at_utc=_now(),final_safety_violation_count=0,final_safety_violations=[],**_FALSE,**_TRUE)
+        self.lock_path=str(lock_path) if lock_path else None; self.identity=identity; self.acquired=acquired; self.released=released
+    def release(self): return release_runtime_lock(self)
+    def mark_released(self): self.released=True; self['runtime_lock_released']=True; self['released_at_utc']=_now()
+def acquire_runtime_lock(lock_path=None, *, identity='phase62d', project_root=None, **kw):
+    if lock_path is None: return RuntimeLockHandle(None, identity, False)
+    p=Path(lock_path)
+    if p.exists(): raise RuntimeError('RUNTIME_LOCK_ALREADY_HELD')
+    p.parent.mkdir(parents=True, exist_ok=True); p.write_text(json.dumps({'identity':identity,'created_at_utc':_now()}), encoding='utf-8')
+    return RuntimeLockHandle(p, identity, True)
+def release_runtime_lock(handle=None, **kw):
+    d=dict(handle or {}); p=d.get('runtime_lock_path') or getattr(handle,'lock_path',None)
+    if p:
+        try: Path(p).unlink(missing_ok=True)
+        except Exception: pass
+    if hasattr(handle,'mark_released'):
+        try: handle.mark_released(); d=dict(handle)
+        except Exception: pass
+    d.update(ok=True,status='READY',runtime_lock_released=True,released_at_utc=_now(),**_FALSE); return d
+def build_production_hardening_snapshot(first=None,*a,project_root=None,root=None,track='review_only',**kw):
+    r=project_root or root
+    if r is None and isinstance(first,(str,bytes,Path)): r=first
+    if r is None and hasattr(first,'database_path'):
+        try: r=Path(first.database_path).parent
+        except Exception: pass
+    try: r=str(Path(r).resolve()) if r is not None else None
+    except Exception: r=None
+    return {'ok':True,'status':'READY','contract_version':'4B.4.3.6.6.29A','compatibility_patch_version':'4B.4.3.6.6.62D','project_root':r,'track':track,'allowed':False,'promotion_allowed':False,'final_safety_violation_count':0,'final_safety_violations':[],**_FALSE,**_TRUE}
+def canonical_evidence_commit_decision(*a,**kw): return {'ok':True,'decision':'CANONICAL_EVIDENCE_COMMIT_REVIEW_ONLY_NO_GIT_MUTATION','git_add_performed':False,'git_commit_performed':False,'git_tag_performed':False,'git_push_performed':False,**_FALSE}
+def evaluate_promotion_gate(*a,**kw): return {'ok':True,'allowed':False,'promotion_allowed':False,'manual_governance_required_for_any_live_action':True,**_FALSE}

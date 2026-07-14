@@ -1,0 +1,64 @@
+from __future__ import annotations
+import argparse, csv, json
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+def _now() -> str:
+    return datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+
+def _write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=True, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+
+def _read_spec(path: Path | None) -> dict[str, Any]:
+    if path and path.exists():
+        try:
+            d = json.loads(path.read_text(encoding='utf-8'))
+            return d if isinstance(d, dict) else {}
+        except Exception:
+            pass
+    return {}
+
+def _read_csv(path: Path | None) -> list[dict[str, Any]]:
+    if not path or not path.exists():
+        return []
+    try:
+        with path.open('r', encoding='utf-8', newline='') as fh:
+            return [dict(r) for r in csv.DictReader(fh)]
+    except Exception:
+        return []
+
+def main(argv: list[str] | None = None) -> int:
+    p = argparse.ArgumentParser()
+    p.add_argument('--candidate-spec-json', type=Path)
+    p.add_argument('--input-csv', type=Path)
+    p.add_argument('--symbols', default='BTCUSDT')
+    p.add_argument('--interval', default='4h')
+    p.add_argument('--out-dir', type=Path, required=True)
+    p.add_argument('--review-ok', action='store_true')
+    p.add_argument('--ordinal', type=int, default=235)
+    a = p.parse_args(argv)
+    a.out_dir.mkdir(parents=True, exist_ok=True)
+    stamp = _now()
+    spec = _read_spec(a.candidate_spec_json)
+    rows = _read_csv(a.input_csv)
+    symbols = [s.strip().upper() for s in str(a.symbols or '').split(',') if s.strip()] or [str(spec.get('symbol') or 'BTCUSDT').upper()]
+    ledger = []
+    for i, s in enumerate(symbols):
+        ts = (rows[0].get('timestamp_utc') if rows else None) or '2026-06-05T04:00:00Z'
+        compact = ts.replace('-', '').replace(':', '').replace('+00:00', 'Z').replace('Z', 'Z')
+        ledger.append({'hypothesis_id':'HYP-005','symbol':s,'timeframe':a.interval,'timestamp_utc':ts,'observation_id':f'HYP-005-{s}-{a.interval}-{a.ordinal+i}-{compact}0000','no_order_shadow_only':True,'order_action':'NONE','decision':'SHADOW_OBSERVATION_RECORDED'})
+    lj = a.out_dir / f'4B436625V_hyp005_shadow_observation_ledger_{stamp}.json'
+    ljl = a.out_dir / f'4B436625V_hyp005_shadow_observation_ledger_{stamp}.jsonl'
+    rep = a.out_dir / f'4B436625V_hyp005_shadow_observation_logger_{stamp}.json'
+    _write_json(lj, ledger)
+    ljl.write_text(''.join(json.dumps(r, ensure_ascii=True, sort_keys=True) + '\n' for r in ledger), encoding='utf-8')
+    payload = {'ok':True,'status':'READY','decision':'HYP005_SHADOW_OBSERVATION_LOGGER_READY','contract_version':'4B.4.3.6.6.25V','reason_codes':['HYP005_SHADOW_OBSERVATION_LOGGER_READY','NO_ORDER_SHADOW_ONLY'],'ledger_rows':len(ledger),'ledger_json':str(lj.resolve()),'ledger_jsonl':str(ljl.resolve()),'source_reports':[str(a.candidate_spec_json.resolve())] if a.candidate_spec_json else [],'no_order_shadow_only':True,'order_action':'NONE','paper_submit_performed':False,'network_order_submit_performed':False,'exchange_submit_performed':False,'live_real_approved_by_patch':False}
+    _write_json(rep, payload)
+    out = dict(payload, logger_json=str(rep.resolve()))
+    print(json.dumps(out, ensure_ascii=True, sort_keys=True))
+    return 0
+
+if __name__ == '__main__':
+    raise SystemExit(main())

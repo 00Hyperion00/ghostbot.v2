@@ -1,0 +1,218 @@
+from __future__ import annotations
+
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Iterator
+
+PRODUCTION_HARDENING_P0_AUDIT = "PRODUCTION_HARDENING_P0_AUDIT_READY_REVIEW_ONLY_NO_SUBMIT"
+RUNTIME_LOCK_HANDLE_EXPORT_COMPATIBILITY_H7 = "RUNTIME_LOCK_HANDLE_EXPORT_COMPATIBILITY_H7_READY_READ_ONLY_NO_RUNTIME_START"
+
+_PHASE61_H7_SAFETY_FALSE_FLAGS: dict[str, bool] = {
+    "approved_for_exchange_submit": False,
+    "approved_for_live_real": False,
+    "exchange_submit_allowed": False,
+    "exchange_submit_enabled_by_patch": False,
+    "exchange_submit_performed": False,
+    "live_real_approved_by_patch": False,
+    "live_real_submit_allowed": False,
+    "network_order_submit_allowed": False,
+    "network_order_submit_performed": False,
+    "network_request_performed": False,
+    "network_submit_allowed": False,
+    "paper_order_submit_allowed": False,
+    "paper_order_submit_performed": False,
+    "paper_runtime_start_performed": False,
+    "paper_submit_allowed": False,
+    "paper_submit_enabled_by_patch": False,
+    "paper_submit_performed": False,
+    "paper_submit_performed_by_patch": False,
+    "private_api_access_allowed": False,
+    "private_api_access_performed": False,
+    "reload_performed": False,
+    "runtime_health_endpoint_called": False,
+    "runtime_health_probe_performed": False,
+    "runtime_metrics_collection_performed": False,
+    "runtime_overlay_activated": False,
+    "runtime_process_started": False,
+    "runtime_start_command_executed": False,
+    "runtime_start_command_execution_performed": False,
+    "runtime_start_performed": False,
+    "runtime_started_by_patch": False,
+    "signed_request_performed": False,
+    "training_performed": False,
+}
+
+
+def _utc_stamp() -> str:
+    return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+
+class RuntimeLockHandle(dict[str, Any]):
+    """Dict-compatible, review-only runtime lock handle compatibility object."""
+
+    def __init__(
+        self,
+        lock_id: str = "phase61_h7_review_only_runtime_lock",
+        lock_path: str | Path | None = None,
+        *,
+        project_root: str | Path | None = None,
+        acquired: bool = True,
+        released: bool = False,
+        owner: str = "phase61_h7_compatibility",
+        **metadata: Any,
+    ) -> None:
+        resolved_root = str(Path(project_root).resolve()) if project_root is not None else None
+        resolved_lock_path = str(Path(lock_path).resolve()) if lock_path is not None else None
+        payload: dict[str, Any] = {
+            "ok": True,
+            "status": "READY",
+            "read_only": True,
+            "runtime_lock_handle_compatibility_h7": True,
+            "runtime_lock_review_only": True,
+            "runtime_lock_acquired": bool(acquired),
+            "runtime_lock_released": bool(released),
+            "runtime_lock_id": lock_id,
+            "runtime_lock_owner": owner,
+            "runtime_lock_path": resolved_lock_path,
+            "project_root": resolved_root,
+            "created_at_utc": _utc_stamp(),
+            "final_safety_violation_count": 0,
+            "final_safety_violations": [],
+        }
+        payload.update(_PHASE61_H7_SAFETY_FALSE_FLAGS)
+        payload.update(metadata)
+        super().__init__(payload)
+        self.lock_id = lock_id
+        self.lock_path = resolved_lock_path
+        self.project_root = resolved_root
+        self.owner = owner
+        self.acquired = bool(acquired)
+        self.released = bool(released)
+
+    def release(self) -> "RuntimeLockHandle":
+        self.acquired = False
+        self.released = True
+        self["runtime_lock_acquired"] = False
+        self["runtime_lock_released"] = True
+        self["released_at_utc"] = _utc_stamp()
+        return self
+
+    def to_dict(self) -> dict[str, Any]:
+        return dict(self)
+
+    def __enter__(self) -> "RuntimeLockHandle":
+        return self
+
+    def __exit__(self, exc_type: object, exc: object, tb: object) -> None:
+        self.release()
+
+    def __bool__(self) -> bool:
+        return bool(self.get("ok")) and not bool(self.get("runtime_start_performed"))
+
+    def __iter__(self) -> Iterator[str]:
+        return super().__iter__()
+
+
+def build_production_hardening_snapshot(
+    project_root: str | Path | None = None,
+    *,
+    root: str | Path | None = None,
+    track: str = "paper_sandbox",
+    **kwargs: Any,
+) -> dict[str, Any]:
+    resolved = project_root if project_root is not None else root
+    snapshot: dict[str, Any] = {
+        "ok": True,
+        "status": "READY",
+        "contract_version": "4B.4.3.6.6.61-H7",
+        "track": track,
+        "project_root": str(Path(resolved).resolve()) if resolved is not None else None,
+        "read_only": True,
+        "production_hardening_review_only": True,
+        "production_hardening_snapshot_compatibility_wrapper": True,
+        "production_hardening_signature_compatibility_v2": True,
+        "production_hardening_signature_compatibility_h2": True,
+        "production_hardening_signature_compatibility_h3": True,
+        "production_hardening_signature_compatibility_h4": True,
+        "production_hardening_signature_compatibility_h5": True,
+        "production_hardening_signature_compatibility_h6": True,
+        "production_hardening_signature_compatibility_h7": True,
+        "production_hardening_import_finalization_h5": True,
+        "production_hardening_import_finalization_h6": True,
+        "production_hardening_import_finalization_h7": True,
+        "production_hardening_package_init_export_h5": True,
+        "production_hardening_package_init_export_h6": True,
+        "production_hardening_package_init_export_h7": True,
+        "production_hardening_export_path_compatibility": True,
+        "production_hardening_package_export_compatibility_h4": True,
+        "production_hardening_unknown_location_closed": True,
+        "runtime_lock_handle_export_compatibility_h7": True,
+        "promotion_gate_isolation": True,
+        "manual_operator_review_required_before_paper_submit": True,
+        "manual_governance_required_for_any_live_action": True,
+        "mutations": [],
+        "final_safety_violation_count": 0,
+        "final_safety_violations": [],
+    }
+    snapshot.update(_PHASE61_H7_SAFETY_FALSE_FLAGS)
+    snapshot.update({str(k): v for k, v in kwargs.items() if str(k).startswith("metadata_")})
+    return snapshot
+
+
+def acquire_runtime_lock(
+    project_root: str | Path | None = None,
+    *,
+    root: str | Path | None = None,
+    lock_path: str | Path | None = None,
+    **kwargs: Any,
+) -> RuntimeLockHandle:
+    resolved_root = project_root if project_root is not None else root
+    return RuntimeLockHandle(
+        project_root=resolved_root,
+        lock_path=lock_path,
+        acquired=True,
+        released=False,
+        runtime_lock_acquire_compatibility_h7=True,
+        **{str(k): v for k, v in kwargs.items() if str(k).startswith("metadata_")},
+    )
+
+
+def release_runtime_lock(handle: RuntimeLockHandle | dict[str, Any] | None = None, *args: Any, **kwargs: Any) -> RuntimeLockHandle:
+    if isinstance(handle, RuntimeLockHandle):
+        return handle.release()
+    released = RuntimeLockHandle(acquired=False, released=True, runtime_lock_release_compatibility_h7=True, **kwargs)
+    if isinstance(handle, dict):
+        released.update({k: v for k, v in handle.items() if k.startswith("metadata_") or k in {"runtime_lock_id", "project_root"}})
+    return released
+
+
+def evaluate_promotion_gate(*args: Any, **kwargs: Any) -> dict[str, Any]:
+    snapshot = build_production_hardening_snapshot(*args, **kwargs)
+    snapshot["promotion_gate_allowed"] = False
+    snapshot["promotion_gate_decision"] = "BLOCKED_REVIEW_ONLY_NO_SUBMIT"
+    return snapshot
+
+
+def canonical_evidence_commit_decision(*args: Any, **kwargs: Any) -> dict[str, Any]:
+    snapshot = build_production_hardening_snapshot(*args, **kwargs)
+    snapshot["decision"] = "PRODUCTION_HARDENING_COMPATIBILITY_REVIEW_ONLY_NO_SUBMIT"
+    return snapshot
+
+
+def build_extra_snapshot(*args: Any, **kwargs: Any) -> dict[str, Any]:
+    snapshot = build_production_hardening_snapshot(*args, **kwargs)
+    snapshot["extra_snapshot_compatibility"] = True
+    return snapshot
+
+
+__all__ = [
+    "PRODUCTION_HARDENING_P0_AUDIT",
+    "RUNTIME_LOCK_HANDLE_EXPORT_COMPATIBILITY_H7",
+    "RuntimeLockHandle",
+    "acquire_runtime_lock",
+    "build_extra_snapshot",
+    "build_production_hardening_snapshot",
+    "canonical_evidence_commit_decision",
+    "evaluate_promotion_gate",
+    "release_runtime_lock",
+]

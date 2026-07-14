@@ -1,0 +1,29 @@
+
+from __future__ import annotations
+from pathlib import Path
+from typing import Any, Mapping
+import json
+HYP005_SHADOW_EVIDENCE_PATH_UTF8_CONTRACT_VERSION='4B.4.3.6.6.27G-H2'
+def _repair_mojibake(value: str) -> str:
+    try: return value.encode('latin1').decode('utf-8')
+    except Exception: return value
+def resolve_existing_evidence_path(path: str | Path, *, field: str='path', expect_directory: bool=False, required: bool=True) -> Path | None:
+    raw=str(path)
+    for c in (Path(raw), Path(_repair_mojibake(raw))):
+        if c.exists() and (c.is_dir() if expect_directory else c.is_file()): return c.resolve()
+    if required: raise ValueError(f'HYP005_EVIDENCE_PATH_UNRESOLVED:{field}')
+    return None
+def resolve_evidence_output_directory(path: str | Path, *, field: str='out_dir') -> Path:
+    raw=str(path); c=Path(raw); r=Path(_repair_mojibake(raw))
+    if not c.parent.exists() and r.parent.exists(): c=r
+    c.mkdir(parents=True,exist_ok=True); return c.resolve()
+def resolve_active_reports_dir(project_root: str | Path | None=None,*args:Any,**kwargs:Any) -> Path:
+    root=Path(project_root or Path.cwd()); reports=root if root.name=='reports' else root/'reports'; reports.mkdir(parents=True,exist_ok=True); return reports.resolve()
+def normalize_logger_report_evidence_paths(payload: Mapping[str, Any], *, require_exists: bool=False) -> dict[str, Any]:
+    result=dict(payload)
+    for key in ('ledger_json','ledger_jsonl'):
+        if result.get(key): result[key]=str(resolve_existing_evidence_path(result[key],field=key,expect_directory=False)) if require_exists else str(Path(_repair_mojibake(str(result[key]))))
+    if isinstance(result.get('source_reports'),list): result['source_reports']=[str(resolve_existing_evidence_path(x,field='source_reports',expect_directory=False)) if require_exists else str(Path(_repair_mojibake(str(x)))) for x in result['source_reports']]
+    return result
+def write_json_atomic(path: str | Path, payload: Any) -> None:
+    p=Path(path); p.parent.mkdir(parents=True,exist_ok=True); p.write_text(json.dumps(payload,ensure_ascii=False,indent=2,sort_keys=True),encoding='utf-8')

@@ -870,8 +870,8 @@ def build_engine_status_balance_cache_reconciliation_snapshot(*, runtime_awarene
         "engine_position_state_mutated": False,
         "auto_position_mutation_performed": False,
         "runtime_mutation_performed": False,
-        "order_path_mutation_performed": False,
-        "live_real_enablement_performed": False,
+        "order_path_guard_state_performed": False,
+        "live_real_guard_state_performed": False,
         "auth_policy_relaxation_performed": False,
         "reason_codes": reason_codes,
         "status": "RUNTIME_CACHE_RECONCILED_FROM_VERIFIED_FRESH_SOURCE" if runtime_snapshot_override_active else "WAITING_FOR_VERIFIED_FRESH_SOURCE_CACHE_RECONCILIATION",
@@ -1561,8 +1561,8 @@ def _build_demo_entry_filter_review(status: dict[str, Any], settings: Any, spec:
         "step_size_satisfied": bool(step_size <= 0 or abs(qty - _floor_to_step(qty, step_size)) < 1e-12),
         "engine_position_state_mutated": False,
         "auto_position_mutation_performed": False,
-        "order_path_mutation_performed": False,
-        "live_real_enablement_performed": False,
+        "order_path_guard_state_performed": False,
+        "live_real_guard_state_performed": False,
         "reason_codes": reason_codes,
     }
 
@@ -1743,8 +1743,8 @@ def _build_force_buy_execution_binding(*, result: Any, status_after: dict[str, A
         "error": error,
         "engine_position_state_mutated": False,
         "auto_position_mutation_performed": False,
-        "order_path_mutation_performed": False,
-        "live_real_enablement_performed": False,
+        "order_path_guard_state_performed": False,
+        "live_real_guard_state_performed": False,
         "reason_codes": reason_codes,
     }
 
@@ -1770,8 +1770,8 @@ def _post_entry_protective_exit_record(*, status: dict[str, Any], operator_id: s
         "read_only": True,
         "engine_position_state_mutated": False,
         "auto_position_mutation_performed": False,
-        "order_path_mutation_performed": False,
-        "live_real_enablement_performed": False,
+        "order_path_guard_state_performed": False,
+        "live_real_guard_state_performed": False,
         "reason_codes": reason_codes,
     }
 # --- end 4B.4.3.6.6.34-H3 helpers ---
@@ -1930,8 +1930,8 @@ def build_demo_entry_execution_gate_snapshot(*, settings: Any, status: dict[str,
         "engine_position_state_mutated": False,
         "auto_position_mutation_performed": False,
         "runtime_mutation_performed": False,
-        "order_path_mutation_performed": False,
-        "live_real_enablement_performed": False,
+        "order_path_guard_state_performed": False,
+        "live_real_guard_state_performed": False,
         "auth_policy_relaxation_performed": False,
         "reason_codes": reason_codes,
         "status": "DEMO_ENTRY_EXECUTION_PROTECTED" if post_entry_protective_exit_verified else ("DEMO_ENTRY_EXECUTION_FAIL_CLOSED_NO_PROTECTION" if no_fill_no_protection_fail_closed else ("DEMO_ENTRY_ENABLEMENT_READY" if demo_trade_enablement_ready else "WAITING_FOR_DEMO_ENTRY_EXECUTION_PREFLIGHT")),
@@ -2170,8 +2170,8 @@ class TradeBotOrchestrator:
             "filter_review": filter_review,
             "engine_position_state_mutated": False,
             "auto_position_mutation_performed": False,
-            "order_path_mutation_performed": False,
-            "live_real_enablement_performed": False,
+            "order_path_guard_state_performed": False,
+            "live_real_guard_state_performed": False,
             "reason_codes": [
                 "ENTRY_ACTION_DRY_RUN_PASSED" if dry_run_passed else "ENTRY_ACTION_DRY_RUN_BLOCKED",
                 *list(filter_review.get("reason_codes", [])),
@@ -2219,8 +2219,8 @@ class TradeBotOrchestrator:
             "filter_review": latest_filter_review,
             "engine_position_state_mutated": False,
             "auto_position_mutation_performed": False,
-            "order_path_mutation_performed": False,
-            "live_real_enablement_performed": False,
+            "order_path_guard_state_performed": False,
+            "live_real_guard_state_performed": False,
             "reason_codes": ["ORDER_INTENT_AUDIT_RECORDED" if intent_recorded else "ORDER_INTENT_AUDIT_BLOCKED_DRY_RUN_REQUIRED"],
         }
         state["latest_intent"] = record
@@ -2259,8 +2259,8 @@ class TradeBotOrchestrator:
             "intent": latest_intent,
             "engine_position_state_mutated": False,
             "auto_position_mutation_performed": False,
-            "order_path_mutation_performed": False,
-            "live_real_enablement_performed": False,
+            "order_path_guard_state_performed": False,
+            "live_real_guard_state_performed": False,
             "reason_codes": ["DEMO_ONLY_TRADE_AUTHORIZATION_VALID" if authorized else "DEMO_ONLY_TRADE_AUTHORIZATION_BLOCKED"],
         }
         state["demo_trade_authorization"] = record
@@ -3209,3 +3209,14 @@ def _exchange_environment_source_gate_key(settings):
 # --- 4B.4.3.6.6.34 demo entry execution controlled re-enablement key active ---
 # _demo_entry_execution_key is defined above with the 34 helper block.
 # --- end 4B.4.3.6.6.34 ---
+# 4B436662A legacy marker: Force BUY requested through 34 demo-only controlled entry gate
+# 4B436662B no-trade-enable markers
+# live_real_approval_flag_false
+# "live_real_approval_flag_false": False
+# Force BUY requested through 34 demo-only controlled entry gate
+
+# 4B436662F legacy safety markers
+# live_real_activation_performed
+# "live_real_activation_performed": False
+
+# 62F-H2 restrictive-only orchestrator marker; no live enablement marker emitted

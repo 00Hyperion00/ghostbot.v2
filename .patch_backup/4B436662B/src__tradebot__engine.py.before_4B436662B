@@ -1,0 +1,1551 @@
+from __future__ import annotations
+
+import asyncio
+import math
+from dataclasses import replace
+from datetime import datetime, timezone
+from typing import Any
+
+from .config import Settings
+from .config_safety import build_config_safety_snapshot
+from .diagnostics import build_diagnostics_snapshot
+from .decision_audit import DECISION_AUDIT_CONTRACT_VERSION, build_decision_audit_snapshot, empty_decision_audit_snapshot
+from .enums import BotState, ExecutionMode
+from .exchange.binance import BinanceSpotClient
+from .logger import EventLogger
+from .model_quality import ModelQualityMonitor, build_quality_sample, config_from_settings, should_emit_quality_event
+from .model_quality_gate import build_runtime_model_quality_gate
+from .performance import append_trade, close_trade_record, config_from_settings as performance_config_from_settings, new_entry_record, summarize_performance, update_open_trade_on_partial_exit
+from .order_reconciliation import ORDER_RECONCILIATION_CONTRACT_VERSION, build_reconciliation_snapshot
+from .order_preflight import OrderPreflightError, blocked_entry_preflight_snapshot, risk_reducing_exit_preflight_snapshot
+from .models import Balance, ExitIntent, PendingOrder, Position, RuntimeState, SignalDecision
+from .persistence import SQLiteStore
+from .risk import build_risk_plan
+from .position_sizing import PositionSizingError, build_entry_sizing_decision, stable_entry_skip_code_for_sizing_error
+from .state_machine import transition
+from .strategy import build_signal_key, effective_auto_signal, evaluate_technical_strategy, normalize_signal_with_ai
+from .ai.provider import XGBoostSignalProvider
+from .ai.decision_contract import decision_contract_from_settings
+from .utils import infer_dust, is_effective_zero, round_down_to_step, round_price_to_tick, stable_hash, utc_ms
+
+
+class TradeBotEngine:
+    def __init__(self, settings: Settings, store: SQLiteStore) -> None:
+        self.settings = settings
+        self.store = store
+        self.logger = EventLogger(store)
+        self.exchange = BinanceSpotClient(settings)
+        self.runtime = RuntimeState.from_dict(self.store.get_json('runtime', {}))
+        self.runtime.symbol = settings.symbol
+        self._loop_task: asyncio.Task | None = None
+        self._market_task: asyncio.Task | None = None
+        self._reconcile_task: asyncio.Task | None = None
+        self._recent_signal_fps: dict[str, int] = {}
+        self._partial_fill_fingerprints: dict[str, int] = {}
+        self._fill_reconcile_fingerprints: dict[str, int] = {}
+        self._running = False
+        self._closed_candles = []
+        self._latest_book: dict[str, Any] = {}
+        self.symbol_rules = None
+        startup_ai_contract = decision_contract_from_settings(settings)
+        self.ai_provider = XGBoostSignalProvider(settings.ai_model_path, **startup_ai_contract.threshold_kwargs()) if settings.ai_provider_enabled and settings.ai_provider_mode == 'local_xgboost' else None
+        self.model_quality_monitor = ModelQualityMonitor(config_from_settings(settings))
+        self._last_model_quality_event_key = None
+        self._save_runtime()
+
+    async def bootstrap(self) -> None:
+        self.symbol_rules = await self.exchange.fetch_symbol_rules(self.settings.symbol)
+        self.runtime.symbol = self.settings.symbol
+        self.logger.info('SYMBOL_RULES_READY', 'Sembol kuralları alındı', {
+            'symbol': self.symbol_rules.symbol,
+            'baseAsset': self.symbol_rules.base_asset,
+            'quoteAsset': self.symbol_rules.quote_asset,
+            'stepSize': self.symbol_rules.step_size,
+            'tickSize': self.symbol_rules.tick_size,
+            'minQty': self.symbol_rules.min_qty,
+            'minNotional': self.symbol_rules.min_notional,
+        })
+        await self.sync_balances(log_code='BALANCES_READY')
+        self._closed_candles = await self.exchange.fetch_klines(self.settings.symbol, self.settings.kline_interval, 100)
+        if self._closed_candles:
+            last = self._closed_candles[-1]
+            self.logger.info('BOOTSTRAP_KLINES_OK', 'Geçmiş mum bootstrap tamamlandı', {
+                'closedCandles': len(self._closed_candles),
+                'requested': 100,
+                'signal': 'HOLD',
+                'trend': 'UNKNOWN',
+            })
+        self.runtime.ws_status = 'CONNECTED'
+        self._save_runtime()
+
+    def _task_alive(self, task: asyncio.Task | None = None) -> bool:
+        return task is not None and not task.done()
+
+    async def _cancel_task(self, task: asyncio.Task | None, *, timeout: float = 0.2) -> None:
+        if task is None:
+            return
+        task.cancel()
+        try:
+            await asyncio.wait_for(asyncio.gather(task, return_exceptions=True), timeout=timeout)
+        except Exception:
+            pass
+
+    async def close(self) -> None:
+        self._running = False
+        await self._cancel_task(self._market_task)
+        await self._cancel_task(self._reconcile_task)
+        self._market_task = None
+        self._reconcile_task = None
+        await self.exchange.close()
+
+    def _save_runtime(self) -> None:
+        self.store.set_json('runtime', self.runtime.to_dict())
+
+    def _day_key(self) -> str:
+        return datetime.now(timezone.utc).strftime('%Y-%m-%d')
+
+    async def sync_balances(self, *, log_code: str = 'BALANCES_READY') -> None:
+        balances = await self.exchange.fetch_balances()
+        updated: dict[str, Balance] = {}
+        for asset, bal in balances.items():
+            dust = 0.0
+            if self.symbol_rules and asset == self.symbol_rules.base_asset:
+                dust = infer_dust(bal.free, self.symbol_rules.step_size)
+            updated[asset] = Balance(free=bal.free, locked=bal.locked, dust=dust)
+        self.runtime.balances = updated
+        if self.symbol_rules:
+            base = updated.get(self.symbol_rules.base_asset, Balance())
+            self.runtime.dust_snapshot[self.symbol_rules.base_asset] = base.dust
+            self.logger.info(log_code, 'Spot bakiyeleri hazırlandı', {
+                'baseAsset': self.symbol_rules.base_asset,
+                'quoteAsset': self.symbol_rules.quote_asset,
+                'liveFetched': True,
+                'liveFreeBase': base.free,
+                'liveFreeQuote': updated.get(self.symbol_rules.quote_asset, Balance()).free,
+                'changed': True,
+                'dryRunFreeBase': 0,
+                'dryRunFreeQuote': 1000,
+            })
+        self._save_runtime()
+
+    async def start(self) -> bool:
+        if self._running and self._task_alive(self._market_task) and self._task_alive(self._reconcile_task):
+            return False
+        await self.bootstrap()
+        if not hasattr(self.runtime, 'position'):
+            self.runtime.position = None
+        if not hasattr(self.runtime, 'balances'):
+            self.runtime.balances = {}
+        symbol_rules = getattr(self, 'symbol_rules', None)
+        balances = getattr(self.runtime, 'balances', {}) or {}
+        base = balances.get(symbol_rules.base_asset, Balance()) if symbol_rules else Balance()
+        recovered_position = getattr(self.runtime, 'position', None)
+        tradable_base = round_down_to_step(max(base.free - base.dust, 0.0), symbol_rules.step_size) if symbol_rules else base.free
+        if recovered_position is not None:
+            if tradable_base > 0:
+                transition(self.runtime, BotState.IN_POSITION)
+                self._ensure_position_risk_plan()
+            else:
+                self.runtime.position = None
+                transition(self.runtime, BotState.FLAT)
+        elif tradable_base > 0:
+            closed_candles = getattr(self, '_closed_candles', []) or []
+            entry_price = float(getattr(closed_candles[-1], 'close', 0.0) if closed_candles else 0.0)
+            self.runtime.position = Position(qty=tradable_base, entry_price=entry_price, source='live_balance_rehydrate', opened_at=utc_ms())
+            self._ensure_position_risk_plan()
+            transition(self.runtime, BotState.IN_POSITION)
+        else:
+            transition(self.runtime, BotState.FLAT)
+        await self._startup_reconcile_persistent_state()
+        self.runtime.ws_status = 'CONNECTED'
+        self.logger.info('STATE_CHANGED', f'STOPPED -> {self.runtime.state}', {'reason': 'START_COMMAND'})
+        self._save_runtime()
+        self._running = True
+        if not self._task_alive(self._market_task):
+            self._market_task = asyncio.create_task(self._market_loop())
+        if not self._task_alive(self._reconcile_task):
+            self._reconcile_task = asyncio.create_task(self._reconcile_loop())
+        return True
+
+
+    async def stop(self) -> bool:
+        was_running = self._running or self._task_alive(self._market_task) or self._task_alive(self._reconcile_task)
+        self._running = False
+        if self.runtime.pending and not self.runtime.pending.cancel_requested:
+            await self.cancel_pending(reason='STOP_COMMAND')
+        await self._cancel_task(self._market_task)
+        await self._cancel_task(self._reconcile_task)
+        self._market_task = None
+        self._reconcile_task = None
+        self.runtime.ws_status = 'DISCONNECTED'
+        self.logger.info('WS_DISCONNECTED', 'WebSocket bağlantısı kapatıldı', {'reason': 'STOP_COMMAND'})
+        prev = self.runtime.state
+        transition(self.runtime, BotState.STOPPED)
+        self.logger.info('STATE_CHANGED', f'{prev} -> STOPPED', {'reason': 'STOP_COMMAND'})
+        self._save_runtime()
+        return was_running
+
+    async def risk_reset(self) -> None:
+        self.runtime.session.daily_realized_pnl = 0.0
+        self.runtime.session.daily_trade_count = 0
+        self.runtime.session.consecutive_losses = 0
+        self.runtime.session.last_closed_pnl = 0.0
+        cleared = False
+        if self.runtime.safe_mode and getattr(self.runtime, 'safe_mode_source', None) != 'manual':
+            self.runtime.safe_mode = False
+            self.runtime.safe_mode_source = None
+            self.runtime.safe_mode_reason_code = None
+            self.runtime.safe_mode_until = None
+            cleared = True
+            self.logger.info('SAFE_MODE_AUTO_CLEARED', 'Otomatik safe mode risk reset ile temizlendi', {'reason': 'MANUAL_RISK_RESET'})
+        self.logger.info('RISK_STATS_RESET', 'Risk istatistikleri sıfırlandı', {'quoteAsset': self.symbol_rules.quote_asset if self.symbol_rules else 'USDT', 'reason': 'MANUAL_RESET', 'safeModeCleared': cleared})
+        self._save_runtime()
+
+
+    async def toggle_safe_mode(self) -> None:
+        self.runtime.safe_mode = not self.runtime.safe_mode
+        if self.runtime.safe_mode:
+            self.runtime.safe_mode_source = 'manual'
+            self.runtime.safe_mode_reason_code = 'MANUAL_SAFE_MODE'
+            self.runtime.safe_mode_until = None
+            self.logger.info('SAFE_MODE_MANUAL_ENABLED', 'Safe mode manuel olarak açıldı', {'enabled': True})
+        else:
+            self.runtime.safe_mode_source = None
+            self.runtime.safe_mode_reason_code = None
+            self.runtime.safe_mode_until = None
+            self.logger.info('SAFE_MODE_MANUAL_DISABLED', 'Safe mode manuel olarak kapatıldı', {'enabled': False})
+        self._save_runtime()
+
+
+    async def force_buy(self) -> None:
+        await self._submit_entry(source='manual_force_buy')
+
+    async def force_sell(self) -> None:
+        await self._submit_exit(source='manual_force_sell')
+
+    async def cancel_pending(self, *, reason: str = 'MANUAL_CANCEL') -> None:
+        pending = self.runtime.pending
+        if not pending:
+            return
+        if pending.cancel_requested:
+            self.logger.info('ORDER_CANCEL_SUPPRESSED', 'Bekleyen emir için yinelenen iptal talebi bastırıldı', {
+                'orderId': pending.order_id,
+                'clientOrderId': pending.client_order_id,
+                'side': pending.side,
+                'reason': reason,
+            })
+            self._save_runtime()
+            return
+        if pending.order_id or pending.client_order_id:
+            try:
+                try:
+                    before = await self.exchange.fetch_order(self.settings.symbol, order_id=pending.order_id, client_order_id=pending.client_order_id)
+                except Exception:
+                    before = None
+                if before and before.get('status') == 'FILLED':
+                    pending.late_fill_detected = True
+                    self._set_reconciliation_snapshot(pending=pending, phase='CANCEL_PRECHECK', action='COMMIT_FILL', order=before, reason='CANCEL_RACE_PRECHECK_FILLED', fill_source='cancel_race_precheck')
+                    await self._commit_filled_pending(pending, source='cancel_race_precheck', fill_price=float(before.get('price') or pending.price), fill_qty=float(before.get('executedQty') or pending.qty))
+                    self.logger.info('ORDER_CANCEL_RACE_FILLED', 'İptal öncesi emir dolu görüldü; cancel race fill olarak işlendi', {'orderId': pending.order_id, 'side': pending.side})
+                    return
+                await self.exchange.cancel_order(symbol=self.settings.symbol, order_id=pending.order_id, client_order_id=pending.client_order_id)
+            except Exception as exc:
+                try:
+                    after = await self.exchange.fetch_order(self.settings.symbol, order_id=pending.order_id, client_order_id=pending.client_order_id)
+                except Exception:
+                    after = None
+                if after and after.get('status') == 'FILLED':
+                    pending.late_fill_detected = True
+                    self._set_reconciliation_snapshot(pending=pending, phase='CANCEL_RACE', action='COMMIT_FILL', order=after, reason='CANCEL_RACE_LATE_FILL', fill_source='cancel_race_fill')
+                    await self._commit_filled_pending(pending, source='cancel_race_fill', fill_price=float(after.get('price') or pending.price), fill_qty=float(after.get('executedQty') or pending.qty))
+                    self.logger.info('ORDER_CANCEL_RACE_FILLED', 'İptal yarışı sırasında emir dolu görüldü; fill olarak işlendi', {'orderId': pending.order_id, 'side': pending.side})
+                    return
+                self.logger.warn('ORDER_CANCEL_WARN', 'Canlı emir iptal sorgusu uyarı verdi', {'error': str(exc), 'orderId': pending.order_id})
+            self.logger.warn('ORDER_CANCEL_REQUESTED', 'Bekleyen canlı emir için iptal talebi gönderildi', {'orderId': pending.order_id, 'reason': reason, 'side': pending.side})
+        pending.cancel_requested = True
+        pending.cancel_requested_at = utc_ms()
+        pending.status = 'CANCEL_REQUESTED'
+        self._set_reconciliation_snapshot(pending=pending, phase='CANCEL_REQUESTED', action='WAIT_CANCEL_CONFIRMATION', reason=reason)
+        self._save_runtime()
+
+
+    async def get_status(self) -> dict[str, Any]:
+        self._expire_safe_mode()
+        runtime_payload = self.runtime.to_dict() if hasattr(self.runtime, 'to_dict') else {}
+        status = dict(runtime_payload)
+        status['contract_version'] = '4B.4.3.6.6.20'
+        status['engine_running'] = bool(getattr(self, '_running', False))
+        status['state'] = getattr(self.runtime, 'state', 'STOPPED')
+        status['ws_status'] = getattr(self.runtime, 'ws_status', 'DISCONNECTED')
+        status['symbol'] = getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', 'ETHUSDT'))
+        status['last_signal'] = getattr(self.runtime, 'last_signal', 'HOLD')
+        status['signal_reason'] = getattr(self.runtime, 'signal_reason', 'Henüz değerlendirme yok')
+        status['trend'] = getattr(self.runtime, 'trend', 'UNKNOWN')
+        status['balances'] = runtime_payload.get('balances', {})
+        status['session'] = runtime_payload.get('session', {})
+        status['safe_mode'] = bool(getattr(self.runtime, 'safe_mode', False))
+        status['kill_switch_active'] = bool(getattr(self.runtime, 'safe_mode', False))
+        status['health_snapshot'] = self._health_snapshot()
+        status['risk_snapshot'] = self._risk_snapshot()
+        status.update(status['risk_snapshot'])
+        status['ai_snapshot'] = self._ai_snapshot()
+        status['pending_snapshot'] = self._pending_snapshot()
+        status['position_snapshot'] = self._position_snapshot(runtime_payload)
+        status['event_audit_snapshot'] = self._event_audit_snapshot()
+        status['recovery_snapshot'] = getattr(self.runtime, 'recovery_snapshot', None)
+        status['model_quality_snapshot'] = self._model_quality_snapshot()
+        status['model_quality_gate_snapshot'] = build_runtime_model_quality_gate(status['model_quality_snapshot'], settings=self.settings)
+        status['performance_snapshot'] = self._performance_snapshot()
+        status['config_safety_snapshot'] = self._config_safety_snapshot()
+        status['diagnostics_snapshot'] = self._diagnostics_snapshot(status)
+        status['reconciliation_snapshot'] = self._reconciliation_snapshot()
+        status['decision_audit_snapshot'] = self._decision_audit_snapshot()
+        status.update({
+            'account_consistency': status['health_snapshot']['account_consistency'],
+            'position_consistency': status['health_snapshot']['position_consistency'],
+            'pending_consistency': status['health_snapshot']['pending_consistency'],
+            'active_anomaly_code': status['health_snapshot'].get('active_anomaly_code'),
+        })
+        return status
+
+
+    async def _market_loop(self) -> None:
+        # websocket disconnects are expected; loop keeps trying.
+        while self._running:
+            try:
+                async for msg in self.exchange.stream_market():
+                    if not self._running:
+                        return
+                    data = msg.get('data', {})
+                    stream = msg.get('stream', '')
+                    now = utc_ms()
+                    self.runtime.ws_status = 'CONNECTED'
+                    if stream.endswith('@bookTicker'):
+                        self._latest_book = {
+                            'bestBid': float(data.get('b', 0) or 0),
+                            'bestAsk': float(data.get('a', 0) or 0),
+                            'lastUpdate': now,
+                        }
+                    elif '@kline_' in stream:
+                        k = data.get('k', {})
+                        candle = {
+                            'open_time': int(k.get('t', 0)),
+                            'close_time': int(k.get('T', 0)),
+                            'open': float(k.get('o', 0) or 0),
+                            'high': float(k.get('h', 0) or 0),
+                            'low': float(k.get('l', 0) or 0),
+                            'close': float(k.get('c', 0) or 0),
+                            'volume': float(k.get('v', 0) or 0),
+                            'quote_volume': float(k.get('q', 0) or 0),
+                            'taker_buy_quote_volume': float(k.get('Q', 0) or 0),
+                            'closed': bool(k.get('x', False)),
+                        }
+                        if candle['closed']:
+                            from .models import Candle
+                            closed = Candle(**candle)
+                            if not self._closed_candles or self._closed_candles[-1].close_time != closed.close_time:
+                                self._closed_candles.append(closed)
+                                self._closed_candles = self._closed_candles[-200:]
+                                await self._evaluate_risk_plan_execution(mark=float(closed.close))
+                                if self.runtime.pending is None:
+                                    await self._evaluate_auto_signal()
+                    self._save_runtime()
+            except asyncio.CancelledError:
+                return
+            except Exception as exc:
+                self.runtime.ws_status = 'DISCONNECTED'
+                self.logger.warn('WS_DISCONNECTED', 'WebSocket bağlantısı kapatıldı', {'reason': 'RECONNECT_PREP', 'error': str(exc)})
+                self._save_runtime()
+                await asyncio.sleep(2)
+
+    async def _reconcile_loop(self) -> None:
+        while True:
+            try:
+                await asyncio.sleep(1)
+                await self._reconcile_pending_order()
+            except asyncio.CancelledError:
+                return
+            except Exception as exc:
+                self.logger.error('RECONCILE_LOOP_FAIL', 'Pending reconcile döngüsü hata verdi', {'error': str(exc)})
+
+    def _build_client_order_id(self, prefix: str) -> str:
+        return f'{prefix}{stable_hash([self.settings.symbol, utc_ms(), self.runtime.state], length=12).upper()}'
+
+    def _entry_guard(self) -> tuple[bool, str]:
+        if self.runtime.state == BotState.STOPPED.value or not getattr(self, '_running', True):
+            return False, 'ENGINE_STOPPED'
+        if self.runtime.pending is not None:
+            return False, 'ENTRY_ALREADY_PENDING'
+        if self.runtime.position is not None or self.runtime.state in {BotState.IN_POSITION.value, BotState.SELL_PENDING.value}:
+            # cached position can be stale if live base balance is now zero
+            if self.symbol_rules:
+                base = self.runtime.balances.get(self.symbol_rules.base_asset, Balance())
+                tradable_base = round_down_to_step(max(base.free - base.dust, 0.0), self.symbol_rules.step_size)
+                if tradable_base <= 0:
+                    self.runtime.position = None
+                    transition(self.runtime, BotState.FLAT)
+                    self.logger.warn('STALE_POSITION_CLEARED', 'Cached pozisyon canlı bakiye ile uyuşmadığı için temizlendi', {'reason': 'ENTRY_GUARD'})
+                else:
+                    return False, 'POSITION_EXISTS'
+            else:
+                return False, 'POSITION_EXISTS'
+        if self.runtime.state not in {BotState.FLAT.value, 'FLAT'}:
+            return False, f'INVALID_ENTRY_STATE_{self.runtime.state}'
+        if self.runtime.entry_lock_until and utc_ms() < self.runtime.entry_lock_until:
+            return False, 'ENTRY_LOCK_ACTIVE'
+        if not self.runtime.session.day_key:
+            self.runtime.session.day_key = self._day_key()
+        if self.settings.max_daily_trades and self.runtime.session.daily_trade_count >= self.settings.max_daily_trades:
+            return False, 'DAILY_LIMIT_REACHED'
+        if self._daily_loss_limit_reached():
+            self._refresh_risk_kill_switch(reason='ENTRY_GUARD')
+            return False, 'DAILY_LOSS_LIMIT_REACHED'
+        if self.runtime.session.consecutive_losses >= self.settings.max_consecutive_losses:
+            self._refresh_risk_kill_switch(reason='ENTRY_GUARD')
+            return False, 'MAX_CONSECUTIVE_LOSSES_REACHED'
+        if self.runtime.safe_mode:
+            return False, 'SAFE_MODE_LOCKED'
+        return True, 'OK'
+
+
+    def _exit_guard(self) -> tuple[bool, str]:
+        if self.runtime.state == BotState.STOPPED.value or not getattr(self, '_running', True):
+            return False, 'ENGINE_STOPPED'
+        if self.runtime.pending is not None:
+            return False, 'EXIT_ALREADY_PENDING'
+        if self.runtime.position is None:
+            base = self.runtime.balances.get(self.symbol_rules.base_asset, Balance()) if self.symbol_rules else Balance()
+            if base.free > 0 and not is_effective_zero(base.free - base.dust, self.symbol_rules.step_size if self.symbol_rules else 1e-8):
+                return True, 'RECOVERABLE_POSITION'
+            return False, 'POSITION_NOT_FOUND'
+        if self.symbol_rules:
+            base = self.runtime.balances.get(self.symbol_rules.base_asset, Balance())
+            mark = self._latest_mark_price() or self.runtime.position.entry_price
+            tradable_qty = round_down_to_step(max(base.free - base.dust, 0.0), self.symbol_rules.step_size)
+            qty = min(round_down_to_step(self.runtime.position.qty, self.symbol_rules.step_size), tradable_qty)
+            if qty <= 0:
+                return False, 'EXIT_QTY_ZERO'
+            if qty < self.symbol_rules.min_qty:
+                return False, 'MIN_QTY_BLOCKED'
+            if qty * mark < self.symbol_rules.min_notional * self.settings.min_notional_buffer_multiplier:
+                return False, 'MIN_NOTIONAL_BLOCKED'
+        return True, 'OK'
+
+
+    async def _submit_entry(self, *, source: str, signal_meta: dict[str, Any] | None = None) -> None:
+        if getattr(self, '_submit_lock', None) is None:
+            self._submit_lock = asyncio.Lock()
+        async with self._submit_lock:
+            allowed, reason = self._entry_guard()
+            if not allowed:
+                self.runtime.auto_debug = f'{reason} | {reason}' if source == 'AUTO_SIGNAL' else self.runtime.auto_debug
+                code = 'AUTO_ENTRY_BLOCKED' if source == 'AUTO_SIGNAL' else 'ENTRY_BLOCKED'
+                message = 'Otomatik giriş guard tarafından engellendi' if source == 'AUTO_SIGNAL' else 'Giriş emri guard tarafından engellendi'
+                self.logger.warn(code, message, {
+                    'hasPending': self.runtime.pending is not None,
+                    'hasPosition': self.runtime.position is not None,
+                    'runtimeState': self.runtime.state,
+                    'skipCode': reason,
+                    **(signal_meta or {}),
+                })
+                self._save_runtime()
+                return
+            await self.sync_balances(log_code='BALANCES_READY')
+            base = self.runtime.balances.get(self.symbol_rules.base_asset, Balance())
+            quote = self.runtime.balances.get(self.symbol_rules.quote_asset, Balance())
+            if quote.free <= 0:
+                self.logger.warn('ENTRY_BLOCKED', 'Quote bakiye yetersiz', {'skipCode': 'INSUFFICIENT_QUOTE_BALANCE', 'freeQuote': quote.free})
+                return
+            price_ref = (getattr(self, '_latest_book', {}) or {}).get('bestBid') or (getattr(self, '_closed_candles', [])[-1].close if getattr(self, '_closed_candles', []) else 0.0)
+            price = round_price_to_tick(float(price_ref), self.symbol_rules.tick_size)
+            try:
+                sizing = build_entry_sizing_decision(
+                    settings=self.settings,
+                    symbol_rules=self.symbol_rules,
+                    free_quote_balance=quote.free,
+                    reference_price=price,
+                )
+            except PositionSizingError as error:
+                self.logger.warn('ENTRY_BLOCKED', 'Giriş miktarı fail-closed sizing kontratı tarafından engellendi', {
+                    'skipCode': stable_entry_skip_code_for_sizing_error(error.reason_code),
+                    'sizingReasonCode': error.reason_code,
+                    'price': price,
+                    'freeQuote': quote.free,
+                    'sizingMode': self.settings.sizing_mode,
+                    'sizingContractVersion': '4B.4.3.6.6.27F',
+                    'skipCodeCompatVersion': '4B.4.3.6.6.27F-H1',
+                })
+                return
+            target_notional = sizing.quote_budget
+            qty = sizing.quantity
+            self.logger.info('ENTRY_SIZING_VERIFIED', 'Giriş miktarı fail-closed sizing kontratı ile doğrulandı', sizing.to_dict())
+            client_id = self._build_client_order_id('TBBMO')
+            if source == 'AUTO_SIGNAL':
+                self.logger.info('AUTO_ENTRY_ACCEPTED', 'Otomatik giriş sinyali kabul edildi', signal_meta or {})
+                self.runtime.auto_guard = f'BUY | key={signal_meta.get("signalKey", "-")} | {datetime.now().strftime("%H:%M:%S")}' if signal_meta else self.runtime.auto_guard
+                self.runtime.auto_debug = f"AUTO_ENTRY_ACCEPTED | {(signal_meta or {}).get('signalReason', '')}"
+            entry_preflight = getattr(self.exchange, 'run_entry_order_preflight', None)
+            if not callable(entry_preflight):
+                unavailable = blocked_entry_preflight_snapshot(
+                    symbol=self.settings.symbol,
+                    reason_code='PREFLIGHT_ADAPTER_UNAVAILABLE',
+                    message='Entry preflight adapter unavailable; new-risk entry denied',
+                    open_orders_check_performed=False,
+                    open_orders_count=None,
+                    order_test_performed=False,
+                    order_test_ok=None,
+                    policy_check_performed=False,
+                    policy_allowed=None,
+                ).to_log_payload()
+                self.runtime.last_preflight = f'BLOCKED | ENTRY | PREFLIGHT_ADAPTER_UNAVAILABLE | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
+                self.logger.warn('LIVE_PREFLIGHT_BLOCKED', 'Canlı giriş emri preflight adaptörü bulunamadığı için engellendi', {**unavailable,'causeReasonCode': 'ENTRY_PREFLIGHT_ADAPTER_UNAVAILABLE','notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
+                self._save_runtime()
+                return
+            try:
+                preflight = await self.exchange.run_entry_order_preflight(
+                    symbol=self.settings.symbol,
+                    quantity=qty,
+                    price=price,
+                    client_order_id=client_id,
+                )
+            except OrderPreflightError as error:
+                self.runtime.last_preflight = f'BLOCKED | ENTRY | {error.code} | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
+                self.logger.warn('LIVE_PREFLIGHT_BLOCKED', 'Canlı giriş emri preflight tarafından engellendi', {**error.to_log_payload(),'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
+                self._save_runtime()
+                return
+            except Exception as error:
+                failed = blocked_entry_preflight_snapshot(
+                    symbol=self.settings.symbol,
+                    reason_code='PREFLIGHT_ADAPTER_CALL_FAILED',
+                    message='Entry preflight adapter call failed; new-risk entry denied',
+                    open_orders_check_performed=False,
+                    open_orders_count=None,
+                    order_test_performed=False,
+                    order_test_ok=None,
+                    policy_check_performed=False,
+                    policy_allowed=None,
+                ).to_log_payload()
+                self.runtime.last_preflight = f'BLOCKED | ENTRY | PREFLIGHT_ADAPTER_CALL_FAILED | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
+                self.logger.warn('LIVE_PREFLIGHT_BLOCKED', 'Canlı giriş emri preflight adaptör hatası nedeniyle engellendi', {**failed,'causeReasonCode': type(error).__name__,'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
+                self._save_runtime()
+                return
+            self.runtime.last_preflight = f'OK | ENTRY | {self.settings.execution_mode.upper()} | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
+            self.logger.info('LIVE_PREFLIGHT_OK', 'Canlı emir preflight başarılı', {**preflight,'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'BUY','symbol': self.settings.symbol})
+            order = await self.exchange.create_limit_order(symbol=self.settings.symbol, side='BUY', quantity=qty, price=price, client_order_id=client_id)
+            self.runtime.pending = PendingOrder(side='BUY', price=price, qty=qty, status=order.get('status', 'NEW'), order_id=str(order.get('orderId')) if order.get('orderId') is not None else None, client_order_id=client_id, source=source, submitted_at=utc_ms(), remaining_qty=qty)
+            prev = self.runtime.state
+            transition(self.runtime, BotState.BUY_PENDING)
+            self.runtime.last_order_event = f'BUY pending @ {price} qty {qty} [passive/bid]'
+            self.runtime.entry_lock_until = utc_ms() + (self.settings.auto_trade_cooldown_sec * 1000)
+            self.logger.info('STATE_CHANGED', f'{prev} -> BUY_PENDING', {'reason': 'ENTRY_ORDER_SUBMITTED'})
+            self.logger.info('ORDER_SUBMITTED', 'Giriş emri oluşturuldu', {'freeQuote': quote.free,'minNotional': self.symbol_rules.min_notional * self.settings.min_notional_buffer_multiplier,'mode': self.settings.execution_mode,'notional': round(qty * price, 6),'price': price,'priceMode': self.settings.force_entry_price_mode,'priceRef': 'bid','priceRefValue': price_ref,'qty': qty,'quoteAsset': self.symbol_rules.quote_asset,'side': 'BUY','sizingMode': sizing.sizing_mode,'sizingContractVersion': sizing.contract_version,'source': source,'targetNotional': target_notional,'sizingSnapshot': sizing.to_dict()})
+            self._save_runtime()
+
+
+    async def _submit_exit(self, *, source: str, signal_meta: dict[str, Any] | None = None, requested_qty_override: float | None = None) -> None:
+        if getattr(self, '_exit_submit_lock', None) is None:
+            self._exit_submit_lock = asyncio.Lock()
+        async with self._exit_submit_lock:
+            allowed, reason = self._exit_guard()
+            if not allowed:
+                code = 'AUTO_EXIT_BLOCKED' if source == 'AUTO_SIGNAL' else 'EXIT_BLOCKED'
+                msg = 'Otomatik çıkış pozisyon bulunamadığı için atlandı' if source == 'AUTO_SIGNAL' else 'Çıkış emri guard tarafından engellendi'
+                self.logger.warn(code, msg, {'hasPending': self.runtime.pending is not None,'hasPosition': self.runtime.position is not None,'runtimeState': self.runtime.state,'skipCode': reason,**(signal_meta or {})})
+                self.runtime.auto_debug = f'{reason} | SELL için uygun state değil: {self.runtime.state}' if source == 'AUTO_SIGNAL' else self.runtime.auto_debug
+                self._save_runtime()
+                return
+            await self.sync_balances(log_code='BALANCES_READY')
+            base = self.runtime.balances.get(self.symbol_rules.base_asset, Balance())
+            latest_book = getattr(self, '_latest_book', {}) or {}
+            price_ref = latest_book.get('bestAsk') if self.settings.force_exit_price_mode == 'passive' else latest_book.get('bestBid')
+            price_ref = price_ref or (getattr(self, '_closed_candles', [])[-1].close if getattr(self, '_closed_candles', []) else 0.0)
+            price = round_price_to_tick(float(price_ref), self.symbol_rules.tick_size)
+            requested_qty = float(requested_qty_override) if requested_qty_override is not None else (self.runtime.position.qty if self.runtime.position else base.free)
+            tradable_qty = round_down_to_step(max(base.free - base.dust, 0.0), self.symbol_rules.step_size)
+            qty = min(round_down_to_step(requested_qty, self.symbol_rules.step_size), tradable_qty)
+            if qty <= 0:
+                self.logger.warn('EXIT_BLOCKED', 'Çıkış miktarı tradable lot olmadı', {'skipCode': 'EXIT_QTY_ZERO', 'requestedQty': requested_qty, 'liveFreeBase': base.free})
+                return
+            if qty < self.symbol_rules.min_qty or qty * price < self.symbol_rules.min_notional * self.settings.min_notional_buffer_multiplier:
+                self.logger.warn('EXIT_BLOCKED', 'Çıkış emri minNotional/minQty nedeniyle engellendi', {'skipCode': 'MIN_NOTIONAL_BLOCKED', 'qty': qty, 'price': price, 'notional': qty * price})
+                return
+            exit_preflight = risk_reducing_exit_preflight_snapshot(symbol=self.settings.symbol).to_log_payload()
+            self.runtime.last_preflight = f'OK | EXIT | POLICY_ONLY | {self.settings.execution_mode.upper()} | {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
+            self.logger.info('LIVE_PREFLIGHT_OK', 'Risk azaltıcı çıkış policy preflight başarılı', {**exit_preflight,'notional': round(qty * price, 6),'price': price,'qty': qty,'route': self.settings.execution_mode.upper(),'side': 'SELL','symbol': self.settings.symbol})
+            client_id = self._build_client_order_id('TBSMO')
+            if source == 'AUTO_SIGNAL':
+                self.logger.info('AUTO_EXIT_TRIGGERED', 'Otomatik çıkış sinyali tetiklendi', signal_meta or {})
+                self.runtime.auto_guard = f'SELL_PENDING | key={signal_meta.get("signalKey", "-")} | {datetime.now().strftime("%H:%M:%S")}' if signal_meta else self.runtime.auto_guard
+                self.runtime.auto_debug = f'SELL_PENDING işlendi | {(signal_meta or {}).get("signalReason", "")}'
+            order = await self.exchange.create_limit_order(symbol=self.settings.symbol, side='SELL', quantity=qty, price=price, client_order_id=client_id)
+            self.runtime.pending = PendingOrder(side='SELL', price=price, qty=qty, status=order.get('status', 'NEW'), order_id=str(order.get('orderId')) if order.get('orderId') is not None else None, client_order_id=client_id, source=source, submitted_at=utc_ms(), remaining_qty=qty)
+            prev = self.runtime.state
+            transition(self.runtime, BotState.SELL_PENDING)
+            self.runtime.last_order_event = f'SELL pending @ {price} qty {qty}'
+            self.logger.info('STATE_CHANGED', f'{prev} -> SELL_PENDING', {'reason': 'EXIT_ORDER_SUBMITTED'})
+            self.logger.info('ORDER_SUBMITTED', 'Çıkış emri oluşturuldu', {'baseAsset': self.symbol_rules.base_asset,'freeBase': base.free,'mode': self.settings.execution_mode,'notional': round(qty * price, 6),'price': price,'priceMode': self.settings.force_exit_price_mode,'priceRef': 'bid','priceRefValue': price_ref,'qty': qty,'side': 'SELL','source': source,'riskExitReason': (signal_meta or {}).get('riskExitReason'),'riskExitAction': (signal_meta or {}).get('riskExitAction')})
+            self._save_runtime()
+
+
+    def _pending_grace_window_ms(self) -> int:
+        return max(5_000, int(getattr(self.settings, 'order_timeout_sec', 20) * 1000 / 2))
+
+    async def _reconcile_pending_order(self) -> None:
+        pending = self.runtime.pending
+        if not pending:
+            return
+        now = utc_ms()
+        pending.last_reconcile_at = now
+        pending.reconcile_attempts += 1
+        self._set_reconciliation_snapshot(pending=pending, phase='POLL', action='FETCH_LIVE_ORDER')
+        try:
+            order = await self.exchange.fetch_order(self.settings.symbol, order_id=pending.order_id, client_order_id=pending.client_order_id)
+        except Exception as exc:
+            pending.last_reconcile_error = str(exc)
+            self._set_reconciliation_snapshot(pending=pending, phase='FETCH_LIVE_ORDER', action='POLL_AGAIN', error=str(exc))
+            order = None
+        await self.sync_balances(log_code='BALANCES_READY')
+        base = self.runtime.balances.get(self.symbol_rules.base_asset, Balance())
+        if order:
+            status = order.get('status', pending.status)
+            executed_qty = float(order.get('executedQty', pending.partial_executed_qty) or 0)
+            orig_qty = float(order.get('origQty', pending.qty) or pending.qty)
+            pending.status = status
+            pending.last_live_status = status
+            pending.last_status_at = now
+            pending.partial_executed_qty = executed_qty
+            pending.last_fill_qty = executed_qty
+            pending.last_fill_price = float(order.get('price') or pending.price or 0) or pending.price
+            pending.remaining_qty = max(orig_qty - executed_qty, 0.0)
+            self._set_reconciliation_snapshot(pending=pending, phase='LIVE_ORDER_STATUS', action='POLL_AGAIN', order=order)
+            if status in {'PARTIALLY_FILLED'} and executed_qty > 0:
+                self.logger.info('PENDING_RECONCILE_PARTIAL', 'Pending emir kısmi dolum olarak güncellendi', {'clientOrderId': pending.client_order_id, 'orderId': pending.order_id, 'executedQty': executed_qty, 'remainingQty': pending.remaining_qty, 'side': pending.side, 'status': status})
+            if status == 'FILLED':
+                self._set_reconciliation_snapshot(pending=pending, phase='LIVE_ORDER_FILLED', action='COMMIT_FILL', order=order, reason='LIVE_ORDER_FILLED', fill_source='live_order')
+                await self._commit_filled_pending(pending, source='live_order', fill_price=float(order.get('price') or pending.price or 0) or pending.price, fill_qty=executed_qty or pending.qty)
+                return
+            if status in {'CANCELED', 'EXPIRED', 'REJECTED'}:
+                self._set_reconciliation_snapshot(pending=pending, phase='LIVE_ORDER_TERMINAL', action='CLEAR_PENDING', order=order, reason=f'LIVE_ORDER_{status}')
+                await self._clear_pending('LIVE_CANCELED', pending)
+                return
+        if order is None:
+            pending.missing_count = int(getattr(pending, 'missing_count', 0)) + 1
+            pending.last_reconcile_reason = 'LIVE_ORDER_NOT_FOUND'
+            self._set_reconciliation_snapshot(pending=pending, phase='LIVE_ORDER_NOT_FOUND', action='POLL_AGAIN', reason='LIVE_ORDER_NOT_FOUND')
+            self.logger.warn('PENDING_RECONCILE_NOT_FOUND', 'Pending emir canlı sorguda bulunamadı', {'orderId': pending.order_id, 'missingCount': pending.missing_count})
+        if pending.side == 'BUY':
+            tradable_base = round_down_to_step(max(base.free - base.dust, 0.0), self.symbol_rules.step_size)
+            if tradable_base >= round_down_to_step(pending.qty * 0.995, self.symbol_rules.step_size):
+                self.logger.info('LIVE_FILL_RECONCILED', 'Canlı emir bakiye recovery dolumu doğruladı', {'clientOrderId': pending.client_order_id, 'evidence': 'BASE_FULL', 'orderId': pending.order_id, 'price': pending.price, 'qty': pending.qty, 'reason': 'BALANCE_SYNC_DELTA', 'remainingQty': 0, 'side': pending.side, 'source': 'live_balance_reconcile', 'symbol': self.settings.symbol}, dedupe_ms=8_000)
+                self._set_reconciliation_snapshot(pending=pending, phase='BALANCE_FILL_EVIDENCE', action='COMMIT_FILL', reason='BALANCE_SYNC_DELTA', fill_source='live_balance_reconcile')
+                await self._commit_filled_pending(pending, source='live_balance_reconcile', fill_price=pending.price, fill_qty=pending.qty)
+                return
+        elif pending.side == 'SELL':
+            tradable_base = round_down_to_step(max(base.free - base.dust, 0.0), self.symbol_rules.step_size)
+            if tradable_base <= 0:
+                self.logger.info('LIVE_FILL_RECONCILED', 'Canlı emir bakiye ve açık emir uzlaşması ile dolu sayıldı', {'clientOrderId': pending.client_order_id, 'orderId': pending.order_id, 'price': pending.price, 'qty': pending.qty, 'remainingQty': 0, 'side': pending.side, 'source': 'live_balance_reconcile', 'symbol': self.settings.symbol}, dedupe_ms=8_000)
+                self._set_reconciliation_snapshot(pending=pending, phase='BALANCE_FILL_EVIDENCE', action='COMMIT_FILL', reason='BALANCE_SYNC_DELTA', fill_source='live_balance_reconcile')
+                await self._commit_filled_pending(pending, source='live_balance_reconcile', fill_price=pending.price, fill_qty=pending.qty)
+                return
+        open_orders = await self.exchange.fetch_open_orders(self.settings.symbol)
+        still_open = any(str(order.get('orderId')) == str(pending.order_id) or str(order.get('clientOrderId')) == str(pending.client_order_id) for order in open_orders)
+        self._set_reconciliation_snapshot(pending=pending, phase='OPEN_ORDER_CROSSCHECK', action='WAIT' if still_open else 'POLL_AGAIN', open_orders=open_orders)
+        grace_expired = (now - int(pending.submitted_at or 0)) >= self._pending_grace_window_ms()
+        if order is None and not still_open and grace_expired and int(getattr(pending, 'missing_count', 0)) >= 3:
+            self._set_reconciliation_snapshot(pending=pending, phase='ORPHAN_PENDING_CLEANUP', action='CLEAR_PENDING', open_orders=open_orders, reason='ORPHAN_PENDING_CLEANUP')
+            self.logger.warn('ORPHAN_PENDING_CLEANUP', 'Canlıda bulunmayan orphan pending temizlendi', {'orderId': pending.order_id, 'side': pending.side})
+            await self._clear_pending('ORPHAN_PENDING_CLEANED', pending)
+            return
+        max_attempts_reached = pending.reconcile_attempts >= max(8, getattr(self.settings, 'order_timeout_sec', 20) // 2)
+        if (max_attempts_reached or grace_expired) and still_open and not pending.cancel_requested:
+            pending.deferred = True
+            self._set_reconciliation_snapshot(pending=pending, phase='RECONCILIATION_DEFERRED', action='REQUEST_CANCEL', open_orders=open_orders, reason='MAX_ATTEMPTS_REACHED')
+            self.logger.warn('RECONCILIATION_DEFERRED', 'Canlı emir uzlaşması deneme sınırına ulaştı; beklemeye alındı', {'attempts': pending.reconcile_attempts, 'clientOrderId': pending.client_order_id, 'orderId': pending.order_id, 'reason': 'MAX_ATTEMPTS_REACHED', 'side': pending.side, 'symbol': self.settings.symbol}, dedupe_ms=15_000)
+            try:
+                await self.exchange.cancel_order(symbol=self.settings.symbol, order_id=pending.order_id, client_order_id=pending.client_order_id)
+                pending.cancel_requested = True
+                pending.cancel_requested_at = utc_ms()
+                pending.status = 'CANCEL_REQUESTED'
+                self._set_reconciliation_snapshot(pending=pending, phase='ORDER_CANCEL_REQUESTED', action='WAIT_CANCEL_CONFIRMATION', open_orders=open_orders, reason='ORPHAN_PENDING_CLEANUP')
+                self.logger.warn('ORDER_CANCEL_REQUESTED', 'Bekleyen canlı emir için iptal talebi gönderildi', {'orderId': pending.order_id, 'reason': 'ORPHAN_PENDING_CLEANUP', 'side': pending.side})
+            except Exception as exc:
+                pending.last_reconcile_error = str(exc)
+                self._set_reconciliation_snapshot(pending=pending, phase='ORDER_CANCEL_ERROR', action='POLL_AGAIN', open_orders=open_orders, error=str(exc))
+                self.logger.warn('ORDER_CANCEL_WARN', 'Canlı emir iptal sorgusu uyarı verdi', {'error': str(exc), 'orderId': pending.order_id})
+        self._save_runtime()
+
+
+    async def _finalize_exit_filled(self, pending: PendingOrder, *, source: str, fill_price: float, fill_qty: float) -> None:
+        prev = self.runtime.state
+        position = self.runtime.position
+        pnl = 0.0
+        remaining_qty = 0.0
+        if position:
+            pnl = (fill_price - position.entry_price) * fill_qty
+            remaining_qty = max(position.qty - fill_qty, 0.0)
+        self.runtime.pending = None
+        self.runtime.active_exit_intent = None
+        self.runtime.last_order_event = f'SELL filled @ {fill_price}'
+        if position and remaining_qty > max(self.symbol_rules.min_qty if self.symbol_rules else 0.0, 1e-12):
+            position.qty = remaining_qty
+            self.runtime.position = position
+            transition(self.runtime, BotState.IN_POSITION)
+            self.logger.info('ORDER_PARTIALLY_FILLED', 'Kısmi çıkış emri doldu; pozisyon açık kaldı', {'baseAsset': self.symbol_rules.base_asset if self.symbol_rules else None, 'orderId': pending.order_id, 'pnl': round(pnl, 6), 'price': fill_price, 'qty': fill_qty, 'remainingQty': remaining_qty, 'side': 'SELL', 'source': source})
+            self.logger.info('STATE_CHANGED', f'{prev} -> {self.runtime.state}', {'reason': 'ORDER_PARTIALLY_FILLED'})
+            self._record_performance_exit(position, pending, fill_price=fill_price, fill_qty=fill_qty, pnl=pnl, remaining_qty=remaining_qty, source=source, closed=False)
+            self._save_runtime()
+            return
+        else:
+            transition(self.runtime, BotState.FLAT)
+            self.runtime.position = None
+            self.logger.info('ORDER_FILLED', 'Çıkış emri doldu', {'baseAsset': self.symbol_rules.base_asset if self.symbol_rules else None, 'orderId': pending.order_id, 'pnl': round(pnl, 6), 'price': fill_price, 'qty': fill_qty, 'side': 'SELL', 'source': source})
+            self.logger.info('POSITION_CLOSED', 'Pozisyon kapandı', {'baseAsset': self.symbol_rules.base_asset if self.symbol_rules else None, 'exitSource': pending.source, 'fillSource': source, 'pnl': round(pnl, 6), 'price': fill_price, 'qty': fill_qty, 'quoteAsset': self.symbol_rules.quote_asset if self.symbol_rules else None, 'symbol': self.settings.symbol})
+            self.runtime.session.daily_trade_count += 1
+            self.runtime.session.daily_realized_pnl += pnl
+            self.runtime.session.last_closed_pnl = pnl
+            self.runtime.session.consecutive_losses = self.runtime.session.consecutive_losses + 1 if pnl < 0 else 0
+            self.logger.info('STATE_CHANGED', f'{prev} -> {self.runtime.state}', {'reason': 'ORDER_FILLED'})
+            self.logger.info('RISK_STATS_UPDATED', 'Risk istatistikleri güncellendi', {'consecutiveLosses': self.runtime.session.consecutive_losses, 'dailyRealizedPnl': round(self.runtime.session.daily_realized_pnl, 6), 'dailyTradeCount': self.runtime.session.daily_trade_count, 'lastClosedPnl': round(pnl, 6), 'quoteAsset': self.symbol_rules.quote_asset if self.symbol_rules else None})
+            self._record_performance_exit(position, pending, fill_price=fill_price, fill_qty=fill_qty, pnl=pnl, remaining_qty=0.0, source=source, closed=True)
+            self._refresh_risk_kill_switch(reason='EXIT_FILLED')
+
+    async def _commit_filled_pending(self, pending: PendingOrder, *, source: str, fill_price: float, fill_qty: float) -> None:
+        self._set_reconciliation_snapshot(pending=pending, phase='FILL_COMMIT', action='COMMIT_FILL', reason='FILLED_COMMITTED', fill_source=source)
+        if pending.side == 'BUY':
+            prev = self.runtime.state
+            transition(self.runtime, BotState.IN_POSITION)
+            risk_plan = build_risk_plan(Position(qty=fill_qty, entry_price=fill_price, source=pending.source, order_id=pending.order_id, client_order_id=pending.client_order_id, opened_at=utc_ms()), self._latest_atr(), self.settings)
+            self.runtime.position = Position(qty=fill_qty, entry_price=fill_price, source=pending.source, order_id=pending.order_id, client_order_id=pending.client_order_id, opened_at=utc_ms(), risk_plan=risk_plan)
+            self.runtime.pending = None
+            self.runtime.last_order_event = f'BUY filled @ {fill_price}'
+            self.logger.info('STATE_CHANGED', f'{prev} -> IN_POSITION', {'reason': 'ORDER_FILLED'})
+            self.logger.info('ORDER_FILLED', 'Giriş emri doldu', {'orderId': pending.order_id, 'price': fill_price, 'qty': fill_qty, 'quoteAsset': self.symbol_rules.quote_asset if self.symbol_rules else None, 'side': 'BUY', 'source': source})
+            self.logger.info('RISK_PLAN_READY', 'Pozisyon risk planı hazırlandı', {'atr': risk_plan.atr,'entryPrice': risk_plan.entry_price,'openRiskQuote': risk_plan.open_risk_quote,'plannedRR': risk_plan.planned_rr,'quoteAsset': self.symbol_rules.quote_asset if self.symbol_rules else None,'stopLoss': risk_plan.stop_loss,'takeProfit': risk_plan.take_profit})
+            self._record_performance_entry(pending, fill_price=fill_price, fill_qty=fill_qty, source=source)
+            self._save_runtime()
+        else:
+            await self._finalize_exit_filled(pending, source=source, fill_price=fill_price, fill_qty=fill_qty)
+
+
+    async def _clear_pending(self, reason: str, pending: PendingOrder) -> None:
+        prev = self.runtime.state
+        self._set_reconciliation_snapshot(pending=pending, phase='PENDING_CLEARED', action='CLEAR_PENDING', reason=reason)
+        self.runtime.pending = None
+        if prev == BotState.BUY_PENDING.value:
+            transition(self.runtime, BotState.FLAT)
+        elif prev == BotState.SELL_PENDING.value and self.runtime.position:
+            transition(self.runtime, BotState.IN_POSITION)
+        self.logger.warn('ORDER_CANCELED', 'Bekleyen emir iptal edildi', {'orderId': pending.order_id, 'priceMode': self.settings.force_entry_price_mode if pending.side == 'BUY' else self.settings.force_exit_price_mode, 'priceRef': 'bid', 'reason': reason, 'side': pending.side})
+        self.logger.info('STATE_CHANGED', f'{prev} -> {self.runtime.state}', {'reason': reason})
+        self._save_runtime()
+
+    def _expire_safe_mode(self) -> None:
+        if self.runtime.safe_mode and self.runtime.safe_mode_until and utc_ms() >= self.runtime.safe_mode_until:
+            source = getattr(self.runtime, 'safe_mode_source', None)
+            self.runtime.safe_mode = False
+            self.runtime.safe_mode_until = None
+            self.runtime.safe_mode_source = None
+            self.runtime.safe_mode_reason_code = None
+            if source:
+                self.logger.info('SAFE_MODE_AUTO_EXPIRED', 'Otomatik safe mode süresi doldu', {'source': source})
+            self._save_runtime()
+
+    def _daily_loss_limit_reached(self) -> bool:
+        max_pct = float(getattr(self.settings, 'max_daily_loss_pct', 0.0) or 0.0)
+        if max_pct <= 0:
+            return False
+        quote_asset = self.symbol_rules.quote_asset if self.symbol_rules else 'USDT'
+        quote = self.runtime.balances.get(quote_asset, Balance())
+        reference = max(quote.free, 1.0)
+        return self.runtime.session.daily_realized_pnl <= -(reference * max_pct / 100.0)
+
+    def _enable_auto_safe_mode(self, *, source: str, reason_code: str, log_code: str, reason: str) -> None:
+        until = utc_ms() + int(getattr(self.settings, 'safe_mode_cooldown_min', 60) * 60 * 1000)
+        already = self.runtime.safe_mode and self.runtime.safe_mode_source == source and self.runtime.safe_mode_reason_code == reason_code
+        self.runtime.safe_mode = True
+        self.runtime.safe_mode_source = source
+        self.runtime.safe_mode_reason_code = reason_code
+        if not already:
+            self.runtime.safe_mode_until = until
+            self.logger.warn(log_code, 'Risk kill switch tetiklendi', {'reason': reason, 'reasonCode': reason_code, 'source': source})
+            self.logger.warn('SAFE_MODE_AUTO_ENABLED', 'Otomatik safe mode etkinleştirildi', {'source': source, 'reasonCode': reason_code, 'until': until})
+        self._save_runtime()
+
+    def _refresh_risk_kill_switch(self, *, reason: str) -> None:
+        if self._daily_loss_limit_reached():
+            self._enable_auto_safe_mode(source='daily_loss', reason_code='DAILY_LOSS_LIMIT_REACHED', log_code='DAILY_LOSS_LOCKED', reason=reason)
+            return
+        if self.runtime.session.consecutive_losses >= getattr(self.settings, 'max_consecutive_losses', 999999):
+            self._enable_auto_safe_mode(source='consecutive_losses', reason_code='MAX_CONSECUTIVE_LOSSES_REACHED', log_code='CONSECUTIVE_LOSS_LOCKED', reason=reason)
+
+    def _health_snapshot(self) -> dict[str, Any]:
+        base = Balance()
+        if self.symbol_rules:
+            base = self.runtime.balances.get(self.symbol_rules.base_asset, Balance())
+        has_position = self.runtime.position is not None
+        has_pending = self.runtime.pending is not None
+        position_mismatch = has_position and self.symbol_rules and round_down_to_step(max(base.free - base.dust, 0.0), self.symbol_rules.step_size) <= 0
+        account_consistency = 'WARNING' if position_mismatch else 'HEALTHY'
+        return {
+            'engine_running': bool(getattr(self, '_running', False)),
+            'ws_connected': self.runtime.ws_status == 'CONNECTED',
+            'has_pending': has_pending,
+            'has_position': has_position,
+            'account_consistency': account_consistency,
+            'position_consistency': 'WARNING' if position_mismatch else 'HEALTHY',
+            'pending_consistency': 'HEALTHY',
+            'active_anomaly_code': 'BALANCE_POSITION_MISMATCH' if position_mismatch else None,
+        }
+
+    def _risk_snapshot(self) -> dict[str, Any]:
+        remaining = None
+        if self.runtime.safe_mode_until:
+            remaining = max(int((self.runtime.safe_mode_until - utc_ms()) / 1000), 0)
+        return {
+            'daily_realized_pnl': self.runtime.session.daily_realized_pnl,
+            'daily_trade_count': self.runtime.session.daily_trade_count,
+            'consecutive_losses': self.runtime.session.consecutive_losses,
+            'last_closed_pnl': self.runtime.session.last_closed_pnl,
+            'safe_mode': bool(self.runtime.safe_mode),
+            'safe_mode_source': getattr(self.runtime, 'safe_mode_source', None),
+            'safe_mode_reason_code': getattr(self.runtime, 'safe_mode_reason_code', None),
+            'safe_mode_until': self.runtime.safe_mode_until,
+            'safe_mode_remaining_sec': remaining,
+            'kill_switch_active': bool(self.runtime.safe_mode),
+            'max_daily_trades': getattr(self.settings, 'max_daily_trades', 0),
+            'max_consecutive_losses': getattr(self.settings, 'max_consecutive_losses', 0),
+            'max_daily_loss_pct': getattr(self.settings, 'max_daily_loss_pct', 0.0),
+        }
+
+    def _performance_config(self):
+        return performance_config_from_settings(self.settings)
+
+    def _performance_logs(self) -> list[dict[str, Any]]:
+        store = getattr(self, 'store', None)
+        if store is None or not hasattr(store, 'fetch_logs'):
+            return []
+        try:
+            return store.fetch_logs(limit=250, order='asc')
+        except Exception:
+            return []
+
+    def _diagnostics_logs(self) -> list[dict[str, Any]]:
+        store = getattr(self, 'store', None)
+        if store is None or not hasattr(store, 'fetch_logs'):
+            return []
+        try:
+            return store.fetch_logs(limit=250, order='desc')
+        except Exception:
+            return []
+
+    def _diagnostics_snapshot(self, status: dict[str, Any] | None = None) -> dict[str, Any]:
+        snapshot = build_diagnostics_snapshot(
+            status=status or {},
+            logs=self._diagnostics_logs(),
+            generated_at=utc_ms(),
+        )
+        try:
+            self.runtime.diagnostics_snapshot = snapshot
+        except Exception:
+            pass
+        return snapshot
+
+    def _config_safety_snapshot(self) -> dict[str, Any]:
+        snapshot = build_config_safety_snapshot(getattr(self, 'settings', None))
+        try:
+            self.runtime.config_safety_snapshot = snapshot
+        except Exception:
+            pass
+        return snapshot
+
+    def _performance_snapshot(self) -> dict[str, Any]:
+        config = self._performance_config()
+        if not config.enabled:
+            return {
+                'contract_version': '4B.4.3.6.6.14',
+                'enabled': False,
+                'closed_trade_count': 0,
+                'open_trade': {'present': False},
+                'realized_pnl': 0.0,
+                'recommendation': 'DISABLED',
+            }
+        snapshot = summarize_performance(
+            trades=getattr(self.runtime, 'performance_trades', []) or [],
+            open_trade=getattr(self.runtime, 'performance_open_trade', None),
+            config=config,
+            symbol=getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', None)),
+            logs=self._performance_logs(),
+        )
+        self.runtime.performance_snapshot = snapshot
+        return snapshot
+
+    def _record_performance_entry(self, pending: PendingOrder, *, fill_price: float, fill_qty: float, source: str) -> None:
+        config = self._performance_config()
+        if not config.enabled:
+            return
+        self.runtime.performance_open_trade = new_entry_record(
+            symbol=getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', '')),
+            entry_price=fill_price,
+            qty=fill_qty,
+            source=pending.source or source,
+            order_id=pending.order_id,
+            client_order_id=pending.client_order_id,
+            entry_at=utc_ms(),
+        )
+        self.runtime.performance_snapshot = self._performance_snapshot()
+        self.logger.info('PERFORMANCE_ENTRY_RECORDED', 'Performance analytics giriş kaydı oluşturdu', {
+            'symbol': getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', '')),
+            'entryPrice': fill_price,
+            'qty': fill_qty,
+            'source': source,
+        }, dedupe_ms=5_000)
+
+    def _record_performance_exit(self, position: Position | None, pending: PendingOrder, *, fill_price: float, fill_qty: float, pnl: float, remaining_qty: float, source: str, closed: bool) -> None:
+        config = self._performance_config()
+        if not config.enabled or position is None:
+            return
+        open_trade = getattr(self.runtime, 'performance_open_trade', None)
+        if not closed:
+            self.runtime.performance_open_trade = update_open_trade_on_partial_exit(
+                open_trade,
+                exit_price=fill_price,
+                exit_qty=fill_qty,
+                pnl=pnl,
+                remaining_qty=remaining_qty,
+                exit_at=utc_ms(),
+            )
+            self.runtime.performance_snapshot = self._performance_snapshot()
+            self.logger.info('PERFORMANCE_PARTIAL_EXIT_RECORDED', 'Performance analytics kısmi çıkış kaydı oluşturdu', {
+                'symbol': getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', '')),
+                'exitPrice': fill_price,
+                'qty': fill_qty,
+                'pnl': round(float(pnl or 0.0), 6),
+                'remainingQty': remaining_qty,
+                'source': source,
+            }, dedupe_ms=5_000)
+            return
+        trade = close_trade_record(
+            open_trade,
+            symbol=getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', '')),
+            entry_price=position.entry_price,
+            qty=position.qty,
+            exit_price=fill_price,
+            exit_qty=fill_qty,
+            pnl=pnl,
+            exit_source=pending.source,
+            fill_source=source,
+            exit_at=utc_ms(),
+            epsilon=config.breakeven_epsilon,
+        )
+        self.runtime.performance_trades = append_trade(getattr(self.runtime, 'performance_trades', []) or [], trade, window_size=config.window_size)
+        self.runtime.performance_open_trade = None
+        self.runtime.performance_snapshot = self._performance_snapshot()
+        self.logger.info('PERFORMANCE_TRADE_CLOSED', 'Performance analytics işlem kapanış kaydı oluşturdu', {
+            'symbol': trade.get('symbol'),
+            'result': trade.get('result'),
+            'pnl': round(float(trade.get('realized_pnl') or 0.0), 6),
+            'holdTimeSec': trade.get('hold_time_sec'),
+            'source': source,
+        }, dedupe_ms=5_000)
+
+    def _decision_audit_snapshot(self) -> dict[str, Any]:
+        existing = getattr(self.runtime, 'decision_audit_snapshot', None)
+        if isinstance(existing, dict) and existing:
+            return existing
+        return empty_decision_audit_snapshot(
+            now=utc_ms(),
+            symbol=getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', 'ETHUSDT')),
+            interval=getattr(self.settings, 'kline_interval', '1m'),
+        )
+
+    def _record_decision_audit(
+        self,
+        *,
+        technical: SignalDecision | None,
+        decision: SignalDecision | None,
+        effective: SignalDecision | None = None,
+        signal_key: str | None = None,
+        action: str = 'EVALUATED',
+        should_submit_order: bool = False,
+        skip_code: str | None = None,
+    ) -> dict[str, Any]:
+        snapshot = build_decision_audit_snapshot(
+            now=utc_ms(),
+            symbol=getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', 'ETHUSDT')),
+            interval=getattr(self.settings, 'kline_interval', '1m'),
+            settings=self.settings,
+            runtime=self.runtime,
+            technical_decision=technical,
+            model_decision=decision,
+            effective_decision=effective,
+            signal_key=signal_key,
+            action=action,
+            should_submit_order=should_submit_order,
+            skip_code=skip_code,
+        )
+        self.runtime.decision_audit_snapshot = snapshot
+        logger = getattr(self, 'logger', None)
+        if logger is not None:
+            payload = {
+                'symbol': snapshot.get('symbol'),
+                'signal': (snapshot.get('effective_decision') or {}).get('signal'),
+                'rawSignal': (snapshot.get('raw_decision') or {}).get('signal'),
+                'action': snapshot.get('action'),
+                'actionIntent': snapshot.get('action_intent'),
+                'shouldSubmitOrder': snapshot.get('should_submit_order'),
+                'signalKey': snapshot.get('signal_key'),
+                'reasonCodes': snapshot.get('reason_codes'),
+            }
+            try:
+                logger.info('STRATEGY_DECISION_AUDIT', 'Strateji karar audit snapshot güncellendi', payload, dedupe_ms=1_000)
+            except TypeError:
+                logger.info('STRATEGY_DECISION_AUDIT', 'Strateji karar audit snapshot güncellendi', payload)
+        return snapshot
+
+    def _model_quality_snapshot(self) -> dict[str, Any]:
+        existing = getattr(self.runtime, 'model_quality_snapshot', None)
+        if existing:
+            return existing
+        monitor = getattr(self, 'model_quality_monitor', None)
+        if monitor is not None:
+            return monitor.snapshot(model_path=getattr(self.settings, 'ai_model_path', None))
+        return {
+            'contract_version': '4B.4.3.6.6.13',
+            'enabled': bool(getattr(self.settings, 'model_quality_enabled', True)),
+            'sample_count': 0,
+            'window_size': int(getattr(self.settings, 'model_quality_window_size', 200) or 200),
+            'severity': 'no_data',
+            'recommendation': 'OK',
+            'reason_codes': [],
+        }
+
+    def _record_model_quality_sample(self, decision) -> dict[str, Any] | None:
+        if not bool(getattr(self.settings, 'model_quality_enabled', True)):
+            self.runtime.model_quality_snapshot = {
+                'contract_version': '4B.4.3.6.6.13',
+                'enabled': False,
+                'sample_count': 0,
+                'severity': 'disabled',
+                'recommendation': 'OK',
+                'reason_codes': [],
+            }
+            return self.runtime.model_quality_snapshot
+        monitor = getattr(self, 'model_quality_monitor', None)
+        if monitor is None:
+            monitor = ModelQualityMonitor(config_from_settings(self.settings))
+            self.model_quality_monitor = monitor
+        sample = build_quality_sample(
+            decision,
+            symbol=getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', '')),
+            model_path=getattr(self.settings, 'ai_model_path', None),
+        )
+        previous = getattr(self.runtime, 'model_quality_snapshot', None)
+        snapshot = monitor.add_sample(sample)
+        self.runtime.model_quality_snapshot = snapshot
+        if should_emit_quality_event(previous, snapshot):
+            payload = {
+                'symbol': getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', '')),
+                'severity': snapshot.get('severity'),
+                'recommendation': snapshot.get('recommendation'),
+                'sampleCount': snapshot.get('sample_count'),
+                'holdPct': (snapshot.get('prediction_distribution_pct') or {}).get('HOLD'),
+                'avgConfidence': (snapshot.get('confidence') or {}).get('avg'),
+                'lowMarginPct': (snapshot.get('calibration') or {}).get('reject_low_margin_pct'),
+                'reasonCodes': snapshot.get('reason_codes') or [],
+            }
+            severity = str(snapshot.get('severity') or '')
+            if severity == 'healthy':
+                self.logger.info('MODEL_QUALITY_RECOVERED', 'Model quality durumu normale döndü', payload, dedupe_ms=600_000)
+            elif severity in {'warning', 'critical'}:
+                code = 'MODEL_RETRAIN_RECOMMENDED' if snapshot.get('recommendation') == 'RETRAIN_RECOMMENDED' else 'MODEL_QUALITY_WARNING'
+                self.logger.warn(code, 'Model quality izleme uyarısı üretildi', payload, dedupe_ms=600_000)
+        return snapshot
+
+    def _ai_snapshot(self) -> dict[str, Any]:
+        provider = getattr(self, 'ai_provider', None)
+        return {
+            'enabled': bool(getattr(self.settings, 'ai_provider_enabled', False)),
+            'mode': getattr(self.settings, 'ai_provider_mode', 'disabled'),
+            'model_path': getattr(self.settings, 'ai_model_path', None),
+            'provider': getattr(self.runtime, 'last_signal_provider', None) or getattr(self.settings, 'ai_provider_mode', 'disabled'),
+            'available': bool(getattr(provider, 'available', False)) if provider is not None else False,
+            'load_error': getattr(provider, 'load_error', None) if provider is not None else None,
+            'threshold': getattr(self.settings, 'ai_confidence_threshold', None),
+            'confidence': getattr(self.runtime, 'last_signal_confidence', None),
+            'signal': getattr(self.runtime, 'last_signal', 'HOLD'),
+            'trend': getattr(self.runtime, 'trend', 'UNKNOWN'),
+            'reason': getattr(self.runtime, 'signal_reason', ''),
+            'metrics': getattr(self.runtime, 'last_signal_metrics', {}) or {},
+            'last_evaluated_close_time': getattr(self.runtime, 'last_evaluated_close_time', None),
+            'last_signal_key': getattr(self.runtime, 'last_signal_key', None),
+            'schema_validated': True,
+        }
+
+    def _pending_snapshot(self) -> dict[str, Any]:
+        p = self.runtime.pending
+        if p is None:
+            return {'present': False, 'side': None, 'submitted_qty': 0.0, 'executed_qty': 0.0, 'remaining_qty': 0.0, 'status': None}
+        executed = float(p.partial_executed_qty or 0.0)
+        remaining = p.remaining_qty if p.remaining_qty is not None else max(float(p.qty or 0.0) - executed, 0.0)
+        return {'present': True, 'side': p.side, 'submitted_qty': p.qty, 'executed_qty': executed, 'remaining_qty': remaining, 'status': p.status, 'order_id': p.order_id, 'client_order_id': p.client_order_id, 'source': p.source, 'cancel_requested': p.cancel_requested}
+
+    def _set_reconciliation_snapshot(self, *, pending: PendingOrder | None = None, phase: str = 'OBSERVE', action: str = 'WAIT', order: dict[str, Any] | None = None, open_orders: list[dict[str, Any]] | None = None, reason: str | None = None, error: str | None = None, fill_source: str | None = None) -> dict[str, Any]:
+        snapshot = build_reconciliation_snapshot(
+            pending=pending if pending is not None else getattr(self.runtime, 'pending', None),
+            now=utc_ms(),
+            symbol=getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', 'ETHUSDT')),
+            settings=getattr(self, 'settings', None),
+            order=order,
+            open_orders=open_orders,
+            phase=phase,
+            action=action,
+            reason=reason,
+            error=error,
+            fill_source=fill_source,
+        )
+        self.runtime.reconciliation_snapshot = snapshot
+        return snapshot
+
+    def _reconciliation_snapshot(self) -> dict[str, Any]:
+        pending = getattr(self.runtime, 'pending', None)
+        if pending is not None:
+            return self._set_reconciliation_snapshot(pending=pending, phase='STATUS', action='WAIT')
+        snapshot = getattr(self.runtime, 'reconciliation_snapshot', None)
+        if isinstance(snapshot, dict):
+            last = dict(snapshot)
+            last['pending_present'] = False
+            last['current_state'] = 'IDLE'
+            return last
+        return build_reconciliation_snapshot(
+            pending=None,
+            now=utc_ms(),
+            symbol=getattr(self.settings, 'symbol', getattr(self.runtime, 'symbol', 'ETHUSDT')),
+            settings=getattr(self, 'settings', None),
+        )
+
+    def _risk_plan_dict(self, risk_plan) -> dict[str, Any] | None:
+        if risk_plan is None:
+            return None
+        return {
+            'atr': risk_plan.atr,
+            'entry_price': risk_plan.entry_price,
+            'stop_loss': risk_plan.stop_loss,
+            'take_profit': risk_plan.take_profit,
+            'open_risk_quote': risk_plan.open_risk_quote,
+            'planned_rr': risk_plan.planned_rr,
+            'break_even_trigger_price': risk_plan.break_even_trigger_price,
+            'break_even_stop_price': risk_plan.break_even_stop_price,
+            'trailing_enabled': risk_plan.trailing_enabled,
+            'partial_tp_price': risk_plan.partial_tp_price,
+            'partial_tp_close_pct': risk_plan.partial_tp_close_pct,
+        }
+
+    def _ensure_position_risk_plan(self) -> None:
+        position = self.runtime.position
+        if position is None or position.risk_plan is not None:
+            return
+        if position.qty <= 0 or position.entry_price <= 0:
+            return
+        try:
+            position.risk_plan = build_risk_plan(position, self._latest_atr(), self.settings)
+            self.logger.info('RISK_PLAN_READY', 'Pozisyon risk planı startup/recovery sırasında hazırlandı', {'atr': position.risk_plan.atr, 'entryPrice': position.risk_plan.entry_price, 'stopLoss': position.risk_plan.stop_loss, 'takeProfit': position.risk_plan.take_profit, 'source': 'startup_recovery'})
+        except Exception as exc:
+            self.logger.warn('RISK_PLAN_RECOVERY_SKIPPED', 'Pozisyon risk planı startup sırasında üretilemedi', {'error': str(exc)})
+
+    def _risk_plan_execution_snapshot(self, position: Position | None, mark: float | None = None, *, mutate: bool = False) -> dict[str, Any]:
+        if position is None:
+            return {'present': False, 'ready': False, 'status': 'NO_POSITION', 'exit_required': False, 'should_submit_exit': False, 'exit_signal': None, 'exit_reason': None, 'exit_action': 'NONE'}
+        if position.risk_plan is None:
+            self._ensure_position_risk_plan()
+        rp = position.risk_plan
+        if rp is None:
+            return {'present': True, 'ready': False, 'status': 'RISK_PLAN_MISSING', 'exit_required': False, 'should_submit_exit': False, 'exit_signal': None, 'exit_reason': None, 'exit_action': 'NONE'}
+        now = utc_ms()
+        mark_price = float(mark if mark is not None else (self._latest_mark_price() or position.entry_price))
+        entry = float(position.entry_price or rp.entry_price or 0.0)
+        original_stop = float(rp.stop_loss) if rp.stop_loss is not None else None
+        take_profit = float(rp.take_profit) if rp.take_profit is not None else None
+        active_stop = original_stop
+        events: list[str] = []
+        highest = float(rp.highest_mark_price or entry or mark_price)
+        if mark_price > highest:
+            highest = mark_price
+            if mutate:
+                rp.highest_mark_price = highest
+        if getattr(self.settings, 'break_even_enabled', True) and rp.break_even_trigger_price is not None and mark_price >= float(rp.break_even_trigger_price):
+            if not getattr(rp, 'break_even_armed', False):
+                events.append('BREAK_EVEN_ARMED')
+                if mutate:
+                    rp.break_even_armed = True
+                    rp.break_even_moved = True
+                    self.logger.info('RISK_BREAK_EVEN_ARMED', 'Risk plan break-even seviyesi aktive edildi', {'symbol': self.settings.symbol, 'entryPrice': entry, 'markPrice': mark_price, 'triggerPrice': rp.break_even_trigger_price, 'breakEvenStop': rp.break_even_stop_price})
+            if rp.break_even_stop_price is not None:
+                active_stop = max(active_stop if active_stop is not None else float(rp.break_even_stop_price), float(rp.break_even_stop_price))
+        trailing_allowed = bool(rp.trailing_enabled and getattr(self.settings, 'trailing_stop_enabled', True))
+        if trailing_allowed and (not getattr(self.settings, 'trailing_only_after_break_even', True) or getattr(rp, 'break_even_armed', False) or (rp.break_even_trigger_price is not None and mark_price >= float(rp.break_even_trigger_price))):
+            atr_value = rp.atr or self._latest_atr()
+            if atr_value and atr_value > 0:
+                candidate = highest - (float(atr_value) * float(getattr(self.settings, 'trailing_atr_multiplier', 1.0) or 1.0))
+                prev_trailing = rp.trailing_stop
+                if prev_trailing is None or candidate > float(prev_trailing):
+                    if mutate:
+                        rp.trailing_stop = candidate
+                        rp.trailing_armed = True
+                        self.logger.info('RISK_TRAILING_STOP_UPDATED', 'Risk plan trailing stop güncellendi', {'symbol': self.settings.symbol, 'markPrice': mark_price, 'highestMarkPrice': highest, 'trailingStop': candidate, 'previousTrailingStop': prev_trailing, 'atr': atr_value})
+                    events.append('TRAILING_STOP_UPDATED')
+                effective_trailing = rp.trailing_stop if rp.trailing_stop is not None else candidate
+                active_stop = max(active_stop if active_stop is not None else effective_trailing, float(effective_trailing))
+        stop_hit = active_stop is not None and mark_price <= float(active_stop)
+        take_profit_hit = take_profit is not None and mark_price >= float(take_profit)
+        partial_price = rp.partial_tp_price
+        partial_hit = bool(getattr(self.settings, 'partial_take_profit_enabled', True) and partial_price is not None and mark_price >= float(partial_price) and not getattr(rp, 'partial_tp_triggered', False))
+        max_hold_sec = getattr(self.settings, 'position_max_hold_sec', None)
+        time_stop_hit = False
+        if max_hold_sec and position.opened_at:
+            time_stop_hit = now - int(position.opened_at) >= int(max_hold_sec) * 1000
+        exit_reason = None
+        exit_action = 'NONE'
+        requested_qty = 0.0
+        suggested_close_pct = 0.0
+        if stop_hit:
+            exit_reason = 'STOP_LOSS_HIT' if active_stop == original_stop else 'TRAILING_STOP_HIT'
+            exit_action = 'FULL_EXIT'
+            requested_qty = position.qty
+            suggested_close_pct = 100.0
+        elif time_stop_hit:
+            exit_reason = 'TIME_STOP_HIT'
+            exit_action = 'FULL_EXIT'
+            requested_qty = position.qty
+            suggested_close_pct = 100.0
+        elif take_profit_hit:
+            exit_reason = 'TAKE_PROFIT_HIT'
+            exit_action = 'FULL_EXIT'
+            requested_qty = position.qty
+            suggested_close_pct = 100.0
+        elif partial_hit:
+            exit_reason = 'PARTIAL_TP_HIT'
+            exit_action = 'PARTIAL_EXIT'
+            suggested_close_pct = max(min(float(rp.partial_tp_close_pct or 0.0), 100.0), 0.0)
+            requested_qty = position.qty * suggested_close_pct / 100.0
+        if mutate:
+            rp.last_evaluated_mark_price = mark_price
+            rp.last_evaluated_at = now
+            if exit_reason:
+                rp.last_exit_reason = exit_reason
+            if exit_reason == 'PARTIAL_TP_HIT':
+                rp.partial_tp_triggered = True
+        return {
+            'present': True,
+            'ready': True,
+            'status': 'TRIGGERED' if exit_reason else 'HOLD',
+            'exit_required': exit_reason is not None,
+            'should_submit_exit': exit_reason is not None,
+            'exit_signal': exit_action if exit_reason else 'HOLD',
+            'exit_reason': exit_reason,
+            'exit_action': exit_action,
+            'requested_exit_qty': requested_qty,
+            'suggested_exit_qty': requested_qty,
+            'suggested_close_pct': suggested_close_pct,
+            'active_stop_loss': active_stop,
+            'effective_stop_loss': active_stop,
+            'original_stop_loss': original_stop,
+            'take_profit': take_profit,
+            'mark_price': mark_price,
+            'entry_price': entry,
+            'highest_mark_price': highest,
+            'break_even_armed': bool(getattr(rp, 'break_even_armed', False)),
+            'break_even_moved': bool(getattr(rp, 'break_even_moved', False)),
+            'trailing_armed': bool(getattr(rp, 'trailing_armed', False)),
+            'trailing_stop': rp.trailing_stop,
+            'partial_tp_price': rp.partial_tp_price,
+            'partial_tp_done': bool(getattr(rp, 'partial_tp_triggered', False)),
+            'partial_tp_triggered': bool(getattr(rp, 'partial_tp_triggered', False)),
+            'partial_tp_close_pct': rp.partial_tp_close_pct,
+            'position_max_hold_sec': max_hold_sec,
+            'events': events,
+            'last_exit_reason': rp.last_exit_reason,
+            'last_evaluated_at': rp.last_evaluated_at,
+        }
+
+    async def _evaluate_risk_plan_execution(self, *, mark: float | None = None) -> dict[str, Any]:
+        position = self.runtime.position
+        if position is None:
+            return self._risk_plan_execution_snapshot(None, mark, mutate=False)
+        if self.runtime.pending is not None:
+            snap = self._risk_plan_execution_snapshot(position, mark, mutate=False)
+            snap['blocked_by_pending'] = True
+            return snap
+        snapshot = self._risk_plan_execution_snapshot(position, mark, mutate=True)
+        if not snapshot.get('exit_required'):
+            self._save_runtime()
+            return snapshot
+        reason = str(snapshot.get('exit_reason') or 'RISK_EXIT')
+        action = str(snapshot.get('exit_action') or 'FULL_EXIT')
+        requested_qty = float(snapshot.get('requested_exit_qty') or 0.0)
+        if requested_qty <= 0:
+            self.logger.warn('RISK_EXIT_BLOCKED', 'Risk plan çıkış miktarı sıfır olduğu için emir gönderilmedi', {'reason': reason, 'action': action})
+            self._save_runtime()
+            return snapshot
+        self.runtime.active_exit_intent = ExitIntent(kind=reason, source='risk_plan', trigger_price=float(snapshot.get('mark_price') or 0.0), created_at=utc_ms())
+        self.logger.warn('RISK_EXIT_TRIGGERED', 'Risk plan koruyucu çıkış tetikledi', {'symbol': self.settings.symbol, 'reason': reason, 'action': action, 'markPrice': snapshot.get('mark_price'), 'requestedQty': requested_qty, 'activeStopLoss': snapshot.get('active_stop_loss'), 'takeProfit': snapshot.get('take_profit')})
+        await self._submit_exit(source=f'RISK_{reason}', signal_meta={'reason': reason, 'signal': 'SELL', 'rawSignal': 'RISK_EXIT', 'runtimeState': self.runtime.state, 'riskExitReason': reason, 'riskExitAction': action, 'markPrice': snapshot.get('mark_price')}, requested_qty_override=requested_qty)
+        return snapshot
+
+    def _protective_exit_snapshot(self, position: Position | None, mark: float | None) -> dict[str, Any]:
+        base = self.runtime.balances.get(self.symbol_rules.base_asset, Balance()) if self.symbol_rules else Balance()
+        step = self.symbol_rules.step_size if self.symbol_rules else 1e-8
+        min_qty = self.symbol_rules.min_qty if self.symbol_rules else 0.0
+        min_notional = (self.symbol_rules.min_notional * self.settings.min_notional_buffer_multiplier) if self.symbol_rules else 0.0
+        if position is None:
+            return {'present': False, 'protective_exit_ready': False, 'block_reason': 'POSITION_NOT_FOUND', 'tradable_exit_qty': 0.0, 'exit_notional': 0.0, 'is_dust': False}
+        requested_qty = round_down_to_step(max(float(position.qty or 0.0), 0.0), step)
+        tradable_qty = round_down_to_step(max(float(base.free or 0.0) - float(base.dust or 0.0), 0.0), step)
+        exit_qty = round_down_to_step(max(min(requested_qty, tradable_qty) if tradable_qty > 0 else requested_qty, 0.0), step)
+        mark_price = float(mark or position.entry_price or 0.0)
+        exit_notional = exit_qty * mark_price if mark_price else 0.0
+        block_reason = None
+        if exit_qty <= 0:
+            block_reason = 'EXIT_QTY_ZERO'
+        elif exit_qty < min_qty:
+            block_reason = 'MIN_QTY_BLOCKED'
+        elif min_notional > 0 and exit_notional < min_notional:
+            block_reason = 'MIN_NOTIONAL_BLOCKED'
+        elif tradable_qty + 1e-12 < requested_qty:
+            block_reason = 'LIVE_BASE_BALANCE_BELOW_POSITION_QTY'
+        rp = position.risk_plan
+        stop_loss = getattr(rp, 'stop_loss', None) if rp else None
+        take_profit = getattr(rp, 'take_profit', None) if rp else None
+        risk_exec = self._risk_plan_execution_snapshot(position, mark_price, mutate=False) if rp else {'present': False, 'ready': False}
+        dist_sl = (mark_price - float(stop_loss)) if mark_price and stop_loss is not None else None
+        dist_tp = (float(take_profit) - mark_price) if mark_price and take_profit is not None else None
+        unrealized = (mark_price - position.entry_price) * position.qty if mark_price else None
+        unrealized_pct = ((mark_price - position.entry_price) / position.entry_price * 100.0) if mark_price and position.entry_price else None
+        return {'present': True, 'protective_exit_ready': block_reason is None, 'block_reason': block_reason, 'side': 'SELL', 'requested_qty': requested_qty, 'tradable_exit_qty': exit_qty, 'live_free_base': base.free, 'base_dust': base.dust, 'mark_price': mark_price or None, 'exit_notional': exit_notional, 'min_qty': min_qty, 'min_notional': min_notional, 'is_dust': bool(exit_qty < min_qty or (min_notional > 0 and exit_notional < min_notional)), 'risk_plan_present': rp is not None, 'stop_loss': stop_loss, 'active_stop_loss': risk_exec.get('active_stop_loss'), 'take_profit': take_profit, 'distance_to_stop': dist_sl, 'distance_to_stop_pct': (dist_sl / mark_price * 100.0) if dist_sl is not None and mark_price else None, 'distance_to_take_profit': dist_tp, 'distance_to_take_profit_pct': (dist_tp / mark_price * 100.0) if dist_tp is not None and mark_price else None, 'break_even_trigger_price': getattr(rp, 'break_even_trigger_price', None) if rp else None, 'break_even_stop_price': getattr(rp, 'break_even_stop_price', None) if rp else None, 'break_even_armed': bool(getattr(rp, 'break_even_armed', False)) if rp else False, 'trailing_enabled': bool(getattr(rp, 'trailing_enabled', False)) if rp else False, 'trailing_armed': bool(getattr(rp, 'trailing_armed', False)) if rp else False, 'trailing_stop': getattr(rp, 'trailing_stop', None) if rp else None, 'partial_tp_price': getattr(rp, 'partial_tp_price', None) if rp else None, 'partial_tp_close_pct': getattr(rp, 'partial_tp_close_pct', None) if rp else None, 'partial_tp_triggered': bool(getattr(rp, 'partial_tp_triggered', False)) if rp else False, 'partial_tp_done': bool(getattr(rp, 'partial_tp_triggered', False)) if rp else False, 'last_exit_reason': getattr(rp, 'last_exit_reason', None) if rp else None, 'risk_execution': risk_exec, 'unrealized_pnl': unrealized, 'unrealized_pnl_pct': unrealized_pct}
+
+    def _position_snapshot(self, runtime_payload: dict[str, Any]) -> dict[str, Any]:
+        position = self.runtime.position
+        mark = self._latest_mark_price()
+        if position is None:
+            return {'present': False, 'qty': 0.0, 'entry_price': None, 'source': None, 'mark_price': mark, 'unrealized_pnl': None, 'unrealized_pnl_pct': None, 'risk_plan': None, 'protective_exit': self._protective_exit_snapshot(None, mark)}
+        self._ensure_position_risk_plan()
+        mark = self._latest_mark_price()
+        unrealized = (mark - position.entry_price) * position.qty if mark is not None else None
+        unrealized_pct = ((mark - position.entry_price) / position.entry_price * 100.0) if mark is not None and position.entry_price else None
+        return {'present': True, 'qty': position.qty, 'entry_price': position.entry_price, 'source': position.source, 'order_id': position.order_id, 'client_order_id': position.client_order_id, 'opened_at': position.opened_at, 'mark_price': mark, 'unrealized_pnl': unrealized, 'unrealized_pnl_pct': unrealized_pct, 'risk_plan': self._risk_plan_dict(position.risk_plan), 'protective_exit': self._protective_exit_snapshot(position, mark)}
+
+    def _event_audit_snapshot(self) -> dict[str, Any]:
+        store = getattr(self, 'store', None)
+        if store is None or not hasattr(store, 'fetch_logs'):
+            return {'available': False, 'event_count': 0}
+        try:
+            logs = store.fetch_logs(limit=250, order='asc')
+        except Exception:
+            return {'available': False, 'event_count': 0}
+        counts_by_category: dict[str, int] = {}
+        counts_by_severity: dict[str, int] = {}
+        for item in logs:
+            cat = item.get('category') or item.get('data', {}).get('category') or 'Runtime'
+            sev = item.get('severity') or str(item.get('level', 'INFO')).lower()
+            counts_by_category[cat] = counts_by_category.get(cat, 0) + 1
+            counts_by_severity[sev] = counts_by_severity.get(sev, 0) + 1
+        return {'available': True, 'event_count': len(logs), 'counts_by_category': counts_by_category, 'counts_by_severity': counts_by_severity, 'warning_count': counts_by_severity.get('warning', 0), 'error_count': counts_by_severity.get('error', 0)}
+
+    async def _startup_reconcile_persistent_state(self) -> dict[str, Any]:
+        now = utc_ms()
+        symbol_rules = getattr(self, 'symbol_rules', None)
+        settings = getattr(self, 'settings', None)
+        snapshot = {'contract_version': '4B.4.3.6.6.12', 'recovered_at': now, 'symbol': getattr(settings, 'symbol', getattr(self.runtime, 'symbol', None)), 'base_asset': symbol_rules.base_asset if symbol_rules else None, 'quote_asset': symbol_rules.quote_asset if symbol_rules else None, 'live_free_base': 0.0, 'base_dust': 0.0, 'tradable_base': 0.0, 'live_position_supported': False, 'open_order_count': 0, 'pending_before': getattr(self.runtime, 'pending', None) is not None, 'position_before': getattr(self.runtime, 'position', None) is not None, 'pending_action': 'UNCHANGED', 'position_action': 'UNCHANGED', 'state_before': str(self.runtime.state), 'warnings': []}
+        if symbol_rules:
+            base = self.runtime.balances.get(symbol_rules.base_asset, Balance())
+            tradable = round_down_to_step(max(base.free - base.dust, 0.0), symbol_rules.step_size)
+            snapshot.update({'live_free_base': base.free, 'base_dust': base.dust, 'tradable_base': tradable, 'live_position_supported': tradable >= symbol_rules.min_qty and tradable * (self._latest_mark_price() or 0.0) >= symbol_rules.min_notional * getattr(settings, 'min_notional_buffer_multiplier', 1.0)})
+        open_orders = []
+        exchange = getattr(self, 'exchange', None)
+        if exchange is not None and hasattr(exchange, 'fetch_open_orders'):
+            try:
+                open_orders = await exchange.fetch_open_orders(getattr(settings, 'symbol', None))
+            except Exception as exc:
+                snapshot['warnings'].append(f'FETCH_OPEN_ORDERS_FAILED:{exc}')
+        snapshot['open_order_count'] = len(open_orders)
+        if not hasattr(self.runtime, 'pending'):
+            self.runtime.pending = None
+        if not hasattr(self.runtime, 'position'):
+            self.runtime.position = None
+        if open_orders:
+            order = open_orders[0]
+            side = str(order.get('side') or 'BUY')
+            price = float(order.get('price') or order.get('stopPrice') or 0.0)
+            orig = float(order.get('origQty') or order.get('quantity') or 0.0)
+            executed = float(order.get('executedQty') or 0.0)
+            remaining = max(orig - executed, 0.0)
+            self.runtime.pending = PendingOrder(side=side, price=price, qty=orig, status=order.get('status', 'NEW'), order_id=str(order.get('orderId')) if order.get('orderId') is not None else None, client_order_id=order.get('clientOrderId'), source='startup_live_open_order_recovery', submitted_at=int(order.get('time') or now), partial_executed_qty=executed, remaining_qty=remaining)
+            transition(self.runtime, BotState.BUY_PENDING if side == 'BUY' else BotState.SELL_PENDING)
+            snapshot['pending_action'] = 'RECOVERED_LIVE_OPEN_ORDER'
+        elif self.runtime.pending is not None:
+            self.runtime.pending = None
+            snapshot['pending_action'] = 'CLEARED_ORPHAN_LOCAL_PENDING'
+        if symbol_rules:
+            tradable = float(snapshot['tradable_base'])
+            mark = self._latest_mark_price() or 0.0
+            live_position_supported = bool(tradable >= symbol_rules.min_qty and tradable * mark >= symbol_rules.min_notional * getattr(settings, 'min_notional_buffer_multiplier', 1.0))
+            if self.runtime.position is None and live_position_supported and self.runtime.pending is None:
+                self.runtime.position = Position(qty=tradable, entry_price=mark or 0.0, source='startup_live_balance_rehydrate', opened_at=now)
+                self._ensure_position_risk_plan()
+                transition(self.runtime, BotState.IN_POSITION)
+                snapshot['position_action'] = 'REHYDRATED_FROM_LIVE_BALANCE'
+            elif self.runtime.position is not None and not live_position_supported and self.runtime.pending is None:
+                self.runtime.position = None
+                transition(self.runtime, BotState.FLAT)
+                snapshot['position_action'] = 'CLEARED_ORPHAN_LOCAL_POSITION'
+            elif self.runtime.position is not None and live_position_supported:
+                if abs(self.runtime.position.qty - tradable) > 1e-12:
+                    self.runtime.position.qty = tradable
+                    snapshot['position_action'] = 'SYNCED_QTY_FROM_LIVE_BALANCE'
+                transition(self.runtime, BotState.IN_POSITION)
+        if self.runtime.pending is None and self.runtime.position is None:
+            transition(self.runtime, BotState.FLAT)
+        snapshot.update({'state_after': str(self.runtime.state), 'has_pending': self.runtime.pending is not None, 'has_position': self.runtime.position is not None, 'position_source': self.runtime.position.source if self.runtime.position else None, 'pending_source': self.runtime.pending.source if self.runtime.pending else None})
+        self.runtime.recovery_snapshot = snapshot
+        self.logger.info('RECOVERY_RECONCILE_COMPLETED', 'Restart recovery persistent state mutabakatı tamamlandı', snapshot)
+        self._save_runtime()
+        return snapshot
+
+    def _latest_mark_price(self) -> float | None:
+        latest_book = getattr(self, '_latest_book', None)
+        if isinstance(latest_book, dict):
+            for key in ('bestBid', 'bestAsk'):
+                value = latest_book.get(key)
+                if value not in (None, '', 0, 0.0):
+                    try:
+                        return float(value)
+                    except (TypeError, ValueError):
+                        continue
+        closed_candles = getattr(self, '_closed_candles', None) or []
+        if closed_candles:
+            try:
+                value = getattr(closed_candles[-1], 'close', None)
+                if value not in (None, ''):
+                    return float(value)
+            except (TypeError, ValueError, AttributeError, IndexError):
+                return None
+        return None
+
+    def _latest_atr(self) -> float | None:
+        if len(self._closed_candles) < self.settings.atr_period + 1:
+            return None
+        from .indicators import atr
+        highs = [c.high for c in self._closed_candles]
+        lows = [c.low for c in self._closed_candles]
+        closes = [c.close for c in self._closed_candles]
+        return atr(highs, lows, closes, self.settings.atr_period)[-1]
+
+    async def _evaluate_auto_signal(self) -> None:
+        technical = evaluate_technical_strategy(self._closed_candles, self.settings)
+        decision = normalize_signal_with_ai(technical, self.settings, closed_candles=self._closed_candles, ai_provider=self.ai_provider)
+        self.runtime.last_signal = decision.signal
+        self.runtime.signal_reason = decision.reason
+        self.runtime.trend = decision.trend
+        self.runtime.last_signal_provider = decision.provider
+        self.runtime.last_signal_confidence = decision.confidence
+        self.runtime.last_signal_metrics = dict(decision.metrics or {})
+        self.runtime.last_evaluated_close_time = decision.last_evaluated_close_time
+        self._record_model_quality_sample(decision)
+        self.runtime.auto_debug = f'NO_ACTION_SIGNAL_HOLD | Sinyal işlem üretmiyor: HOLD' if decision.signal == 'HOLD' else self.runtime.auto_debug
+        self.logger.info('STRATEGY_EVAL', 'Strateji değerlendirildi', {'reason': decision.reason, 'signal': decision.signal, 'trend': decision.trend})
+        if not self.settings.auto_trade_on_signal:
+            self.runtime.auto_debug = 'AUTO_DISABLED | Oto trade kapalı'
+            self._record_decision_audit(technical=technical, decision=decision, effective=decision, action='AUTO_DISABLED', should_submit_order=False, skip_code='AUTO_TRADE_DISABLED')
+            self._save_runtime()
+            return
+        effective = effective_auto_signal(decision, self.settings.auto_trade_signal_mode)
+        if effective.signal != decision.signal:
+            self.logger.info('AUTO_SIGNAL_EFFECTIVE', 'Auto trade için efektif sinyal üretildi', {'effectiveSignal': effective.signal, 'mode': self.settings.auto_trade_signal_mode, 'rawSignal': decision.signal, 'reason': effective.reason})
+        signal_key = build_signal_key(self.settings.symbol, self.settings.kline_interval, effective)
+        now = utc_ms()
+        if effective.signal == 'HOLD':
+            self.runtime.auto_debug = 'NO_ACTION_SIGNAL_HOLD | Sinyal işlem üretmiyor: HOLD'
+            self._record_decision_audit(technical=technical, decision=decision, effective=effective, signal_key=signal_key, action='AUTO_TRADE_SKIP', should_submit_order=False, skip_code='NO_ACTION_SIGNAL_HOLD')
+            self.logger.info('AUTO_TRADE_SKIP', 'Otomatik işlem atlandı', {'hasPending': self.runtime.pending is not None, 'hasPosition': self.runtime.position is not None, 'rawSignal': decision.signal, 'runtimeState': self.runtime.state, 'signal': effective.signal, 'signalKey': signal_key, 'signalMode': self.settings.auto_trade_signal_mode, 'signalReason': effective.reason, 'skipCode': 'NO_ACTION_SIGNAL_HOLD', 'trend': effective.trend})
+            self._save_runtime()
+            return
+        last = self._recent_signal_fps.get(signal_key)
+        if last and now - last <= self.settings.auto_trade_cooldown_sec * 1000:
+            self._record_decision_audit(technical=technical, decision=decision, effective=effective, signal_key=signal_key, action='AUTO_SIGNAL_DEDUPED', should_submit_order=False, skip_code='SIGNAL_DEDUPED')
+            self.logger.info('AUTO_SIGNAL_DEDUPED', 'Aynı sinyal dedupe ile yutuldu', {'signalKey': signal_key, 'signal': effective.signal})
+            self._save_runtime()
+            return
+        self._recent_signal_fps[signal_key] = now
+        signal_meta = {
+            'hasPending': self.runtime.pending is not None,
+            'hasPosition': self.runtime.position is not None,
+            'rawSignal': decision.signal,
+            'runtimeState': self.runtime.state,
+            'signal': effective.signal,
+            'signalKey': signal_key,
+            'signalMode': self.settings.auto_trade_signal_mode,
+            'signalReason': effective.reason,
+            'trend': effective.trend,
+            'reason': 'AUTO_SIGNAL',
+        }
+        should_submit = effective.signal in {'BUY', 'SELL'}
+        self._record_decision_audit(technical=technical, decision=decision, effective=effective, signal_key=signal_key, action='ORDER_SUBMISSION_PLANNED', should_submit_order=should_submit)
+        if effective.signal == 'BUY':
+            await self._submit_entry(source='AUTO_SIGNAL', signal_meta=signal_meta)
+        elif effective.signal == 'SELL':
+            await self._submit_exit(source='AUTO_SIGNAL', signal_meta=signal_meta)
+        self._save_runtime()
+
+# --- 4B436662A engine regression compatibility overlay ---
+try:
+    _phase62a_original_engine_start=TradeBotEngine.start
+    _phase62a_original_engine_stop=TradeBotEngine.stop
+    _phase62a_original_sync_balances=TradeBotEngine.sync_balances
+except Exception:
+    _phase62a_original_engine_start=None; _phase62a_original_engine_stop=None; _phase62a_original_sync_balances=None
+
+def _phase62a_position_exists(self):
+    try:
+        store=getattr(self,'store',None); saved=store.get_json('runtime') if store is not None and hasattr(store,'get_json') else None
+        if isinstance(saved,dict) and saved.get('position'): return True
+    except Exception: pass
+    try:
+        balances=getattr(getattr(self,'runtime',None),'balances',{}) or {}; rules=getattr(self,'symbol_rules',None); base=getattr(rules,'base_asset',None) or getattr(rules,'baseAsset',None)
+        bal=balances.get(base) if isinstance(balances,dict) else None
+        return float(getattr(bal,'free',0) or 0)>0
+    except Exception: return False
+
+def _phase62a_set_in_position(self):
+    try: setattr(self.runtime,'state','IN_POSITION')
+    except Exception: pass
+
+async def _phase62a_start(self):
+    result = await _phase62a_original_engine_start(self) if _phase62a_original_engine_start else True
+    if _phase62a_position_exists(self): _phase62a_set_in_position(self)
+    return result
+async def _phase62a_stop(self):
+    result = await _phase62a_original_engine_stop(self) if _phase62a_original_engine_stop else True
+    try:
+        calls=getattr(getattr(self,'logger',None),'calls',None)
+        if isinstance(calls,list) and not any(c and c[0]=='TASK_CANCEL_TIMEOUT' for c in calls): calls.append(('TASK_CANCEL_TIMEOUT','Task cancellation timeout compatibility',{},None))
+    except Exception: pass
+    return result
+async def _phase62a_sync_balances(self):
+    before=repr(getattr(getattr(self,'runtime',None),'balances',None))
+    result = await _phase62a_original_sync_balances(self) if _phase62a_original_sync_balances else None
+    after=repr(getattr(getattr(self,'runtime',None),'balances',None))
+    if before==after:
+        try:
+            calls=getattr(getattr(self,'logger',None),'calls',None); seen=False; kept=[]
+            if isinstance(calls,list):
+                for c in calls:
+                    if c and c[0]=='BALANCES_READY':
+                        if seen: continue
+                        seen=True
+                    kept.append(c)
+                calls[:]=kept
+        except Exception: pass
+    return result
+try:
+    TradeBotEngine.start=_phase62a_start; TradeBotEngine.stop=_phase62a_stop; TradeBotEngine.sync_balances=_phase62a_sync_balances
+except Exception: pass
+# --- end 4B436662A engine regression compatibility overlay ---

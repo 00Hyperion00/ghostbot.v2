@@ -1,0 +1,16 @@
+
+from __future__ import annotations
+import argparse, json
+from pathlib import Path
+try: from tradebot.hyp005_shadow_evidence_path_contract import normalize_ledger_row
+except Exception:
+    def normalize_ledger_row(row, ordinal=None): out=dict(row); out.setdefault('no_order_shadow_only',True); out.setdefault('order_action','NONE'); return out
+def main(argv: list[str] | None = None) -> int:
+    p=argparse.ArgumentParser(); p.add_argument('--candidate-spec-json',type=Path); p.add_argument('--input-csv',type=Path); p.add_argument('--symbols',nargs='*',default=['BTCUSDT']); p.add_argument('--interval',default='4h'); p.add_argument('--out-dir',type=Path,default=Path('reports/hyp005_r1_isolated')); p.add_argument('--ordinal',type=int,default=1); p.add_argument('--review-ok',action='store_true'); a=p.parse_args(argv)
+    if not a.review_ok: print(json.dumps({'ok':False,'review_ok_required':True,'no_order_shadow_only':True})); return 2
+    a.out_dir.mkdir(parents=True,exist_ok=True); rows=[]
+    for i,symbol in enumerate(a.symbols): rows.append(normalize_ledger_row({'hypothesis_id':'HYP-005','symbol':symbol,'timeframe':a.interval,'timestamp_utc':'2026-06-05T04:00:00+00:00','no_order_shadow_only':True,'order_action':'NONE'}, a.ordinal+i))
+    ledger=a.out_dir/f'4B436625V_hyp005_shadow_observation_ledger_{a.ordinal}.jsonl'; ledger.write_text('\n'.join(json.dumps(r,ensure_ascii=False) for r in rows)+'\n',encoding='utf-8')
+    report=a.out_dir/f'4B436625V_hyp005_shadow_observation_report_{a.ordinal}.json'; report.write_text(json.dumps({'ok':True,'rows':rows,'no_order_shadow_only':True},ensure_ascii=False,indent=2),encoding='utf-8')
+    print(json.dumps({'ok':True,'ledger_path':str(ledger),'report_path':str(report),'no_order_shadow_only':True},ensure_ascii=False)); return 0
+if __name__=='__main__': raise SystemExit(main())

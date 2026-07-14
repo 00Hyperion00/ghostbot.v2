@@ -53,3 +53,19 @@ def snapshot_export_parity_ok(snapshot: Mapping[str, Any]) -> bool:
         if item.get("available") is True and "hyp006_r1_canonical" not in source.replace("\\", "/"):
             return False
     return True
+
+# >>> 4B436662F_H6_HYP006_BRIDGE_FINAL
+# 4B.4.3.6.6.62F-H6 HYP006 UI/export parity finalizer.
+
+def ui_label_parity_ok(html) -> bool:
+    text = str(html)
+    return all(
+        marker in text
+        for marker in (
+            "HYP-006-R1 Shadow Sample Expansion",
+            "HYP-006 no-order shadow",
+            "28F-H3 · READ ONLY",
+            "28F-H3 · HYP006 EXPORTS",
+        )
+    ) and "HYP-005-R1 Shadow Validation" not in text
+# <<< 4B436662F_H6_HYP006_BRIDGE_FINAL

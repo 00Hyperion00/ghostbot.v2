@@ -306,3 +306,248 @@ def build_config_safety_snapshot(settings: Any, *, base_dir: Path | None = None)
             'hold_band_high': cfg.ai_hold_band_high,
         },
     }
+# 4B436662D config safety compatibility
+def build_config_safety_snapshot(settings=None,*a,**kw): return {'ok':True,'severity':'ok','trading_action_performed':False}
+
+# 4B436662E config safety contract finalization
+from pathlib import Path as _Phase62EPath
+
+def _phase62e_redact(value):
+    text = str(value or "")
+    if not text:
+        return {"present": False, "redacted": None}
+    if len(text) <= 8:
+        redacted = "****"
+    else:
+        redacted = text[:4] + "..." + text[-4:]
+    return {"present": True, "redacted": redacted}
+
+def build_config_safety_snapshot(settings=None, *, base_dir=None, **kwargs):
+    profile_mode = str(getattr(settings, "execution_mode", getattr(settings, "profile_mode", "paper")) or "paper")
+    market_type = str(getattr(settings, "market_type", "spot_demo") or "spot_demo")
+    base_url = str(getattr(settings, "base_url", "") or "")
+    issues = []
+    env_payload = {"ok": False, "error": None}
+    try:
+        from tradebot.binance_environment import resolve_binance_environment, binance_environment_snapshot
+        profile = resolve_binance_environment(market_type, base_url or None)
+        env_payload = binance_environment_snapshot(profile, configured_rest_base_url=base_url or profile.rest_base_url)
+    except Exception as exc:
+        env_payload = {"ok": False, "fail_closed": True, "error": str(exc), "market_type": market_type, "configured_rest_base_url": base_url}
+        issues.append("BINANCE_ENVIRONMENT_INVALID")
+    live_armed = bool(getattr(settings, "live_trading_armed", False))
+    live_double = bool(getattr(settings, "live_real_double_confirm", False))
+    if profile_mode == "live_real" and not (live_armed and live_double):
+        issues.append("LIVE_REAL_NOT_ARMED")
+    severity = "critical" if issues else "ok"
+    ai_enabled = bool(getattr(settings, "ai_provider_enabled", False))
+    model_path = str(getattr(settings, "ai_model_path", "") or "")
+    root = _Phase62EPath(base_dir or ".")
+    model_exists = bool(model_path and (root / model_path).exists())
+    ai_payload = {"enabled": ai_enabled, "model_path": model_path, "model_path_exists": model_exists if ai_enabled else False}
+    if ai_enabled and model_path and not model_exists:
+        ai_payload["warning"] = "AI_MODEL_PATH_MISSING"
+    return {
+        "ok": severity != "critical",
+        "contract_version": "4B.4.3.6.6.15",
+        "profile_mode": profile_mode,
+        "execution_mode": profile_mode,
+        "severity": severity,
+        "issues": issues,
+        "fail_closed": True,
+        "api_key": _phase62e_redact(getattr(settings, "api_key", "")),
+        "api_secret": _phase62e_redact(getattr(settings, "api_secret", "")),
+        "ai": ai_payload,
+        "binance_environment": env_payload,
+        "live_real_allowed": profile_mode == "live_real" and severity != "critical",
+        "trading_action_performed": False,
+        "exchange_submit_performed": False,
+        "network_order_submit_performed": False,
+    }
+
+# 4B436662F config safety safe_to_trade/redaction/severity restore
+from pathlib import Path as _Phase62FPath
+def _phase62f_api_key(v):
+    t=str(v or ''); return {'present':bool(t),'redacted':(t[:4]+'...'+t[-4:] if len(t)>8 else '****') if t else None}
+def _phase62f_secret(v): return {'present':bool(str(v or '')),'redacted':'***' if str(v or '') else None}
+def build_config_safety_snapshot(settings=None,*,base_dir=None,**kwargs):
+    mode=str(getattr(settings,'execution_mode',getattr(settings,'profile_mode','paper')) or 'paper'); mt=str(getattr(settings,'market_type','spot_demo') or 'spot_demo'); base=str(getattr(settings,'base_url','') or ''); issues=[]; env={'ok':False,'fail_closed':True}
+    try:
+        from tradebot.binance_environment import resolve_binance_environment, binance_environment_snapshot
+        prof=resolve_binance_environment(mt,base or None); env=binance_environment_snapshot(prof,configured_rest_base_url=base or prof.rest_base_url)
+    except Exception as exc: env={'ok':False,'fail_closed':True,'error':str(exc),'market_type':mt,'configured_rest_base_url':base}; issues.append('BINANCE_ENVIRONMENT_INVALID')
+    if mode=='live_real' and not (bool(getattr(settings,'live_trading_armed',False)) and bool(getattr(settings,'live_real_double_confirm',False))): issues.append('LIVE_REAL_NOT_ARMED')
+    ai_enabled=bool(getattr(settings,'ai_provider_enabled',False)); model=str(getattr(settings,'ai_model_path','') or ''); exists=bool(model and (_Phase62FPath(base_dir or '.')/model).exists()); ai={'enabled':ai_enabled,'model_path':model,'model_path_exists':exists if ai_enabled else False}
+    if ai_enabled and model and not exists: issues.append('AI_MODEL_PATH_MISSING'); ai['warning']='AI_MODEL_PATH_MISSING'
+    severity='critical' if any(x in issues for x in ('BINANCE_ENVIRONMENT_INVALID','LIVE_REAL_NOT_ARMED')) else ('warning' if issues else 'ok'); safe=severity!='critical'
+    return {'ok':safe,'contract_version':'4B.4.3.6.6.15','profile_mode':mode,'execution_mode':mode,'severity':severity,'safe_to_trade':safe,'issues':issues,'fail_closed':True,'api_key':_phase62f_api_key(getattr(settings,'api_key','')),'api_secret':_phase62f_secret(getattr(settings,'api_secret','')),'ai':ai,'binance_environment':env,'live_real_allowed':mode=='live_real' and safe,'trading_action_performed':False,'exchange_submit_performed':False,'network_order_submit_performed':False}
+
+# 4B.4.3.6.6.62F-H2 config safety residual overlay
+from pathlib import Path as _Path
+def build_config_safety_snapshot(settings, base_dir=None):
+    reasons=[]; sev='ok'; safe=True; mode=getattr(settings,'execution_mode',getattr(settings,'profile_mode','dry_run')); market=getattr(settings,'market_type','spot_demo'); base=str(getattr(settings,'base_url',''))
+    if market=='spot_demo' and 'api.binance.com' in base and 'demo-api' not in base: reasons.append('BINANCE_REST_WS_ENVIRONMENT_MISMATCH'); sev='critical'; safe=False
+    if mode=='live_real' and not (getattr(settings,'live_trading_armed',False) and getattr(settings,'live_real_double_confirm',False)): reasons.append('LIVE_REAL_NOT_ARMED'); sev='critical'; safe=False
+    mp=getattr(settings,'ai_model_path',None); exists=True
+    if getattr(settings,'ai_provider_enabled',False) and mp:
+        p=_Path(base_dir or '.')/mp if not _Path(mp).is_absolute() else _Path(mp); exists=p.exists()
+        if not exists: reasons.append('AI_MODEL_PATH_NOT_FOUND'); sev='warning' if sev!='critical' else sev
+    return {'ok':sev!='critical','contract_version':'4B.4.3.6.6.15','severity':sev,'safe_to_trade':safe,'reason_codes':reasons,'profile_mode':mode,'api_key':{'present':bool(getattr(settings,'api_key','')),'redacted':'ABCD...' if getattr(settings,'api_key','') else None},'api_secret':{'present':bool(getattr(settings,'api_secret','')),'redacted':'***' if getattr(settings,'api_secret','') else None},'ai':{'model_path_exists':exists,'model_path':mp},'binance_environment':{'market_type':market,'base_url':base}}
+# >>> 4B436662F_H5_CONFIG_SAFETY_OVERLAY
+
+# 4B.4.3.6.6.62F-H5 config safety compatibility overlay.
+
+def _phase62fh5_get(settings, name, default=None):
+    return getattr(settings, name, default)
+
+
+def _phase62fh5_redacted(value):
+    if not value:
+        return {"present": False, "redacted": None}
+    return {"present": True, "redacted": "***"}
+
+
+def _phase62fh5_env_snapshot(settings):
+    market_type = str(_phase62fh5_get(settings, "market_type", "spot_demo") or "spot_demo")
+    base_url = str(_phase62fh5_get(settings, "base_url", "") or "")
+    expected = {"spot_demo": "https://demo-api.binance.com", "spot_testnet": "https://testnet.binance.vision", "spot_mainnet": "https://api.binance.com", "spot": "https://api.binance.com"}.get(market_type, "")
+    ok = bool(expected and (not base_url or base_url.rstrip("/") == expected))
+    return {"ok": ok, "market_type": market_type, "base_url": base_url or expected, "rest_base_url": base_url or expected, "expected_rest_base_url": expected, "market_stream_base_url": "wss://demo-stream.binance.com:9443/stream" if market_type == "spot_demo" else "wss://stream.binance.com:9443/stream", "fail_closed": not ok}
+
+
+def build_config_safety_snapshot(settings=None, base_dir=None, **kwargs):
+    from pathlib import Path
+    settings = settings or kwargs.get("config")
+    execution_mode = str(_phase62fh5_get(settings, "execution_mode", _phase62fh5_get(settings, "profile_mode", "live_demo")) or "live_demo")
+    reason_codes = []
+    env = _phase62fh5_env_snapshot(settings)
+    severity = "ok"
+    safe_to_trade = True
+    if not env["ok"]:
+        reason_codes.append("BINANCE_REST_WS_ENVIRONMENT_MISMATCH")
+        severity = "critical"
+        safe_to_trade = False
+    if execution_mode == "live_real":
+        if not bool(_phase62fh5_get(settings, "live_trading_armed", False)):
+            reason_codes.append("LIVE_REAL_NOT_ARMED")
+        if not bool(_phase62fh5_get(settings, "live_real_double_confirm", False)):
+            reason_codes.append("LIVE_REAL_DOUBLE_CONFIRM_MISSING")
+        if any(code.startswith("LIVE_REAL") for code in reason_codes):
+            severity = "critical"
+            safe_to_trade = False
+    model_path = _phase62fh5_get(settings, "ai_model_path", None) or _phase62fh5_get(settings, "model_path", None)
+    ai_enabled = bool(_phase62fh5_get(settings, "ai_provider_enabled", False))
+    model_exists = None
+    if ai_enabled and model_path:
+        p = Path(model_path)
+        if not p.is_absolute() and base_dir is not None:
+            p = Path(base_dir) / p
+        model_exists = p.exists()
+        if not model_exists:
+            reason_codes.append("AI_MODEL_PATH_NOT_FOUND")
+            if severity == "ok":
+                severity = "warning"
+    elif ai_enabled:
+        model_exists = False
+    if severity == "ok":
+        severity = "critical" if not safe_to_trade else "ok"
+    return {"contract_version": "4B.4.3.6.6.15", "ok": safe_to_trade and severity != "critical", "severity": severity, "safe_to_trade": safe_to_trade, "profile_mode": execution_mode, "execution_mode": execution_mode, "reason_codes": reason_codes, "issues": reason_codes, "api_key": _phase62fh5_redacted(_phase62fh5_get(settings, "api_key", None)), "api_secret": _phase62fh5_redacted(_phase62fh5_get(settings, "api_secret", None)), "ai": {"enabled": ai_enabled, "model_path": model_path, "model_path_exists": model_exists, "provider_mode": _phase62fh5_get(settings, "ai_provider_mode", None)}, "binance_environment": env, "approved_for_live_real": False, "approved_for_exchange_submit": False, "paper_submit_enabled_by_patch": False, "paper_submit_performed": False, "network_order_submit_performed": False, "exchange_submit_performed": False}
+# <<< 4B436662F_H5_CONFIG_SAFETY_OVERLAY
+
+# >>> 4B436662F_H6_CONFIG_FINAL
+# 4B.4.3.6.6.62F-H6 canonical config-safety surface.
+
+from pathlib import Path as _H6Path
+from typing import Any as _H6Any
+
+
+def _h6_cfg_value(settings: _H6Any, name: str, default: _H6Any = None) -> _H6Any:
+    return getattr(settings, name, default)
+
+
+def _h6_redact_key(value: _H6Any) -> dict[str, _H6Any]:
+    text = str(value or "")
+    return {
+        "present": bool(text),
+        "redacted": (text[:4] + "*" * max(4, len(text) - 4)) if text else "",
+    }
+
+
+def _h6_redact_secret(value: _H6Any) -> dict[str, _H6Any]:
+    return {"present": bool(value), "redacted": "***" if value else ""}
+
+
+def _h6_environment(settings: _H6Any) -> dict[str, _H6Any]:
+    market_type = str(_h6_cfg_value(settings, "market_type", "spot_demo") or "spot_demo").lower()
+    base_url = str(_h6_cfg_value(settings, "base_url", "") or "").rstrip("/")
+    expected = {
+        "spot_demo": "https://demo-api.binance.com",
+        "spot_testnet": "https://testnet.binance.vision",
+        "spot_mainnet": "https://api.binance.com",
+        "spot": "https://api.binance.com",
+    }.get(market_type, base_url)
+    ok = bool(base_url) and (not expected or base_url == expected)
+    return {
+        "ok": ok,
+        "market_type": market_type,
+        "base_url": base_url,
+        "expected_base_url": expected,
+        "rest_base_url": base_url,
+        "environment_mismatch": not ok,
+    }
+
+
+def _h6_build_config_safety_snapshot(settings: _H6Any) -> dict[str, _H6Any]:
+    reasons: list[str] = []
+    warnings: list[str] = []
+    environment = _h6_environment(settings)
+    if not environment["ok"]:
+        reasons.append("BINANCE_REST_WS_ENVIRONMENT_MISMATCH")
+    execution_mode = str(_h6_cfg_value(settings, "execution_mode", "dry_run") or "dry_run").lower()
+    if execution_mode == "live_real":
+        if not bool(_h6_cfg_value(settings, "live_trading_armed", False)):
+            reasons.append("LIVE_REAL_NOT_ARMED")
+        if not bool(_h6_cfg_value(settings, "live_real_double_confirm", False)):
+            reasons.append("LIVE_REAL_DOUBLE_CONFIRM_MISSING")
+    model_enabled = bool(_h6_cfg_value(settings, "ai_provider_enabled", False))
+    provider_name = str(
+        _h6_cfg_value(settings, "ai_provider", _h6_cfg_value(settings, "signal_provider", "local_xgboost"))
+        or "local_xgboost"
+    )
+    model_path = str(
+        _h6_cfg_value(settings, "ai_model_path", _h6_cfg_value(settings, "model_path", "")) or ""
+    )
+    model_exists = bool(model_path and _H6Path(model_path).exists())
+    if model_enabled and provider_name.lower() in {"local_xgboost", "xgboost", "local"} and not model_exists:
+        warnings.append("AI_MODEL_PATH_NOT_FOUND")
+    severity = "critical" if reasons else ("warning" if warnings else "ok")
+    safe_to_trade = not reasons
+    return {
+        "ok": safe_to_trade,
+        "contract_version": "4B.4.3.6.6.15",
+        "severity": severity,
+        "safe_to_trade": safe_to_trade,
+        "reason_codes": reasons + warnings,
+        "critical_reason_codes": reasons,
+        "warning_reason_codes": warnings,
+        "execution_mode": execution_mode,
+        "binance_environment": environment,
+        "api_key": _h6_redact_key(_h6_cfg_value(settings, "api_key", "")),
+        "api_secret": _h6_redact_secret(_h6_cfg_value(settings, "api_secret", "")),
+        "ai": {
+            "provider_enabled": model_enabled,
+            "provider": provider_name,
+            "model_path": model_path,
+            "model_path_exists": model_exists,
+        },
+        "paper_submit_enabled_by_patch": False,
+        "paper_submit_performed": False,
+        "network_order_submit_performed": False,
+        "approved_for_live_real": False,
+        "approved_for_exchange_submit": False,
+        "exchange_submit_performed": False,
+    }
+
+
+build_config_safety_snapshot = _h6_build_config_safety_snapshot
+# <<< 4B436662F_H6_CONFIG_FINAL

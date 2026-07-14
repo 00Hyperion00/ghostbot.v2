@@ -1,0 +1,21 @@
+from __future__ import annotations
+
+from tradebot._production_hardening_compat import (
+    PHASE62C_PRODUCTION_HARDENING_COMPATIBILITY_VERSION,
+    RuntimeLockHandle,
+    acquire_runtime_lock,
+    build_production_hardening_snapshot,
+    canonical_evidence_commit_decision,
+    evaluate_promotion_gate,
+    release_runtime_lock,
+)
+
+__all__ = [
+    "PHASE62C_PRODUCTION_HARDENING_COMPATIBILITY_VERSION",
+    "RuntimeLockHandle",
+    "acquire_runtime_lock",
+    "build_production_hardening_snapshot",
+    "canonical_evidence_commit_decision",
+    "evaluate_promotion_gate",
+    "release_runtime_lock",
+]

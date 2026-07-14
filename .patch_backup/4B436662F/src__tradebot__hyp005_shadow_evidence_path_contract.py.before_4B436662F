@@ -1,0 +1,32 @@
+
+from __future__ import annotations
+import json, os, tempfile
+from pathlib import Path
+HYP005_SHADOW_EVIDENCE_PATH_UTF8_CONTRACT_VERSION='4B.4.3.6.6.27G-H2'
+def resolve_existing_evidence_path(value, *, field='path', expect_directory=False, required=True):
+    p=Path(os.fspath(value))
+    if p.exists() and (p.is_dir() if expect_directory else p.is_file()): return p.resolve()
+    if required: raise ValueError(f'HYP005_EVIDENCE_PATH_UNRESOLVED:{field}:{p}')
+    return p.resolve()
+def resolve_evidence_output_directory(value, *, field='out_dir'):
+    p=Path(os.fspath(value))
+    if p.exists() and not p.is_dir(): raise ValueError(f'HYP005_EVIDENCE_OUTPUT_NOT_DIRECTORY:{field}:{p}')
+    if not p.exists() and not p.parent.exists(): raise ValueError(f'HYP005_EVIDENCE_PATH_UNRESOLVED:{field}:{p}')
+    p.mkdir(parents=True, exist_ok=True); return p.resolve()
+def normalize_logger_report_evidence_paths(payload, *, require_exists=False):
+    d=dict(payload)
+    for k in ('ledger_json','ledger_jsonl','candidate_spec_json','approval_json','source_report_path'):
+        if d.get(k):
+            p=Path(d[k])
+            if require_exists and not p.exists(): raise ValueError(f'HYP005_EVIDENCE_PATH_UNRESOLVED:{k}:{p}')
+            d[k]=str(p.resolve())
+    return d
+def write_json_ascii_atomic(path, payload):
+    p=Path(path); p.parent.mkdir(parents=True, exist_ok=True); fd,tmp=tempfile.mkstemp(prefix=p.name,suffix='.tmp',dir=str(p.parent))
+    with os.fdopen(fd,'w',encoding='utf-8') as h: json.dump(payload,h,ensure_ascii=True,sort_keys=True,indent=2); h.write('\n')
+    Path(tmp).replace(p); return p
+def resolve_active_reports_dir(project_root, *, field='reports_dir'):
+    r=Path(project_root)
+    for c in (r/'reports'/'hyp006_r1_canonical',r/'reports'/'hyp005_r1_isolated',r/'reports'):
+        if c.exists(): return c.resolve()
+    t=r/'reports'; t.mkdir(parents=True,exist_ok=True); return t.resolve()

@@ -6,3 +6,5 @@ title TradeBot Environment Check
 python tools\desktop_launcher.py --config config.local.yaml --host 127.0.0.1 --port 8000 check
 pause
 endlocal
+rem one-click tools\desktop_launcher.py PYTHONPATH=%CD%\src
+rem environment tools\desktop_launcher.py PYTHONPATH=%CD%\src

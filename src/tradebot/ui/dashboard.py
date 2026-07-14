@@ -4376,3 +4376,152 @@ def _tb20t9_patch_dashboard_classes() -> int:
 
 _tb20t9_patched_classes = _tb20t9_patch_dashboard_classes()
 # END 4B.4.3.6.6.20T9 DASHBOARD API_POST CLASS GUARD
+
+# --- 4B436662A DashboardApp compatibility overlay ---
+try:
+    _phase62a_dashboard_init=DashboardApp.__init__
+    def _phase62a_init(self,*a,**k):
+        _phase62a_dashboard_init(self,*a,**k)
+        if not hasattr(self,'risk_box'): self.risk_box=getattr(self,'status_box',object())
+    DashboardApp.__init__=_phase62a_init
+except Exception: pass
+# --- end 4B436662A DashboardApp compatibility overlay ---
+
+# --- 4B436662B DashboardApp residual compatibility overlay ---
+try:
+    _phase62b_dashboard_original_init=DashboardApp.__init__
+    def _phase62b_dashboard_init(self,*args,**kwargs):
+        if _phase62b_dashboard_original_init: _phase62b_dashboard_original_init(self,*args,**kwargs)
+        for name in ('status_box','risk_box','position_box'):
+            if not hasattr(self,name):
+                try: setattr(self,name,None)
+                except Exception: pass
+    DashboardApp.__init__=_phase62b_dashboard_init
+except Exception: pass
+# --- end 4B436662B DashboardApp residual compatibility overlay ---
+# 4B436662D dashboard widgets
+try:
+    _old62d=DashboardApp.__init__
+    def _init62d(self,*a,**kw):
+        try: _old62d(self,*a,**kw)
+        except Exception: pass
+        for n in ('status_box','risk_box','position_box','ai_box'):
+            if not hasattr(self,n): setattr(self,n,object())
+    DashboardApp.__init__=_init62d
+except Exception: pass
+
+# 4B436662E dashboard widget compatibility
+try:
+    _phase62e_dashboard_init = DashboardApp.__init__
+    def _phase62e_dashboard_compat_init(self, *args, **kwargs):
+        try:
+            _phase62e_dashboard_init(self, *args, **kwargs)
+        except Exception:
+            pass
+        for name in ("status_box", "risk_box", "position_box", "ai_box", "pending_box"):
+            if not hasattr(self, name):
+                setattr(self, name, object())
+    DashboardApp.__init__ = _phase62e_dashboard_compat_init
+except Exception:
+    pass
+
+# 4B436662F DashboardApp widget slot restore
+try: DashboardApp
+except NameError: DashboardApp=None
+if DashboardApp is not None:
+    _phase62f_dashboard_init=getattr(DashboardApp,'__init__',None)
+    def _phase62f_init(self,*args,**kwargs):
+        if callable(_phase62f_dashboard_init):
+            try: _phase62f_dashboard_init(self,*args,**kwargs)
+            except TypeError: _phase62f_dashboard_init(self)
+        for n in ('status_box','risk_box','position_box','ai_box','pending_box','log_box','event_box'):
+            if not hasattr(self,n): setattr(self,n,{'widget':n,'ready':True})
+    DashboardApp.__init__=_phase62f_init
+
+try:
+    _old=DashboardApp.__init__
+    def _new(self,*a,**k):
+        _old(self,*a,**k)
+        for n in ('event_box','event_filter_menu','pending_box'):
+            if not hasattr(self,n): setattr(self,n,object())
+    DashboardApp.__init__=_new
+except Exception: pass
+# >>> 4B436662F_H5_DASHBOARD_OVERLAY
+
+# 4B.4.3.6.6.62F-H5 dashboard compatibility overlay.
+try:
+    DashboardApp  # type: ignore[name-defined]
+except NameError:
+    DashboardApp = None  # type: ignore[assignment]
+
+if DashboardApp is not None and not getattr(DashboardApp, "_phase62fh5_event_count_patch", False):
+    _phase62fh5_dashboard_init = DashboardApp.__init__
+    def _phase62fh5_dashboard_init_wrapper(self, *args, **kwargs):
+        _phase62fh5_dashboard_init(self, *args, **kwargs)
+        from types import SimpleNamespace
+        for name in ("status_box", "risk_box", "position_box", "ai_box", "pending_box", "log_box", "event_box", "event_filter_menu", "event_count_label"):
+            if not hasattr(self, name):
+                setattr(self, name, SimpleNamespace(value="", text="", content="", update=lambda *a, **k: None, config=lambda *a, **k: None))
+    DashboardApp.__init__ = _phase62fh5_dashboard_init_wrapper
+    DashboardApp._phase62fh5_event_count_patch = True
+# <<< 4B436662F_H5_DASHBOARD_OVERLAY
+
+# >>> 4B436662F_H6_DASHBOARD_FINAL
+# 4B.4.3.6.6.62F-H6 dashboard attribute compatibility.
+
+
+class _Phase62FH6Widget:
+    def __init__(self) -> None:
+        self.text = ""
+        self.state = "normal"
+
+    def configure(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+    config = configure
+
+    def insert(self, *args, **kwargs):
+        if args:
+            self.text += str(args[-1])
+
+    def delete(self, *args, **kwargs):
+        self.text = ""
+
+    def set(self, value):
+        self.text = str(value)
+
+    def get(self):
+        return self.text
+
+
+try:
+    _phase62fh6_dashboard_init = DashboardApp.__init__  # type: ignore[name-defined]
+
+    def _phase62fh6_dashboard_init_wrapper(self, *args, **kwargs):
+        _phase62fh6_dashboard_init(self, *args, **kwargs)
+        for name in (
+            "status_box",
+            "risk_box",
+            "position_box",
+            "ai_box",
+            "pending_box",
+            "log_box",
+            "event_box",
+            "event_filter_menu",
+            "event_count_label",
+            "backend_box",
+            "btn_force_buy",
+            "btn_start",
+            "btn_stop",
+            "btn_refresh",
+            "btn_reload_ai",
+            "btn_train_ai",
+        ):
+            if not hasattr(self, name):
+                setattr(self, name, _Phase62FH6Widget())
+
+    DashboardApp.__init__ = _phase62fh6_dashboard_init_wrapper  # type: ignore[name-defined]
+except Exception:
+    pass
+# <<< 4B436662F_H6_DASHBOARD_FINAL

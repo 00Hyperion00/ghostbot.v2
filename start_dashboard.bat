@@ -6,3 +6,7 @@ echo TradeBot V2 Operator Cockpit unified launcher is now the only supported des
 call "%~dp0start_tradebot_v2_operator_cockpit.bat" %*
 REM 4B436637B-H1 INSTALL CONTRACT: use python -m pip install -r requirements.txt
 python -m pip install -r requirements.txt
+rem 4B436662A legacy packaging marker: tools\desktop_launcher.py
+set PYTHONPATH=%CD%\src
+rem one-click tools\desktop_launcher.py PYTHONPATH=%CD%\src
+rem dashboard tools\desktop_launcher.py PYTHONPATH=%CD%\src

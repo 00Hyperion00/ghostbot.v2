@@ -1,0 +1,385 @@
+{
+  "actual_evidence_accepted_by_patch": false,
+  "actual_evidence_ingested_by_patch": false,
+  "approved_for_exchange_submit": false,
+  "approved_for_live_real": false,
+  "canonical_test_discovery_enabled": true,
+  "canonical_testpaths": [
+    "tests"
+  ],
+  "decision": "RELEASE_AUDIT_REPOSITORY_HYGIENE_PYTEST_COLLECTION_ISOLATION_READY_CANONICAL_TEST_DISCOVERY_CONFIGURED_NO_PAPER_SUBMIT_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "destructive_cleanup_performed": false,
+  "dry_run_execution_performed_by_patch": false,
+  "duplicate_test_module_mismatch_cleanup_performed_by_patch": false,
+  "duplicate_test_module_mismatch_prevention_configured": true,
+  "evidence_collection_performed_by_patch": false,
+  "exchange_submit_allowed": false,
+  "exchange_submit_enabled_by_patch": false,
+  "exchange_submit_performed": false,
+  "file_delete_performed": false,
+  "file_move_performed": false,
+  "final_phase_decision": "RELEASE_AUDIT_REPOSITORY_HYGIENE_CLOSURE_READY_PHASE61_CLOSED_PYTEST_COLLECTION_ISOLATED_LEGACY_DRIFT_REPORTED_NO_PAPER_SUBMIT_NO_NETWORK_ORDER_NO_LIVE_NO_EXCHANGE_SUBMIT_LOCKED",
+  "final_safety_violation_count": 0,
+  "final_safety_violations": [],
+  "generated_at_utc": "20260706T141641Z",
+  "ignored_collection_dir_patterns": [
+    "_patch_backup*",
+    "_patch_payload*",
+    "legacy_patches"
+  ],
+  "legacy_api_drift_fix_performed_by_patch": false,
+  "legacy_api_drift_report_only": true,
+  "legacy_api_drift_symbols_reported": [
+    "SQLITE_MIRROR_REQUIRED_DECISION",
+    "build_production_hardening_snapshot",
+    "OPERATOR_COCKPIT_V2_RISK_SIZING_AUDIT_PARITY"
+  ],
+  "legacy_collection_directories_detected": [
+    {
+      "excluded_by_pytest_config": true,
+      "path": "_patch_payload",
+      "pattern": "_patch_payload*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B.4.3.6.6.29E-H3_20260619T204053Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436625AEH5",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436625VH2",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627A",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627B",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627C",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627CH1",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627D",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627E",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627F",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627F_H1",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627G",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627GH1",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627GH1H1",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627GH2",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627GH4",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436627GH5",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436628C",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436628F_H1",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436628F_H2",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436628F_H3",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436629A_20260619T192809Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436629A_H1_20260619T193427Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436629B_20260619T194440Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436629C_20260619T195213Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436629C_H1_20260619T195829Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436629C_H2_20260619T200315Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436629E_20260619T202350Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436629E_H2_20260619T203510Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436630A-H1_20260619T214923Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436630A_20260619T214138Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436633D_H1_20260702T105646Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436633E_H1_20260702T111100Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436633F_H1_20260702T141550Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436633G_H1_20260702T144105Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436633H_H1_20260703T083302Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436633I_H1_20260703T085200Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436634A_H1_20260703T091902Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436634B_20260703T092659Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436634C_20260703T093734Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436634D_20260703T094551Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436634D_20260703T094556Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436634E_20260703T095041Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436634F_20260703T100140Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436634H_20260703T101459Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436634H_20260703T101538Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436637B_20260703T124051Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_backup_4B436637B_H1_20260703T124518Z",
+      "pattern": "_patch_backup*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_payload_4B436627G",
+      "pattern": "_patch_payload*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_payload_4B436627GH1H1",
+      "pattern": "_patch_payload*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_payload_4B436627GH2",
+      "pattern": "_patch_payload*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_payload_4B436628C",
+      "pattern": "_patch_payload*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_payload_4B436635F",
+      "pattern": "_patch_payload*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_payload_4B436635G",
+      "pattern": "_patch_payload*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_payload_4B436635H",
+      "pattern": "_patch_payload*"
+    },
+    {
+      "excluded_by_pytest_config": true,
+      "path": "tools/_patch_payload_4B436637B_H1",
+      "pattern": "_patch_payload*"
+    }
+  ],
+  "legacy_collection_directory_count": 57,
+  "live_real_approved_by_patch": false,
+  "live_real_submit_allowed": false,
+  "manual_governance_required_for_any_live_action": true,
+  "manual_operator_review_required_before_paper_submit": true,
+  "network_order_submit_allowed": false,
+  "network_order_submit_performed": false,
+  "network_request_performed": false,
+  "network_submit_allowed": false,
+  "next_phase": "4B.4.3.6.6.62A",
+  "next_phase_name": "Patch Artifact Consolidation / Repository Cleanup Review",
+  "next_phase_unlock_allowed": false,
+  "next_phase_unlock_performed": false,
+  "ok": true,
+  "order_path_opened_by_patch": false,
+  "paper_order_path_opened_by_patch": false,
+  "paper_order_submit_allowed": false,
+  "paper_order_submit_performed": false,
+  "paper_runtime_start_performed": false,
+  "paper_submit_allowed": false,
+  "paper_submit_enabled_by_patch": false,
+  "paper_submit_performed": false,
+  "paper_submit_performed_by_patch": false,
+  "paper_trading_evidence_collected_by_patch": false,
+  "paper_trading_soak_accepted_by_patch": false,
+  "paper_trading_soak_started_by_patch": false,
+  "patch_id": "4B436661",
+  "patch_name": "Release Audit / Repository Hygiene / Pytest Collection Isolation",
+  "patch_version": "4B.4.3.6.6.61",
+  "phase": 61,
+  "phase_61_closed": true,
+  "private_api_access_allowed": false,
+  "private_api_access_performed": false,
+  "project_root": "C:\\Users\\muhas\\OneDrive\\Masa\u00fcst\u00fc\\trade_botV2",
+  "pytest_collection_isolation_enabled": true,
+  "pytest_config": {
+    "canonical_test_discovery_configured": true,
+    "duplicate_test_module_mismatch_prevention_configured": true,
+    "legacy_patch_collection_isolated": true,
+    "pytest_ini_missing_required_tokens": [],
+    "pytest_ini_path": "C:\\Users\\muhas\\OneDrive\\Masa\u00fcst\u00fc\\trade_botV2\\pytest.ini",
+    "pytest_ini_present": true
+  },
+  "release_audit_only": true,
+  "reload_performed": false,
+  "report_digest": "fa2749c07160039148d16c99623ea730673ee17ebcec7cfe9f546645f09cb17c",
+  "report_path": "reports\\recovery\\4B436661_release_audit_pytest_collection_hygiene_20260706T141641Z_ready.json",
+  "repository_cleanup_performed_by_patch": false,
+  "runtime_health_endpoint_called": false,
+  "runtime_health_probe_performed": false,
+  "runtime_metrics_collection_performed": false,
+  "runtime_overlay_activated": false,
+  "runtime_process_started": false,
+  "runtime_start_command_executed": false,
+  "runtime_start_command_execution_performed": false,
+  "runtime_start_performed": false,
+  "runtime_started_by_patch": false,
+  "signed_request_performed": false,
+  "status": "READY",
+  "training_performed": false,
+  "transition_to_next_phase_performed": false
+}

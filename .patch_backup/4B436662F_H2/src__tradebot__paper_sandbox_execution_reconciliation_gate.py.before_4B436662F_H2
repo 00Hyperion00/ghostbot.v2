@@ -1,0 +1,24 @@
+from __future__ import annotations
+import json, sqlite3
+from pathlib import Path
+from typing import Any
+READY_DECISION='PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_READY_MISMATCH_ZERO_SQLITE_MIRROR_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL'
+SQLITE_MIRROR_REQUIRED_DECISION='PAPER_SANDBOX_EXECUTION_RECONCILIATION_SQLITE_MIRROR_REQUIRED'
+BLOCKED_DECISION='PAPER_SANDBOX_EXECUTION_RECONCILIATION_GATE_BLOCKED'
+def _event(*args: Any, **kwargs: Any)->dict[str,Any]:
+    ev=kwargs.get('ledger_event') or kwargs.get('event')
+    if isinstance(ev,dict): return ev
+    for item in args:
+        if isinstance(item,dict) and any(k in item for k in ('submitted_to_exchange','quote_balance_delta_usd','paper_order_id')): return item
+    path=kwargs.get('ledger_path')
+    if path:
+        try: return json.loads(Path(path).read_text(encoding='utf-8').splitlines()[0])
+        except Exception: pass
+    return {}
+def _sqlite(path: Path, event: dict[str,Any])->None:
+    path.parent.mkdir(parents=True,exist_ok=True); con=sqlite3.connect(str(path)); con.execute('create table if not exists reconciliation_events (payload text)'); con.execute('insert into reconciliation_events(payload) values (?)',(json.dumps(event,sort_keys=True),)); con.commit(); con.close()
+def build_paper_sandbox_execution_reconciliation_snapshot(*args: Any, source_report_path: str|None=None, ledger_path: str|Path|None=None, ledger_rows: int|None=None, write_sqlite_mirror: bool=True, sqlite_path: str|Path|None=None, reports_dir: str|Path|None=None, **kwargs: Any)->dict[str,Any]:
+    ev=_event(*args,ledger_path=ledger_path,**kwargs); submitted=bool(ev.get('submitted_to_exchange') or ev.get('exchange_submit_performed') or ev.get('trading_action_performed')); mismatch=abs(float(ev.get('quote_balance_delta_usd',0.0) or 0.0))>1e-9; sp=Path(sqlite_path or (Path(reports_dir or '.')/'paper_sandbox_reconciliation.sqlite')); mirror=bool(write_sqlite_mirror) and not submitted
+    if mirror: _sqlite(sp,ev)
+    ready=(not submitted) and (not mismatch) and mirror; decision=READY_DECISION if ready else (SQLITE_MIRROR_REQUIRED_DECISION if not mirror and not submitted and not mismatch else BLOCKED_DECISION)
+    return {'ok':ready,'decision':decision,'ledger_consumed':True,'ledger_rows':ledger_rows or (1 if ev else 0),'approved_for_paper_sandbox_execution_reconciliation_gate':ready,'approved_for_sqlite_audit_mirror':mirror,'approved_for_mismatch_zero_proof':not mismatch and not submitted,'paper_live_order_enablement_present':False,'approved_for_exchange_submit':False,'approved_for_live_real':False,'exchange_submit_performed':False,'trading_action_performed':False,'network_order_submit_performed':False,'paper_order_submit_performed':False,'sqlite_path':str(sp)}

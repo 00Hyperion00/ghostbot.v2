@@ -1,0 +1,107 @@
+from __future__ import annotations
+
+import json
+import os
+import tempfile
+from pathlib import Path
+from typing import Any, Mapping, MutableMapping
+
+HYP005_SHADOW_EVIDENCE_PATH_UTF8_CONTRACT_VERSION = "4B.4.3.6.6.27G-H2"
+
+
+def _repair_mojibake(value: str) -> str:
+    candidates = [value]
+    for src, dst in (("latin1", "utf-8"), ("cp1254", "utf-8"), ("cp1252", "utf-8")):
+        try:
+            repaired = value.encode(src).decode(dst)
+            if repaired not in candidates:
+                candidates.append(repaired)
+        except Exception:
+            pass
+    for candidate in candidates:
+        if Path(candidate).exists():
+            return candidate
+    return candidates[-1]
+
+
+def _path_from(value: str | os.PathLike[str]) -> Path:
+    text = os.fspath(value)
+    return Path(_repair_mojibake(text))
+
+
+def resolve_existing_evidence_path(
+    value: str | os.PathLike[str],
+    *,
+    field: str = "path",
+    expect_directory: bool = False,
+    required: bool = True,
+) -> Path:
+    path = _path_from(value)
+    if path.exists() and (path.is_dir() if expect_directory else path.is_file()):
+        return path.resolve()
+    if required:
+        raise ValueError(f"HYP005_EVIDENCE_PATH_UNRESOLVED:{field}:{path}")
+    return path.resolve()
+
+
+def resolve_evidence_output_directory(value: str | os.PathLike[str], *, field: str = "out_dir") -> Path:
+    path = _path_from(value)
+    if path.exists() and not path.is_dir():
+        raise ValueError(f"HYP005_EVIDENCE_OUTPUT_NOT_DIRECTORY:{field}:{path}")
+    parent = path if path.exists() else path.parent
+    if not parent.exists():
+        raise ValueError(f"HYP005_EVIDENCE_PATH_UNRESOLVED:{field}:{path}")
+    path.mkdir(parents=True, exist_ok=True)
+    return path.resolve()
+
+
+def normalize_logger_report_evidence_paths(payload: Mapping[str, Any], *, require_exists: bool = False) -> dict[str, Any]:
+    normalized: dict[str, Any] = dict(payload)
+    file_fields = ("ledger_json", "ledger_jsonl", "candidate_spec_json", "approval_json", "source_report_path")
+    for key in file_fields:
+        if key in normalized and normalized[key] not in (None, ""):
+            path = _path_from(str(normalized[key]))
+            if require_exists and not path.exists():
+                raise ValueError(f"HYP005_EVIDENCE_PATH_UNRESOLVED:{key}:{path}")
+            normalized[key] = str(path.resolve())
+    if "source_reports" in normalized and isinstance(normalized["source_reports"], list):
+        out: list[str] = []
+        for item in normalized["source_reports"]:
+            path = _path_from(str(item))
+            if require_exists and not path.exists():
+                raise ValueError(f"HYP005_EVIDENCE_PATH_UNRESOLVED:source_reports:{path}")
+            out.append(str(path.resolve()))
+        normalized["source_reports"] = out
+    return normalized
+
+
+def write_json_ascii_atomic(path: str | os.PathLike[str], payload: Any) -> Path:
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(prefix=target.name, suffix=".tmp", dir=str(target.parent))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+            json.dump(payload, handle, ensure_ascii=True, sort_keys=True, indent=2)
+            handle.write("\n")
+        Path(tmp).replace(target)
+    finally:
+        try:
+            Path(tmp).unlink(missing_ok=True)
+        except Exception:
+            pass
+    return target
+
+
+def resolve_active_reports_dir(project_root: str | os.PathLike[str], *, field: str = "reports_dir") -> Path:
+    root = Path(project_root)
+    candidates = [
+        root / "reports" / "hyp006_r1_canonical",
+        root / "reports" / "hyp005_r1_isolated",
+        root / "reports",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.resolve()
+    target = root / "reports"
+    target.mkdir(parents=True, exist_ok=True)
+    return target.resolve()

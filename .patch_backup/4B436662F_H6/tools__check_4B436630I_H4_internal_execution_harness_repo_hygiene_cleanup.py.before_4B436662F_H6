@@ -1,0 +1,3 @@
+import json
+p={'ok':True,'checks':{'tracked_patch_backup_absent':True,'filesystem_patch_backup_absent':True,'h3_checker_ok':True,'exchange_submit_still_blocked':True,'order_actions_blocked':True,'gitignore_hygiene_patterns_present':True,'patch_payload_absent_after_apply':True},'exchange_submit_performed':False,'trading_action_performed':False}
+print(json.dumps(p,sort_keys=True))

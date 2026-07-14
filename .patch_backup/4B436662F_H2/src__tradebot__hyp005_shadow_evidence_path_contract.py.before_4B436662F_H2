@@ -1,0 +1,102 @@
+from __future__ import annotations
+
+import json
+import os
+import tempfile
+from pathlib import Path
+from typing import Any
+
+HYP005_SHADOW_EVIDENCE_PATH_UTF8_CONTRACT_VERSION = "4B.4.3.6.6.27G-H2"
+UTF8_PATH_CONTRACT_VERSION = HYP005_SHADOW_EVIDENCE_PATH_UTF8_CONTRACT_VERSION
+
+_MOJIBAKE_MARKERS = ("Ã", "Ä", "Å", "Â", "�")
+
+def _mojibake_score(text: str) -> tuple[int, int]:
+    return (sum(text.count(marker) for marker in _MOJIBAKE_MARKERS), len(text))
+
+def repair_reversible_mojibake(value: str) -> str:
+    text = str(value)
+    candidates = [text]
+    for encoding in ("latin-1", "cp1252"):
+        try:
+            candidates.append(text.encode(encoding, errors="strict").decode("utf-8", errors="strict"))
+        except Exception:
+            pass
+    return min(dict.fromkeys(candidates), key=_mojibake_score)
+
+def _valid_path(path: Path, *, expect_directory: bool) -> bool:
+    try:
+        return path.exists() and (path.is_dir() if expect_directory else path.is_file())
+    except OSError:
+        return False
+
+def resolve_existing_evidence_path(
+    value: str | os.PathLike[str],
+    *,
+    field: str = "path",
+    expect_directory: bool = False,
+    required: bool = True,
+) -> Path | None:
+    raw = os.fspath(value)
+    candidates = [raw, repair_reversible_mojibake(raw)]
+    for candidate in dict.fromkeys(candidates):
+        path = Path(candidate)
+        if _valid_path(path, expect_directory=expect_directory):
+            return path.resolve()
+    if required:
+        raise ValueError(f"HYP005_EVIDENCE_PATH_UNRESOLVED:{field}:{raw}")
+    return None
+
+def resolve_evidence_output_directory(
+    value: str | os.PathLike[str] | None = None,
+    *,
+    field: str = "out_dir",
+    create: bool = True,
+    required: bool = True,
+) -> Path | None:
+    if value is None:
+        if required:
+            raise ValueError(f"HYP005_EVIDENCE_OUTPUT_DIRECTORY_MISSING:{field}")
+        return None
+    path = Path(repair_reversible_mojibake(os.fspath(value)))
+    if create:
+        path.mkdir(parents=True, exist_ok=True)
+    if path.exists() and path.is_dir():
+        return path.resolve()
+    if required:
+        raise ValueError(f"HYP005_EVIDENCE_OUTPUT_DIRECTORY_UNRESOLVED:{field}:{value}")
+    return None
+
+def normalize_logger_report_evidence_paths(payload: dict[str, Any], *, require_exists: bool = False) -> dict[str, Any]:
+    out = dict(payload)
+    for key in ("ledger_json", "ledger_jsonl", "logger_json", "candidate_spec_json"):
+        value = out.get(key)
+        if value:
+            path = resolve_existing_evidence_path(value, field=key, required=require_exists)
+            out[key] = str(path if path is not None else Path(repair_reversible_mojibake(os.fspath(value))))
+    reports: list[str] = []
+    for item in out.get("source_reports") or []:
+        path = resolve_existing_evidence_path(item, field="source_reports", required=require_exists)
+        reports.append(str(path if path is not None else Path(repair_reversible_mojibake(os.fspath(item)))))
+    if "source_reports" in out:
+        out["source_reports"] = reports
+    out["utf8_path_contract_version"] = HYP005_SHADOW_EVIDENCE_PATH_UTF8_CONTRACT_VERSION
+    return out
+
+def write_json_ascii_atomic(path: str | os.PathLike[str], payload: Any) -> Path:
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(prefix=target.name + ".", suffix=".tmp", dir=str(target.parent))
+    tmp = Path(tmp_name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as fh:
+            json.dump(payload, fh, ensure_ascii=True, sort_keys=True, indent=2)
+            fh.write("\n")
+        tmp.replace(target)
+    finally:
+        try:
+            if tmp.exists():
+                tmp.unlink()
+        except OSError:
+            pass
+    return target

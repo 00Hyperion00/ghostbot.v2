@@ -137,6 +137,10 @@ class ExitIntent:
 
 @dataclass(slots=True)
 class RuntimeState:
+    last_reconcile_result: str | None = None
+    startup_hygiene_snapshot: dict | None = None
+    startup_hygiene_repaired: bool = False
+    startup_hygiene_reason_codes: list | None = None
     state: str = BotState.STOPPED.value
     ws_status: str = "DISCONNECTED"
     symbol: str = "ETHUSDT"
@@ -216,3 +220,48 @@ class LogEvent:
     code: str
     message: str
     data: dict[str, Any] = field(default_factory=dict)
+
+# >>> 4B436662F_H6_MODELS_FINAL
+# 4B.4.3.6.6.62F-H6 RuntimeState slot compatibility.
+
+from dataclasses import dataclass as _h6_dataclass
+from typing import Any as _H6Any
+
+try:
+    _Phase62FH6OriginalRuntimeState = RuntimeState  # type: ignore[name-defined]
+except NameError:
+    @_h6_dataclass
+    class RuntimeState:  # type: ignore[no-redef]
+        state: str = "FLAT"
+        ws_status: str = "DISCONNECTED"
+        symbol: str = "ETHUSDT"
+        pending: _H6Any = None
+        position: _H6Any = None
+        last_reconcile_result: str | None = None
+        active_anomaly_code: str | None = None
+        active_anomaly_message: str | None = None
+        active_anomaly_details: _H6Any = None
+        startup_hygiene_snapshot: _H6Any = None
+else:
+    class _Phase62FH6RuntimeState(_Phase62FH6OriginalRuntimeState):
+        __slots__ = (
+            "__dict__",
+            "active_anomaly_code",
+            "active_anomaly_message",
+            "active_anomaly_details",
+            "startup_hygiene_snapshot",
+        )
+
+        def __init__(self, *args: _H6Any, **kwargs: _H6Any) -> None:
+            active_anomaly_code = kwargs.pop("active_anomaly_code", None)
+            active_anomaly_message = kwargs.pop("active_anomaly_message", None)
+            active_anomaly_details = kwargs.pop("active_anomaly_details", None)
+            startup_hygiene_snapshot = kwargs.pop("startup_hygiene_snapshot", None)
+            super().__init__(*args, **kwargs)
+            self.active_anomaly_code = active_anomaly_code
+            self.active_anomaly_message = active_anomaly_message
+            self.active_anomaly_details = active_anomaly_details
+            self.startup_hygiene_snapshot = startup_hygiene_snapshot
+
+    RuntimeState = _Phase62FH6RuntimeState  # type: ignore[assignment,misc]
+# <<< 4B436662F_H6_MODELS_FINAL

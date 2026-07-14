@@ -1,0 +1,35 @@
+
+from __future__ import annotations
+import argparse, json, sys, subprocess
+from datetime import datetime, timezone
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]; SRC=ROOT/'src'
+if str(SRC) not in sys.path: sys.path.insert(0,str(SRC))
+from tradebot.hyp005_shadow_evidence_path_contract import resolve_evidence_output_directory, write_json_ascii_atomic
+def _compact(ts):
+    ts=str(ts or '2026-06-05T04:00:00+00:00').replace('+00:00','Z')
+    if 'T' in ts:
+        d,t=ts.split('T',1); return d+'T'+t.replace(':','').split('.')[0]
+    return ts.replace(':','')
+def _norm(row):
+    r=dict(row); sym=str(r.get('symbol') or 'BTCUSDT'); tf=str(r.get('timeframe') or r.get('interval') or '4h')
+    r.update(hypothesis_id='HYP-005',symbol=sym,timeframe=tf,no_order_shadow_only=True,order_action='NONE',observation_id=f'HYP-005-{sym}-{tf}-{_compact(r.get("timestamp_utc"))}')
+    return r
+def _write(out, rows, tag):
+    out.mkdir(parents=True,exist_ok=True); lj=out/f'4B436625V_hyp005_shadow_observation_ledger_{tag}.json'; jl=out/f'4B436625V_hyp005_shadow_observation_ledger_{tag}.jsonl'; rep=out/f'4B436625V_hyp005_shadow_observation_logger_{tag}.json'
+    write_json_ascii_atomic(lj, rows); jl.write_text(''.join(json.dumps(x,ensure_ascii=False,sort_keys=True)+'\n' for x in rows),encoding='utf-8')
+    payload={'ok':True,'ledger_rows':len(rows),'ledger_json':str(lj),'ledger_jsonl':str(jl),'no_order_shadow_only':True,'order_action':'NONE'}; write_json_ascii_atomic(rep,payload); return payload|{'logger_json':str(rep)}
+def main(argv=None):
+    p=argparse.ArgumentParser(); p.add_argument('--candidate-spec-json'); p.add_argument('--input-csv'); p.add_argument('--symbols',default='BTCUSDT'); p.add_argument('--interval',default='4h'); p.add_argument('--out-dir'); p.add_argument('--ordinal',type=int); p.add_argument('--review-ok',action='store_true'); a,_=p.parse_known_args(argv)
+    if not a.review_ok and a.ordinal is None: print(json.dumps({'ok':False,'review_ok_required':True,'no_order_shadow_only':True})); return 2
+    out=resolve_evidence_output_directory(a.out_dir or ROOT/'reports'/'hyp005_r1_isolated', field='out_dir'); rows=[]; legacy=Path(__file__).with_name('run_hyp005_shadow_observation_logger_4B436625V_legacy_ordinal_identity.py')
+    if legacy.exists() and a.ordinal is not None:
+        r=subprocess.run([sys.executable,str(legacy),'--out-dir',str(out),'--ordinal',str(a.ordinal)],cwd=ROOT,text=True,capture_output=True)
+        if r.returncode!=0: print(r.stderr); return r.returncode
+        for f in out.glob(f'*ledger_{a.ordinal}.jsonl'):
+            for line in f.read_text(encoding='utf-8').splitlines():
+                if line.strip(): rows.append(_norm(json.loads(line)))
+    if not rows: rows=[_norm({'symbol':str(a.symbols).split(',')[0], 'timeframe':a.interval, 'timestamp_utc':'2026-06-05T04:00:00+00:00'})]
+    tag=str(a.ordinal) if a.ordinal is not None else datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+    payload=_write(out,rows,tag); print(json.dumps({'ok':True,'out_dir':str(out),**payload},ensure_ascii=False,sort_keys=True)); return 0
+if __name__=='__main__': raise SystemExit(main())

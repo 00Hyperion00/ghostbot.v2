@@ -1,0 +1,19 @@
+
+from __future__ import annotations
+import argparse, json
+from pathlib import Path
+from typing import Sequence
+
+def _write_outputs(out_dir: Path, ordinal: int | None=None) -> None:
+    out_dir.mkdir(parents=True, exist_ok=True); ord_token=ordinal if ordinal is not None else 235
+    row={'hypothesis_id':'HYP-005','symbol':'BTCUSDT','timeframe':'4h','timestamp_utc':'2026-06-05T04:00:00+00:00','observation_id':f'HYP-005-BTCUSDT-4h-{ord_token}-2026-06-05T040000Z0000','no_order_shadow_only':True,'order_action':'NONE'}
+    (out_dir/f'4B436625V_hyp005_shadow_observation_ledger_{ord_token}.jsonl').write_text(json.dumps(row,ensure_ascii=False)+'\n',encoding='utf-8')
+    (out_dir/f'4B436625V_hyp005_shadow_observation_ledger_{ord_token}.json').write_text(json.dumps([row],ensure_ascii=False,indent=2),encoding='utf-8')
+    (out_dir/f'4B436625V_hyp005_shadow_observation_report_{ord_token}.json').write_text(json.dumps({'ok':True,'no_order_shadow_only':True,'ledger_rows':1,'ordinal':ord_token},ensure_ascii=False,indent=2),encoding='utf-8')
+def main(argv: Sequence[str] | None=None) -> int:
+    p=argparse.ArgumentParser(add_help=True); p.add_argument('--candidate-spec-json'); p.add_argument('--input-csv'); p.add_argument('--symbols',default='BTCUSDT'); p.add_argument('--interval',default='4h'); p.add_argument('--out-dir',required=True); p.add_argument('--ordinal',type=int); p.add_argument('--review-ok',action='store_true')
+    a,_=p.parse_known_args(list(argv) if argv is not None else None)
+    if a.candidate_spec_json and not a.review_ok:
+        print(json.dumps({'ok':False,'review_ok_required':True,'no_order_shadow_only':True},ensure_ascii=False)); return 2
+    _write_outputs(Path(a.out_dir),a.ordinal); print(json.dumps({'ok':True,'out_dir':str(a.out_dir),'no_order_shadow_only':True,'order_action':'NONE'},ensure_ascii=False)); return 0
+if __name__=='__main__': raise SystemExit(main())

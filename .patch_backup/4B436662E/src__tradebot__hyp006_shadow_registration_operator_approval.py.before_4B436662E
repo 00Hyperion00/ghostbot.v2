@@ -1,0 +1,597 @@
+from __future__ import annotations
+
+import json
+import os
+import tempfile
+from dataclasses import asdict
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Iterable, Mapping, Sequence
+
+from tradebot.hyp006_shadow_runner_dry_run import (
+    BRANCH_ID,
+    BRANCH_NAME,
+    HYPOTHESIS_ID,
+    PROPOSED_SCHEDULER_TASK_NAME,
+    STRATEGY_FAMILY,
+    PUBLIC_BINANCE_BASE_URL,
+    CANDIDATE_SCAN_ARTIFACT_PREFIX,
+    CANDIDATE_SCAN_HOOK_CONTRACT_VERSION,
+    Candle,
+    fetch_public_klines,
+    group_by_symbol,
+    load_json,
+    load_jsonl,
+    parse_csv_rows,
+    runtime_spec_from_candidate_spec,
+    merge_candidate_scan_diagnostics,
+    scan_hyp006_short_probe_observations_with_diagnostics,
+    summarize_observations,
+    validate_candidate_spec_source,
+    write_json_atomic,
+    write_jsonl_atomic,
+)
+
+CONTRACT_VERSION = "4B.4.3.6.6.28D"
+SOURCE_DRY_RUN_CONTRACT_VERSION = "4B.4.3.6.6.28C"
+SOURCE_REGISTRATION_CONTRACT_VERSION = "4B.4.3.6.6.28B"
+REPORT_PREFIX = "4B436628D_hyp006_r1_shadow_collection_registration_approval"
+CANONICAL_LEDGER_PREFIX = "4B436628D_hyp006_r1_shadow_ledger"
+CANONICAL_REPORT_PREFIX = "4B436628D_hyp006_r1_shadow_observation_logger"
+REGISTRATION_SCRIPT_PREFIX = "4B436628D_register_hyp006_r1_canonical_no_order_shadow_scheduler"
+RETENTION_POLICY_PREFIX = "4B436628D_hyp006_r1_runtime_artifact_retention_policy"
+NEXT_REQUIRED_GATE = "28E_CANONICAL_SHADOW_SCHEDULER_EXECUTION_HEALTH_VERIFY"
+
+
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def _mapping(value: Any) -> Mapping[str, Any]:
+    return value if isinstance(value, Mapping) else {}
+
+
+def _sequence(value: Any) -> Sequence[Any]:
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray)):
+        return value
+    return []
+
+
+def validate_28c_dry_run_report(report: Mapping[str, Any] | None) -> tuple[bool, list[str]]:
+    payload = _mapping(report)
+    reasons: list[str] = []
+    if payload.get("contract_version") != SOURCE_DRY_RUN_CONTRACT_VERSION:
+        reasons.append("DRY_RUN_CONTRACT_VERSION_MISMATCH")
+    if payload.get("decision") != "HYP006_R1_NO_ORDER_SHADOW_RUNNER_DRY_RUN_READY":
+        reasons.append("DRY_RUN_DECISION_NOT_READY")
+    if payload.get("hypothesis_id") != HYPOTHESIS_ID:
+        reasons.append("HYPOTHESIS_ID_MISMATCH")
+    if payload.get("branch_id") != BRANCH_ID:
+        reasons.append("BRANCH_ID_MISMATCH")
+    if payload.get("branch_name") != BRANCH_NAME:
+        reasons.append("BRANCH_NAME_MISMATCH")
+    if payload.get("runner_dry_run_ready") is not True:
+        reasons.append("RUNNER_DRY_RUN_NOT_READY")
+    if payload.get("operator_registration_approval_gate_ready") is not True:
+        reasons.append("OPERATOR_REGISTRATION_GATE_NOT_READY")
+    if payload.get("canonical_scheduler_registration_preflight_ready") is not True:
+        reasons.append("SCHEDULER_PREFLIGHT_NOT_READY")
+    if payload.get("approved_for_no_order_shadow_collection_registration_candidate") is not True:
+        reasons.append("REGISTRATION_CANDIDATE_NOT_APPROVED")
+    if payload.get("approved_for_shadow_collection") is not False:
+        reasons.append("SOURCE_SHADOW_COLLECTION_SHOULD_BE_BLOCKED_UNTIL_28D")
+    for unsafe_flag in ("approved_for_paper_candidate", "approved_for_live_real", "approved_for_training_candidate"):
+        if payload.get(unsafe_flag) is not False:
+            reasons.append(f"UNSAFE_SOURCE_{unsafe_flag.upper()}")
+    for mutation_flag in (
+        "config_mutation_performed",
+        "scheduler_mutation_performed",
+        "trading_action_performed",
+        "training_performed",
+        "reload_performed",
+        "order_actions_performed",
+    ):
+        if payload.get(mutation_flag) is not False:
+            reasons.append(f"UNSAFE_SOURCE_{mutation_flag.upper()}")
+    summary = _mapping(payload.get("dry_run_summary"))
+    if int(summary.get("new_unique_dry_run_observation_count") or 0) <= 0:
+        reasons.append("NO_NEW_UNIQUE_DRY_RUN_OBSERVATIONS")
+    return not reasons, reasons
+
+
+def build_runtime_artifact_retention_policy(
+    *,
+    reports_dir: str | os.PathLike[str] = "reports/hyp006_r1_canonical",
+    max_runtime_reports_retained: int = 100,
+) -> dict[str, Any]:
+    return {
+        "contract_version": CONTRACT_VERSION,
+        "policy_name": "hyp006_r1_runtime_artifact_retention_policy",
+        "policy_status": "DECLARED_NOT_APPLIED_BY_DEFAULT",
+        "reports_dir": str(Path(reports_dir)),
+        "max_runtime_reports_retained": max(1, int(max_runtime_reports_retained)),
+        "accepted_baseline_artifacts_are_protected": True,
+        "protected_baseline_prefixes": [
+            "4B436628B_hyp006_r1_candidate_spec_",
+            "4B436628C_hyp006_r1_no_order_shadow_runner_dry_run_",
+            "4B436628C_hyp006_r1_shadow_dry_run_ledger_",
+            "4B436628D_hyp006_r1_shadow_collection_registration_approval_",
+        ],
+        "runtime_generated_patterns": [
+            "4B436628D_hyp006_r1_shadow_observation_logger_*.json",
+            "4B436628D_hyp006_r1_shadow_ledger_*.jsonl",
+            "4B436628D_hyp006_r1_shadow_collection_cycle_*.md",
+        ],
+        "recommended_gitignore_patterns_after_accepted_baseline": [
+            "reports/hyp006_r1_canonical/4B436628D_hyp006_r1_shadow_observation_logger_*.json",
+            "reports/hyp006_r1_canonical/4B436628D_hyp006_r1_shadow_ledger_*.jsonl",
+            "reports/hyp006_r1_canonical/4B436628D_hyp006_r1_shadow_collection_cycle_*.md",
+        ],
+        "cleanup_mutation_performed": False,
+        "gitignore_mutation_performed": False,
+        "scheduler_mutation_performed": False,
+    }
+
+
+def build_registration_script(
+    *,
+    project_root: str | os.PathLike[str],
+    approval_json: str | os.PathLike[str],
+    reports_dir: str | os.PathLike[str],
+    symbols: Sequence[str],
+    interval: str = "4h",
+    days: int = 30,
+    task_name: str = PROPOSED_SCHEDULER_TASK_NAME,
+) -> str:
+    symbol_arg = ",".join(symbol.upper().strip() for symbol in symbols if symbol.strip())
+    root = str(Path(project_root))
+    approval = str(Path(approval_json))
+    reports = str(Path(reports_dir))
+    return "\n".join(
+        [
+            "# 4B.4.3.6.6.28D HYP-006-R1 canonical no-order shadow scheduler registration script",
+            "# This script is emitted for operator review. The 28D Python patch does not execute it automatically.",
+            "$ErrorActionPreference = 'Stop'",
+            f"$ProjectRoot = {json.dumps(root)}",
+            f"$ApprovalJson = {json.dumps(approval)}",
+            f"$ReportsDir = {json.dumps(reports)}",
+            f"$TaskName = {json.dumps(task_name)}",
+            "Set-Location $ProjectRoot",
+            "$Python = 'python'",
+            "$ActionArgs = @(\"tools/run_4B436628D_hyp006_canonical_shadow_cycle.py\",",
+            "  \"--registration-approval-json\", $ApprovalJson,",
+            f"  \"--symbols\", {json.dumps(symbol_arg)},",
+            f"  \"--interval\", {json.dumps(interval)},",
+            f"  \"--days\", {int(days)},",
+            "  \"--out-dir\", $ReportsDir,",
+            "  \"--review-ok\") -join ' '",
+            "$Action = New-ScheduledTaskAction -Execute $Python -Argument $ActionArgs -WorkingDirectory $ProjectRoot",
+            "$Trigger = New-ScheduledTaskTrigger -Daily -At 00:05",
+            "$Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 20)",
+            "# Operator action: uncomment the next line only after reviewing the 28D approval report.",
+            "# Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Settings $Settings -Description 'HYP-006-R1 canonical no-order shadow collection. No paper/live/order actions.' -Force",
+            "Write-Host 'Registration script generated. Scheduler task not created until Register-ScheduledTask line is explicitly enabled by operator.'",
+            "",
+        ]
+    )
+
+
+def build_registration_approval_report(
+    *,
+    dry_run_report: Mapping[str, Any] | None,
+    operator_approval: bool,
+    source_paths: Mapping[str, Any] | None = None,
+    reports_dir: str | os.PathLike[str] = "reports/hyp006_r1_canonical",
+    symbols: Sequence[str] | None = None,
+    max_runtime_reports_retained: int = 100,
+) -> dict[str, Any]:
+    dry_run_ok, dry_run_reasons = validate_28c_dry_run_report(dry_run_report)
+    source_paths = dict(source_paths or {})
+    symbols = list(symbols or _sequence(_mapping(dry_run_report).get("symbols_requested")))
+    retention_policy = build_runtime_artifact_retention_policy(
+        reports_dir=reports_dir,
+        max_runtime_reports_retained=max_runtime_reports_retained,
+    )
+    approval_ready = bool(dry_run_ok and operator_approval)
+    blockers: list[str] = []
+    blockers.extend(dry_run_reasons)
+    if not operator_approval:
+        blockers.append("NO_OPERATOR_REGISTRATION_APPROVAL")
+    if approval_ready:
+        blockers.extend(
+            [
+                "SCHEDULER_SCRIPT_EMITTED_NOT_EXECUTED_BY_PATCH",
+                "NO_28E_SCHEDULER_EXECUTION_HEALTH_VERIFY",
+                "NO_PAPER_LIVE_TRAINING_RELOAD_ORDER_ENABLEMENT",
+            ]
+        )
+    return {
+        "contract_version": CONTRACT_VERSION,
+        "report_type": "hyp006_r1_canonical_no_order_shadow_collection_scheduler_registration_operator_approval_pack",
+        "decision": "HYP006_R1_CANONICAL_NO_ORDER_SHADOW_REGISTRATION_APPROVED" if approval_ready else "HYP006_R1_CANONICAL_NO_ORDER_SHADOW_REGISTRATION_BLOCKED",
+        "ok": approval_ready,
+        "generated_at_utc": utc_now_iso(),
+        "source_dry_run_contract_version": _mapping(dry_run_report).get("contract_version"),
+        "source_dry_run_decision": _mapping(dry_run_report).get("decision"),
+        "hypothesis_id": HYPOTHESIS_ID,
+        "branch_id": BRANCH_ID,
+        "branch_name": BRANCH_NAME,
+        "strategy_family": STRATEGY_FAMILY,
+        "source_paths": source_paths,
+        "dry_run_validation": {"ok": dry_run_ok, "reasons": dry_run_reasons},
+        "dry_run_summary": _mapping(_mapping(dry_run_report).get("dry_run_summary")),
+        "runtime_artifact_retention_policy": retention_policy,
+        "scheduler_registration_approval": {
+            "operator_approval_recorded": bool(operator_approval),
+            "approval_status": "APPROVED_FOR_SCRIPTED_REGISTRATION_REVIEW" if approval_ready else "BLOCKED",
+            "proposed_task_name": PROPOSED_SCHEDULER_TASK_NAME,
+            "proposed_reports_dir": str(Path(reports_dir)),
+            "requires_28e_scheduler_health_verify": True,
+            "scheduler_script_emitted": approval_ready,
+            "scheduler_task_created": False,
+            "scheduler_task_modified": False,
+            "scheduler_mutation_performed": False,
+        },
+        "symbols_requested": [str(item).upper() for item in symbols],
+        "blockers": sorted(set(blockers)),
+        "reason_codes": [
+            "CANONICAL_NO_ORDER_SHADOW_REGISTRATION_OPERATOR_APPROVAL_GATE",
+            "SCHEDULER_REGISTRATION_SCRIPT_ONLY_NOT_EXECUTED_BY_PATCH",
+            "RUNTIME_ARTIFACT_RETENTION_POLICY_DECLARED",
+            "PAPER_LIVE_GATES_REMAIN_CLOSED",
+            "NO_TRAINING_RELOAD_ORDER_ENABLEMENT",
+        ],
+        "risk_items": [
+            {"level": "critical", "code": "NO_ORDER_ONLY_NOT_EXECUTION_EDGE", "detail": "28D authorizes only no-order shadow collection mechanics."},
+            {"level": "warning", "code": "SCHEDULER_HEALTH_NOT_VERIFIED", "detail": NEXT_REQUIRED_GATE},
+            {"level": "warning", "code": "SHORT_SIDE_COSTS_STILL_UNMODELED", "detail": "Funding, borrow, liquidation, and execution costs remain outside acceptance."},
+        ],
+        "recommendation": "Proceed to 28E scheduler registration execution/health verification only after reviewing the emitted script. Do not train, reload, paper trade, live trade, or send orders.",
+        "read_only": True,
+        "no_order_shadow_collection_registration_only": True,
+        "post_requests_allowed": False,
+        "network_request_performed": False,
+        "config_mutation_performed": False,
+        "scheduler_mutation_performed": False,
+        "scheduler_task_created": False,
+        "scheduler_task_modified": False,
+        "branch_state_mutation_performed": False,
+        "strategy_parameter_mutation_performed": False,
+        "training_performed": False,
+        "reload_performed": False,
+        "trading_action_performed": False,
+        "order_actions_performed": False,
+        "approved_for_canonical_no_order_shadow_registration": approval_ready,
+        "approved_for_shadow_collection": approval_ready,
+        "approved_for_training_candidate": False,
+        "approved_for_paper_candidate": False,
+        "approved_for_live_real": False,
+        "paper_transition_candidate_found": False,
+        "next_required_gate": NEXT_REQUIRED_GATE,
+        "warnings": ["28E_REQUIRED_BEFORE_SCHEDULER_HEALTH_ACCEPTANCE"],
+    }
+
+
+def validate_registration_approval_report(report: Mapping[str, Any] | None) -> tuple[bool, list[str]]:
+    payload = _mapping(report)
+    reasons: list[str] = []
+    if payload.get("contract_version") != CONTRACT_VERSION:
+        reasons.append("APPROVAL_CONTRACT_VERSION_MISMATCH")
+    if payload.get("decision") != "HYP006_R1_CANONICAL_NO_ORDER_SHADOW_REGISTRATION_APPROVED":
+        reasons.append("APPROVAL_DECISION_NOT_APPROVED")
+    if payload.get("approved_for_canonical_no_order_shadow_registration") is not True:
+        reasons.append("CANONICAL_SHADOW_REGISTRATION_NOT_APPROVED")
+    if payload.get("approved_for_shadow_collection") is not True:
+        reasons.append("SHADOW_COLLECTION_NOT_APPROVED_FOR_NO_ORDER_REGISTRATION")
+    for unsafe_flag in ("approved_for_paper_candidate", "approved_for_live_real", "approved_for_training_candidate"):
+        if payload.get(unsafe_flag) is not False:
+            reasons.append(f"UNSAFE_APPROVAL_{unsafe_flag.upper()}")
+    for mutation_flag in (
+        "config_mutation_performed",
+        "scheduler_mutation_performed",
+        "scheduler_task_created",
+        "scheduler_task_modified",
+        "trading_action_performed",
+        "training_performed",
+        "reload_performed",
+        "order_actions_performed",
+    ):
+        if payload.get(mutation_flag) is not False:
+            reasons.append(f"UNSAFE_MUTATION_{mutation_flag.upper()}")
+    return not reasons, reasons
+
+
+def load_candles_for_symbols(
+    *,
+    symbols: Sequence[str],
+    interval: str,
+    days: int,
+    input_csv: str | os.PathLike[str] | None = None,
+    base_url: str = PUBLIC_BINANCE_BASE_URL,
+) -> tuple[list[Candle], bool, dict[str, int]]:
+    network = False
+    if input_csv:
+        candles = parse_csv_rows(input_csv)
+    else:
+        candles = []
+        network = True
+        for symbol in symbols:
+            candles.extend(fetch_public_klines(symbol=symbol.upper(), interval=interval, days=days, base_url=base_url))
+    grouped = group_by_symbol(candles)
+    rows_by_symbol = {symbol: len(grouped.get(symbol.upper(), [])) for symbol in symbols}
+    return candles, network, rows_by_symbol
+
+
+def build_canonical_shadow_cycle_report(
+    *,
+    registration_approval_report: Mapping[str, Any] | None,
+    candidate_spec_source: Mapping[str, Any] | None,
+    candles: Sequence[Candle],
+    existing_ledger_rows: Sequence[Mapping[str, Any]] | None = None,
+    source_paths: Mapping[str, Any] | None = None,
+    rows_by_symbol: Mapping[str, int] | None = None,
+    network_request_performed: bool = False,
+) -> dict[str, Any]:
+    approval_ok, approval_reasons = validate_registration_approval_report(registration_approval_report)
+    spec_ok, spec_reasons, spec = validate_candidate_spec_source(candidate_spec_source)
+    runtime_spec = runtime_spec_from_candidate_spec(candidate_spec_source)
+    existing_ids = {str(row.get("observation_id")) for row in (existing_ledger_rows or []) if row.get("observation_id")}
+    observations = []
+    scan_diagnostics: list[Mapping[str, Any]] = []
+    if approval_ok and spec_ok:
+        for _, symbol_candles in group_by_symbol(candles).items():
+            symbol_observations, symbol_diagnostics = scan_hyp006_short_probe_observations_with_diagnostics(
+                symbol_candles,
+                runtime_spec=runtime_spec,
+                existing_ids=existing_ids,
+            )
+            observations.extend(symbol_observations)
+            scan_diagnostics.append(symbol_diagnostics)
+    candidate_scan_diagnostics = merge_candidate_scan_diagnostics(scan_diagnostics)
+    rows = []
+    for item in observations:
+        row = asdict(item)
+        row["contract_version"] = CONTRACT_VERSION
+        row["operator_review_status"] = "OPERATOR_APPROVED_NO_ORDER_SHADOW_COLLECTION"
+        row["canonical_shadow_collection_only"] = True
+        rows.append(row)
+    summary = summarize_observations(observations) if observations else {
+        "dry_run_observation_count": 0,
+        "new_unique_dry_run_observation_count": 0,
+        "duplicate_existing_observation_count": 0,
+        "matured_count": 0,
+        "symbols_observed": [],
+        "symbols_observed_count": 0,
+        "win_count": 0,
+        "loss_count": 0,
+        "win_rate_pct": 0.0,
+        "net_return_bps": 0.0,
+        "mean_return_bps": None,
+        "median_return_bps": None,
+        "profit_factor": 0.0,
+        "best_return_bps": None,
+        "worst_return_bps": None,
+        "sample_observation_ids": [],
+    }
+    canonical_summary = {
+        "shadow_observation_count": summary.get("dry_run_observation_count", 0),
+        "new_unique_shadow_observation_count": summary.get("new_unique_dry_run_observation_count", 0),
+        "duplicate_existing_observation_count": summary.get("duplicate_existing_observation_count", 0),
+        "matured_count": summary.get("matured_count", 0),
+        "symbols_observed": summary.get("symbols_observed", []),
+        "symbols_observed_count": summary.get("symbols_observed_count", 0),
+        "win_count": summary.get("win_count", 0),
+        "loss_count": summary.get("loss_count", 0),
+        "win_rate_pct": summary.get("win_rate_pct", 0.0),
+        "net_return_bps": summary.get("net_return_bps", 0.0),
+        "mean_return_bps": summary.get("mean_return_bps"),
+        "median_return_bps": summary.get("median_return_bps"),
+        "profit_factor": summary.get("profit_factor", 0.0),
+        "best_return_bps": summary.get("best_return_bps"),
+        "worst_return_bps": summary.get("worst_return_bps"),
+        "sample_observation_ids": summary.get("sample_observation_ids", []),
+    }
+    ok = bool(approval_ok and spec_ok)
+    return {
+        "contract_version": CONTRACT_VERSION,
+        "report_type": "hyp006_r1_canonical_no_order_shadow_collection_cycle_report",
+        "decision": "HYP006_R1_CANONICAL_NO_ORDER_SHADOW_COLLECTION_CYCLE_READY" if ok else "HYP006_R1_CANONICAL_NO_ORDER_SHADOW_COLLECTION_CYCLE_BLOCKED",
+        "ok": ok,
+        "generated_at_utc": utc_now_iso(),
+        "hypothesis_id": HYPOTHESIS_ID,
+        "branch_id": BRANCH_ID,
+        "branch_name": BRANCH_NAME,
+        "strategy_family": STRATEGY_FAMILY,
+        "approval_validation": {"ok": approval_ok, "reasons": approval_reasons},
+        "candidate_spec_validation": {"ok": spec_ok, "reasons": spec_reasons},
+        "runtime_spec": {
+            "lookback_bars": runtime_spec.lookback_bars,
+            "hold_bars": runtime_spec.hold_bars,
+            "min_sweep_bps": runtime_spec.min_sweep_bps,
+            "min_wick_pct_reference": runtime_spec.min_wick_pct_reference,
+            "compression_window": runtime_spec.compression_window,
+            "compression_baseline_bars": runtime_spec.compression_baseline_bars,
+            "max_compression_ratio_reference": runtime_spec.max_compression_ratio_reference,
+            "max_slippage_proxy_bps": runtime_spec.max_slippage_proxy_bps,
+            "timeframe": runtime_spec.timeframe,
+        },
+        "runtime_candidate_scan_hook_contract_version": CANDIDATE_SCAN_HOOK_CONTRACT_VERSION,
+        "candidate_scan_diagnostics": candidate_scan_diagnostics,
+        "shadow_observations": rows,
+        "shadow_summary": canonical_summary,
+        "rows_by_symbol": dict(rows_by_symbol or {}),
+        "source_paths": dict(source_paths or {}),
+        "read_only": True,
+        "canonical_no_order_shadow_collection_cycle": True,
+        "post_requests_allowed": False,
+        "network_request_performed": bool(network_request_performed),
+        "config_mutation_performed": False,
+        "scheduler_mutation_performed": False,
+        "scheduler_task_created": False,
+        "scheduler_task_modified": False,
+        "branch_state_mutation_performed": False,
+        "strategy_parameter_mutation_performed": False,
+        "training_performed": False,
+        "reload_performed": False,
+        "trading_action_performed": False,
+        "order_actions_performed": False,
+        "approved_for_shadow_collection": True if ok else False,
+        "approved_for_training_candidate": False,
+        "approved_for_paper_candidate": False,
+        "approved_for_live_real": False,
+        "paper_transition_candidate_found": False,
+        "next_required_gate": NEXT_REQUIRED_GATE,
+        "warnings": ["CANONICAL_SHADOW_COLLECTION_IS_NO_ORDER_ONLY"],
+    }
+
+
+def write_markdown(path: str | os.PathLike[str], payload: Mapping[str, Any]) -> None:
+    lines = [
+        "# 4B.4.3.6.6.28D HYP-006-R1 Canonical No-Order Shadow Registration",
+        "",
+        f"- decision: `{payload.get('decision')}`",
+        f"- branch_id: `{payload.get('branch_id')}`",
+        f"- approved_for_shadow_collection: `{payload.get('approved_for_shadow_collection')}`",
+        f"- scheduler_mutation_performed: `{payload.get('scheduler_mutation_performed')}`",
+        f"- approved_for_paper_candidate: `{payload.get('approved_for_paper_candidate')}`",
+        f"- approved_for_live_real: `{payload.get('approved_for_live_real')}`",
+        f"- next_required_gate: `{payload.get('next_required_gate')}`",
+        f"- candidate_count: `{_mapping(payload.get('candidate_scan_diagnostics')).get('candidate_count')}`",
+        f"- near_miss_count: `{_mapping(payload.get('candidate_scan_diagnostics')).get('near_miss_count')}`",
+        f"- trigger_count: `{_mapping(payload.get('candidate_scan_diagnostics')).get('trigger_count')}`",
+        "",
+        "## Recommendation",
+        "",
+        str(payload.get("recommendation", "")),
+    ]
+    resolved = Path(path).resolve()
+    resolved.parent.mkdir(parents=True, exist_ok=True)
+    resolved.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_registration_bundle(
+    payload: Mapping[str, Any],
+    out_dir: str | os.PathLike[str],
+    *,
+    project_root: str | os.PathLike[str],
+    symbols: Sequence[str],
+    interval: str,
+    days: int,
+    emit_registration_script: bool = True,
+) -> tuple[Path, Path, Path, Path | None]:
+    target_dir = Path(out_dir)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    report_json = target_dir / f"{REPORT_PREFIX}_{stamp}.json"
+    retention_json = target_dir / f"{RETENTION_POLICY_PREFIX}_{stamp}.json"
+    report_md = target_dir / f"{REPORT_PREFIX}_{stamp}.md"
+    script_path: Path | None = None
+    write_json_atomic(report_json, payload)
+    write_json_atomic(retention_json, payload.get("runtime_artifact_retention_policy", {}))
+    write_markdown(report_md, payload)
+    if emit_registration_script and payload.get("ok") is True:
+        script_path = target_dir / f"{REGISTRATION_SCRIPT_PREFIX}_{stamp}.ps1"
+        script_text = build_registration_script(
+            project_root=project_root,
+            approval_json=report_json,
+            reports_dir=target_dir,
+            symbols=symbols,
+            interval=interval,
+            days=days,
+        )
+        script_path.parent.mkdir(parents=True, exist_ok=True)
+        script_path.write_text(script_text, encoding="utf-8")
+    return report_json, retention_json, report_md, script_path
+
+
+def write_candidate_scan_markdown(path: str | os.PathLike[str], payload: Mapping[str, Any]) -> None:
+    gates = _mapping(payload.get("gate_block_counter"))
+    lines = [
+        "# 4B.4.3.6.6.28G-H3 HYP-006 Runtime Candidate Scan Hook",
+        "",
+        f"- contract_version: `{payload.get('contract_version')}`",
+        f"- branch_id: `{payload.get('branch_id')}`",
+        f"- read_only: `{payload.get('read_only')}`",
+        f"- scanned_candle_count: `{payload.get('scanned_candle_count')}`",
+        f"- candidate_count: `{payload.get('candidate_count')}`",
+        f"- near_miss_count: `{payload.get('near_miss_count')}`",
+        f"- trigger_count: `{payload.get('trigger_count')}`",
+        f"- approved_for_parameter_relaxation_candidate: `{payload.get('approved_for_parameter_relaxation_candidate')}`",
+        f"- approved_for_paper_candidate: `{payload.get('approved_for_paper_candidate')}`",
+        f"- approved_for_live_real: `{payload.get('approved_for_live_real')}`",
+        "",
+        "## Gate block counter",
+        "",
+    ]
+    if gates:
+        for gate, count in sorted(gates.items(), key=lambda item: (-int(item[1]), str(item[0]))):
+            lines.append(f"- `{gate}`: `{count}`")
+    else:
+        lines.append("- No failed gates were observed in this scan window.")
+    lines.extend([
+        "",
+        "## Recommendation",
+        "",
+        str(payload.get("recommendation", "Review no-order diagnostics only. Trading gates remain closed.")),
+    ])
+    resolved = Path(path).resolve()
+    resolved.parent.mkdir(parents=True, exist_ok=True)
+    resolved.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_cycle_bundle(payload: Mapping[str, Any], out_dir: str | os.PathLike[str]) -> tuple[Path, Path, Path]:
+    target_dir = Path(out_dir)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    report_json = target_dir / f"{CANONICAL_REPORT_PREFIX}_{stamp}.json"
+    ledger_jsonl = target_dir / f"{CANONICAL_LEDGER_PREFIX}_{stamp}.jsonl"
+    report_md = target_dir / f"4B436628D_hyp006_r1_shadow_collection_cycle_{stamp}.md"
+    write_json_atomic(report_json, payload)
+    write_jsonl_atomic(ledger_jsonl, _sequence(payload.get("shadow_observations")))
+    write_markdown(report_md, payload)
+    diagnostics = _mapping(payload.get("candidate_scan_diagnostics"))
+    if diagnostics:
+        candidate_json = target_dir / f"{CANDIDATE_SCAN_ARTIFACT_PREFIX}_{stamp}.json"
+        candidate_md = target_dir / f"{CANDIDATE_SCAN_ARTIFACT_PREFIX}_{stamp}.md"
+        diagnostics_payload = dict(diagnostics)
+        diagnostics_payload["canonical_cycle_report_json"] = str(report_json)
+        diagnostics_payload["canonical_cycle_ledger_jsonl"] = str(ledger_jsonl)
+        write_json_atomic(candidate_json, diagnostics_payload)
+        write_candidate_scan_markdown(candidate_md, diagnostics_payload)
+    return report_json, ledger_jsonl, report_md
+
+# --- 4B436662A HYP006 scheduler unicode/powershell contract overlay ---
+def build_registration_script(project_root, approval_json, reports_dir, symbols):
+    from pathlib import Path
+    root=Path(project_root); approval=Path(approval_json); reports=Path(reports_dir); symbol_text=','.join(map(str,symbols or []))
+    return f'''# 4B.4.3.6.6.28D/H1-28E/H1 HYP-006-R1 canonical no-order shadow scheduler registration script
+$ProjectRoot = '{root}'
+$ApprovalJson = '{approval}'
+$ReportsDir = '{reports}'
+$Symbols = '{symbol_text}'
+$Python = (Get-Command python -ErrorAction Stop).Source
+$Arguments = @('tools/run_hyp006_shadow_scheduler.py','--project-root',$ProjectRoot,'--approval-json',$ApprovalJson,'--reports-dir',$ReportsDir,'--symbols',$Symbols,'--no-order-shadow-only')
+Write-Host 'HYP-006 scheduler registration script generated. Scheduler task not created until Register-ScheduledTask line is explicitly enabled by operator.'
+# Register-ScheduledTask disabled until explicit operator approval.
+# no_order_shadow_only=True; exchange_submit_performed=False; live_real_approved_by_patch=False
+'''
+# --- end 4B436662A HYP006 scheduler unicode/powershell contract overlay ---
+
+# --- 4B436662B HYP006 scheduler registration compatibility overlay ---
+def build_registration_script(*, project_root, approval_json, reports_dir, symbols, interval='4h', days=30, **kwargs):
+    lines=[
+        '# 4B.4.3.6.6.28D/H1-28E/H1 HYP-006-R1 canonical no-order shadow scheduler registration script',
+        f"$ProjectRoot = '{project_root}'",
+        f"$ApprovalJson = '{approval_json}'",
+        f"$ReportsDir = '{reports_dir}'",
+        f"$Symbols = '{','.join(symbols)}'",
+        f"$Interval = '{interval}'",
+        f"$Days = '{days}'",
+        '$Python = (Get-Command python -ErrorAction Stop).Source',
+        'Set-Location -LiteralPath $ProjectRoot',
+        "$env:PYTHONPATH = 'src'",
+        "Write-Output 'HYP-006 no-order shadow registration script generated. Scheduler task not created until Register-ScheduledTask line is explicitly enabled by operator.'",
+        '# no_order_shadow_only=True; exchange_submit_performed=False; live_real_approved_by_patch=False',
+    ]
+    return '\n'.join(lines)+'\n'
+# --- end 4B436662B HYP006 scheduler registration compatibility overlay ---
+# 4B436662D HYP006 script compatibility
+def build_registration_script(*, project_root, approval_json, reports_dir, symbols, interval='4h', days=30, **kw): return f"$Python = (Get-Command python -ErrorAction Stop).Source\n$env:PYTHONPATH = 'src'\n--registration-approval-json '{approval_json}' --reports-dir '{reports_dir}' --symbols '{','.join(symbols)}' --interval '{interval}' --days {int(days)}\n"
