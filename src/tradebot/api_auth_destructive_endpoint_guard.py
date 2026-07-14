@@ -268,10 +268,10 @@ def _header_value(headers: Mapping[str, Any] | None, name: str) -> str | None:
 
 
 def validate_local_token(supplied_token: str | None, expected_token: str | None) -> dict[str, Any]:
-    supplied = str(supplied_token or "").strip()
-    expected = str(expected_token or "").strip()
-    token_present = bool(supplied)
-    token_configured = bool(expected)
+    supplied = "" if supplied_token is None else str(supplied_token)
+    expected = "" if expected_token is None else str(expected_token)
+    token_present = supplied != ""
+    token_configured = expected != ""
     token_valid = bool(token_present and token_configured and hmac.compare_digest(supplied, expected))
     return {
         "token_present": token_present,

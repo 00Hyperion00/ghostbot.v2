@@ -124,3 +124,15 @@ def test_authorize_local_endpoint_from_headers_is_case_insensitive_and_fail_clos
     assert valid["runtime_execution_allowed"] is False
     assert unconfigured["token_configured"] is False
     assert unconfigured["result"] == "DENY_LOCAL_TOKEN_INVALID"
+
+
+def test_validate_local_token_requires_exact_secret_without_whitespace_normalization() -> None:
+    padded_supplied = validate_local_token(' secret ', 'secret')
+    padded_expected = validate_local_token('secret', ' secret ')
+    exact = validate_local_token(' secret ', ' secret ')
+
+    assert padded_supplied['token_present'] is True
+    assert padded_supplied['token_valid'] is False
+    assert padded_expected['token_configured'] is True
+    assert padded_expected['token_valid'] is False
+    assert exact['token_valid'] is True
