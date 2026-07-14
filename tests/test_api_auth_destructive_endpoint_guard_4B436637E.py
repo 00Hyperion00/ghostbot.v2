@@ -6,7 +6,9 @@ from pathlib import Path
 from tradebot.api_auth_destructive_endpoint_guard import (
     READY_DECISION,
     authorize_local_endpoint,
+    authorize_local_endpoint_from_headers,
     evaluate,
+    validate_local_token,
 )
 
 
@@ -83,3 +85,54 @@ def test_run_script_writes_reports_without_runtime_mutation(tmp_path: Path) -> N
     assert payload["api_route_mutation_performed"] is False
     assert payload["token_secret_written"] is False
     assert payload["transition_to_next_phase_performed"] is False
+
+
+def test_validate_local_token_uses_configured_secret_without_materializing() -> None:
+    missing = validate_local_token(None, "secret")
+    invalid = validate_local_token("wrong", "secret")
+    valid = validate_local_token("secret", "secret")
+    unconfigured = validate_local_token("secret", None)
+
+    assert missing["token_present"] is False
+    assert missing["token_valid"] is False
+    assert invalid["token_present"] is True
+    assert invalid["token_valid"] is False
+    assert valid["token_present"] is True
+    assert valid["token_valid"] is True
+    assert unconfigured["token_configured"] is False
+    assert unconfigured["token_valid"] is False
+
+
+def test_authorize_local_endpoint_from_headers_is_case_insensitive_and_fail_closed() -> None:
+    safe = authorize_local_endpoint_from_headers("GET", "/health", headers={}, expected_token="secret")
+    valid = authorize_local_endpoint_from_headers(
+        "POST",
+        "/api/reload-config",
+        headers={"x-tradebot-local-token": "secret"},
+        expected_token="secret",
+    )
+    unconfigured = authorize_local_endpoint_from_headers(
+        "POST",
+        "/api/reload-config",
+        headers={"X-TradeBot-Local-Token": "secret"},
+        expected_token=None,
+    )
+
+    assert safe["result"] == "ALLOW_READ_ONLY"
+    assert valid["token_valid"] is True
+    assert valid["result"] == "AUTH_PASSED_EXECUTION_DENIED_NO_SUBMIT"
+    assert valid["runtime_execution_allowed"] is False
+    assert unconfigured["token_configured"] is False
+    assert unconfigured["result"] == "DENY_LOCAL_TOKEN_INVALID"
+
+
+def test_validate_local_token_requires_exact_secret_without_whitespace_normalization() -> None:
+    padded_supplied = validate_local_token(' secret ', 'secret')
+    padded_expected = validate_local_token('secret', ' secret ')
+    exact = validate_local_token(' secret ', ' secret ')
+
+    assert padded_supplied['token_present'] is True
+    assert padded_supplied['token_valid'] is False
+    assert padded_expected['token_configured'] is True
+    assert padded_expected['token_valid'] is False
+    assert exact['token_valid'] is True

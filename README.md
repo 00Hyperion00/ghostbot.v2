@@ -20,16 +20,34 @@ tradebot api --config examples/config.demo.yaml
 
 ## AI servisini ayrı çalıştırma
 ```bash
-tradebot ai-service --model-path models/SOLUSDT_model.json --threshold 0.60
+tradebot ai-service --model-path models/SOLUSDT_model.ubj --threshold 0.60
 ```
 
 ## Model eğitimi
 ```bash
-tradebot train-model --symbol SOLUSDT --interval 1m --days 30 --out models/SOLUSDT_model.json
+tradebot train-model --symbol SOLUSDT --interval 1m --days 30 --out models/SOLUSDT_model.ubj
 ```
 
 ## Dashboard
 `dashboard.py` ve `tradebot.ui.dashboard` aynı arayüzü başlatır. Dashboard artık kaynak kodu patchlemez; doğrudan CLI ve HTTP ile çalışır.
+
+## Production Architecture
+
+Aktif runtime, operator workflow ve güvenlik sınırları için canonical rehber: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+Kalan işler ve finalize sırası: [`docs/FINALIZATION_ROADMAP.md`](docs/FINALIZATION_ROADMAP.md).
+Temiz hedef klasör yapısı ve legacy temizleme sırası: [`docs/PROJECT_STRUCTURE_CLEANUP_PLAN.md`](docs/PROJECT_STRUCTURE_CLEANUP_PLAN.md).
+Patch uygularken bu dosyada çakışma olursa güvenli çözüm notları: [`docs/ARCHITECTURE_CONFLICT_RESOLUTION.md`](docs/ARCHITECTURE_CONFLICT_RESOLUTION.md).
+
+Yeni sade dashboard yüzeyi Operator Cockpit çalışırken `/dashboard` adresinden açılır; legacy cockpit UI `/` altında regression compatibility için korunur.
+
+## Geliştirme Doğrulama
+
+Odaklı API/runtime kontrolleri için:
+
+```bash
+PYTHONPATH=src pytest -q tests/test_api_logs_compat.py tests/test_api_ai_reload.py tests/test_model_retrain_reload_workflow.py tests/test_strategy_ai_merge.py
+python -m compileall -q src/tradebot tests
+```
 
 ## Notlar
 - `main.py`, `train_model.py`, `dashboard.py` dosyaları korunmuştur ama artık yeni modüller için ince wrapper görevi görür.

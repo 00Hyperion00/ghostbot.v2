@@ -48,6 +48,10 @@ def _static_dir() -> Path:
     return Path(__file__).resolve().parent / "static"
 
 
+def _clean_static_dir() -> Path:
+    return Path(__file__).resolve().parent / "clean_static"
+
+
 def create_cockpit_app(settings: Settings, *, auto_start_engine: bool = False) -> FastAPI:
     orchestrator = TradeBotOrchestrator(settings)
     broadcaster = CockpitBroadcaster(orchestrator)
@@ -76,6 +80,8 @@ def create_cockpit_app(settings: Settings, *, auto_start_engine: bool = False) -
 
     static_dir = _static_dir()
     app.mount("/static", StaticFiles(directory=static_dir), name="static")
+    clean_static_dir = _clean_static_dir()
+    app.mount("/clean-static", StaticFiles(directory=clean_static_dir), name="clean-static")
 
     def _auth_context(request: Request) -> dict[str, Any]:
         return authenticate_http_request(
@@ -160,6 +166,10 @@ def create_cockpit_app(settings: Settings, *, auto_start_engine: bool = False) -
     @app.get("/")
     async def index() -> FileResponse:
         return FileResponse(static_dir / "index.html")
+
+    @app.get("/dashboard")
+    async def clean_dashboard() -> FileResponse:
+        return FileResponse(clean_static_dir / "index.html")
 
     @app.get("/favicon.ico", include_in_schema=False)
     async def favicon() -> FileResponse:
