@@ -58,9 +58,6 @@ The AI layer is a normalization layer, not an unconditional execution authority:
 
 1. The technical strategy produces the base `SignalDecision`.
 2. If local XGBoost is enabled and available, the AI provider may return an action or an AI-held decision.
-3. If AI prediction fails, the runtime logs `AI_PROVIDER_PREDICT_FAILED`, records fallback/error markers in signal metrics, and falls back to deterministic heuristic normalization.
-4. Logging failures must not break the fallback path.
-5. The resulting decision is still subject to runtime guards before any order action can happen.
 
 ## Persistence contract
 
@@ -104,29 +101,6 @@ src/tradebot/
 3. Do not weaken live-real, exchange-submit, destructive-action, or auth gates to make tests pass.
 4. Any fallback from AI, exchange, persistence, or reconciliation failures must be observable.
 5. New order paths require tests that prove no submit occurs when any guard is red.
-
-## Production readiness completion roadmap
-
-Detailed remaining-work roadmap: [`docs/FINALIZATION_ROADMAP.md`](FINALIZATION_ROADMAP.md).
-
-Use this checklist to continue hardening the repository without destabilizing historical phase contracts:
-
-1. Stabilize active API compatibility overlays before moving files. The active aliases are assigned last in `tradebot.api`, so tests should target those final exported factories.
-2. Keep Operator Cockpit as the canonical write/control surface. Any new destructive API route must prove equivalent auth, confirmation, runtime-lock, risk, and audit behavior.
-3. Convert historical compatibility shims into documented legacy modules only after tests prove the final exported symbols and route contracts are unchanged.
-4. Preserve AI training response contracts: training responses must include the training report, the quality gate payload, reload outcome, and explicit reload-block reasons.
-5. Make every fallback observable but non-fatal. Logging, audit, model-provider, and legacy-store failures should not crash safe read-only or heuristic fallback paths.
-6. Expand CI in layers: start with compile, strategy AI merge tests, API compatibility tests, model retrain/reload tests, then cockpit/security tests.
-
-## Current high-value test slices
-
-```bash
-PYTHONPATH=src pytest -q tests/test_strategy_ai_merge.py
-PYTHONPATH=src pytest -q tests/test_api_logs_compat.py tests/test_api_ai_reload.py tests/test_api_start_stop.py
-PYTHONPATH=src pytest -q tests/test_model_retrain_reload_workflow.py
-PYTHONPATH=src pytest -q tests/test_api_auth_destructive_endpoint_guard_4B436637E.py tests/test_api_operator_security_hardening_4B436629B.py
-python -m compileall -q src/tradebot tests
-```
 
 ## Local runbook
 
