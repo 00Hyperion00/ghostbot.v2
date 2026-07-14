@@ -58,8 +58,6 @@ The AI layer is a normalization layer, not an unconditional execution authority:
 
 1. The technical strategy produces the base `SignalDecision`.
 2. If local XGBoost is enabled and available, the AI provider may return an action or an AI-held decision.
-3. If AI prediction fails, the runtime logs `AI_PROVIDER_PREDICT_FAILED` and falls back to deterministic heuristic normalization.
-4. The resulting decision is still subject to runtime guards before any order action can happen.
 
 ## Persistence contract
 

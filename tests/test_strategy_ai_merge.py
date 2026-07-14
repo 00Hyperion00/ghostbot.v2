@@ -108,3 +108,4 @@ def test_normalize_signal_with_ai_logs_provider_failure_and_falls_back():
     assert data['errorType'] == 'RuntimeError'
     assert data['technicalSignal'] == 'HOLD'
     assert dedupe_ms == 60_000
+

@@ -98,6 +98,7 @@ class _StrategyEventLogger(Protocol):
         ...
 
 
+
 def normalize_signal_with_ai(
     base_decision: SignalDecision,
     settings: Settings,
@@ -133,19 +134,7 @@ def normalize_signal_with_ai(
                     metrics=merged_metrics,
                 )
         except Exception as exc:
-            if event_logger is not None:
-                event_logger.warn(
-                    'AI_PROVIDER_PREDICT_FAILED',
-                    'AI provider predict failed; falling back to deterministic heuristic signal normalization',
-                    {
-                        'errorType': type(exc).__name__,
-                        'error': str(exc),
-                        'technicalSignal': base_decision.signal,
-                        'technicalTrend': base_decision.trend,
-                    },
-                    dedupe_ms=60_000,
-                )
-    metrics = base_decision.metrics
+
     confidence = 0.5
     trend = base_decision.trend
     rsi_now = metrics.get('rsi')
@@ -170,8 +159,8 @@ def normalize_signal_with_ai(
     if base_decision.signal in {'BUY', 'SELL'}:
         signal = base_decision.signal
 
-    merged_metrics = dict(base_decision.metrics)
-    merged_metrics['technicalSignal'] = base_decision.signal
+    merged_metrics = dict(metrics or {})
+    merged_metrics.setdefault('technicalSignal', base_decision.signal)
     return SignalDecision(
         signal=signal,
         trend=base_decision.trend,

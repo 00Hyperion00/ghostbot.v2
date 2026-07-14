@@ -20,12 +20,12 @@ tradebot api --config examples/config.demo.yaml
 
 ## AI servisini ayrı çalıştırma
 ```bash
-tradebot ai-service --model-path models/SOLUSDT_model.json --threshold 0.60
+tradebot ai-service --model-path models/SOLUSDT_model.ubj --threshold 0.60
 ```
 
 ## Model eğitimi
 ```bash
-tradebot train-model --symbol SOLUSDT --interval 1m --days 30 --out models/SOLUSDT_model.json
+tradebot train-model --symbol SOLUSDT --interval 1m --days 30 --out models/SOLUSDT_model.ubj
 ```
 
 ## Dashboard

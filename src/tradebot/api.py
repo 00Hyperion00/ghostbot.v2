@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
 
 from .config import Settings
@@ -1752,12 +1752,13 @@ def _h6_fetch_logs(store: _H6Any, limit: int, order: str) -> list[dict[str, _H6A
             rows = method(limit=normalized_limit, order=normalized_order)
             return [_h6_row(item) for item in list(rows or [])]
         except TypeError:
-            # Legacy stores do not accept order. Preserve their native order;
-            # never reverse the fallback result.
+            # Legacy stores do not accept order; normalize order at the API boundary.
             for kwargs in ({"limit": normalized_limit}, {}):
                 try:
                     rows = method(**kwargs)
                     values = [_h6_row(item) for item in list(rows or [])]
+                    if normalized_order == "desc":
+                        values = list(reversed(values))
                     return values if normalized_limit <= 0 else values[:normalized_limit]
                 except TypeError:
                     continue
@@ -1920,7 +1921,17 @@ async def _h6_reload(engine: _H6Any, model_path: str | None, threshold: float | 
                     result = await _h6_await(method(*arguments))
                 except TypeError:
                     try:
-                        result = await _h6_await(method(model_path=model_path, threshold=threshold))
+                        result = await _h6_await(
+                            method(
+                                model_path=model_path,
+                                threshold=threshold,
+                                buy_threshold=arguments[2],
+                                sell_threshold=arguments[3],
+                                hold_band_low=arguments[4],
+                                hold_band_high=arguments[5],
+                                indecision_margin=arguments[6],
+                            )
+                        )
                     except TypeError:
                         result = await _h6_await(method(model_path, threshold))
         success = result is not False and not (
@@ -1988,6 +1999,23 @@ def _h6_quality_gate(report: dict[str, _H6Any]) -> tuple[bool, list[str]]:
         reasons.append("AI_TRAIN_ACTION_COVERAGE_TOO_LOW")
     return not reasons, reasons
 
+
+
+def _h6_training_quality_gate(report: dict[str, _H6Any], settings: _H6Any) -> dict[str, _H6Any]:
+    try:
+        gate = evaluate_training_result_quality(report, settings=settings)
+        if isinstance(gate, dict):
+            return dict(gate)
+    except Exception:
+        pass
+    quality_ok, reasons = _h6_quality_gate(report)
+    return {
+        "decision": "PASS" if quality_ok else "BLOCK",
+        "ok": quality_ok,
+        "reload_allowed": quality_ok,
+        "reason_codes": reasons,
+        "warnings": [],
+    }
 
 def _h6_create_app(engine: _H6Any):
     from fastapi import FastAPI, Request
@@ -2179,7 +2207,9 @@ def _h6_create_app(engine: _H6Any):
         except TypeError:
             report = await _h6_await(trainer(symbol, interval, days, output, base_url))
         report_dict = report if isinstance(report, dict) else {"result": _h6_to_dict(report)}
-        quality_ok, reasons = _h6_quality_gate(report_dict)
+        quality_gate = _h6_training_quality_gate(report_dict, settings)
+        quality_ok = bool(quality_gate.get("reload_allowed", quality_gate.get("ok", False)))
+        reasons = list(quality_gate.get("reason_codes") or [])
         if not quality_ok:
             return {
                 "ok": False,
@@ -2187,6 +2217,7 @@ def _h6_create_app(engine: _H6Any):
                 "reloaded": False,
                 "reload_blocked": True,
                 "quality_gate_ok": False,
+                "quality_gate": quality_gate,
                 "reason_codes": reasons,
                 "training_result": report_dict,
                 "training_report": report_dict,
@@ -2206,6 +2237,7 @@ def _h6_create_app(engine: _H6Any):
             "reloaded": bool(reload_result.get("ok")),
             "reload_blocked": False,
             "quality_gate_ok": True,
+            "quality_gate": quality_gate,
             "reason_codes": [],
             "training_result": report_dict,
             "training_report": report_dict,
