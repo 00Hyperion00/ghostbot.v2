@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Protocol
+
 from .config import Settings
 from .indicators import atr, ema, rsi
 from .models import Candle, SignalDecision
@@ -91,7 +93,48 @@ def _merge_ai_metrics(base_decision: SignalDecision, ai_decision: SignalDecision
     return merged_metrics
 
 
-def normalize_signal_with_ai(base_decision: SignalDecision, settings: Settings, *, closed_candles: list[Candle] | None = None, ai_provider: object | None = None) -> SignalDecision:
+class _StrategyEventLogger(Protocol):
+    def warn(self, code: str, message: str, data: dict | None = None, *, dedupe_ms: int | None = None) -> None:
+        ...
+
+
+def _build_ai_provider_failure_metrics(base_decision: SignalDecision, exc: Exception) -> dict:
+    metrics = dict(base_decision.metrics or {})
+    metrics['technicalSignal'] = base_decision.signal
+    metrics['aiProviderError'] = True
+    metrics['aiProviderErrorType'] = type(exc).__name__
+    metrics['aiFallbackMode'] = 'deterministic_heuristic'
+    return metrics
+
+
+def _warn_ai_provider_failure(event_logger: _StrategyEventLogger | None, base_decision: SignalDecision, exc: Exception) -> None:
+    if event_logger is None:
+        return
+    try:
+        event_logger.warn(
+            'AI_PROVIDER_PREDICT_FAILED',
+            'AI provider predict failed; falling back to deterministic heuristic signal normalization',
+            {
+                'errorType': type(exc).__name__,
+                'error': str(exc),
+                'technicalSignal': base_decision.signal,
+                'technicalTrend': base_decision.trend,
+            },
+            dedupe_ms=60_000,
+        )
+    except Exception:
+        # Logging must never turn a safe AI fallback into a runtime failure.
+        return
+
+
+def normalize_signal_with_ai(
+    base_decision: SignalDecision,
+    settings: Settings,
+    *,
+    closed_candles: list[Candle] | None = None,
+    ai_provider: object | None = None,
+    event_logger: _StrategyEventLogger | None = None,
+) -> SignalDecision:
     if not settings.ai_provider_enabled:
         return base_decision
     if settings.ai_provider_mode == 'local_xgboost' and ai_provider is not None and closed_candles:
@@ -118,9 +161,13 @@ def normalize_signal_with_ai(base_decision: SignalDecision, settings: Settings, 
                     last_evaluated_close_time=ai_decision.last_evaluated_close_time,
                     metrics=merged_metrics,
                 )
-        except Exception:
-            pass
-    metrics = base_decision.metrics
+        except Exception as exc:
+            _warn_ai_provider_failure(event_logger, base_decision, exc)
+            metrics = _build_ai_provider_failure_metrics(base_decision, exc)
+        else:
+            metrics = base_decision.metrics
+    else:
+        metrics = base_decision.metrics
     confidence = 0.5
     trend = base_decision.trend
     rsi_now = metrics.get('rsi')
@@ -145,8 +192,8 @@ def normalize_signal_with_ai(base_decision: SignalDecision, settings: Settings, 
     if base_decision.signal in {'BUY', 'SELL'}:
         signal = base_decision.signal
 
-    merged_metrics = dict(base_decision.metrics)
-    merged_metrics['technicalSignal'] = base_decision.signal
+    merged_metrics = dict(metrics or {})
+    merged_metrics.setdefault('technicalSignal', base_decision.signal)
     return SignalDecision(
         signal=signal,
         trend=base_decision.trend,

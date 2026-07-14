@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
 
 from .config import Settings
@@ -1752,12 +1752,13 @@ def _h6_fetch_logs(store: _H6Any, limit: int, order: str) -> list[dict[str, _H6A
             rows = method(limit=normalized_limit, order=normalized_order)
             return [_h6_row(item) for item in list(rows or [])]
         except TypeError:
-            # Legacy stores do not accept order. Preserve their native order;
-            # never reverse the fallback result.
+            # Legacy stores do not accept order; normalize order at the API boundary.
             for kwargs in ({"limit": normalized_limit}, {}):
                 try:
                     rows = method(**kwargs)
                     values = [_h6_row(item) for item in list(rows or [])]
+                    if normalized_order == "desc":
+                        values = list(reversed(values))
                     return values if normalized_limit <= 0 else values[:normalized_limit]
                 except TypeError:
                     continue
@@ -1849,6 +1850,19 @@ def _h6_append_log(
             )
 
 
+
+def _h6_append_model_audit(
+    engine: _H6Any,
+    *,
+    level: str,
+    code: str,
+    message: str,
+    data: dict[str, _H6Any] | None = None,
+) -> None:
+    payload = {"category": "Model", **dict(data or {})}
+    _h6_append_log(_h6_store(engine), level=level, code=code, message=message, data=payload)
+
+
 def _h6_provider(engine: _H6Any) -> _H6Any:
     for name in ("ai_provider", "signal_provider", "model_provider", "provider"):
         provider = getattr(engine, name, None)
@@ -1873,22 +1887,79 @@ def _h6_reload_args(settings: _H6Any, model_path: str | None, threshold: float |
         threshold,
         float(_h6_setting(settings, ("ai_buy_threshold", "buy_threshold"), 0.64)),
         float(_h6_setting(settings, ("ai_sell_threshold", "sell_threshold"), 0.57)),
-        float(_h6_setting(settings, ("ai_hold_threshold", "hold_threshold"), 0.45)),
+        float(_h6_setting(settings, ("ai_hold_band_low", "ai_hold_threshold", "hold_threshold"), 0.45)),
         float(
             _h6_setting(
                 settings,
-                ("ai_margin_threshold", "ai_min_action_confidence", "margin_threshold"),
+                ("ai_hold_band_high", "ai_margin_threshold", "ai_min_action_confidence", "margin_threshold"),
                 0.55,
             )
         ),
         float(
             _h6_setting(
                 settings,
-                ("ai_reject_low_margin_threshold", "ai_calibration_margin", "reject_low_margin_threshold"),
+                (
+                    "ai_indecision_margin",
+                    "ai_reject_low_margin_threshold",
+                    "ai_calibration_margin",
+                    "reject_low_margin_threshold",
+                ),
                 0.08,
             )
         ),
     )
+
+
+def _h6_reload_kwargs(arguments: tuple[_H6Any, ...]) -> dict[str, _H6Any]:
+    return {
+        "model_path": arguments[0],
+        "threshold": arguments[1],
+        "buy_threshold": arguments[2],
+        "sell_threshold": arguments[3],
+        "hold_band_low": arguments[4],
+        "hold_band_high": arguments[5],
+        "indecision_margin": arguments[6],
+    }
+
+
+def _h6_reload_method_prefers_keywords(method: _H6Any) -> bool:
+    try:
+        signature = _h6_inspect.signature(method)
+    except (TypeError, ValueError):
+        return False
+    parameters = list(signature.parameters.values())
+    if any(parameter.kind is _h6_inspect.Parameter.VAR_POSITIONAL for parameter in parameters):
+        return False
+    return any(parameter.kind is _h6_inspect.Parameter.KEYWORD_ONLY for parameter in parameters)
+
+
+def _h6_reload_method_accepts_varargs(method: _H6Any) -> bool:
+    try:
+        signature = _h6_inspect.signature(method)
+    except (TypeError, ValueError):
+        return False
+    return any(
+        parameter.kind is _h6_inspect.Parameter.VAR_POSITIONAL
+        for parameter in signature.parameters.values()
+    )
+
+
+async def _h6_call_reload_method(method: _H6Any, arguments: tuple[_H6Any, ...]) -> _H6Any:
+    kwargs = _h6_reload_kwargs(arguments)
+    if _h6_reload_method_prefers_keywords(method):
+        return await _h6_await(method(**kwargs))
+    try:
+        return await _h6_await(method(*arguments))
+    except TypeError as positional_error:
+        if _h6_reload_method_accepts_varargs(method):
+            raise positional_error
+        try:
+            return await _h6_await(method(**kwargs))
+        except TypeError:
+            try:
+                return await _h6_await(method(arguments[0], arguments[1]))
+            except TypeError:
+                raise positional_error
 
 
 async def _h6_reload(engine: _H6Any, model_path: str | None, threshold: float | None) -> dict[str, _H6Any]:
@@ -1916,13 +1987,7 @@ async def _h6_reload(engine: _H6Any, model_path: str | None, threshold: float | 
                     break
             if method is not None:
                 arguments = _h6_reload_args(settings, model_path, threshold)
-                try:
-                    result = await _h6_await(method(*arguments))
-                except TypeError:
-                    try:
-                        result = await _h6_await(method(model_path=model_path, threshold=threshold))
-                    except TypeError:
-                        result = await _h6_await(method(model_path, threshold))
+                result = await _h6_call_reload_method(method, arguments)
         success = result is not False and not (
             isinstance(result, dict)
             and result.get("ok", result.get("reload_ok", True)) is False
@@ -1946,7 +2011,7 @@ async def _h6_reload(engine: _H6Any, model_path: str | None, threshold: float | 
         available = True
         if isinstance(result, dict):
             available = bool(result.get("available", True))
-        return {
+        payload = {
             "ok": True,
             "reload_ok": True,
             "available": available,
@@ -1954,6 +2019,14 @@ async def _h6_reload(engine: _H6Any, model_path: str | None, threshold: float | 
             "threshold": threshold,
             "detail": _h6_to_dict(result),
         }
+        _h6_append_model_audit(
+            engine,
+            level="INFO",
+            code="AI_RELOAD_SUCCEEDED",
+            message="AI model reload succeeded",
+            data={"model_path": model_path, "threshold": threshold, "available": available},
+        )
+        return payload
     except Exception as exc:
         if settings is not None:
             for name, value in old_values.items():
@@ -1961,7 +2034,7 @@ async def _h6_reload(engine: _H6Any, model_path: str | None, threshold: float | 
                     setattr(settings, name, value)
                 except Exception:
                     pass
-        return {
+        payload = {
             "ok": False,
             "reload_ok": False,
             "available": False,
@@ -1972,6 +2045,21 @@ async def _h6_reload(engine: _H6Any, model_path: str | None, threshold: float | 
             ),
             "error": str(exc),
         }
+        _h6_append_model_audit(
+            engine,
+            level="ERROR",
+            code="AI_RELOAD_FAILED",
+            message="AI model reload failed; active settings restored",
+            data={
+                "requested_model_path": model_path,
+                "active_model_path": payload["model_path"],
+                "requested_threshold": threshold,
+                "active_threshold": payload["threshold"],
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+            },
+        )
+        return payload
 
 
 def _h6_quality_gate(report: dict[str, _H6Any]) -> tuple[bool, list[str]]:
@@ -1988,6 +2076,23 @@ def _h6_quality_gate(report: dict[str, _H6Any]) -> tuple[bool, list[str]]:
         reasons.append("AI_TRAIN_ACTION_COVERAGE_TOO_LOW")
     return not reasons, reasons
 
+
+
+def _h6_training_quality_gate(report: dict[str, _H6Any], settings: _H6Any) -> dict[str, _H6Any]:
+    try:
+        gate = evaluate_training_result_quality(report, settings=settings)
+        if isinstance(gate, dict):
+            return dict(gate)
+    except Exception:
+        pass
+    quality_ok, reasons = _h6_quality_gate(report)
+    return {
+        "decision": "PASS" if quality_ok else "BLOCK",
+        "ok": quality_ok,
+        "reload_allowed": quality_ok,
+        "reason_codes": reasons,
+        "warnings": [],
+    }
 
 def _h6_create_app(engine: _H6Any):
     from fastapi import FastAPI, Request
@@ -2179,7 +2284,9 @@ def _h6_create_app(engine: _H6Any):
         except TypeError:
             report = await _h6_await(trainer(symbol, interval, days, output, base_url))
         report_dict = report if isinstance(report, dict) else {"result": _h6_to_dict(report)}
-        quality_ok, reasons = _h6_quality_gate(report_dict)
+        quality_gate = _h6_training_quality_gate(report_dict, settings)
+        quality_ok = bool(quality_gate.get("reload_allowed", quality_gate.get("ok", False)))
+        reasons = list(quality_gate.get("reason_codes") or [])
         if not quality_ok:
             return {
                 "ok": False,
@@ -2187,6 +2294,7 @@ def _h6_create_app(engine: _H6Any):
                 "reloaded": False,
                 "reload_blocked": True,
                 "quality_gate_ok": False,
+                "quality_gate": quality_gate,
                 "reason_codes": reasons,
                 "training_result": report_dict,
                 "training_report": report_dict,
@@ -2206,6 +2314,7 @@ def _h6_create_app(engine: _H6Any):
             "reloaded": bool(reload_result.get("ok")),
             "reload_blocked": False,
             "quality_gate_ok": True,
+            "quality_gate": quality_gate,
             "reason_codes": [],
             "training_result": report_dict,
             "training_report": report_dict,
