@@ -197,3 +197,53 @@ def test_dashboard_resolve_training_output_path_forces_ubj(tmp_path: Path):
     out = app._resolve_training_output_path('ETHUSDT')
     assert out.suffix == '.ubj'
     assert out.as_posix().endswith('/models/ETHUSDT_model.ubj')
+
+class AuditStore:
+    def __init__(self):
+        self._logs = []
+
+    def fetch_logs(self, limit=200, order='desc'):
+        rows = list(self._logs)
+        if order == 'desc':
+            rows.reverse()
+        return rows[:limit] if limit else rows
+
+    def append_log(self, event):
+        if isinstance(event, dict):
+            self._logs.append(event)
+            return
+        self._logs.append({
+            'ts': getattr(event, 'ts', 0),
+            'level': getattr(event, 'level', ''),
+            'code': getattr(event, 'code', ''),
+            'message': getattr(event, 'message', ''),
+            'data': getattr(event, 'data', {}),
+        })
+
+
+def test_ai_train_quality_gate_block_is_audited(monkeypatch, tmp_path: Path):
+    engine = DummyEngine(DummyProvider(available=True))
+    engine.store = AuditStore()
+    client = TestClient(create_app(engine))
+
+    def fake_train(symbol, interval, days, out, base_url, **kwargs):
+        return {
+            'symbol': symbol,
+            'interval': interval,
+            'days': days,
+            'model_path': (tmp_path / 'blocked.ubj').as_posix(),
+            'workflow_version': '4B.4.3.6.6.4',
+            'clean_samples': 2500,
+            'calibrated_action_report': {'hold_rate': 0.995, 'action_coverage': 0.005, 'non_hold_rate': 0.005},
+            'calibrated_reason_counts': {'RAW_TOP_HOLD': 2488, 'REJECT_LOW_MARGIN': 12},
+            'calibrated_predicted_class_distribution': {'0': 2488, '1': 6, '2': 6},
+        }
+
+    monkeypatch.setattr('tradebot.api.train_xgb_model', fake_train)
+    response = client.post('/ai/train', json={'symbol': 'ETHUSDT', 'days': 7, 'out': str(tmp_path / 'blocked.json')})
+    audit = client.get('/events/audit', params={'category': 'Model', 'order': 'asc', 'limit': 0}).json()
+
+    assert response.json()['reload_blocked'] is True
+    assert [event['code'] for event in audit['events']] == ['AI_TRAIN_QUALITY_GATE_BLOCKED_RELOAD']
+    assert audit['events'][0]['data']['reload_allowed'] is False
+    assert audit['events'][0]['data']['reason_codes']

@@ -2288,6 +2288,19 @@ def _h6_create_app(engine: _H6Any):
         quality_ok = bool(quality_gate.get("reload_allowed", quality_gate.get("ok", False)))
         reasons = list(quality_gate.get("reason_codes") or [])
         if not quality_ok:
+            _h6_append_model_audit(
+                engine,
+                level="WARN",
+                code="AI_TRAIN_QUALITY_GATE_BLOCKED_RELOAD",
+                message="AI training completed but reload was blocked by quality gate",
+                data={
+                    "model_path": report_dict.get("model_path") or output,
+                    "decision": quality_gate.get("decision", "BLOCK"),
+                    "reload_allowed": False,
+                    "reason_codes": reasons,
+                    "clean_samples": report_dict.get("clean_samples"),
+                },
+            )
             return {
                 "ok": False,
                 "trained": True,
@@ -2307,6 +2320,20 @@ def _h6_create_app(engine: _H6Any):
             body.get("threshold")
             if body.get("threshold") is not None
             else _h6_setting(settings, ("ai_confidence_threshold", "ai_threshold"), 0.55),
+        )
+        _h6_append_model_audit(
+            engine,
+            level="INFO" if bool(reload_result.get("ok")) else "ERROR",
+            code="AI_TRAIN_RELOAD_SUCCEEDED" if bool(reload_result.get("ok")) else "AI_TRAIN_RELOAD_FAILED",
+            message="AI training quality gate passed; reload attempted",
+            data={
+                "model_path": report_dict.get("model_path") or output,
+                "decision": quality_gate.get("decision", "PASS"),
+                "reload_allowed": True,
+                "reload_ok": bool(reload_result.get("ok")),
+                "reason_codes": [],
+                "clean_samples": report_dict.get("clean_samples"),
+            },
         )
         return {
             "ok": bool(reload_result.get("ok")),
