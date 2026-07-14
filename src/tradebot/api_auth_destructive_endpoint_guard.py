@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import hmac
 import json
 import subprocess
 from dataclasses import dataclass
@@ -254,6 +255,49 @@ def is_destructive_endpoint(method: str, path: str) -> bool:
         return False
     return any(pattern in path_norm for pattern in DESTRUCTIVE_ENDPOINT_PATTERNS) or path_norm.startswith("/api/")
 
+
+
+def _header_value(headers: Mapping[str, Any] | None, name: str) -> str | None:
+    if not headers:
+        return None
+    wanted = name.lower()
+    for key, value in headers.items():
+        if str(key).lower() == wanted:
+            return None if value is None else str(value)
+    return None
+
+
+def validate_local_token(supplied_token: str | None, expected_token: str | None) -> dict[str, Any]:
+    supplied = str(supplied_token or "").strip()
+    expected = str(expected_token or "").strip()
+    token_present = bool(supplied)
+    token_configured = bool(expected)
+    token_valid = bool(token_present and token_configured and hmac.compare_digest(supplied, expected))
+    return {
+        "token_present": token_present,
+        "token_configured": token_configured,
+        "token_valid": token_valid,
+        "token_header_name": LOCAL_TOKEN_HEADER_NAME,
+        "token_env_var": LOCAL_TOKEN_ENV_VAR,
+    }
+
+
+def authorize_local_endpoint_from_headers(
+    method: str,
+    path: str,
+    *,
+    headers: Mapping[str, Any] | None,
+    expected_token: str | None,
+) -> dict[str, Any]:
+    token_state = validate_local_token(_header_value(headers, LOCAL_TOKEN_HEADER_NAME), expected_token)
+    decision = authorize_local_endpoint(
+        method,
+        path,
+        token_present=bool(token_state["token_present"]),
+        token_valid=bool(token_state["token_valid"]),
+    )
+    decision.update(token_state)
+    return decision
 
 def authorize_local_endpoint(method: str, path: str, *, token_present: bool, token_valid: bool) -> dict[str, Any]:
     method_norm = normalize_method(method)
