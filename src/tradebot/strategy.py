@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Protocol
+
 from .config import Settings
 from .indicators import atr, ema, rsi
 from .models import Candle, SignalDecision
@@ -91,7 +93,19 @@ def _merge_ai_metrics(base_decision: SignalDecision, ai_decision: SignalDecision
     return merged_metrics
 
 
-def normalize_signal_with_ai(base_decision: SignalDecision, settings: Settings, *, closed_candles: list[Candle] | None = None, ai_provider: object | None = None) -> SignalDecision:
+class _StrategyEventLogger(Protocol):
+    def warn(self, code: str, message: str, data: dict | None = None, *, dedupe_ms: int | None = None) -> None:
+        ...
+
+
+def normalize_signal_with_ai(
+    base_decision: SignalDecision,
+    settings: Settings,
+    *,
+    closed_candles: list[Candle] | None = None,
+    ai_provider: object | None = None,
+    event_logger: _StrategyEventLogger | None = None,
+) -> SignalDecision:
     if not settings.ai_provider_enabled:
         return base_decision
     if settings.ai_provider_mode == 'local_xgboost' and ai_provider is not None and closed_candles:
@@ -118,8 +132,19 @@ def normalize_signal_with_ai(base_decision: SignalDecision, settings: Settings, 
                     last_evaluated_close_time=ai_decision.last_evaluated_close_time,
                     metrics=merged_metrics,
                 )
-        except Exception:
-            pass
+        except Exception as exc:
+            if event_logger is not None:
+                event_logger.warn(
+                    'AI_PROVIDER_PREDICT_FAILED',
+                    'AI provider predict failed; falling back to deterministic heuristic signal normalization',
+                    {
+                        'errorType': type(exc).__name__,
+                        'error': str(exc),
+                        'technicalSignal': base_decision.signal,
+                        'technicalTrend': base_decision.trend,
+                    },
+                    dedupe_ms=60_000,
+                )
     metrics = base_decision.metrics
     confidence = 0.5
     trend = base_decision.trend
