@@ -2000,6 +2000,23 @@ def _h6_quality_gate(report: dict[str, _H6Any]) -> tuple[bool, list[str]]:
     return not reasons, reasons
 
 
+
+def _h6_training_quality_gate(report: dict[str, _H6Any], settings: _H6Any) -> dict[str, _H6Any]:
+    try:
+        gate = evaluate_training_result_quality(report, settings=settings)
+        if isinstance(gate, dict):
+            return dict(gate)
+    except Exception:
+        pass
+    quality_ok, reasons = _h6_quality_gate(report)
+    return {
+        "decision": "PASS" if quality_ok else "BLOCK",
+        "ok": quality_ok,
+        "reload_allowed": quality_ok,
+        "reason_codes": reasons,
+        "warnings": [],
+    }
+
 def _h6_create_app(engine: _H6Any):
     from fastapi import FastAPI, Request
 
@@ -2190,7 +2207,9 @@ def _h6_create_app(engine: _H6Any):
         except TypeError:
             report = await _h6_await(trainer(symbol, interval, days, output, base_url))
         report_dict = report if isinstance(report, dict) else {"result": _h6_to_dict(report)}
-        quality_ok, reasons = _h6_quality_gate(report_dict)
+        quality_gate = _h6_training_quality_gate(report_dict, settings)
+        quality_ok = bool(quality_gate.get("reload_allowed", quality_gate.get("ok", False)))
+        reasons = list(quality_gate.get("reason_codes") or [])
         if not quality_ok:
             return {
                 "ok": False,
@@ -2198,6 +2217,7 @@ def _h6_create_app(engine: _H6Any):
                 "reloaded": False,
                 "reload_blocked": True,
                 "quality_gate_ok": False,
+                "quality_gate": quality_gate,
                 "reason_codes": reasons,
                 "training_result": report_dict,
                 "training_report": report_dict,
@@ -2217,6 +2237,7 @@ def _h6_create_app(engine: _H6Any):
             "reloaded": bool(reload_result.get("ok")),
             "reload_blocked": False,
             "quality_gate_ok": True,
+            "quality_gate": quality_gate,
             "reason_codes": [],
             "training_result": report_dict,
             "training_report": report_dict,
