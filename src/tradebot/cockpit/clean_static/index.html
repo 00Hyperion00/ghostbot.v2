@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TradeBot Clean Dashboard</title>
+  <link rel="stylesheet" href="/clean-static/styles.css" />
+</head>
+<body>
+  <header class="shell-header">
+    <div>
+      <p class="eyebrow">Canonical Operator View</p>
+      <h1>TradeBot Clean Dashboard</h1>
+      <p class="subtitle">Runtime, security, risk and model status in one read-first cockpit.</p>
+    </div>
+    <div class="connection-stack">
+      <div class="security-form" aria-label="Local cockpit security headers">
+        <label>Operator<input id="operatorInput" autocomplete="username" placeholder="operator-local" /></label>
+        <label>Token<input id="tokenInput" type="password" autocomplete="current-password" placeholder="optional" /></label>
+        <button id="saveSecurityButton" type="button">Save</button>
+      </div>
+      <span id="connectionBadge" class="badge badge-warn">BOOTSTRAP</span>
+      <span id="contractVersion" class="contract">contract: -</span>
+    </div>
+  </header>
+
+  <main class="dashboard-grid">
+    <section class="panel hero-panel span-12" id="riskPanel">
+      <div>
+        <p class="eyebrow">Risk posture</p>
+        <h2 id="riskTitle">Snapshot bekleniyor</h2>
+        <p id="riskMessage">Cockpit API verisi alındığında risk özeti burada görünecek.</p>
+      </div>
+      <strong id="riskBadge" class="risk-badge">UNKNOWN</strong>
+    </section>
+
+    <section class="panel span-3"><p class="eyebrow">Runtime</p><dl class="metrics"><div><dt>State</dt><dd id="runtimeState">-</dd></div><div><dt>Symbol</dt><dd id="symbol">-</dd></div><div><dt>WS</dt><dd id="wsStatus">-</dd></div></dl></section>
+    <section class="panel span-3"><p class="eyebrow">Signal</p><dl class="metrics"><div><dt>Signal</dt><dd id="signal">-</dd></div><div><dt>Provider</dt><dd id="provider">-</dd></div><div><dt>Confidence</dt><dd id="confidence">-</dd></div></dl></section>
+    <section class="panel span-3"><p class="eyebrow">Position</p><dl class="metrics"><div><dt>Status</dt><dd id="positionStatus">-</dd></div><div><dt>Qty</dt><dd id="positionQty">-</dd></div><div><dt>Unrealized</dt><dd id="unrealizedPnl">-</dd></div></dl></section>
+    <section class="panel span-3"><p class="eyebrow">Security</p><dl class="metrics"><div><dt>Auth</dt><dd id="authRequired">-</dd></div><div><dt>Operator</dt><dd id="operatorRequired">-</dd></div><div><dt>Fail closed</dt><dd id="failClosed">-</dd></div></dl></section>
+
+    <section class="panel span-6"><div class="panel-title-row"><div><p class="eyebrow">Guardrail summary</p><h2>Control-plane gates</h2></div><button id="refreshButton" type="button">Refresh</button></div><div id="guardrailList" class="status-list"></div></section>
+    <section class="panel span-6"><p class="eyebrow">Model lifecycle</p><h2>AI / quality gate</h2><div id="modelList" class="status-list"></div></section>
+    <section class="panel span-12"><p class="eyebrow">Recent events</p><h2>Audit and runtime log stream</h2><div id="eventLog" class="event-log"></div></section>
+  </main>
+
+  <script src="/clean-static/app.js"></script>
+</body>
+</html>
