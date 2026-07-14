@@ -34,17 +34,6 @@ tradebot train-model --symbol SOLUSDT --interval 1m --days 30 --out models/SOLUS
 ## Production Architecture
 
 Aktif runtime, operator workflow ve güvenlik sınırları için canonical rehber: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
-Kalan işler ve finalize sırası: [`docs/FINALIZATION_ROADMAP.md`](docs/FINALIZATION_ROADMAP.md).
-Patch uygularken bu dosyada çakışma olursa güvenli çözüm notları: [`docs/ARCHITECTURE_CONFLICT_RESOLUTION.md`](docs/ARCHITECTURE_CONFLICT_RESOLUTION.md).
-
-## Geliştirme Doğrulama
-
-Odaklı API/runtime kontrolleri için:
-
-```bash
-PYTHONPATH=src pytest -q tests/test_api_logs_compat.py tests/test_api_ai_reload.py tests/test_model_retrain_reload_workflow.py tests/test_strategy_ai_merge.py
-python -m compileall -q src/tradebot tests
-```
 
 ## Notlar
 - `main.py`, `train_model.py`, `dashboard.py` dosyaları korunmuştur ama artık yeni modüller için ince wrapper görevi görür.
