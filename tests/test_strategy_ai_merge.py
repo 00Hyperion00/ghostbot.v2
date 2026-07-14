@@ -109,33 +109,3 @@ def test_normalize_signal_with_ai_logs_provider_failure_and_falls_back():
     assert data['technicalSignal'] == 'HOLD'
     assert dedupe_ms == 60_000
 
-
-class ExplodingLogger:
-    def warn(self, code, message, data=None, *, dedupe_ms=None):
-        raise RuntimeError('logger sink unavailable')
-
-
-def test_normalize_signal_with_ai_provider_failure_marks_runtime_metrics():
-    base = SignalDecision(
-        signal='HOLD',
-        trend='UP',
-        reason='tech hold',
-        provider='technical',
-        confidence=None,
-        last_evaluated_close_time=790,
-        metrics={'rsi': 55.0, 'volumeRatio': 1.0, 'takerBuyPressure': 0.5},
-    )
-
-    out = normalize_signal_with_ai(
-        base,
-        DummySettings(),
-        closed_candles=[Candle(0, 1, 1, 1, 1, 1, 1, 1)],
-        ai_provider=FailingProvider(),
-        event_logger=ExplodingLogger(),
-    )
-
-    assert out.last_evaluated_close_time == 790
-    assert out.metrics['technicalSignal'] == 'HOLD'
-    assert out.metrics['aiProviderError'] is True
-    assert out.metrics['aiProviderErrorType'] == 'RuntimeError'
-    assert out.metrics['aiFallbackMode'] == 'deterministic_heuristic'

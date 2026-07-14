@@ -98,34 +98,6 @@ class _StrategyEventLogger(Protocol):
         ...
 
 
-def _build_ai_provider_failure_metrics(base_decision: SignalDecision, exc: Exception) -> dict:
-    metrics = dict(base_decision.metrics or {})
-    metrics['technicalSignal'] = base_decision.signal
-    metrics['aiProviderError'] = True
-    metrics['aiProviderErrorType'] = type(exc).__name__
-    metrics['aiFallbackMode'] = 'deterministic_heuristic'
-    return metrics
-
-
-def _warn_ai_provider_failure(event_logger: _StrategyEventLogger | None, base_decision: SignalDecision, exc: Exception) -> None:
-    if event_logger is None:
-        return
-    try:
-        event_logger.warn(
-            'AI_PROVIDER_PREDICT_FAILED',
-            'AI provider predict failed; falling back to deterministic heuristic signal normalization',
-            {
-                'errorType': type(exc).__name__,
-                'error': str(exc),
-                'technicalSignal': base_decision.signal,
-                'technicalTrend': base_decision.trend,
-            },
-            dedupe_ms=60_000,
-        )
-    except Exception:
-        # Logging must never turn a safe AI fallback into a runtime failure.
-        return
-
 
 def normalize_signal_with_ai(
     base_decision: SignalDecision,
@@ -162,12 +134,7 @@ def normalize_signal_with_ai(
                     metrics=merged_metrics,
                 )
         except Exception as exc:
-            _warn_ai_provider_failure(event_logger, base_decision, exc)
-            metrics = _build_ai_provider_failure_metrics(base_decision, exc)
-        else:
-            metrics = base_decision.metrics
-    else:
-        metrics = base_decision.metrics
+
     confidence = 0.5
     trend = base_decision.trend
     rsi_now = metrics.get('rsi')
