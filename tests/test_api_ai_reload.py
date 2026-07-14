@@ -85,3 +85,57 @@ def test_ai_reload_updates_engine_settings_and_provider():
     assert engine.settings.ai_model_path == 'models/new.ubj'
     assert engine.settings.ai_confidence_threshold == 0.73
     assert engine.ai_provider.calls == [('models/new.ubj', 0.73, 0.64, 0.57, 0.45, 0.55, 0.08)]
+
+class InternalTypeErrorProvider(DummyProvider):
+    def reload(self, model_path=None, threshold=None, *args):
+        self.calls.append((model_path, threshold, args))
+        raise TypeError('internal provider type error')
+
+
+def test_ai_reload_does_not_mask_provider_internal_type_error():
+    engine = DummyEngine()
+    engine.ai_provider = InternalTypeErrorProvider()
+    client = TestClient(create_app(engine))
+
+    payload = client.post('/ai/reload', json={'model_path': 'models/bad.ubj', 'threshold': 0.77}).json()
+
+    assert payload['ok'] is False
+    assert payload['error'] == 'internal provider type error'
+    assert engine.settings.ai_model_path == 'models/old.ubj'
+    assert engine.ai_provider.calls == [('models/bad.ubj', 0.77, (0.64, 0.57, 0.45, 0.55, 0.08))]
+
+class AuditStore:
+    def __init__(self):
+        self._logs = []
+
+    def fetch_logs(self, limit=200, order='desc'):
+        rows = list(self._logs)
+        if order == 'desc':
+            rows.reverse()
+        return rows[:limit] if limit else rows
+
+    def append_log(self, event):
+        if isinstance(event, dict):
+            self._logs.append(event)
+            return
+        self._logs.append({
+            'ts': getattr(event, 'ts', 0),
+            'level': getattr(event, 'level', ''),
+            'code': getattr(event, 'code', ''),
+            'message': getattr(event, 'message', ''),
+            'data': getattr(event, 'data', {}),
+        })
+
+
+def test_ai_reload_writes_model_audit_event():
+    engine = DummyEngine()
+    engine.store = AuditStore()
+    client = TestClient(create_app(engine))
+
+    response = client.post('/ai/reload', json={'model_path': 'models/audited.ubj', 'threshold': 0.71})
+    audit = client.get('/events/audit', params={'category': 'Model', 'order': 'asc', 'limit': 0}).json()
+
+    assert response.json()['ok'] is True
+    assert [event['code'] for event in audit['events']] == ['AI_RELOAD_SUCCEEDED']
+    assert audit['events'][0]['data']['model_path'] == 'models/audited.ubj'
+    assert audit['events'][0]['data']['threshold'] == 0.71

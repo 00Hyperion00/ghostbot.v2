@@ -96,9 +96,6 @@ def _merge_ai_metrics(base_decision: SignalDecision, ai_decision: SignalDecision
 class _StrategyEventLogger(Protocol):
     def warn(self, code: str, message: str, data: dict | None = None, *, dedupe_ms: int | None = None) -> None:
         ...
-
-
-
 def normalize_signal_with_ai(
     base_decision: SignalDecision,
     settings: Settings,
@@ -134,7 +131,6 @@ def normalize_signal_with_ai(
                     metrics=merged_metrics,
                 )
         except Exception as exc:
-
     confidence = 0.5
     trend = base_decision.trend
     rsi_now = metrics.get('rsi')
