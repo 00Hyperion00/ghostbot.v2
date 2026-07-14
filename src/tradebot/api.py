@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
 
 from .config import Settings
@@ -1752,12 +1752,13 @@ def _h6_fetch_logs(store: _H6Any, limit: int, order: str) -> list[dict[str, _H6A
             rows = method(limit=normalized_limit, order=normalized_order)
             return [_h6_row(item) for item in list(rows or [])]
         except TypeError:
-            # Legacy stores do not accept order. Preserve their native order;
-            # never reverse the fallback result.
+            # Legacy stores do not accept order; normalize order at the API boundary.
             for kwargs in ({"limit": normalized_limit}, {}):
                 try:
                     rows = method(**kwargs)
                     values = [_h6_row(item) for item in list(rows or [])]
+                    if normalized_order == "desc":
+                        values = list(reversed(values))
                     return values if normalized_limit <= 0 else values[:normalized_limit]
                 except TypeError:
                     continue
@@ -1920,7 +1921,17 @@ async def _h6_reload(engine: _H6Any, model_path: str | None, threshold: float | 
                     result = await _h6_await(method(*arguments))
                 except TypeError:
                     try:
-                        result = await _h6_await(method(model_path=model_path, threshold=threshold))
+                        result = await _h6_await(
+                            method(
+                                model_path=model_path,
+                                threshold=threshold,
+                                buy_threshold=arguments[2],
+                                sell_threshold=arguments[3],
+                                hold_band_low=arguments[4],
+                                hold_band_high=arguments[5],
+                                indecision_margin=arguments[6],
+                            )
+                        )
                     except TypeError:
                         result = await _h6_await(method(model_path, threshold))
         success = result is not False and not (
