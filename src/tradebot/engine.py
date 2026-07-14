@@ -1441,7 +1441,13 @@ class TradeBotEngine:
 
     async def _evaluate_auto_signal(self) -> None:
         technical = evaluate_technical_strategy(self._closed_candles, self.settings)
-        decision = normalize_signal_with_ai(technical, self.settings, closed_candles=self._closed_candles, ai_provider=self.ai_provider)
+        decision = normalize_signal_with_ai(
+            technical,
+            self.settings,
+            closed_candles=self._closed_candles,
+            ai_provider=self.ai_provider,
+            event_logger=self.logger,
+        )
         self.runtime.last_signal = decision.signal
         self.runtime.signal_reason = decision.reason
         self.runtime.trend = decision.trend

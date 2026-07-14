@@ -31,6 +31,10 @@ tradebot train-model --symbol SOLUSDT --interval 1m --days 30 --out models/SOLUS
 ## Dashboard
 `dashboard.py` ve `tradebot.ui.dashboard` aynı arayüzü başlatır. Dashboard artık kaynak kodu patchlemez; doğrudan CLI ve HTTP ile çalışır.
 
+## Production Architecture
+
+Aktif runtime, operator workflow ve güvenlik sınırları için canonical rehber: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
 ## Notlar
 - `main.py`, `train_model.py`, `dashboard.py` dosyaları korunmuştur ama artık yeni modüller için ince wrapper görevi görür.
 - Model dosyaları `models/` altında tutulur.

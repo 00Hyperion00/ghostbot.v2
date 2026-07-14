@@ -65,3 +65,77 @@ def test_normalize_signal_with_ai_preserves_metrics_for_buy():
     assert out.signal == 'BUY'
     assert out.metrics['technicalSignal'] == 'HOLD'
     assert out.metrics['calibratedClass'] == 1
+
+
+class FailingProvider:
+    def predict(self, candles):
+        raise RuntimeError('model unavailable')
+
+
+class CapturingLogger:
+    def __init__(self):
+        self.events = []
+
+    def warn(self, code, message, data=None, *, dedupe_ms=None):
+        self.events.append((code, message, data, dedupe_ms))
+
+
+def test_normalize_signal_with_ai_logs_provider_failure_and_falls_back():
+    base = SignalDecision(
+        signal='HOLD',
+        trend='UP',
+        reason='tech hold',
+        provider='technical',
+        confidence=None,
+        last_evaluated_close_time=789,
+        metrics={'rsi': 55.0, 'volumeRatio': 1.0, 'takerBuyPressure': 0.5},
+    )
+    logger = CapturingLogger()
+
+    out = normalize_signal_with_ai(
+        base,
+        DummySettings(),
+        closed_candles=[Candle(0, 1, 1, 1, 1, 1, 1, 1)],
+        ai_provider=FailingProvider(),
+        event_logger=logger,
+    )
+
+    assert out.provider in {'ai', 'hybrid'}
+    assert out.last_evaluated_close_time == 789
+    assert logger.events
+    code, _message, data, dedupe_ms = logger.events[0]
+    assert code == 'AI_PROVIDER_PREDICT_FAILED'
+    assert data['errorType'] == 'RuntimeError'
+    assert data['technicalSignal'] == 'HOLD'
+    assert dedupe_ms == 60_000
+
+
+class ExplodingLogger:
+    def warn(self, code, message, data=None, *, dedupe_ms=None):
+        raise RuntimeError('logger sink unavailable')
+
+
+def test_normalize_signal_with_ai_provider_failure_marks_runtime_metrics():
+    base = SignalDecision(
+        signal='HOLD',
+        trend='UP',
+        reason='tech hold',
+        provider='technical',
+        confidence=None,
+        last_evaluated_close_time=790,
+        metrics={'rsi': 55.0, 'volumeRatio': 1.0, 'takerBuyPressure': 0.5},
+    )
+
+    out = normalize_signal_with_ai(
+        base,
+        DummySettings(),
+        closed_candles=[Candle(0, 1, 1, 1, 1, 1, 1, 1)],
+        ai_provider=FailingProvider(),
+        event_logger=ExplodingLogger(),
+    )
+
+    assert out.last_evaluated_close_time == 790
+    assert out.metrics['technicalSignal'] == 'HOLD'
+    assert out.metrics['aiProviderError'] is True
+    assert out.metrics['aiProviderErrorType'] == 'RuntimeError'
+    assert out.metrics['aiFallbackMode'] == 'deterministic_heuristic'
