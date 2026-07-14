@@ -107,6 +107,8 @@ src/tradebot/
 
 ## Production readiness completion roadmap
 
+Detailed remaining-work roadmap: [`docs/FINALIZATION_ROADMAP.md`](FINALIZATION_ROADMAP.md).
+
 Use this checklist to continue hardening the repository without destabilizing historical phase contracts:
 
 1. Stabilize active API compatibility overlays before moving files. The active aliases are assigned last in `tradebot.api`, so tests should target those final exported factories.
