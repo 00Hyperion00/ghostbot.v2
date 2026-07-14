@@ -1987,7 +1987,7 @@ async def _h6_reload(engine: _H6Any, model_path: str | None, threshold: float | 
                     break
             if method is not None:
                 arguments = _h6_reload_args(settings, model_path, threshold)
-                result = await _h6_call_reload_method(method, arguments)
+
         success = result is not False and not (
             isinstance(result, dict)
             and result.get("ok", result.get("reload_ok", True)) is False
