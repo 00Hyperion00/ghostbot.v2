@@ -1,7 +1,0 @@
-from __future__ import annotations
-import argparse, json
-def main(argv=None)->int:
-    p=argparse.ArgumentParser(); p.add_argument('--once-json',action='store_true'); p.parse_args(argv)
-    checks={'exchange_submit_still_blocked':True,'live_real_still_blocked':True,'h1_sandbox_preflight_gate_present':True,'paper_candidate_unlocked_candidate_only':True,'filesystem_patch_backup_absent':True,'tracked_patch_backup_absent':True,'gitignore_hygiene_patterns_present':True,'patch_payload_absent_after_apply':True,'module_probe_ok':True,'module_probe_mismatch_zero':True,'target_30l_checker_ok':True,'h1_checker_ok':True}
-    print(json.dumps({'ok':True,'status':'READY','checks':checks,'approved_for_exchange_submit':False,'approved_for_live_real':False,'exchange_submit_performed':False,'network_order_submit_performed':False},sort_keys=True)); return 0
-if __name__=='__main__': raise SystemExit(main())

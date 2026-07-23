@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Kurumsal Sürekli Denetim{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('enterprise_v3.static', filename='v3.css') }}">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><strong>Sürekli Denetim</strong><span>Kurumsal v{{ v3_version }}</span></div>
+    <nav>
+      <a href="{{ url_for('enterprise_v3.dashboard') }}">Gösterge Paneli</a>
+      {% if v3_has_permission('company.manage') %}<a href="{{ url_for('enterprise_v3.companies') }}">Firmalar ve Gruplar</a>{% endif %}
+      <a href="{{ url_for('enterprise_v3.tasks') }}">Görev ve Bildirimler <b class="badge">{{ v3_unread_notifications }}</b></a>
+      {% if v3_has_permission('aging.view') or v3_has_permission('aging.manage') %}<a href="{{ url_for('enterprise_v3.aging') }}">Cari Yaşlandırma</a>{% endif %}
+      {% if v3_has_permission('bank.view') or v3_has_permission('bank.manage') %}<a href="{{ url_for('enterprise_v3.bank_matching') }}">Banka Eşleştirme</a>{% endif %}
+      {% if v3_has_permission('report.view') or v3_has_permission('report.manage') %}<a href="{{ url_for('enterprise_v3.reports') }}">Rapor Tasarım Merkezi</a>{% endif %}
+      {% if v3_has_permission('user.manage') %}<a href="{{ url_for('enterprise_v3.users') }}">Kullanıcı ve Yetkiler</a>{% endif %}
+      {% if v3_has_permission('backup.create') %}<a href="{{ url_for('enterprise_v3.backups') }}">Yedekleme Merkezi</a>{% endif %}
+      {% if v3_has_permission('log.view') %}<a href="{{ url_for('enterprise_v3.audit_log') }}">Denetim İzi</a>{% endif %}
+    </nav>
+    <div class="sidebar-foot"><span>{{ v3_user['full_name'] if v3_user else '' }}</span><a href="{{ url_for('enterprise_v3.logout') }}">Çıkış</a></div>
+  </aside>
+  <main>
+    <header class="topbar"><div><h1>{% block page_title %}Kurumsal Sürekli Denetim{% endblock %}</h1><p>{% block page_subtitle %}Kontrol, iş akışı ve yönetim görünümü{% endblock %}</p></div></header>
+    <section class="content">
+      {% with messages = get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}
+      {% block content %}{% endblock %}
+    </section>
+  </main>
+</div>
+<script>window.V3_CSRF={{ csrf_token()|tojson }};</script>
+<script src="{{ url_for('enterprise_v3.static', filename='v3.js') }}"></script>
+</body>
+</html>

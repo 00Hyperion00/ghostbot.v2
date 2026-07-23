@@ -1,3 +1,0 @@
-import json
-p={'ok':True,'status':'READY','checks':{'module_probe_ok':True,'module_probe_mismatch_zero':True,'module_probe_sqlite_mirror_ok':True,'target_30o_checker_ok':True,'target_mismatch_zero':True,'target_exchange_submit_blocked':True,'exchange_submit_still_blocked':True,'live_real_still_blocked':True},'exchange_submit_performed':False,'trading_action_performed':False,'order_actions_performed':False}
-print(json.dumps(p,sort_keys=True))

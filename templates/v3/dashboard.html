@@ -1,0 +1,13 @@
+{% extends 'v3/base.html' %}{% block title %}Kurumsal Panel{% endblock %}{% block page_title %}Kurumsal Gösterge Paneli{% endblock %}{% block content %}
+<div class="metric-grid">
+  <article><span>Aktif Firma</span><strong>{{ metrics.company_count }}</strong></article>
+  <article><span>Açık Bulgu</span><strong>{{ metrics.open_findings }}</strong></article>
+  <article class="danger"><span>Kritik Bulgu</span><strong>{{ metrics.critical_findings }}</strong></article>
+  <article><span>Açık Görev</span><strong>{{ metrics.open_tasks }}</strong><small>{{ metrics.overdue_tasks }} gecikmiş</small></article>
+  <article><span>Parasal Risk</span><strong>{{ '{:,.2f}'.format(metrics.financial_risk).replace(',','X').replace('.',',').replace('X','.') }} ₺</strong></article>
+  <article><span>90+ Gün Cari</span><strong>{{ '{:,.2f}'.format(metrics.aging_over90).replace(',','X').replace('.',',').replace('X','.') }} ₺</strong></article>
+  <article><span>Banka Eşleşme</span><strong>%{{ metrics.bank_match_rate }}</strong></article>
+</div>
+<div class="grid-2"><section class="card"><h2>Yaklaşan Görevler</h2><div class="table-wrap"><table><thead><tr><th>Firma</th><th>Görev</th><th>Sorumlu</th><th>Termin</th><th>Durum</th></tr></thead><tbody>{% for t in recent_tasks %}<tr><td>{{ t.company_name or '-' }}</td><td>{{ t.title }}</td><td>{{ t.assigned_name or '-' }}</td><td>{{ t.due_date or '-' }}</td><td><span class="status">{{ t.status }}</span></td></tr>{% else %}<tr><td colspan="5">Görev bulunmuyor.</td></tr>{% endfor %}</tbody></table></div></section><section class="card"><h2>Firma Portföyü</h2><ul class="company-list">{% for c in companies %}<li><strong>{{ c.name }}</strong><span>{{ c.tax_no or 'VKN girilmedi' }}</span></li>{% else %}<li>Yetkili firma bulunmuyor.</li>{% endfor %}</ul></section></div>
+{% if v3_user['must_change_password'] %}<section class="card warning-card"><h2>İlk giriş parolanızı değiştirin</h2><form method="post" action="{{ url_for('enterprise_v3.change_password') }}" class="inline-form"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="password" name="old_password" placeholder="Mevcut parola" required><input type="password" name="new_password" placeholder="Yeni parola (10+ karakter)" required><button>Parolayı Değiştir</button></form></section>{% endif %}
+{% endblock %}

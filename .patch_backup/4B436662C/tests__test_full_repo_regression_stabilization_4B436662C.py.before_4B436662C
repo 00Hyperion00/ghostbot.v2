@@ -1,6 +1,0 @@
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
-
-def test_62c_marker_exists() -> None:
-    assert True

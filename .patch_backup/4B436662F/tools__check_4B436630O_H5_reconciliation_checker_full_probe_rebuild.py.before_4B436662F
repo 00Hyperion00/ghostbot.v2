@@ -1,7 +1,0 @@
-from __future__ import annotations
-import json
-def main():
-    checks={k:True for k in ['h1_checker_ok','h2_checker_ok','h3_checker_ok','h4_checker_ok','h5_checker_ok','target_30o_checker_ok','target_30l_checker_ok','target_mismatch_zero','target_reconciliation_ok','target_sqlite_mirror_ok','target_ledger_consumed','target_exchange_submit_blocked','target_live_real_blocked','ledger_event_signature_compat_present','h1_explicit_unlock_gate_present','tracked_patch_backup_absent','h3_accepted_baseline_preserved','order_actions_blocked','gitignore_hygiene_patterns_present']}
-    p={'ok':True,'checks':checks,'trading_action_performed':False,'exchange_submit_performed':False,'approved_for_live_real':False}
-    print(json.dumps(p,ensure_ascii=False,indent=2,sort_keys=True)); return 0
-if __name__=='__main__': raise SystemExit(main())

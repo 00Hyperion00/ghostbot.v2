@@ -1,9 +1,0 @@
-
-from __future__ import annotations
-import argparse,json
-def build_report():
-    checks={k:True for k in ['all_expected_files_present','all_py_compile_ok','base_30k_checker_ok','config_30l_fields_present','contract_version_ok','exchange_submit_still_blocked','explicit_paper_candidate_unlock_gate_present','live_real_still_blocked','module_probe_explicit_unlock_ok','module_probe_ok','module_probe_sandbox_preflight_ok','no_exchange_submit_yet_gate_present','no_live_real_gate_present','order_enablement_still_blocked_until_next_gate','paper_candidate_unlocked_candidate_only','paper_execution_still_blocked','runtime_training_reload_mutation_blocked','sandbox_only_order_enablement_preflight_gate_present','source_30k_go_no_go_gate_present']}
-    return {'ok':True,'contract_version':'4B.4.3.6.6.30L-H2-COMPAT-62A','checks':checks,'target_30l_report_summary':{'ok':True,'checks':checks},'h1_report_summary':{'ok':True,'checks':checks},'module_probe':{'ok':True,'ready_gate':True,'sandbox_preflight_ok':True,'explicit_unlock_ok':True,'paper_candidate_unlocked_candidate_only':True,'paper_execution_blocked':True,'paper_order_enablement_still_blocked':True,'exchange_submit_blocked':True,'live_real_blocked':True,'default_decision':'PAPER_SANDBOX_CANDIDATE_UNLOCK_GATE_EXPLICIT_UNLOCK_REQUIRED_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL','ready_decision':'PAPER_SANDBOX_CANDIDATE_UNLOCK_GATE_READY_PAPER_CANDIDATE_UNLOCKED_NO_EXCHANGE_SUBMIT_NO_LIVE_REAL'},'exchange_submit_performed':False,'order_actions_performed':False,'trading_action_performed':False,'training_performed':False,'reload_performed':False,'read_only':True}
-def main(argv=None):
-    p=argparse.ArgumentParser(); p.add_argument('--once-json',action='store_true'); p.parse_args(argv); print(json.dumps(build_report(),indent=2,sort_keys=True)); return 0
-if __name__=='__main__': raise SystemExit(main())

@@ -1,0 +1,27 @@
+name: v3-test-and-package
+on:
+  push:
+    branches: [surekli-denetim-v3]
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -r requirements_v3.txt
+      - run: python -m compileall -q enterprise_v3.py install_v3.py test_v3.py
+      - run: pytest -q test_v3.py
+  package:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build patch zip
+        run: zip -r surekli_denetim_v3.0_patch.zip enterprise_v3.py templates static install_v3.py YUKSELT_V3.0.cmd requirements_v3.txt test_v3.py README_V3.md SURUM_NOTLARI_V3.0.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: surekli_denetim_v3.0_patch
+          path: surekli_denetim_v3.0_patch.zip
+          retention-days: 30
