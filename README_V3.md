@@ -32,3 +32,6 @@ Banka dosyasında: `Tarih, Valör, Hesap No/IBAN, Referans, Açıklama, Döviz, 
 
 ## Geri alma
 `app.py.v2.9_backup_YYYYMMDD_HHMMSS` dosyasını tekrar `app.py` yapın. `v3_` tabloları mevcut v2.9 tablolarını etkilemez.
+
+## Otomatik doğrulama
+Paket; Python 3.12 söz dizimi, Flask test istemcisi, veritabanı şeması, yönetici girişi ve kurumsal gösterge paneli testlerinden geçirilir.
