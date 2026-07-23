@@ -2,6 +2,8 @@ name: v3-test-and-package
 on:
   push:
     branches: [surekli-denetim-v3]
+  pull_request:
+    branches: [surekli-denetim-v3-base]
   workflow_dispatch:
 jobs:
   test:
